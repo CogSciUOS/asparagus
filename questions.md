@@ -1,15 +1,21 @@
-# Fragen für Sophia
+# Fragen für Sophia & generelle Fragen
 
 * Sind alle Klassen immer gleich definiert? Oder gibt es einstellbare Parameter (z.B. in einem schlechten Erntejahr 
-ist die Minimaldicke für die beste Klasse geringer oder so?)
+ist die Minimaldicke für die beste Klasse geringer oder so? Oder sogar innerhalb einer Saison variabel?)
 * Welche Klassen gibt es und wie sind sie definiert? (Da sollten wir wirklich eine Liste haben, wo tabellarisch aufgeführt ist
 wie die Klasse heißt und wie sie definiert ist)
 * Generell Informationen über die Klassen, gibt es eine Hierarchie (z.B. die Klassen A, B und C sind nur feinere Variationen
 von Klasse D)
+* welche der Klassen sollten in jedem Fall beibehalten werden? Auf welche könnte verzichtet werden? 
 * Was ist die Verarbeitungsgeschwindigkeit der Maschine (in Spargelstangen pro Sekunde)? Können wir die manipulieren? 
 (ggf brauchen wir länger als 1/5 Sekunde pro Stange)
 * Was ist die a-priori-Wahrscheinlichkeitsdistribution über die Klassen? Also was sind die Prozentangaben (ungefähr) 
 mit denen sich die Stangen auf die 14 Klassen verteilen?
+
+* Wie läuft die Software zur Zeit auf der Maschine?
+* Was können wir als Marker im "background" verwenden? 
+* Erhebt die Maschine noch zusätzliche Informationen zu jeder Stange (z.B. Breite, Krümmungsgrad ...), die theoretisch abgespeichert werden könnten? 
+* Was ist Silvan's bisherige Intuition, wie "gut" die Maschine ist? Heißt wie viel Prozent richtig sortiert werden.
 
 
 
@@ -17,6 +23,7 @@ mit denen sich die Stangen auf die 14 Klassen verteilen?
 
 Der Spargel läuft durch die Maschine und wird sortiert. Menschliche Arbeiter korrigieren die Sortierung, sodass jetzt in 
 jeder Kiste nur Spargelstangen liegen, die zu der entsprechenden Klasse gehören. 
+
 Die Kisten, die so gefüllt wurden, werden aus der Maschine entfernt (sodass sie in den folgenden Schritten nicht "verunreinigt"
 werden).
 Jede dieser Kisten wird nun einzeln durch die Maschine gefüttert, z.B. alle Spargel der Klasse 1. 
