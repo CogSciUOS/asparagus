@@ -33,16 +33,16 @@ Attendants: Ulf, Axel, Richard, Malin, Luana, Maren, Josefine, Katharina, Sophia
 -	maybe we want to call people from machine/ call company to get labeled data & more information?
 -	Everybody should have a look on images/ some data, look at some open cv, try out to apply classical cv methods, get involved and a feeling for the data, what open libraries are out there which we can use? 
 
-# For next meeting
+# For next meeting (26.4.)
 -	Everybody should present one way how to work with the data
 -	Everybody takes one paper & looks what they have done & present it
 - Call Geschäftsstelle (Beate Eibisch)/ Raumverwaltung to ask for a room (get transponders to computer room?)
 
 -	Luana will present Asana
 -	Thomas will edit everyone to GitHub
--	Malin makes a doodle 
+-	Malin makes a doodle when to go to Rheine (24.4., 25.4. or 26.4.  https://doodle.com/poll/8bsmthcz9ddu48ci )
 -	Ulf ask room for computer visison (only next week) – if it dosnt work Katharina will ask
 -	Richard writes service
 -	Sophia, Luana look at pictures
 -	Josefine, Katha, Michael – look at papers
-- maybe we meet Thursday 18.4. at 12:00pm
+- maybe we additionally meet Thursday 18.4. at 12:00pm to prepare field trip
