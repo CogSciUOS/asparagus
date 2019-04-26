@@ -1,5 +1,5 @@
-Friday 26.04.19
-50/E04
+Friday 26.04.19, 
+50/E04, 
 8.30h-10h
 
 Sophia, Maren, Luana, Malin, Thomas, Katharina, Josefine, Richard, Michael, Ulf
@@ -9,6 +9,7 @@ Sophia, Maren, Luana, Malin, Thomas, Katharina, Josefine, Richard, Michael, Ulf
 Organisatorial Stuff
 -	meeting at Rheine at around ~15h to visit the asparagus sorting machine
 -	we can go there by car (3) or train
+
 
 What do we want to do?
 -	collect more data (take hard drive with us)
@@ -38,14 +39,14 @@ Github
 __New vote: Github__
 -	if it is not to our liking after two weeks we will use Asana
 
-Github Project “Asparagus
--	we will use other projects for (smaller) tasks
+Github Project “Asparagus"
+-	we will create other projects for later (smaller) tasks
 
 # Paper Research and Library
  
-Presentation by Katharina and Josefine
+Presentation by Katharina and Josefine:
 - introduction of a library system for paper research
-  - add short info (title, author, year, helpfulness etc) about any paper you read into it
+  - add short info (title, author, year, helpfulness etc) about any paper you read
   - the info categories are still up for debate
 - short summary of 5 papers
   - Donis-González and Guyer (2016) (asparagus sections)
@@ -54,23 +55,27 @@ Presentation by Katharina and Josefine
   - Kılıç et al. (2007) (beans)
   - Mery, Pedreschi, and Soto (2013) (general framework)
   
+  
 What papers might be interesting to look for?
 -	image acquisition
-  - illumination?
+   - illumination?
 -	small subset of labelled data
-  - key word: semisupervised learning
-  - autoencoders
+   - key word: semisupervised learning
+   - autoencoders
+
 
 Other papers found (which could be added to the library?)
 - flower classification (Luana)
 - non-labelled images (Maren)
 - feature extraction (Malin)
 
+
 Discussion: Usefulness of having a collection of papers
 - keeps it organized to avoid double reading
 - able to look up key words/papers for later problems
 - have a guideline
 - should not loose ourselves in too many details here
+
 
 # Open discussion
 
