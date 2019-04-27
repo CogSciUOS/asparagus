@@ -1,6 +1,6 @@
-Friday 26.04.19, 
-50/E04, 
-8.30h-10h
+Friday 26.04.19  
+50/E04  
+8.30h-10h  
 
 Sophia, Maren, Luana, Malin, Thomas, Katharina, Josefine, Richard, Michael, Ulf
 
@@ -10,6 +10,7 @@ Organisatorial Stuff
 -	meeting at Rheine at around ~15h to visit the asparagus sorting machine
 -	we can go there by car (3) or train
 
+   
 
 What do we want to do?
 -	collect more data (take hard drive with us)
@@ -57,11 +58,11 @@ Presentation by Katharina and Josefine:
   
   
 What papers might be interesting to look for?
--	image acquisition
-   - illumination?
--	small subset of labelled data
-   - key word: semisupervised learning
-   - autoencoders
+- image acquisition
+  - illumination?
+- small subset of labelled data
+  - key word: semisupervised learning
+  - autoencoders
 
 
 Other papers found (which could be added to the library?)
@@ -108,27 +109,27 @@ Infos about program on classification machine
 # Preparations & next session
 
 To Do:
--	update about "playing" with pictures (*Thomas*)
+- update about "playing" with pictures (*Thomas*)
   - cut image into 3 parts to have one piece of asparagus per picture
   - filter out background (find a bounding box around asparagus), i.e. have distinct bright background (to have no confusion with dirt/purple asparagus/dark, rusty stains)
   - work on preprocessing steps
   - reducing file size (right now it is ~5 GB)
   - goal: have images that all look the same (right now there are 1-3 asparagus per picture) and are small enough
    
--	have a look at Grid again and maybe also have a small Github "tutorial" meeting (*Katharina*)
-  -	you can have a look at the code of the service on github
-  -	meeting after regular Friday morning session (03.05.19, 10h)
-
--	start implementation (*Malin, Richard, Maren*)
+- have a look at Grid again and maybe also have a small Github "tutorial" meeting (*Katharina*)
+  - you can have a look at the code of the service on github
+  - meeting after regular Friday morning session (03.05.19, 10h)
+  
+- start implementation (*Malin, Richard, Maren*)
   - reading up on implementing pictures/preprocessing papers
-  -	use algorithms learned in lectures
+  - use algorithms learned in lectures
 
--	try to figure out how the machine program works to understand its feature selection (*Sophia*)
+- try to figure out how the machine program works to understand its feature selection (*Sophia*)
   - which features are extracted?
   
--	think about a guideline for the (manual) picture classification
+- think about a guideline for the (manual) picture classification
   - create a cheat sheet with sorting instructions (step-by-step) (*Josefine*)
-   - best would be same categories as the machine uses
+    - best would be same categories as the machine uses
   - look into having code for sorting pictures in different categories (to make work easy) (*Michael*)
   
 -	look at unbalanced data sets (data set augmentation) and maybe semisupervised learning (*Luana*)
