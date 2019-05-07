@@ -89,3 +89,19 @@
 | color segmentation | the majority of external defects and diseases are identified by its color, which makes the classification of pixels into homogeneous regions an important part of the algorithm. Multilayer feed-forward neural networks (MLFN-NN) and statistical discriminate functions have been used successfully for the segmentation of potato images.|
 | shape classification| Fourier Descriptors (FD) and linear discriminant analysis (LDA) are used to discriminate between good and misshapen potatoes. A single shape model is not enough to segment all potato cultivars into good and misshapen classes. Good-shaped potatoes may vary from round, oval, and extreme oval. Therefore different shape models are created for different potato cultivars. A shape training set and shape test were created for each cultivar to discriminate between good potatoes and misshapen potatoes (@jacco2000high)|
 |@elmasry2012line | developed a fast and accurate computer-based machine vision system for detecting irregular potatoes in real time. A database of images from potatoes with different shapes and sizes was formulated. Some essential geometrical features such as perimeter, centroid, area, moment of inertia, length, and width were extracted from each image. Eight shape parameters originated from size features and Fourier transform were calculated for each image in the database. All extracted shape parameters were entered in a stepwise linear discriminant analysis to extract the most important parameters that most characterized the regularity of potatoes. Based on stepwise linear discriminant analysis, two shape features (roundness and extent) and four Fourier-shape descriptors were found to be effective in sorting regular and irregular potatoes.|
+
+
+
+## Comparing  Deep Learning And Support Vector Machines for Autonomous Waste Sorting
+
+| title          | Comparing  Deep Learning And Support Vector Machines for Autonomous Waste Sorting       |
+|----------------|-----------------------------------------------------------------------------------------|
+| helpful        | 2/5                                                                                     |
+| authors        | @7777453                                                                                |
+| year           | 2016                                                                                    |
+| summary        | comparing SVM and Deep Learning (with CNN) for autonomous waste sorting , provided only by images of waste. The needed to be categorized into three different groups (by texture: plastic, paper, metal), using raspberry pi 3. Approach with the best accuracy (SVM: 94.8%, CNN: 83%) and classification speed was implemented. CNN was worse due to image squashing (limitation in memory size for the GPU) |
+| images         | total of 2000 pictures (taken by pi camera), 1/3 for each wastegroup (60% Training, 20% Validation, 20% testing), training images were augmented artificially to 6000 images.
+| labeling       | images have to be labelled manually by experts to establish class for training
+| feature algorithms | >bag of features< for SVM trained through >bagOfFeatures< function from Matlab
+| classifiers    | best performance by: Support vector machines (SVM), CNN suffered from overfitting due to the small amount of pictures and the squashing.
+| performance    | SVM: 94.8%, CNN: 83%
