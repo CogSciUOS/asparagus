@@ -47,8 +47,9 @@ Topics of today:
                 - horizontal_slices(preprocessed_image, num_measurements) begin_end_matrix - Sophia
                 - extract_curvature(preprocessed_image): curvature score -  Maren
                 - check_rust(preprocessed_image): score_of_certainty - Michael
-                - check violet(preprocessed_image): score_of_certainty - Subir
-                - extract_length(preprocessed_image): length - K&Richard- Malin 
+                - check_violet(preprocessed_image): score_of_certainty - Subir
+                - check_flower(preprossed_image): score_of_certainty - Richard, Katha
+                - extract_length(preprocessed_image): length - Malin
 
         - human classification - labelling of data
         - non programming tasks: 
