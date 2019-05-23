@@ -7,28 +7,6 @@ import matplotlib.pyplot as plt
 from scipy.ndimage.morphology import binary_opening, binary_closing, binary_dilation
 from scipy.ndimage import label, find_objects
 
-img_dir = "raw_data/"
-target_dir = "clean_images/"
-
-try:
-    with open(os.path.join(img_dir,"progress.txt")) as file:
-        pass
-except IOError:
-    file = open(os.path.join(img_dir,"progress.txt"), "w") 
-    file.close() 
-    
-try:
-    with open(os.path.join(target_dir,"names.csv")) as file:
-        pass
-except IOError:
-    file = open(os.path.join(target_dir,"names.csv"), "a") 
-    file.close() 
-
-avg_width = 160
-avg_height = 1050
-
-max_width = 250
-max_height = 1200
 
 def binarize_asparagus_img(img):
     
@@ -176,7 +154,29 @@ def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_co
                         idx += 1
                         
 
-
-
 if __name__ == "__main__":
+
+    img_dir = "raw_data/"
+    target_dir = "clean_images_demo/"
+
+    try:
+        with open(os.path.join(img_dir,"progress.txt")) as file:
+            pass
+    except IOError:
+        file = open(os.path.join(img_dir,"progress.txt"), "w") 
+        file.close() 
+        
+    try:
+        with open(os.path.join(target_dir,"names.csv")) as file:
+            pass
+    except IOError:
+        file = open(os.path.join(target_dir,"names.csv"), "a") 
+        file.close() 
+
+    avg_width = 160
+    avg_height = 1050
+
+    max_width = 250
+    max_height = 1200
+
     preprocessor(img_dir, target_dir, show=False, save=True, debug=False)

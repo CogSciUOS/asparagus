@@ -18,6 +18,7 @@ class Application(tk.Frame):
 
         self.master = master
         self.img_dir = sys.argv[1]
+        print(self.img_dir)
         self.index = 0
         self.files = self.get_file_list(self.img_dir)
 
@@ -32,7 +33,7 @@ class Application(tk.Frame):
     
     def get_file_list(self, img_dir):
         for subdir, dirs, files in os.walk(self.img_dir):
-            files = sorted([f for f in files if not f[0] == '.' and f[-5:] == '0.png'])
+            files = sorted([f for f in files if not f[0] == '.' and f[-5:] == '0.jpg'])
             return files
 
 
@@ -43,13 +44,13 @@ class Application(tk.Frame):
     def store_label(self, event):
         print(event)
         file = self.files[self.index]
-        print("I'm storing label "+self.current_label+" for img "+file)
+        print("I'm storing label "+str(self.current_label)+" for img "+file)
 
         second, third = self.expand_file_name(file)
 
         for f in [file, second, third]:
             name, extension = f.split(".")
-            os.rename(os.path.join(self.img_dir, f), os.path.join(self.img_dir, name+"_"+self.current_label+"."+extension))
+            os.rename(os.path.join(self.img_dir, f), os.path.join(self.img_dir, name+"_"+str(self.current_label)+"."+extension))
 
         self.index += 1
 
