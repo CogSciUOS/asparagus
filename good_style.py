@@ -36,10 +36,6 @@ def get_current_time():
     return time.time()
 
 
-def main():
-    print("Current seconds since epoch", get_current_time())
-
-
 if __name__ == "__main__":
     doctest.testmod()
-    main()
+    print("Current seconds since epoch", get_current_time())
