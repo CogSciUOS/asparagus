@@ -28,6 +28,8 @@ author = 'study project'
 # The full version, including alpha/beta/rc tags
 release = '0.1'
 
+# making index to master_doc so that readthedocs does not search for contents.rst
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
