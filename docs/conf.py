@@ -41,6 +41,8 @@ extensions = [
     'sphinx.ext.napoleon',
     'recommonmark'
 ]
+
+# Napoleon settings
 napoleon_google_docstring = True
 
 
