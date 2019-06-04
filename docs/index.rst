@@ -16,6 +16,7 @@ Welcome to asparagus's documentation!
 .. automodule:: label_app
    :members:
 
+.. automodule:: code
 
 
 Indices and tables
