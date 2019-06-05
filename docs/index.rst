@@ -14,10 +14,6 @@ Welcome to asparagus's documentation!
    api_docs.rst
 
 
-.. automodule:: label_app
-   :members:
-
-
 
 Indices and tables
 ==================
