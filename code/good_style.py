@@ -3,7 +3,7 @@ import time
 
 
 def func(arg1, arg2):
-    """InCoooooooooooooooooooooooooooooooooode folderSummary line.
+    """Summary line.
 
     Extended description of function.
 
