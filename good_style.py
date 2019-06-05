@@ -3,7 +3,8 @@ import time
 
 
 def func(arg1, arg2):
-    """Summary line.
+    """ Ouuuuuuuuuuuuuuuuuuuuuuuuuuuuut  on upper 
+    Summary line.
 
     Extended description of function.
 
