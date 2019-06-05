@@ -6,4 +6,4 @@ API Documentation
    :caption: API Documentation:
    :glob:
 
-   api/*
+   api/modules
