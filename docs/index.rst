@@ -13,10 +13,10 @@ Welcome to asparagus's documentation!
    protocols.rst
    api_docs.rst
 
+
 .. automodule:: label_app
    :members:
 
-.. automodule:: code
 
 
 Indices and tables
