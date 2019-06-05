@@ -10,9 +10,7 @@ from scipy.ndimage import label, find_objects
 
 def binarize_asparagus_img(img):
     def blue_delta(img):
-        """
-        returns the delta between blue and the avg other channels 
-        """
+        """ returns the delta between blue and the avg other channels """
         other = np.mean(img[:, :, 0:2], axis=2)
         return img[:, :, 2]-other
 
@@ -24,6 +22,14 @@ def binarize_asparagus_img(img):
 
 
 def filter_mask_img(img):
+    """[summary]
+
+    Args:
+        img ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     img = binary_opening(img, structure=np.ones((21, 21)))  # 21,21
     # sometimes, it cuts the heads off, so mostly vertical dilation
     img = binary_dilation(img, np.ones((60, 20)))
@@ -33,20 +39,19 @@ def filter_mask_img(img):
 
 
 def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_constraint=None):
-    """
-    Walks over a directory full of images, detects asparagus in those images, extracts them with minimal bounding box
+    """ Walks over a directory full of images, detects asparagus in those images, extracts them with minimal bounding box
     into an image of shape height x width and stores that image in target dir with a simple name.
 
-    args:
-    img_dir         = the directory with raw images as string
-    target_dir      = the target directory as string (where to store clean images)
-    show            = whether to show the generated images
-    save            = whether to actually save images or not (for debugging)
-    debug           = debug mode: increased verbosity
-    time_constraint = If we expect automatic shutdown by grid service, we set this to the available runtime in minutes.
-                      The script will commit suicide gracefully if less than 30 seconds remain. This is only done to
-                      prevent being killed by force while the progress file is updated, to prevent catastrophic
-                      status loss. (i.e. just set this to 60 if you start this on the grid)
+    Args:
+        img_dir         : the directory with raw images as string
+        target_dir      : the target directory as string (where to store clean images)
+        show            : whether to show the generated images
+        save            : whether to actually save images or not (for debugging)
+        debug           : debug mode: increased verbosity
+        time_constraint : If we expect automatic shutdown by grid service, we set this to the available runtime in minutes.
+                        The script will commit suicide gracefully if less than 30 seconds remain. This is only done to
+                        prevent being killed by force while the progress file is updated, to prevent catastrophic
+                        status loss. (i.e. just set this to 60 if you start this on the grid)
     """
     starttime = time.time()
     ready = False
