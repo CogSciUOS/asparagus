@@ -1,12 +1,12 @@
 
-# Meeting on 14.06.2019
+# Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)
 
 Participants: Luana, Maren, Malin, Sophia, Richard, Josefine, Axel, Ulf  
 
 
-### Updates
+## Updates
 
-### Labelled Data
+## Labelled Data
 
 How many (labelled) pictures do we need?
 -	we don’t always have all asparagus classes (not evenly distributed)
@@ -23,7 +23,7 @@ Schedule for trips to Rheine to collect labelled data
 -	Friday 21.06 : Sophia, Josefine
 -	still open: 14., 15., 16. &  22., 23.
 
-### Problems and Thoughts
+## Problems and Thoughts
 
 Ideas of bucket-wise collection
 -	don’t think about perfect classification piecewise but bucketwise
@@ -45,7 +45,7 @@ User interface design
 -	maybe difficult to say right now while we do not have an algorithm or anything yet
 -	decision postponed to later date
 
-### Subgroups
+## Subgroups
 
 Decision app
 -	Michael
@@ -76,7 +76,7 @@ Report
 -	generally good: before you start something, write down what you expect/plan to gain from it and always update what worked and what didn’t
 -	around 100 pages expected, 10 pages per person (no final number)
 
-### Next week
+## Next week
  Presentations
 -	data augmentation
 -	semi-supervised learning
