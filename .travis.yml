@@ -13,7 +13,10 @@ install:
   - pip install pipenv
   - pipenv install --dev
 
+env:
+  - PYTHONPATH=code:${PYTHONPATH}
 
 # command to run tests
 script:
   - pipenv run python -m pytest
+
