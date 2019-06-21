@@ -6,9 +6,9 @@ Attendants: Axel, Richard, Malin, Luana, Maren, Josefine, Katharina
 ## Outline for the session
 
 1. reporting about Continuos Integration with Travis from Katha (see travis.yml for more info)
-1. presentation from Luana (Data Augmentation, Super Resolution)
-2. presentation from Josefine (Semi-supervised learning)
-3. report about visit to Querdel
+2. presentation from Luana (Data Augmentation, Super Resolution)
+3. presentation from Josefine (Semi-supervised learning)
+4. report about visit to Querdel
 
 
 
@@ -27,7 +27,10 @@ Attendants: Axel, Richard, Malin, Luana, Maren, Josefine, Katharina
 
 ## Semi-supervised learning
 
-@Josefine, please put the Link to Asana and maybe a summary here.
+Link to task:
+[https://app.asana.com/0/1119738221635223/1122565308965812/f]  
+
+You can find the pdf of the presentation uploaded there.
 
 
 
