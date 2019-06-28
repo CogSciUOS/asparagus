@@ -1,4 +1,4 @@
-# Friday, May 31, 2019 (Evaluation Hermeler meeting and feature extraction)
+# Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)
 
 Ulf, Katha, Maren, Sophia, Malin 
 

@@ -1,4 +1,4 @@
-# Initial general squestions
+# Initial general questions
 
 * Sind alle Klassen immer gleich definiert? Oder gibt es einstellbare Parameter (z.B. in einem schlechten Erntejahr 
 ist die Minimaldicke für die beste Klasse geringer oder so? Oder sogar innerhalb einer Saison variabel?)
