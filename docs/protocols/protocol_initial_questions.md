@@ -1,4 +1,4 @@
-# Fragen für Sophia & generelle Fragen
+# Initial general squestions
 
 * Sind alle Klassen immer gleich definiert? Oder gibt es einstellbare Parameter (z.B. in einem schlechten Erntejahr 
 ist die Minimaldicke für die beste Klasse geringer oder so? Oder sogar innerhalb einer Saison variabel?)
