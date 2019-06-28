@@ -19,7 +19,7 @@ mit denen sich die Stangen auf die 14 Klassen verteilen?
 
 
 
-# Beschreibung des Datenerhebungsprozesses
+## Beschreibung des Datenerhebungsprozesses
 
 Der Spargel läuft durch die Maschine und wird sortiert. Menschliche Arbeiter korrigieren die Sortierung, sodass jetzt in 
 jeder Kiste nur Spargelstangen liegen, die zu der entsprechenden Klasse gehören. 
@@ -46,7 +46,7 @@ Idealerweise haben wir also nachher 14 Ordner (einer für jede Klasse) mit jewei
 nur Spargel dieser Klasse zu sehen sind. Zusätzlich füllen wir eine Tabelle:
 
 | Klasse | Anzahl | Sortiert zu Klasse 1 | Sortiert zu Klasse 2 | Sortiert zu Klasse 3 | Sortiert zu Klasse 4 | Sortiert zu Klasse 5 |
-|--------|--------|----------------------|----------------------|----------------------|----------------------|----------------------|
+| ------ | ------ | -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
 | 1      | 10500  | 10000                | 250                  | 3                    | 2                    | 245                  |
 | 2      | 7000   | 0                    | 6900                 | 0                    | 50                   | 50                   |
 | 3      | 12300  | 20                   | 80                   | 1200                 | 0                    | 0                    |
