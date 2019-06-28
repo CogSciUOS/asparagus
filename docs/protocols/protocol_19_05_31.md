@@ -1,4 +1,4 @@
-## Friday, May 31, 2019 (Evaluate meeting with Mr Hermeler, evaluate feature extraction functions)
+# Friday, May 31, 2019 (Evaluate meeting with Mr Hermeler, evaluate feature extraction functions)
 
 Ulf, Katha, Maren, Sophia, Malin 
 
