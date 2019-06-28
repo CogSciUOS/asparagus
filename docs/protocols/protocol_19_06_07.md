@@ -1,4 +1,4 @@
-# Friday, June 7, 2019 (documentation, visit to other farm, progress feature extraction)
+# Friday, June 7, 2019 (Documentation, visit to other farm, progress feature extraction)
 
 Ulf, Axel, Katha, Maren, Sophia, Luana, Thomas, Richard, Subir
 

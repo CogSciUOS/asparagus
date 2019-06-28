@@ -1,4 +1,4 @@
-# Monday, April 8, 2019 (introduction)
+# Monday, April 8, 2019 (Introduction)
 
 Attendants: Ulf, Axel, Richard, Malin, Luana, Maren, Josefine, Katharina, Sophia, Subir, Thomas 
 
