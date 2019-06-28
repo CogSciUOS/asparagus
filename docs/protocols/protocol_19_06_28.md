@@ -1,4 +1,4 @@
-# Friday, June 28th, 2019 (new repository, data storage, preprocessing plan, holidays)
+# Friday, June 28th, 2019 (New repo, data storage, preprocessing plan, holidays)
 
 Attendants: Michael, Katha, Luana, Ulf, Axel, Malin 
 
