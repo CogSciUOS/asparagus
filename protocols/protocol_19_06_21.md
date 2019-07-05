@@ -27,18 +27,15 @@ Attendants: Axel, Richard, Malin, Luana, Maren, Josefine, Katharina
 
 ## Semi-supervised learning
 
-Link to task:
-[https://app.asana.com/0/1119738221635223/1122565308965812/f]  
-
-You can find the pdf of the presentation uploaded there.
-
+Link to presentation:
+https://tinyurl.com/yydup2b7  
 
 
 ## Data Augmentation and Single Image Super-Resolution
 
-@Luana, please put the Link to Asana and maybe a summary here.
-
-
+Link to presentation:
+https://tinyurl.com/y2mjm49b
+(Short description of data augmentation methods, and overview of current SISR algorithms)
 
 ## Visit to Querdel
 
