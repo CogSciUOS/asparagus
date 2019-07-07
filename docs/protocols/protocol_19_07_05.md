@@ -1,4 +1,4 @@
-# Friday, 05. July 2019 (Data sorting, Labeling App, Feature Extraction Methods, Holiday Organisation)
+# Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)
 
 Michael, Richard, Malin, Maren, Sophia, Josefine, Axel und Ulf  
 (Meeting in German)
