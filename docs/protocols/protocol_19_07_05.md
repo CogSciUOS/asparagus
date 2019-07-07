@@ -7,7 +7,7 @@ Michael, Richard, Malin, Maren, Sophia, Josefine, Axel und Ulf
 -	Schritte, was wir machen können
 -	Ordner sortieren für Datenbasis
 -	Preprocessing (anfangen)
--	Michael hat die Preprocessing Methode/ Label App verbessert, sieht aus als sollte es (bald) nutzbar sein
+-	Michael hat die Preprocessing Methode/Label App verbessert, sieht aus als sollte es (bald) nutzbar sein
 -	müsste noch machen: aus Datei rauslesen, sodass man die Spargelklassen benennen kann
 -	überlegen, wieviele handgelabelte Daten wir haben wollen
 -	wenn Bilder sortiert sind, können wir schauen, wieviele gelabelte Daten wir schon haben (und ob es schon geht, weiterzuarbeiten mit den bereits gelabelten Daten)
