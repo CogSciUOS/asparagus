@@ -1,7 +1,9 @@
 # Friday, 05. July 2019 (Data sorting, Labeling App, Feature Extraction Methods, Holiday Organisation)
+
 Michael, Richard, Malin, Maren, Sophia, Josefine, Axel und Ulf  
 (Meeting in German)
-### Zusammenfassung letzte Woche
+
+## Zusammenfassung letzte Woche
 -	Schritte, was wir machen können
 -	Ordner sortieren für Datenbasis
 -	Preprocessing (anfangen)
@@ -33,7 +35,7 @@ Wieviele gelabelte Daten brauchen wir?
 -	Durch Data Augmentation bekomment wir auch noch mehr
 -	Vielleicht erstmal ‘fauler’ Ansatz und 100 gelabelte Bilder von jeder Klasse nehmen, augmentieren sodass es 500 pro Klasse sind und einfach schonmal testen, was passiert
   
-### Organisatorisches
+## Organisatorisches
 Github Sortierung: Feature Extraction
 -	Manual Feature Extractor: Github Ordner zum Sammeln der Feature Extraction Methoden, dass z.B. die Labeling App extern darauf zugreifen kann und nicht Code manuell eingefüg wird
 -	App in Github pushen
