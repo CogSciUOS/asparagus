@@ -12,9 +12,15 @@ from PIL import Image
 from scipy.ndimage import label, find_objects
 from scipy.ndimage.morphology import binary_hit_or_miss, binary_opening
 from scipy.ndimage.interpolation import rotate
+import scipy.stats as stats 
 import skimage.measure as measure
 from skimage import filters, io
 from sklearn.decomposition.pca import PCA
+
+
+
+
+
 
 # functions from Thomas' preprocessing
 # I (Sophia) just copied these and altered them a little to fit my needs
@@ -26,6 +32,46 @@ def binarize_asparagus_img(img):
     blue = blue_delta(img) > 25
     
     return np.logical_and(white, np.invert(blue))
+
+
+
+def get_horizontal_slices(img, k, min_row):
+    """Summary line.
+
+    Extended description of function.
+
+    Args:
+        arg1 (int): Description of arg1
+        arg2 (str): Description of arg2
+
+    Returns:
+        bool: Description of return value
+    """
+
+    img_mask = filter_mask_img(binarize_asparagus_img(img))
+    slices = get_slices(img,k, min_row)
+    horizontal_slices = np.zeros((k,2))
+    for i in range(k):
+        start = np.argwhere(img_mask[slices[i]]==True)[0]
+        horizontal_slices[i][0] = start[0]
+        end = np.argwhere(img_mask[slices[i]]==True)[-1]
+        horizontal_slices[i][1] = end[0]
+    
+    return horizontal_slices
+
+
+def curvature_score(preprocessed_image, slices, horizontal_slices):
+    """ Returns a score for the curvature of the aparagus piece. 
+        A perfectly straight aspargus yields a score of 0
+    """
+
+
+
+    #print(slices)
+    centers = np.mean(horizontal_slices, axis=1)
+    #plt.scatter(slices, centers)   
+    slope, intercept, r_value, p_value, std_err = stats.linregress(slices,centers)
+    return std_err
 
 # @Thomas, why were those nested?
 def blue_delta(img):
@@ -172,10 +218,6 @@ def cut_background(img, background_max_hue, background_min_hue, background_brigh
     #Use binary hit and miss to remove potentially remaining isolated pixels:
     m = np.logical_not(mask)
 
-    plt.figure()
-    plt.imshow(m)
-
-
     change = 1
     while(change > 0):
         a = binary_hit_or_miss(m, [[ 0, -1,  0]]) + binary_hit_or_miss(m, np.array([[ 0, -1,  0]]).T)
@@ -183,10 +225,6 @@ def cut_background(img, background_max_hue, background_min_hue, background_brigh
         change = np.sum(a)
         # plt.imshow(a) # printf(changes)
     
-    plt.figure()
-    plt.imshow(m)
-    plt.show()
-
     mask = np.logical_not(m)
     raw[:,:,0][mask] = 0
     raw[:,:,1][mask] = 0
@@ -241,9 +279,7 @@ if __name__ == "__main__":
     # ugly but testing 
     # @Katha how to write test functions? 
     raw = np.array(Image.open(os.getcwd() + "/npurp1.png"))
-    plt.figure("main raw")
-    plt.imshow(raw)
-
+    
     # fix values:
     background_max_hue = 0.8
     background_min_hue = 0.4
@@ -278,3 +314,9 @@ if __name__ == "__main__":
 
     
     doctest.testmod()
+    
+### TEST CURVATURE ###############################################
+    img_mask = filter_mask_img(binarize_asparagus_img(img))
+    curvature = curvature_score(img_mask, get_slices(img, k, min_row), get_horizontal_slices(img, k, min_row))
+
+    print(curvature)
