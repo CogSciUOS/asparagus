@@ -1,13 +1,16 @@
 import os
-import sys
-import time
 import numpy as np
+import time
+import sys
+import matplotlib
 import matplotlib.pyplot as plt
-
-from scipy.ndimage.morphology import binary_opening, binary_closing, binary_dilation
+from scipy.ndimage.interpolation import rotate
+from scipy.ndimage.morphology import binary_hit_or_miss, binary_opening, binary_closing, binary_dilation
 from scipy.ndimage import label, find_objects
+from sklearn.decomposition.pca import PCA
 
 
+# @Thomas, why were those nested?
 def binarize_asparagus_img(img):
     def blue_delta(img):
         """ returns the delta between blue and the avg other channels """
@@ -21,24 +24,91 @@ def binarize_asparagus_img(img):
     return np.logical_and(white, np.invert(blue))
 
 
+# @Thomas, why do you use dilation after the opening?
+# I commented it out for the proprocessing for the feature extraction
+# if we still need it at another point we have to change this back
+# TODO: clean comments
 def filter_mask_img(img):
-    """[summary]
-
+    """Opening on the binarized image.
     Args:
-        img ([type]): [description]
-
+        img: image
     Returns:
-        [type]: [description]
+        rotated_img: image after opening
     """
     img = binary_opening(img, structure=np.ones((21, 21)))  # 21,21
     # sometimes, it cuts the heads off, so mostly vertical dilation
-    img = binary_dilation(img, np.ones((60, 20)))
+    # img = binary_dilation(img, np.ones((60, 20)))
     # unnecessary with new approach
     # img = binary_closing(img, structure=np.ones((35,35))) # 45,45
     return img
 
 
-def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_constraint=None):
+# Michaels function - might be redundant with Thomas' proprocessor function
+def cut_background(img, background_max_hue, background_min_hue, background_brightness):
+    """ Initiates masking in the hsv space.
+
+    Cuts out background with specific hue values.
+
+    Args:
+        img (Image): Image as numpy array
+        background_max_hue (float): [0-255] 
+        background_min_hue (float): [0-255] 
+        background_brightness (float): [0-255] 
+
+    Returns:
+        Image: Image without background 
+    """
+    
+    # Open Image
+    raw = img
+    # remove alpha-channel (only if its RGBA)
+    raw = raw[:,:,0:3]
+    # transform to HSV color space
+    hsv = matplotlib.colors.rgb_to_hsv(raw)
+    
+    # Mask all blue hues (background)
+    mask = np.logical_and(hsv[:,:,0] > background_min_hue , hsv[:,:,0] < background_max_hue)
+    # Mask out values that are not bright enough
+    mask = np.logical_or(hsv[:,:,2]< background_brightness, mask)
+    
+    #Use binary hit and miss to remove potentially remaining isolated pixels:
+    m = np.logical_not(mask)
+
+    change = 1
+    while(change > 0):
+        a = binary_hit_or_miss(m, [[ 0, -1,  0]]) + binary_hit_or_miss(m, np.array([[ 0, -1,  0]]).T)
+        m[a] = False
+        change = np.sum(a)
+        # plt.imshow(a) # printf(changes)
+    
+    mask = np.logical_not(m)
+    raw[:,:,0][mask] = 0
+    raw[:,:,1][mask] = 0
+    raw[:,:,2][mask] = 0
+
+
+    return raw
+
+def verticalize_img(img):
+    """Rotate an image based on its principal axis, makes it upright.
+    Args:
+        img: image to be rotated
+    Returns:
+        rotated_img: image after rotation
+    """
+    # mask the image because we need a binary image (or other two dimensional array-like object) for this function
+    img_mask = filter_mask_img(binarize_asparagus_img(img)) 
+    # Get the coordinates of the points of interest
+    X = np.array(np.where(img_mask > 0)).T
+    # Perform a PCA and compute the angle of the first principal axes
+    pca = PCA(n_components=2).fit(X)
+    angle = np.arctan2(*pca.components_[0])
+    # Rotate the image by the computed angle
+    # Note we use the masked image to find the angle but rotate the original image now
+    rotated_img = rotate(img, angle/np.pi*180+90)
+    return rotated_img
+
+def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_constraint=None, max_width = 250, max_height = 1200):
     """ Walks over a directory full of images, detects asparagus in those images, extracts them with minimal bounding box
     into an image of shape height x width and stores that image in target dir with a simple name.
 
@@ -167,29 +237,4 @@ def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_co
                         idx += 1
 
 
-if __name__ == "__main__":
 
-    img_dir = "raw_data/"
-    target_dir = "clean_images_demo/"
-
-    try:
-        with open(os.path.join(img_dir, "progress.txt")) as file:
-            pass
-    except IOError:
-        file = open(os.path.join(img_dir, "progress.txt"), "w")
-        file.close()
-
-    try:
-        with open(os.path.join(target_dir, "names.csv")) as file:
-            pass
-    except IOError:
-        file = open(os.path.join(target_dir, "names.csv"), "a")
-        file.close()
-
-    avg_width = 160
-    avg_height = 1050
-
-    max_width = 250
-    max_height = 1200
-
-    preprocessor(img_dir, target_dir, show=False, save=True, debug=False)

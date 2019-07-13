@@ -1,56 +1,34 @@
-# created by Richard Ruppel and Sophia Schulze-Weddige at 2019/09/11
 # last changes from RR and SSW at 2019/09/12
 
 # import area
-import doctest
-import time
-import os
-import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib
-from PIL import Image
-from scipy.ndimage import label, find_objects
-from scipy.ndimage.morphology import binary_hit_or_miss, binary_opening
-from scipy.ndimage.interpolation import rotate
+import numpy as np
 import scipy.stats as stats 
 import skimage.measure as measure
-from skimage import filters, io
-from sklearn.decomposition.pca import PCA
-
-
-
-
-
-
-# functions from Thomas' preprocessing
-# I (Sophia) just copied these and altered them a little to fit my needs
-def binarize_asparagus_img(img):
-    
-    img_bw = np.sum(img, axis=2)
-    img_bw = img_bw/np.max(img_bw)*255
-    white = img_bw > 90
-    blue = blue_delta(img) > 25
-    
-    return np.logical_and(white, np.invert(blue))
-
-
+from scipy.ndimage import label, find_objects
+# import from own scripts (have to be in the same folder!)
+from preprocessor import binarize_asparagus_img, filter_mask_img, verticalize_img
 
 def get_horizontal_slices(img, k, min_row):
-    """Summary line.
+    """Get the start and end values of a asparagus piece in a certain row.
 
-    Extended description of function.
+    This is helper function for the curvature_score.
 
     Args:
-        arg1 (int): Description of arg1
-        arg2 (str): Description of arg2
+        img : image
+        k (int): Number of slices
+        min_row (int): First row of the asparagus piece
 
     Returns:
-        bool: Description of return value
+        horizontal_slices: Pairs of values for each of the k rows
     """
 
+    # binarize and filter the image with functions from preprocessor.py
     img_mask = filter_mask_img(binarize_asparagus_img(img))
-    slices = get_slices(img,k, min_row)
+    # get the slices 
+    slices = get_slices(img, k, min_row)
     horizontal_slices = np.zeros((k,2))
+    # find the first and the last 1-value in the row and save it in horizontal_slices
     for i in range(k):
         start = np.argwhere(img_mask[slices[i]]==True)[0]
         horizontal_slices[i][0] = start[0]
@@ -60,43 +38,19 @@ def get_horizontal_slices(img, k, min_row):
     return horizontal_slices
 
 
-def curvature_score(preprocessed_image, slices, horizontal_slices):
+def curvature_score(slices, horizontal_slices):
     """ Returns a score for the curvature of the aparagus piece. 
         A perfectly straight aspargus yields a score of 0
+        Args:
+            slices (np.array): from get_slices function
+            horizontal_slices (np.array): from get_horizontal_slices function
+        Returns:
+            std_err (float): standard error of linear regression through the slices
     """
-
-
-
-    #print(slices)
     centers = np.mean(horizontal_slices, axis=1)
-    #plt.scatter(slices, centers)   
-    slope, intercept, r_value, p_value, std_err = stats.linregress(slices,centers)
+    _, _, _, _, std_err = stats.linregress(slices, centers)
+    
     return std_err
-
-# @Thomas, why were those nested?
-def blue_delta(img):
-    """Delta value of image
-    
-    Returns the delta between blue and the avg other channels
-    Args: 
-        img: image
-    Returns:
-        delta: between blue and the avg other channels
-    """
-    other = np.mean(img[:,:,0:2], axis=2)
-    return img[:,:,2]-other
-    
-def filter_mask_img(img):
-    """Opening on the binarized image.
-    Args:
-        img: image
-    Returns:
-        rotated_img: image after opening
-    """
-    # I only use opening here because I want to change the size of the asparagus piece as little as possible
-    # I only want to remove small white spots that are most likely due to reflections
-    img = binary_opening(img, structure=np.ones((21,21)))
-    return img
 
 
 def get_length(img):
@@ -117,12 +71,13 @@ def get_length(img):
     # regionprops extracts all kinds of features from the labeld image
     props = measure.regionprops(img_labeled)
     # we only need the properties from the bounding box
-    min_row, min_col, max_row, max_col = props[0].bbox
+    min_row, _, max_row, _ = props[0].bbox
     # finally we can calculate the length by subtracting the min from the max pixel position
     length = max_row - min_row
     
     return length, min_row
     
+# helper function for width_extraction and horizontal_slices
 def get_slices(img, k, min_row):
     '''Get rows to measure the width in
     Slice the image into k even parts in which the widths should be measured
@@ -168,72 +123,6 @@ def get_width(img, k, min_row):
     
     return np.max(width), np.min(width)
 
-def verticalize_img(img):
-    """Rotate an image based on its principal axis.
-    Args:
-        img: image to be rotated
-    Returns:
-        rotated_img: image after rotation
-    """
-    # mask the image because we need a binary image (or other two dimensional array-like object) for this function
-    img_mask = filter_mask_img(binarize_asparagus_img(img)) 
-    # Get the coordinates of the points of interest
-    X = np.array(np.where(img_mask > 0)).T
-    # Perform a PCA and compute the angle of the first principal axes
-    pca = PCA(n_components=2).fit(X)
-    angle = np.arctan2(*pca.components_[0])
-    # Rotate the image by the computed angle
-    # Note we use the masked image to find the angle but rotate the original image now
-    rotated_img = rotate(img, angle/np.pi*180+90)
-    return rotated_img
-
-
-def cut_background(img, background_max_hue, background_min_hue, background_brightness):
-    """ Initiates masking in the hsv space.
-
-    Cuts out background with specific hue values.
-
-    Args:
-        img (Image): Image as numpy array
-        background_max_hue (float): [0-255] 
-        background_min_hue (float): [0-255] 
-        background_brightness (float): [0-255] 
-
-    Returns:
-        Image: Image without background 
-    """
-    
-    # Open Image
-    raw = img
-    # remove alpha-channel (only if its RGBA)
-    raw = raw[:,:,0:3]
-    # transform to HSV color space
-    hsv = matplotlib.colors.rgb_to_hsv(raw)
-    
-    # Mask all blue hues (background)
-    mask = np.logical_and(hsv[:,:,0] > background_min_hue , hsv[:,:,0] < background_max_hue)
-    # Mask out values that are not bright enough
-    mask = np.logical_or(hsv[:,:,2]< background_brightness, mask)
-    
-    #Use binary hit and miss to remove potentially remaining isolated pixels:
-    m = np.logical_not(mask)
-
-    change = 1
-    while(change > 0):
-        a = binary_hit_or_miss(m, [[ 0, -1,  0]]) + binary_hit_or_miss(m, np.array([[ 0, -1,  0]]).T)
-        m[a] = False
-        change = np.sum(a)
-        # plt.imshow(a) # printf(changes)
-    
-    mask = np.logical_not(m)
-    raw[:,:,0][mask] = 0
-    raw[:,:,1][mask] = 0
-    raw[:,:,2][mask] = 0
-
-
-    return raw
-
-
 
 
 # TODO: 
@@ -268,55 +157,3 @@ def get_violett(img, _max_set):
     return_value = 0
 
     return return_value
-
-
-# just for testing
-if __name__ == "__main__":
-
-### TEST VIOLETT ################################################
-
-
-    # ugly but testing 
-    # @Katha how to write test functions? 
-    raw = np.array(Image.open(os.getcwd() + "/npurp1.png"))
-    
-    # fix values:
-    background_max_hue = 0.8
-    background_min_hue = 0.4
-    background_brightness = 100.0
-    img = cut_background(raw, background_max_hue , background_min_hue, background_brightness)
-    
-    # fix values:
-    max_sat = 0.3
-    violett = 0
-    violett = get_violett(img, max_sat)
-
-    print("violett: ", violett)
-    
-### TEST LENGTH #################################################
-
-    # load the image
-    path = "./../images/clean_images/13_2.jpg"
-
-    img = io.imread(path).astype(float)
-    # set the pixel values to the right range
-    img /= img.max()
-    # how many rows do we want
-    k = 5
-    # get length
-    length, min_row = get_length(img)
-    # get width
-    max_width, min_width = get_width(img, k, min_row)
-
-    print("Maximal Width: ", max_width)
-    print("Minimal Width: ", min_width)
-    print("Length: ", length)
-
-    
-    doctest.testmod()
-    
-### TEST CURVATURE ###############################################
-    img_mask = filter_mask_img(binarize_asparagus_img(img))
-    curvature = curvature_score(img_mask, get_slices(img, k, min_row), get_horizontal_slices(img, k, min_row))
-
-    print(curvature)
