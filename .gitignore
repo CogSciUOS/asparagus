@@ -24,7 +24,7 @@
 *.cb
 *.cb2
 .*.lb
-
+*.jpg
 ## Intermediate documents:
 *.dvi
 *.xdv
