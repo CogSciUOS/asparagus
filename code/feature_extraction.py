@@ -1,4 +1,7 @@
-# last changes from RR and SSW at 2019/09/12
+"""
+This file contains functions for manually extracting certain properties from pre-processed asparagus 
+pieces and the utility functions that are needed.
+"""
 
 # import area
 import matplotlib
@@ -6,37 +9,49 @@ import numpy as np
 import scipy.stats as stats 
 import skimage.measure as measure
 from scipy.ndimage import label, find_objects
-# import from own scripts (have to be in the same folder!)
 from preprocessor import binarize_asparagus_img, filter_mask_img, verticalize_img
+from utils import *
 
-def get_horizontal_slices(img, k, min_row):
-    """Get the start and end values of a asparagus piece in a certain row.
-
-    This is helper function for the curvature_score.
-
+def get_length(img):
+    '''Simple length extraction
+    The length is measured from the highest white pixel to the lowest in the binarized image after rotation
     Args:
-        img : image
-        k (int): Number of slices
-        min_row (int): First row of the asparagus piece
-
+        img: the image
     Returns:
-        horizontal_slices: Pairs of values for each of the k rows
+        length: the length in millimeters from highest to lowest point, under the assumption that one pixel
+                corresponds to 4 pixels
+    '''
+    img = rotate_to_base(img)
+    upper, lower = find_bounds(img)
+    length = lower - upper
+
+    return length/4.5
+
+def get_horizontal_slices(img, k):
+    """
+    Calculates the x-coordinates of the outline of the asparagus pieces, measured at k evenly
+    spaced horizontal slicing points.
+
+    img = the preprocessed image
+    k = the number of slices
+
+    returns: an np array([a1, a2],[b1,b2] ... ) where a1,a2 = x-coordinates of asparagus outline
     """
 
-    # binarize and filter the image with functions from preprocessor.py
-    img_mask = filter_mask_img(binarize_asparagus_img(img))
-    # get the slices 
-    slices = get_slices(img, k, min_row)
-    horizontal_slices = np.zeros((k,2))
-    # find the first and the last 1-value in the row and save it in horizontal_slices
-    for i in range(k):
-        start = np.argwhere(img_mask[slices[i]]==True)[0]
-        horizontal_slices[i][0] = start[0]
-        end = np.argwhere(img_mask[slices[i]]==True)[-1]
-        horizontal_slices[i][1] = end[0]
+    upper, lower = find_bounds(img)
+    slice_points = np.floor(np.linspace(upper+50, lower-20, k))
     
-    return horizontal_slices
+    def slice_img(img, sp):
+        sp = int(sp)
+        bin_img = binarize(img, 20)
+        line = np.nonzero(bin_img[sp,:])
+        left = line[0][0]
+        right = line[0][-1]
+        return left, right
+    
+    return np.array([[left, right] for left, right in [slice_img(img, sp) for sp in slice_points]])
 
+### legacy from here on ###
 
 def curvature_score(slices, horizontal_slices):
     """ Returns a score for the curvature of the aparagus piece. 

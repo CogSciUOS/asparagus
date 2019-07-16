@@ -10,6 +10,12 @@
 #   git rm -r .ipynb_checkpoints/
 #
 
+
+### non-auto-generated shit ###
+*.jpg
+*.bmp
+*.png 
+
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -24,7 +30,7 @@
 *.cb
 *.cb2
 .*.lb
-*.jpg
+
 ## Intermediate documents:
 *.dvi
 *.xdv
