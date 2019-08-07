@@ -23,7 +23,7 @@ import re
 class MainApp(QWidget):
     coordinates = pyqtSignal(QRect)
 
-    def __init__(self,images, widget_handled, ui):
+    def __init__(self, images, widget_handled, ui):
         """ Initializes Main App.
         args:
             images: List of Images
@@ -31,7 +31,7 @@ class MainApp(QWidget):
             ui: User interface
         """
         self.ui = ui
-        self.make_conncections()
+        self.make_connections()
 
         self.widget_handled = widget_handled #Widget for event Handling. All events are checked and if not arrow keys passed on. See eventFilter below
 
@@ -41,8 +41,8 @@ class MainApp(QWidget):
         self.update_info()
         QWidget.__init__(self, widget_handled)
 
-        self.ui.tree.set_white_background()
-        self.ui.tree.update(imageio.imread("tree.png"))
+        #self.ui.tree.set_white_background()
+        #self.ui.tree.update(imageio.imread("C:/Users/Sophia/Documents/asparagus/code/hand_label_assistant/tree.png"))
 
         #For self.nodes_to_ui, a dictionary to map names of nodes in the decision tree to the respective ui elements
         self.ui_nodes = [self.ui.is_bruch,self.ui.is_not_bruch,self.ui.has_keule,self.ui.has_no_keule,self.ui.has_blume,self.ui.is_blume_dick,self.ui.is_blume_duenn,self.ui.has_no_blume,self.ui.has_rost,self.ui.is_rost_dick,
@@ -69,7 +69,7 @@ class MainApp(QWidget):
             print("couldnt load")
             return
         try:
-            self.current_data = pd.DataFrame(self.label_array.loc[self.idx_image]).to_dict()[0]#select line via loc, convert slice to datadrame, convert to dict. Get value of the only key i.e. 0
+            self.current_data = pd.DataFrame(self.label_array.loc[self.idx_image]).to_dict()[0]#select line via loc, convert slice to dataframe, convert to dict. Get value of the only key i.e. 0
         except:
             print("No label for current file index")
             return
@@ -102,93 +102,94 @@ class MainApp(QWidget):
             self.nodes_to_ui["is_not_bruch"].setChecked(True)
             self.nodes_to_ui["is_not_bruch"].setEnabled(True)
 
-            if self.current_data["has_keule"]:
-                self.nodes_to_ui["has_keule"].setChecked(True)
-                self.nodes_to_ui["has_keule"].setEnabled(True)
-            else:
-                self.nodes_to_ui["has_no_keule"].setChecked(True)
-                self.nodes_to_ui["has_no_keule"].setEnabled(True)
+            # if self.current_data["has_keule"]:
+            #     self.nodes_to_ui["has_keule"].setChecked(True)
+            #     self.nodes_to_ui["has_keule"].setEnabled(True)
+            # else:
+            #     self.nodes_to_ui["has_no_keule"].setChecked(True)
+            #     self.nodes_to_ui["has_no_keule"].setEnabled(True)
 
-                if self.current_data["has_blume"]:
-                    self.nodes_to_ui["has_blume"].setChecked(True)
-                    self.nodes_to_ui["has_blume"].setEnabled(True)
-                    if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-                        self.nodes_to_ui["is_blume_dick"].setChecked(True)
-                        self.nodes_to_ui["is_blume_dick"].setEnabled(True)
-                    else:
-                        self.nodes_to_ui["is_blume_duenn"].setChecked(True)
-                        self.nodes_to_ui["is_blume_duenn"].setEnabled(True)
-
+            if self.current_data["has_blume"]:
+                self.nodes_to_ui["has_blume"].setChecked(True)
+                self.nodes_to_ui["has_blume"].setEnabled(True)
+                
+                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
+                    self.nodes_to_ui["is_blume_dick"].setChecked(True)
+                    self.nodes_to_ui["is_blume_dick"].setEnabled(True)
                 else:
-                    self.nodes_to_ui["has_no_blume"].setChecked(True)
-                    self.nodes_to_ui["has_no_blume"].setEnabled(True)
+                    self.nodes_to_ui["is_blume_duenn"].setChecked(True)
+                    self.nodes_to_ui["is_blume_duenn"].setEnabled(True)
 
-                    if self.current_data["has_rost"]:
-                        self.nodes_to_ui["has_rost"].setChecked(True)
-                        self.nodes_to_ui["has_rost"].setEnabled(True)
+            else:
+                self.nodes_to_ui["has_no_blume"].setChecked(True)
+                self.nodes_to_ui["has_no_blume"].setEnabled(True)
 
-                        if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-                            self.nodes_to_ui["is_rost_dick"].setChecked(True)
-                            self.nodes_to_ui["is_rost_dick"].setEnabled(True)
-                        else:
-                            self.nodes_to_ui["is_rost_duenn"].setChecked(True)
-                            self.nodes_to_ui["is_rost_duenn"].setEnabled(True)
+                if self.current_data["has_rost"]:
+                    self.nodes_to_ui["has_rost"].setChecked(True)
+                    self.nodes_to_ui["has_rost"].setEnabled(True)
+
+                    if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
+                        self.nodes_to_ui["is_rost_dick"].setChecked(True)
+                        self.nodes_to_ui["is_rost_dick"].setEnabled(True)
                     else:
-                        self.nodes_to_ui["has_no_rost"].setChecked(True)
-                        self.nodes_to_ui["has_no_rost"].setEnabled(True)
+                        self.nodes_to_ui["is_rost_duenn"].setChecked(True)
+                        self.nodes_to_ui["is_rost_duenn"].setEnabled(True)
+                else:
+                    self.nodes_to_ui["has_no_rost"].setChecked(True)
+                    self.nodes_to_ui["has_no_rost"].setEnabled(True)
 
-                        if self.current_data["is_bended"]:
-                            self.nodes_to_ui["is_bended"].setChecked(True)
-                            self.nodes_to_ui["is_bended"].setEnabled(True)
-                            if self.current_data["very_thick"]:#>26mm
-                                self.nodes_to_ui["is_krumm_dick"].setChecked(True)
-                                self.nodes_to_ui["is_krumm_dick"].setEnabled(True)
-                            else:
-                                self.nodes_to_ui["is_bended_medium"].setChecked(True)
-                                self.nodes_to_ui["is_bended_medium"].setEnabled(True)
-
-                                if self.current_data["is_violet"]:
-                                    self.nodes_to_ui["is_bended_medium_violet"].setChecked(True)
-                                    self.nodes_to_ui["is_bended_medium_violet"].setEnabled(True)
-                                else:
-                                    self.nodes_to_ui["is_bended_medium_non_violet"].setChecked(True)
-                                    self.nodes_to_ui["is_bended_medium_non_violet"].setEnabled(True)
+                    if self.current_data["is_bended"]:
+                        self.nodes_to_ui["is_bended"].setChecked(True)
+                        self.nodes_to_ui["is_bended"].setEnabled(True)
+                        if self.current_data["very_thick"]:#>26mm
+                            self.nodes_to_ui["is_krumm_dick"].setChecked(True)
+                            self.nodes_to_ui["is_krumm_dick"].setEnabled(True)
                         else:
-                            self.nodes_to_ui["is_not_bended"].setChecked(True)
-                            self.nodes_to_ui["is_not_bended"].setEnabled(True)
+                            self.nodes_to_ui["is_bended_medium"].setChecked(True)
+                            self.nodes_to_ui["is_bended_medium"].setEnabled(True)
+
                             if self.current_data["is_violet"]:
-                                    self.nodes_to_ui["is_not_bended_violet"].setChecked(True)
-                                    self.nodes_to_ui["is_not_bended_violet"].setEnabled(True)
-
-                                    if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-                                        self.nodes_to_ui["is_violet_dick"].setChecked(True)
-                                        self.nodes_to_ui["is_violet_dick"].setEnabled(True)
-                                    else:
-                                        self.nodes_to_ui["is_violet_duenn"].setChecked(True)
-                                        self.nodes_to_ui["is_violet_duenn"].setEnabled(True)
+                                self.nodes_to_ui["is_bended_medium_violet"].setChecked(True)
+                                self.nodes_to_ui["is_bended_medium_violet"].setEnabled(True)
                             else:
-                                    self.nodes_to_ui["is_not_bended_non_violet"].setChecked(True)
-                                    self.nodes_to_ui["is_not_bended_non_violet"].setEnabled(True)
-                                    if self.current_data["very_thick"]:
-                                        self.nodes_to_ui["is_dicke"].setChecked(True)
-                                        self.nodes_to_ui["is_dicke"].setEnabled(True)
-                                    elif self.current_data["thick"]:
-                                        self.nodes_to_ui["is_anna"].setChecked(True)
-                                        self.nodes_to_ui["is_anna"].setEnabled(True)
-                                    elif self.current_data["medium_thick"]:
-                                        self.nodes_to_ui["is_bona"].setChecked(True)
-                                        self.nodes_to_ui["is_bona"].setEnabled(True)
-                                    elif self.current_data["thin"]:
-                                        self.nodes_to_ui["is_clara"].setChecked(True)
-                                        self.nodes_to_ui["is_clara"].setEnabled(True)
-                                    elif self.current_data["very_thin"]:
-                                        self.nodes_to_ui["is_suppe"].setChecked(True)
-                                        self.nodes_to_ui["is_suppe"].setEnabled(True)
-                                    else:
-                                        print("Missing thickness value!!!")
+                                self.nodes_to_ui["is_bended_medium_non_violet"].setChecked(True)
+                                self.nodes_to_ui["is_bended_medium_non_violet"].setEnabled(True)
+                    else:
+                        self.nodes_to_ui["is_not_bended"].setChecked(True)
+                        self.nodes_to_ui["is_not_bended"].setEnabled(True)
+                        if self.current_data["is_violet"]:
+                                self.nodes_to_ui["is_not_bended_violet"].setChecked(True)
+                                self.nodes_to_ui["is_not_bended_violet"].setEnabled(True)
+
+                                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
+                                    self.nodes_to_ui["is_violet_dick"].setChecked(True)
+                                    self.nodes_to_ui["is_violet_dick"].setEnabled(True)
+                                else:
+                                    self.nodes_to_ui["is_violet_duenn"].setChecked(True)
+                                    self.nodes_to_ui["is_violet_duenn"].setEnabled(True)
+                        else:
+                                self.nodes_to_ui["is_not_bended_non_violet"].setChecked(True)
+                                self.nodes_to_ui["is_not_bended_non_violet"].setEnabled(True)
+                                if self.current_data["very_thick"]:
+                                    self.nodes_to_ui["is_dicke"].setChecked(True)
+                                    self.nodes_to_ui["is_dicke"].setEnabled(True)
+                                elif self.current_data["thick"]:
+                                    self.nodes_to_ui["is_anna"].setChecked(True)
+                                    self.nodes_to_ui["is_anna"].setEnabled(True)
+                                elif self.current_data["medium_thick"]:
+                                    self.nodes_to_ui["is_bona"].setChecked(True)
+                                    self.nodes_to_ui["is_bona"].setEnabled(True)
+                                elif self.current_data["thin"]:
+                                    self.nodes_to_ui["is_clara"].setChecked(True)
+                                    self.nodes_to_ui["is_clara"].setEnabled(True)
+                                elif self.current_data["very_thin"]:
+                                    self.nodes_to_ui["is_suppe"].setChecked(True)
+                                    self.nodes_to_ui["is_suppe"].setEnabled(True)
+                                else:
+                                    print("Missing thickness value!!!")
 
 
-    def make_conncections(self):
+    def make_connections(self):
         """ Establishes connections between user interface elements and functionalities"""
         self.ui.next_asparagus.clicked.connect(self.next_image)
         self.ui.next_asparagus.clicked.connect(self.update_info)
@@ -263,7 +264,7 @@ class MainApp(QWidget):
             max_x = 0
             for i, fname in enumerate(self.images[self.idx_image]):
                 im = imageio.imread(fname)
-                im = np.rot90(im).copy()
+                #im = np.rot90(im).copy()
                 imgs.append(im)
 
                 max_y += im.shape[0]
@@ -323,7 +324,7 @@ class MainApp(QWidget):
 class LabelingDialog(QWidget):
     coordinates = pyqtSignal(QRect)
 
-    def __init__(self,images, widget_handled, ui):
+    def __init__(self, images, widget_handled, ui):
         """ Initializes LabelingDialog App
         Args:
             widget_handeled: Events for this widget are handeled by LabelingDialog to access arrow keys
