@@ -80,7 +80,7 @@ def find_bounds(img):
     collapse = np.sum(img, axis=1)
     nonz = np.nonzero(collapse)
     
-    upper = nonz[0]
-    lower = nonz[-1]
+    upper = nonz[0][0]
+    lower = nonz[0][-1]
 
     return upper, lower
