@@ -108,15 +108,9 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
               <item>
-               <widget class="QGroupBox" name="has_keule">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>50</height>
-                 </size>
-                </property>
+               <widget class="QGroupBox" name="has_blume">
                 <property name="title">
-                 <string>Keule</string>
+                 <string>Blume</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -124,33 +118,23 @@
                 <property name="checked">
                  <bool>false</bool>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
+                <layout class="QHBoxLayout" name="horizontalLayout">
                  <item>
-                  <widget class="QLabel" name="label_3">
-                   <property name="text">
-                    <string>class: Keule</string>
+                  <widget class="QGroupBox" name="is_blume_dick">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>50</height>
+                    </size>
                    </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="has_no_keule">
-                <property name="title">
-                 <string>No Keule</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <property name="checked">
-                 <bool>false</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_25">
-                 <item>
-                  <widget class="QGroupBox" name="has_blume">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>50</height>
+                    </size>
+                   </property>
                    <property name="title">
-                    <string>Blume</string>
+                    <string>Width &gt; 20 mm</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
@@ -158,21 +142,80 @@
                    <property name="checked">
                     <bool>false</bool>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout">
+                   <layout class="QVBoxLayout" name="verticalLayout_8">
                     <item>
-                     <widget class="QGroupBox" name="is_blume_dick">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>50</height>
-                       </size>
+                     <widget class="QLabel" name="label_5">
+                      <property name="text">
+                       <string>Class: Blume dick</string>
                       </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>50</height>
-                       </size>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="is_blume_duenn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="title">
+                    <string>Width &lt; 20 mm</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                   <property name="checked">
+                    <bool>false</bool>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_9">
+                    <item>
+                     <widget class="QLabel" name="label_6">
+                      <property name="text">
+                       <string>Class: Blume dünn</string>
                       </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="has_no_blume">
+                <property name="title">
+                 <string>No Blume</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_26">
+                 <item>
+                  <widget class="QGroupBox" name="has_rost">
+                   <property name="title">
+                    <string>Rost</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                   <property name="checked">
+                    <bool>false</bool>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <widget class="QGroupBox" name="is_rost_dick">
                       <property name="title">
                        <string>Width &gt; 20 mm</string>
                       </property>
@@ -182,9 +225,9 @@
                       <property name="checked">
                        <bool>false</bool>
                       </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_8">
+                      <layout class="QVBoxLayout" name="verticalLayout_10">
                        <item>
-                        <widget class="QLabel" name="label_5">
+                        <widget class="QLabel" name="label_7">
                          <property name="text">
                           <string>Class: Blume dick</string>
                          </property>
@@ -194,21 +237,12 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QGroupBox" name="is_blume_duenn">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>50</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>50</height>
-                       </size>
-                      </property>
+                     <widget class="QGroupBox" name="is_rost_duenn">
                       <property name="title">
                        <string>Width &lt; 20 mm</string>
+                      </property>
+                      <property name="flat">
+                       <bool>false</bool>
                       </property>
                       <property name="checkable">
                        <bool>true</bool>
@@ -216,11 +250,11 @@
                       <property name="checked">
                        <bool>false</bool>
                       </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_9">
+                      <layout class="QVBoxLayout" name="verticalLayout_11">
                        <item>
-                        <widget class="QLabel" name="label_6">
+                        <widget class="QLabel" name="label_8">
                          <property name="text">
-                          <string>Class: Blume dünn</string>
+                          <string>Class: Rost dünn</string>
                          </property>
                         </widget>
                        </item>
@@ -231,9 +265,9 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="has_no_blume">
+                  <widget class="QGroupBox" name="has_no_rost">
                    <property name="title">
-                    <string>No Blume</string>
+                    <string>No Rost</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
@@ -241,11 +275,11 @@
                    <property name="checked">
                     <bool>false</bool>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_26">
+                   <layout class="QHBoxLayout" name="horizontalLayout_4">
                     <item>
-                     <widget class="QGroupBox" name="has_rost">
+                     <widget class="QGroupBox" name="is_bended">
                       <property name="title">
-                       <string>Rost</string>
+                       <string>Bended</string>
                       </property>
                       <property name="checkable">
                        <bool>true</bool>
@@ -253,11 +287,17 @@
                       <property name="checked">
                        <bool>false</bool>
                       </property>
-                      <layout class="QHBoxLayout" name="horizontalLayout_3">
+                      <layout class="QVBoxLayout" name="verticalLayout_23">
                        <item>
-                        <widget class="QGroupBox" name="is_rost_dick">
+                        <widget class="QGroupBox" name="is_krumm_dick">
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>50</height>
+                          </size>
+                         </property>
                          <property name="title">
-                          <string>Width &gt; 20 mm</string>
+                          <string>Width &gt; 26 mm</string>
                          </property>
                          <property name="checkable">
                           <bool>true</bool>
@@ -265,11 +305,11 @@
                          <property name="checked">
                           <bool>false</bool>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_10">
+                         <layout class="QVBoxLayout" name="verticalLayout_20">
                           <item>
-                           <widget class="QLabel" name="label_7">
+                           <widget class="QLabel" name="label_16">
                             <property name="text">
-                             <string>Class: Blume dick</string>
+                             <string>Class: Krumm Dick</string>
                             </property>
                            </widget>
                           </item>
@@ -277,12 +317,9 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QGroupBox" name="is_rost_duenn">
+                        <widget class="QGroupBox" name="is_bended_medium">
                          <property name="title">
                           <string>Width &lt; 20 mm</string>
-                         </property>
-                         <property name="flat">
-                          <bool>false</bool>
                          </property>
                          <property name="checkable">
                           <bool>true</bool>
@@ -290,12 +327,61 @@
                          <property name="checked">
                           <bool>false</bool>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_11">
+                         <layout class="QVBoxLayout" name="verticalLayout_24">
                           <item>
-                           <widget class="QLabel" name="label_8">
-                            <property name="text">
-                             <string>Class: Rost dünn</string>
+                           <widget class="QGroupBox" name="is_bended_medium_non_violet">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>50</height>
+                             </size>
                             </property>
+                            <property name="title">
+                             <string>Not violet</string>
+                            </property>
+                            <property name="checkable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_22">
+                             <item>
+                              <widget class="QLabel" name="label_18">
+                               <property name="text">
+                                <string>Class: Krumm Dünn</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="is_bended_medium_violet">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="title">
+                             <string>Violet</string>
+                            </property>
+                            <property name="checkable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_21">
+                             <item>
+                              <widget class="QLabel" name="label_17">
+                               <property name="text">
+                                <string>Class: Violet Krumm</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
                            </widget>
                           </item>
                          </layout>
@@ -305,9 +391,9 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QGroupBox" name="has_no_rost">
+                     <widget class="QGroupBox" name="is_not_bended">
                       <property name="title">
-                       <string>No Rost</string>
+                       <string>Not bended</string>
                       </property>
                       <property name="checkable">
                        <bool>true</bool>
@@ -315,11 +401,11 @@
                       <property name="checked">
                        <bool>false</bool>
                       </property>
-                      <layout class="QHBoxLayout" name="horizontalLayout_4">
+                      <layout class="QVBoxLayout" name="verticalLayout_29">
                        <item>
-                        <widget class="QGroupBox" name="is_bended">
+                        <widget class="QGroupBox" name="is_not_bended_non_violet">
                          <property name="title">
-                          <string>Bended</string>
+                          <string>Not Violet</string>
                          </property>
                          <property name="checkable">
                           <bool>true</bool>
@@ -327,9 +413,170 @@
                          <property name="checked">
                           <bool>false</bool>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_23">
+                         <layout class="QVBoxLayout" name="verticalLayout_17">
                           <item>
-                           <widget class="QGroupBox" name="is_krumm_dick">
+                           <widget class="QGroupBox" name="is_dicke">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="title">
+                             <string>Width &gt; 26 mm</string>
+                            </property>
+                            <property name="checkable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_12">
+                             <item>
+                              <widget class="QLabel" name="label_9">
+                               <property name="text">
+                                <string>Class: Dicke</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="is_anna">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="title">
+                             <string>Width &gt; 20-26 mm</string>
+                            </property>
+                            <property name="checkable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_13">
+                             <item>
+                              <widget class="QLabel" name="label_10">
+                               <property name="text">
+                                <string>Class: 1A Anna</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="is_bona">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="title">
+                             <string>Width &gt; 18 - 20 mm</string>
+                            </property>
+                            <property name="checkable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_14">
+                             <item>
+                              <widget class="QLabel" name="label_11">
+                               <property name="text">
+                                <string>Class: 1A Bona</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="is_clara">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="title">
+                             <string>Width &gt; 16-18 mm</string>
+                            </property>
+                            <property name="checkable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_15">
+                             <item>
+                              <widget class="QLabel" name="label_12">
+                               <property name="text">
+                                <string>Class: 1A Clara</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="is_suppe">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="title">
+                             <string>Width &lt; 16</string>
+                            </property>
+                            <property name="checkable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_16">
+                             <item>
+                              <widget class="QLabel" name="label_13">
+                               <property name="text">
+                                <string>Class: Suppe</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QGroupBox" name="is_not_bended_violet">
+                         <property name="title">
+                          <string>Violet</string>
+                         </property>
+                         <property name="checkable">
+                          <bool>true</bool>
+                         </property>
+                         <property name="checked">
+                          <bool>false</bool>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_5">
+                          <item>
+                           <widget class="QGroupBox" name="is_violet_duenn">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
                             <property name="maximumSize">
                              <size>
                               <width>16777215</width>
@@ -345,11 +592,11 @@
                             <property name="checked">
                              <bool>false</bool>
                             </property>
-                            <layout class="QVBoxLayout" name="verticalLayout_20">
+                            <layout class="QVBoxLayout" name="verticalLayout_19">
                              <item>
-                              <widget class="QLabel" name="label_16">
+                              <widget class="QLabel" name="label_15">
                                <property name="text">
-                                <string>Class: Krumm Dick</string>
+                                <string>Class: Violet Dünn</string>
                                </property>
                               </widget>
                              </item>
@@ -357,9 +604,21 @@
                            </widget>
                           </item>
                           <item>
-                           <widget class="QGroupBox" name="is_bended_medium">
+                           <widget class="QGroupBox" name="is_violet_dick">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>50</height>
+                             </size>
+                            </property>
                             <property name="title">
-                             <string>Width &lt; 20 mm</string>
+                             <string>Width &gt; 26 mm</string>
                             </property>
                             <property name="checkable">
                              <bool>true</bool>
@@ -367,314 +626,12 @@
                             <property name="checked">
                              <bool>false</bool>
                             </property>
-                            <layout class="QVBoxLayout" name="verticalLayout_24">
+                            <layout class="QVBoxLayout" name="verticalLayout_18">
                              <item>
-                              <widget class="QGroupBox" name="is_bended_medium_non_violet">
-                               <property name="maximumSize">
-                                <size>
-                                 <width>16777215</width>
-                                 <height>50</height>
-                                </size>
+                              <widget class="QLabel" name="label_14">
+                               <property name="text">
+                                <string>Class: Violet Dick</string>
                                </property>
-                               <property name="title">
-                                <string>Not violet</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_22">
-                                <item>
-                                 <widget class="QLabel" name="label_18">
-                                  <property name="text">
-                                   <string>Class: Krumm Dünn</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QGroupBox" name="is_bended_medium_violet">
-                               <property name="maximumSize">
-                                <size>
-                                 <width>16777215</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Violet</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_21">
-                                <item>
-                                 <widget class="QLabel" name="label_17">
-                                  <property name="text">
-                                   <string>Class: Violet Krumm</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                            </layout>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QGroupBox" name="is_not_bended">
-                         <property name="title">
-                          <string>Not bended</string>
-                         </property>
-                         <property name="checkable">
-                          <bool>true</bool>
-                         </property>
-                         <property name="checked">
-                          <bool>false</bool>
-                         </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_29">
-                          <item>
-                           <widget class="QGroupBox" name="is_not_bended_non_violet">
-                            <property name="title">
-                             <string>Not Violet</string>
-                            </property>
-                            <property name="checkable">
-                             <bool>true</bool>
-                            </property>
-                            <property name="checked">
-                             <bool>false</bool>
-                            </property>
-                            <layout class="QVBoxLayout" name="verticalLayout_17">
-                             <item>
-                              <widget class="QGroupBox" name="is_dicke">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>0</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Width &gt; 26 mm</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_12">
-                                <item>
-                                 <widget class="QLabel" name="label_9">
-                                  <property name="text">
-                                   <string>Class: Dicke</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QGroupBox" name="is_anna">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>0</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Width &gt; 20-26 mm</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_13">
-                                <item>
-                                 <widget class="QLabel" name="label_10">
-                                  <property name="text">
-                                   <string>Class: 1A Anna</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QGroupBox" name="is_bona">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>0</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Width &gt; 18 - 20 mm</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_14">
-                                <item>
-                                 <widget class="QLabel" name="label_11">
-                                  <property name="text">
-                                   <string>Class: 1A Bona</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QGroupBox" name="is_clara">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>0</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Width &gt; 16-18 mm</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_15">
-                                <item>
-                                 <widget class="QLabel" name="label_12">
-                                  <property name="text">
-                                   <string>Class: 1A Clara</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QGroupBox" name="is_suppe">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>0</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Width &lt; 16</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_16">
-                                <item>
-                                 <widget class="QLabel" name="label_13">
-                                  <property name="text">
-                                   <string>Class: Suppe</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                            </layout>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QGroupBox" name="is_not_bended_violet">
-                            <property name="title">
-                             <string>Violet</string>
-                            </property>
-                            <property name="checkable">
-                             <bool>true</bool>
-                            </property>
-                            <property name="checked">
-                             <bool>false</bool>
-                            </property>
-                            <layout class="QHBoxLayout" name="horizontalLayout_5">
-                             <item>
-                              <widget class="QGroupBox" name="is_violet_duenn">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>0</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="maximumSize">
-                                <size>
-                                 <width>16777215</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Width &gt; 26 mm</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_19">
-                                <item>
-                                 <widget class="QLabel" name="label_15">
-                                  <property name="text">
-                                   <string>Class: Violet Dünn</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QGroupBox" name="is_violet_dick">
-                               <property name="minimumSize">
-                                <size>
-                                 <width>0</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="maximumSize">
-                                <size>
-                                 <width>16777215</width>
-                                 <height>50</height>
-                                </size>
-                               </property>
-                               <property name="title">
-                                <string>Width &gt; 26 mm</string>
-                               </property>
-                               <property name="checkable">
-                                <bool>true</bool>
-                               </property>
-                               <property name="checked">
-                                <bool>false</bool>
-                               </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_18">
-                                <item>
-                                 <widget class="QLabel" name="label_14">
-                                  <property name="text">
-                                   <string>Class: Violet Dick</string>
-                                  </property>
-                                 </widget>
-                                </item>
-                               </layout>
                               </widget>
                              </item>
                             </layout>

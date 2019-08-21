@@ -42,14 +42,14 @@ class MainApp(QWidget):
         QWidget.__init__(self, widget_handled)
 
         #self.ui.tree.set_white_background()
-        #self.ui.tree.update(imageio.imread("C:/Users/Sophia/Documents/asparagus/code/hand_label_assistant/tree.png"))
+        self.ui.tree.update(imageio.imread("tree11.bmp"))
 
         #For self.nodes_to_ui, a dictionary to map names of nodes in the decision tree to the respective ui elements
-        self.ui_nodes = [self.ui.is_bruch,self.ui.is_not_bruch,self.ui.has_keule,self.ui.has_no_keule,self.ui.has_blume,self.ui.is_blume_dick,self.ui.is_blume_duenn,self.ui.has_no_blume,self.ui.has_rost,self.ui.is_rost_dick,
+        self.ui_nodes = [self.ui.is_bruch,self.ui.is_not_bruch,self.ui.has_blume,self.ui.is_blume_dick,self.ui.is_blume_duenn,self.ui.has_no_blume,self.ui.has_rost,self.ui.is_rost_dick,
                     self.ui.is_rost_duenn,self.ui.has_no_rost,self.ui.is_bended,self.ui.is_krumm_dick,self.ui.is_bended_medium,self.ui.is_bended_medium_non_violet,self.ui.is_bended_medium_violet,self.ui.is_not_bended
                     ,self.ui.is_not_bended_non_violet,self.ui.is_dicke,self.ui.is_anna,self.ui.is_bona,self.ui.is_clara,self.ui.is_suppe,self.ui.is_not_bended_violet,self.ui.is_violet_dick,self.ui.is_violet_duenn]
 
-        self.nodes = ["is_bruch","is_not_bruch","has_keule","has_no_keule","has_blume","is_blume_dick","is_blume_duenn","has_no_blume","has_rost","is_rost_dick",
+        self.nodes = ["is_bruch","is_not_bruch","has_blume","is_blume_dick","is_blume_duenn","has_no_blume","has_rost","is_rost_dick",
                     "is_rost_duenn","has_no_rost","is_bended","is_krumm_dick","is_bended_medium","is_bended_medium_non_violet","is_bended_medium_violet","is_not_bended"
                     ,"is_not_bended_non_violet","is_dicke","is_anna","is_bona","is_clara","is_suppe","is_not_bended_violet","is_violet_dick","is_violet_duenn"]
 
@@ -112,7 +112,7 @@ class MainApp(QWidget):
             if self.current_data["has_blume"]:
                 self.nodes_to_ui["has_blume"].setChecked(True)
                 self.nodes_to_ui["has_blume"].setEnabled(True)
-                
+
                 if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
                     self.nodes_to_ui["is_blume_dick"].setChecked(True)
                     self.nodes_to_ui["is_blume_dick"].setEnabled(True)
@@ -264,7 +264,7 @@ class MainApp(QWidget):
             max_x = 0
             for i, fname in enumerate(self.images[self.idx_image]):
                 im = imageio.imread(fname)
-                #im = np.rot90(im).copy()
+                im = np.rot90(im).copy()
                 imgs.append(im)
 
                 max_y += im.shape[0]
@@ -347,7 +347,6 @@ class LabelingDialog(QWidget):
         self.set_filenames(os.getcwd())
         self.draw_aspargus()
         self.update_info()
-        self.ui.asparagus_no.valueChanged.connect(lambda x: self.set_index(int(x)))
 
 
         self.questions = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
@@ -359,8 +358,12 @@ class LabelingDialog(QWidget):
 
     def make_conncections(self):
         """ Establish connections between UI elements and functionalities"""
+        self.ui.asparagus_no.valueChanged.connect(lambda x: self.set_index(int(x)))
+
         self.ui.previous_question.clicked.connect(self.previous_question)
         self.ui.next_question.clicked.connect(self.next_question)
+        self.ui.yes.clicked.connect(self.answer_yes)
+        self.ui.no.clicked.connect(self.answer_no)
 
     def set_output_file(self, path):
         """ Sets output file
@@ -533,6 +536,8 @@ class LabelingDialog(QWidget):
     def set_index(self,idx):
         self.idx_image = idx
         self.draw_aspargus()
+        self.idx_question = 0
+        self.ui.question.setText(self.questions[self.idx_question])
 
     def eventFilter(self, source, event):
         if event.type() == QtCore.QEvent.KeyRelease:
