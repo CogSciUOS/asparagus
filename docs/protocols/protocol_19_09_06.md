@@ -3,12 +3,12 @@
 Michael, Sophia, Malin, Ulf, Axel, Maren (Meeting in German)
 
 ## Preprocessing
-* Images auf blauen Hintergrund lassen, oder Kanten Smoothen
-* Processed Images und original Bilder und Zuordnung sollen gespeichert werden (Möglichkeit unterschiedliche Varianten auszuprobieren) - Metadaten
+* Images auf blauen Hintergrund lassen, oder Kanten Smoothen um Artefakte zu vermeiden
+* Processed Images und original Bilder und Zuordnung sollen gespeichert werden (Möglichkeit unterschiedliche Varianten auszuprobieren) - Metadaten müssen gespeichert werden!
 * Pipeline Preprocessing: nicht alles in einer großen Funktion, sondern in kleinst mögliche Einheiten modularisieren
 * Möglichkeit einzelne Schritte ein- oder auszuschalten
 
-* Problem Michael: bei ca. 10% der Spargelbilder fehlt eins der drei Bilder, deswegen wird Preprocessing abgebrochen
+* Problem Michael: bei ca. 10% der Spargelbilder fehlt eins der drei Bilder, deswegen wird Preprocessing abgebrochen und diese Bilder werden nicht zur Weiterverarbeitung verwendet
 * Programme im Master sollen lauffähig sein, aber müssen nicht fertig sein. Frühere Versionen verloren gehen/nicht nutzbar sind, wenn sie nicht im Master sind
 * grid benutzen, um Fehler zu reduzieren
 
@@ -20,11 +20,12 @@ Michael, Sophia, Malin, Ulf, Axel, Maren (Meeting in German)
 
 ## Lableapp
 * Ordnerauswählbarkeit muss noch in der App integriert werden
-* Bilder die nicht klassifizierbar sind in eine eigene Klasse zuordnen (Bsp: Spargel liegt quer über mehreren Schalen)
+* Bilder die nicht klassifizierbar sind in eine eigene Klasse zuordnen (Bsp: Spargel liegt quer über mehreren Schalen) "undefined"
 * Bennenung der Features bleibt bei striktem Ja/Nein Antwortmöglichkeiten, da klare Definitionen für mögliche Abstufungen (Rather yes/no) schwer definierbar sind
-* auch neuronales Netz lernt dann binäre Features
+* auch neuronales Netz lernt dann binäre Features, nicht Label 1A Anna etc. --> wir behalten mehr Variabilität
 * Es wird kein extra Kopfbild des Spargels präsentiert, da Auflösung gleich bleibt
-
+* zum Labeln von zu Hause müssen wir auf Rechner in Wachsbleiche zugreifen: linux: ffh.vs zugriff /
+    - sshfs [rzlogin]@gate.ikw.uos.de [Pfad to Spargel] load folder 
 
 ## To do
 * Lableapp fertig stellen
