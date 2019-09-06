@@ -57,16 +57,16 @@ def get_horizontal_slices(img, k):
     
     return slice_points, np.array([[left, right] for left, right in [slice_img(img, sp) for sp in slice_points]])
 
-def curvature_score(img):
+def curvature_score(img, k):
     """ Returns a score for the curvature of the aparagus piece. 
         A perfectly straight aspargus yields a score of 0
         Args:
-            slices (np.array): from get_slices function
-            horizontal_slices (np.array): from get_horizontal_slices function
+            img: the image
+            k: number of horizontal slices
         Returns:
             std_err (float): standard error of linear regression through the slices
     """
-    rows, horizontal_slices = get_horizontal_slices(img, 5)
+    rows, horizontal_slices = get_horizontal_slices(img, k)
     centers = np.mean(horizontal_slices, axis=1)
     _, _, _, _, std_err = stats.linregress(rows, centers)
     
@@ -146,13 +146,18 @@ def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), 
     # normalize the count to the range of 0 to 1 to make it easier to interpret
     value = count/max_count
     # plot for debugging/to see whether the bounds are okay
-    fig = plt.figure()
-    ax1 = fig.add_subplot(1,2,1)
-    ax1.imshow(rust_mask)
-    ax2 = fig.add_subplot(1,2,2)
-    ax2.imshow(img)
-    fig.suptitle("rust count = " + str(value))
-    plt.show()
+    # fig = plt.figure()
+    # ax1 = fig.add_subplot(1,2,1)
+    # ax1.imshow(rust_mask)
+    # ax2 = fig.add_subplot(1,2,2)
+    # ax2.imshow(img)
+    # fig.suptitle("rust count = " + str(value))
+    # plt.show()
     
     return value
 
+if __name__ == "__main__":
+    # read in the image
+    img = plt.imread("C:/Users/Sophia/Documents/GitHub/asparagus/Blume/clean/7_2.jpg")
+    rust = rust_counter(img)
+    print(rust)
