@@ -16,7 +16,6 @@ import numpy as np
 import pandas as pd
 import imageio
 
-
 import re
 
 
@@ -379,7 +378,9 @@ class LabelingDialog(QWidget):
 
     def load_outfile(self):
         """ Loads outputfile"""
-        self.label_array = np.array(pd.read_csv(self.outpath,names=self.questions,sep =";"))
+        print("Loading file")
+        self.label_array = np.array(pd.read_csv(self.outpath,names=self.questions,sep =";"))[1:,:]
+        print(self.label_array.shape)
 
     def answer_yes(self):
         """ Writes answer (yes) to current question to file """
@@ -404,16 +405,18 @@ class LabelingDialog(QWidget):
             self.load_outfile()
 
         if self.idx_image >= len(self.label_array):#increase_size & display warning as there is no image file for idx
-            tmp = self.label_array.copy()
-            self.label_array = np.ndarray(shape=(self.idx_image+1,len(self.questions)),dtype=np.int32)
-            self.label_array.fill(np.NaN)
-            self.label_array[:tmp.shape[0],:] = tmp
-
+            #tmp = self.label_array.copy()
+            #self.label_array = np.ndarray(shape=(self.idx_image+1,len(self.questions)),dtype=np.int32)
+            #self.label_array.fill(np.NaN)
+            #self.label_array[:tmp.shape[0],:] = tmp
             QMessageBox.about(self, "Attention", "No imagefile for current index")
             return
+
+        print("self.label_array.shape")
+        print(self.label_array.shape)
         self.label_array[self.idx_image,self.idx_question] = answer
 
-        pd.DataFrame(self.label_array, columns =self.questions).to_csv(self.outpath,sep =";")#possibly sep =";"
+        pd.DataFrame(self.label_array, columns =self.questions).to_csv(self.outpath,sep =";")
 
     def previous_question(self):
         """ Changes index to previous file and draws respective asparagus"""
