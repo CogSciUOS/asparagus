@@ -11,20 +11,26 @@ from scipy.ndimage.morphology import binary_hit_or_miss
 from scipy.ndimage.measurements import center_of_mass
 
 files = []
-def rek_get_files(path, name_contains, ignore):
+def rek_get_files(path, name_contains, ignore, root=None):
     for f in os.scandir(path):
         if ignore in f.path:
             continue
         if f.is_dir():
             print("Get all filenames in ... " + f.path)
-            rek_get_files(f.path, name_contains, ignore)
+            rek_get_files(f.path+"/", name_contains, ignore, root)
         else:
             if name_contains in f.name:
-                files.append(path+"/"+f.name)
+                if root == None:
+                     files.append(path+f.name)
+                else:
+                     files.append((path+f.name)[len(root):])
 
-def get_files(path, name_contains, ignore):
+def get_files(path, name_contains, ignore, use_full_path=False):
     files.clear()
-    rek_get_files(path, name_contains, ignore)
+    if use_full_path:
+        rek_get_files(path, name_contains, ignore)
+    else:
+        rek_get_files(path, name_contains, ignore, root=path)
     return files
 
 def preprocess(fpath1,fpath2,fpath3,outpath,file_id):    
@@ -93,7 +99,8 @@ def remove_background(img_array):
     
 
 if __name__ == "__main__":
-    files = get_files("/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled",".bmp","before2019" )
+    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
+    files = get_files(root,".bmp","before2019" )
     print(files[:10])
 
     outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/preprocessed"
@@ -107,12 +114,12 @@ if __name__ == "__main__":
     files_per_folder = 10000
     
     for file in files:
-        if re.match(".*/[0-9A-Z]+-[0-9A-Z]+-[0-9A-Z]+-[0-9A-Z]+_F00\.bmp", file):
+        if re.match("[0-9A-Z]+-[0-9A-Z]+-[0-9A-Z]+-[0-9A-Z]+_F00\.bmp", file):
             try:
                 if file_id % files_per_folder == 0:
                     current_outfolder +=1
                 root_out = outpath+"/"+str(current_outfolder)+"/"
-                preprocess(file,file[:-6]+"01.bmp",file[:-6]+"02.bmp",root_out, file_id)
+                preprocess(root+file,root+file[:-6]+"01.bmp",root+file[:-6]+"02.bmp",root_out, file_id)
                 
                 file_id +=1
 
