@@ -22,23 +22,21 @@ import re
 class MainApp(QWidget):
     coordinates = pyqtSignal(QRect)
 
-    def __init__(self, images, widget_handled, ui):
+    def __init__(self, widget_handled, ui):
         """ Initializes Main App.
         args:
-            images: List of Images
             widget_handled: For this widget events are handeled by MainApp
             ui: User interface
         """
         self.ui = ui
         self.make_connections()
-
         self.widget_handled = widget_handled #Widget for event Handling. All events are checked and if not arrow keys passed on. See eventFilter below
+        QWidget.__init__(self, widget_handled)
 
-        self.set_filenames(os.getcwd())
-
+        self.idx_image = 0
+        self.images = []
         self.draw_aspargus()
         self.update_info()
-        QWidget.__init__(self, widget_handled)
 
         #self.ui.tree.set_white_background()
         self.ui.tree.update(imageio.imread("tree11.bmp"))
@@ -243,7 +241,7 @@ class MainApp(QWidget):
         self.images.sort()
 
         self.idx_image = 0
-        #self.draw_aspargus()
+        self.draw_aspargus()
 
     def next_image(self):
         """Updates index to next aspargus and elicits redrawing"""
@@ -323,37 +321,30 @@ class MainApp(QWidget):
 class LabelingDialog(QWidget):
     coordinates = pyqtSignal(QRect)
 
-    def __init__(self, images, widget_handled, ui):
+    def __init__(self, widget_handled, ui):
         """ Initializes LabelingDialog App
         Args:
             widget_handeled: Events for this widget are handeled by LabelingDialog to access arrow keys
             ui: User interface
 
         """
+
         self.ui = ui
         self.make_conncections()
         self.widget_handled = widget_handled #Widget for event Handling. All events are checked and if not arrow keys passed on. See eventFilter below
+        QWidget.__init__(self, widget_handled)
 
-        self.idx_image = 0
         self.outpath = None
         self.label_array = None
 
-
-        self.images = [x for x in os.listdir() if ".bmp" in x]#TODO: Change to be a list of lists with three images for each asparagus
-        self.images.sort()
-
-
-        self.set_filenames(os.getcwd())
-        self.draw_aspargus()
-        self.update_info()
-
+        self.idx_image = 0
+        self.images = []
 
         self.questions = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
 
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
 
-        QWidget.__init__(self, widget_handled)
 
     def make_conncections(self):
         """ Establish connections between UI elements and functionalities"""
@@ -449,17 +440,11 @@ class LabelingDialog(QWidget):
         Args:
             names: List of filenames
         """
-        print(directory)
 
         self.files = []#All files in subtree
-        try:
-            self.rek_get_files(directory,".*\.bmp")#Traverse subdirectories & get all .bmp filepaths
-        except:
-            self.images = []
-            self.idx_image = 0
-            return
-        ids_to_files = {}
+        self.rek_get_files(directory,".*\.bmp")#Traverse subdirectories & get all .bmp filepaths
 
+        ids_to_files = {}
 
         for path in self.files:
             match = re.search(".*/(.*)_[a-z]\.bmp",path)
@@ -475,7 +460,7 @@ class LabelingDialog(QWidget):
         self.images.sort()
 
         self.idx_image = 0
-        #self.draw_aspargus()
+        self.draw_aspargus()
 
     def next_image(self):
         if self.idx_image + 1 >= len(self.images):
@@ -512,7 +497,8 @@ class LabelingDialog(QWidget):
                 y_offset += im.shape[0]
 
             self.ui.label.update(combined)
-        except:
+        except Exception as e:
+            print(e)
             return
 
     def update_info(self):
@@ -587,43 +573,52 @@ class OutputFileSpecifier(QWidget):
         if fileName:
             self.outfilepath.emit(fileName)
 
+
+class HandLabelAssistant():
+    def __init__(self):
+        app = QtWidgets.QApplication(sys.argv)
+
+        #[1] First we open our main window and install an event handler/controller
+        MainWindow = QtWidgets.QMainWindow()#Create a window
+        ui = Ui_Asparator()#Instanciate our UI
+        ui.setupUi(MainWindow)#Setup our UI as this MainWindow
+
+        main_app = MainApp(ui.centralwidget, ui)#Install MainApp as event filter for handling of arrow keys
+        # Note: does not capture arrow keys as respective events are used to target on GUI elements:
+        # MainWindow.keyPressEvent = lambda e: print(e.key())
+
+        ui.centralwidget.installEventFilter(main_app)
+        MainWindow.showMaximized()#Doesn't work via XMING
+
+        #[2] Then here comes the code to open another window. The interactive labeling interface...
+        label_window = QtWidgets.QMainWindow(parent=MainWindow)
+        ui_label_assistant = Ui_LabelDialog()
+        ui_label_assistant.setupUi(label_window)
+        ui.actionOpen_labeling_dialog.triggered.connect(label_window.show)#open upon user inputs
+
+        labeling_app = LabelingDialog(ui_label_assistant.centralwidget, ui_label_assistant)#Install MainApp as event filter
+        ui_label_assistant.centralwidget.installEventFilter(labeling_app)
+
+        fd = SourceDirOpener()#We open a file dialog upon click on action
+        sd = OutputFileSpecifier()#We open a file dialog upon click on action...
+
+        self.make_connections(labeling_app, main_app, ui, fd, sd)
+        MainWindow.show()#and we show it directly
+        sys.exit(app.exec_())
+
+
+    def make_connections(self, labeling_app, main_app, ui, fd, sd):
+        # Connect actions (Dropdown menu in upper bar) to file dialogs and file dialogs to methods of
+        fd.filenames.connect(main_app.set_filenames)
+        fd.filenames.connect(labeling_app.set_filenames)#Set filenames for both apps if a directory is chosen
+        ui.actionOpen_file_directory.triggered.connect(fd.get_filenames)
+
+        sd.outfilepath.connect(main_app.set_label_file)
+        sd.outfilepath.connect(labeling_app.set_output_file)
+        ui.actionLoad_label_file.triggered.connect(sd.get_outputfile)
+
+        ui.actionClose_3.triggered.connect(lambda x: sys.exit())# We close upon click on action
+
+
 if __name__ == "__main__":
-    images = [x for x in os.listdir() if ".bmp" in x]#Path to images
-
-    app = QtWidgets.QApplication(sys.argv)
-
-    #[1] First we open our main window and install an event handler/controller
-    MainWindow = QtWidgets.QMainWindow()#Create a window
-    ui = Ui_Asparator()#Instanciate our UI
-    ui.setupUi(MainWindow)#Setup our UI as this MainWindow
-
-    main_app = MainApp(images,ui.centralwidget, ui)#Install MainApp as event filter
-    ui.centralwidget.installEventFilter(main_app)
-    MainWindow.showMaximized()#and we show it directly. Doesn't work via XMING
-    #MainWindow.setGeometry(app.primaryScreen().geometry())#Opens such that - [] x are invisible
-
-    #[2] Then here comes the code to open another window. The interactive labeling interface...
-    label_window = QtWidgets.QMainWindow(parent=MainWindow)
-    ui_label_assistant = Ui_LabelDialog()
-    ui_label_assistant.setupUi(label_window)
-    ui.actionOpen_labeling_dialog.triggered.connect(label_window.show)#open upon user inputs
-
-    labeling_app = LabelingDialog(images,ui_label_assistant.centralwidget, ui_label_assistant)#Install MainApp as event filter
-    ui_label_assistant.centralwidget.installEventFilter(labeling_app)
-    MainWindow.show()#and we show it directly
-
-    #[3] Connect actions (Dropdown menu in upper bar)
-    fd = SourceDirOpener()#We open a file dialog upon click on action...
-    fd.filenames.connect(main_app.set_filenames)
-    fd.filenames.connect(labeling_app.set_filenames)
-    ui.actionOpen_file_directory.triggered.connect(fd.get_filenames)
-
-    sd = OutputFileSpecifier()#We open a file dialog upon click on action...
-    sd.outfilepath.connect(main_app.set_label_file)
-    sd.outfilepath.connect(labeling_app.set_output_file)
-    ui.actionLoad_label_file.triggered.connect(sd.get_outputfile)
-
-    ui.actionClose_3.triggered.connect(lambda x: sys.exit())# We close upon click on action
-
-    sys.exit(app.exec_())
-    #MainWindow.keyPressEvent = lambda e: print(e.key())#Note: does not capture arrow keys as respective events are used to target on GUI elements
+    assistant = HandLabelAssistant()
