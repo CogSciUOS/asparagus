@@ -10,6 +10,7 @@ import matplotlib
 from scipy.ndimage.morphology import binary_hit_or_miss
 from scipy.ndimage.measurements import center_of_mass
 import matplotlib.pyplot as plt
+from submit_script import*
 
 files = []
 def get_valid_triples(root):
@@ -150,22 +151,31 @@ def remove_background(img_array):
     
 
 if __name__ == "__main__":
-    #root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
-    root = "C:/Users/Sophia/Documents/GitHub/asparagus/Rost/"
-    # get valid file names
-    valid_triples = get_valid_triples(root)
+    # to start with the submit script: define arguments
+    root = sys.argv[1]
+    outpath = sys.argv[2]
+    startIdx = sys.argv[3]
+    stopIdx = sys.argv[4]
 
-    #outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/preprocessed"
+    #root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
+    # get valid file names
+    valid_triples = []
+    with open(root+'valid_files.csv', 'r') as f:
+        reader = csv.reader(f)
+        # only read in the non empty lists
+        for row in filter(None, reader):
+            valid_triples.append(row)
+
     # where to save the output
     # NOTE: remember to put / at the end for the subfolders
-    outpath = "C:/Users/Sophia/Documents/GitHub/asparagus/Rost/preprocessed/"
+    #outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/preprocessed/"
     #files.sort()
     
     file_id = 0
     current_outfolder = -1
-    files_per_folder = 10
+    files_per_folder = 10000
 
-    for triple in valid_triples:
+    for triple in valid_triples[startIdx:stopIdx+1]:
         if file_id % files_per_folder == 0:
             current_outfolder +=1
         out = outpath+str(current_outfolder)+"/"
