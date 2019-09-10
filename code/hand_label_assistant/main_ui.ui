@@ -734,8 +734,11 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen_file_directory"/>
-    <addaction name="actionOpen_labeling_dialog"/>
+    <addaction name="separator"/>
+    <addaction name="actionCreate_new_label_file"/>
     <addaction name="actionLoad_label_file"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpen_labeling_dialog"/>
     <addaction name="actionClose_3"/>
    </widget>
    <addaction name="menuFile"/>
@@ -783,6 +786,11 @@
   <action name="actionLoad_label_file">
    <property name="text">
     <string>Load label file</string>
+   </property>
+  </action>
+  <action name="actionCreate_new_label_file">
+   <property name="text">
+    <string>Create new label file</string>
    </property>
   </action>
  </widget>

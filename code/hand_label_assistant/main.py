@@ -11,13 +11,11 @@ from view import *
 from label_dialog_ui import *
 import numpy as np
 
-
 import numpy as np
 import pandas as pd
 import imageio
 
 import re
-
 
 class MainApp(QWidget):
     coordinates = pyqtSignal(QRect)
@@ -35,10 +33,10 @@ class MainApp(QWidget):
 
         self.idx_image = 0
         self.images = []
-        self.draw_aspargus()
+        self.draw_asparagus()
         self.update_info()
 
-        #self.ui.tree.set_white_background()
+        self.ui.tree.set_white_background()
         self.ui.tree.update(imageio.imread("tree11.bmp"))
 
         #For self.nodes_to_ui, a dictionary to map names of nodes in the decision tree to the respective ui elements
@@ -50,47 +48,33 @@ class MainApp(QWidget):
                     "is_rost_duenn","has_no_rost","is_bended","is_krumm_dick","is_bended_medium","is_bended_medium_non_violet","is_bended_medium_violet","is_not_bended"
                     ,"is_not_bended_non_violet","is_dicke","is_anna","is_bona","is_clara","is_suppe","is_not_bended_violet","is_violet_dick","is_violet_duenn"]
 
-        self.label_file = "labels.csv"
-        self.label_array = None
+        self.label_file = None
+        self.labels = None
 
         self.nodes_to_ui = {}
         for node, ui_node in zip(self.nodes,self.ui_nodes):
             self.nodes_to_ui[node] = ui_node
 
-
-    def load_labels(self):
-        """ Load label file from .csv as dataframe and assign to self.label_array. Sets self.current_data for self.idx_image as well."""
-        try:
-            self.label_array = pd.read_csv(self.label_file,sep =";")
-        except:
-            print("couldnt load")
-            return
-        try:
-            self.current_data = pd.DataFrame(self.label_array.loc[self.idx_image]).to_dict()[0]#select line via loc, convert slice to dataframe, convert to dict. Get value of the only key i.e. 0
-        except:
-            print("No label for current file index")
-            return
-
-
     def update_checkboxes(self):
         """ Updates checkboxes"""
-        if type(self.label_array)==type(None):
-            return
-        try:
-            di = pd.DataFrame(self.label_array.loc[self.idx_image]).to_dict()
-            self.current_data = list(di.items())[0][1]
-        except:
-            print("couldnt get line")
-            pd.DataFrame(self.label_array.loc[self.idx_image]).to_dict()
-            return
-
         for k,v in self.nodes_to_ui.items():
             self.nodes_to_ui[k].setChecked(False)
             self.nodes_to_ui[k].setEnabled(False)
             self.nodes_to_ui[k].setFocusPolicy(QtCore.Qt.NoFocus)#No focus  via arrow keys
 
-        self.nodes_to_ui["is_bruch"].setChecked(False)
-        self.nodes_to_ui["is_bruch"].setEnabled(False)
+        if type(self.labels)==type(None):
+            return
+
+        try:
+            categories = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
+            self.current_data = {}
+            for integer, paraphrase in zip(self.labels[self.idx_image],categories):
+                if integer:
+                    self.current_data[paraphrase] = True
+                else:
+                    self.current_data[paraphrase] = False
+        except KeyError:
+            return#no info for aspargus piece
 
         if self.current_data["is_bruch"]:
             self.nodes_to_ui["is_bruch"].setChecked(True)
@@ -98,13 +82,6 @@ class MainApp(QWidget):
         else:
             self.nodes_to_ui["is_not_bruch"].setChecked(True)
             self.nodes_to_ui["is_not_bruch"].setEnabled(True)
-
-            # if self.current_data["has_keule"]:
-            #     self.nodes_to_ui["has_keule"].setChecked(True)
-            #     self.nodes_to_ui["has_keule"].setEnabled(True)
-            # else:
-            #     self.nodes_to_ui["has_no_keule"].setChecked(True)
-            #     self.nodes_to_ui["has_no_keule"].setEnabled(True)
 
             if self.current_data["has_blume"]:
                 self.nodes_to_ui["has_blume"].setChecked(True)
@@ -185,15 +162,12 @@ class MainApp(QWidget):
                                 else:
                                     print("Missing thickness value!!!")
 
-
     def make_connections(self):
         """ Establishes connections between user interface elements and functionalities"""
         self.ui.next_asparagus.clicked.connect(self.next_image)
         self.ui.next_asparagus.clicked.connect(self.update_info)
         self.ui.previous_asparagus.clicked.connect(self.previous_image)
         self.ui.previous_asparagus.clicked.connect(self.update_info)
-
-
 
     def set_label_file(self, path):
         """ Sets output file.
@@ -203,6 +177,18 @@ class MainApp(QWidget):
         print(path)
         self.label_file = path
         self.load_labels()
+
+    def load_labels(self):
+        try:
+            recovered = pd.read_csv(self.label_file, index_col=0, sep =";").to_dict(orient="index")
+            for key, value in recovered.items():
+                recovered[key] = list(recovered[key].values())
+            self.labels = recovered
+        except FileNotFoundError:
+            self.labels = {}
+        except Exception as e:
+            print(e)
+        self.update_checkboxes()
 
     def rek_get_files(self, path, regex):
         for f in os.scandir(path):
@@ -241,7 +227,7 @@ class MainApp(QWidget):
         self.images.sort()
 
         self.idx_image = 0
-        self.draw_aspargus()
+        self.draw_asparagus()
 
     def next_image(self):
         """Updates index to next aspargus and elicits redrawing"""
@@ -250,10 +236,9 @@ class MainApp(QWidget):
         self.idx_image += 1
 
         self.update_checkboxes()
-        self.draw_aspargus()
+        self.draw_asparagus()
 
-
-    def draw_aspargus(self):
+    def draw_asparagus(self):
         """ Draws image of asparagus pieces from three perspectives"""
         try:
             imgs = []
@@ -280,19 +265,18 @@ class MainApp(QWidget):
         except:
             return
 
-
     def update_info(self):
         """ Updates information about aspargus"""
         self.ui.label_2.setText("Aspargus no. " + str(self.idx_image) )
 
     def previous_image(self):
         """ Updates index to previous Aspargus"""
-        if self.idx_image -1 < 0:
+        if self.idx_image == 0:
             return
+
         self.idx_image -= 1
         self.update_checkboxes()
-        self.draw_aspargus()
-
+        self.draw_asparagus()
 
     def eventFilter(self, source, event):
         """ Filters key events such that arrow keys may be handled.
@@ -308,12 +292,12 @@ class MainApp(QWidget):
             if event.key() == id_right:
                 self.next_image()
                 self.update_info()
-                self.draw_aspargus()
+                self.draw_asparagus()
 
             elif event.key() == id_left:
                 self.previous_image()
                 self.update_info()
-                self.draw_aspargus()
+                self.draw_asparagus()
 
 
         return self.widget_handled.eventFilter(source, event)#forward event
@@ -326,7 +310,6 @@ class LabelingDialog(QWidget):
         Args:
             widget_handeled: Events for this widget are handeled by LabelingDialog to access arrow keys
             ui: User interface
-
         """
 
         self.ui = ui
@@ -335,7 +318,7 @@ class LabelingDialog(QWidget):
         QWidget.__init__(self, widget_handled)
 
         self.outpath = None
-        self.label_array = None
+        self.labels = None#After loading a dictionary that contains key= index of asparagus to value=list of properties
 
         self.idx_image = 0
         self.images = []
@@ -344,7 +327,6 @@ class LabelingDialog(QWidget):
 
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
-
 
     def make_conncections(self):
         """ Establish connections between UI elements and functionalities"""
@@ -361,53 +343,52 @@ class LabelingDialog(QWidget):
                 path
         """
         self.outpath = path
-
-    def init_outfile(self):
-        """ Initializes new outputfile"""
-        self.label_array = np.ndarray(shape=(len(self.images),len(self.questions)),dtype=np.int32)
-        self.label_array.fill(np.NaN)
+        self.load_outfile()
 
     def load_outfile(self):
-        """ Loads outputfile"""
-        print("Loading file")
-        self.label_array = np.array(pd.read_csv(self.outpath,names=self.questions,sep =";"))[1:,:]
-        print(self.label_array.shape)
+        """ Loads outputfile if it exists and saves contents to self.dict.
+            Sets self.labels to an empty dict otherwise."""
+        try:
+            recovered = pd.read_csv(self.outpath, index_col=0, sep =";").to_dict(orient="index")
+            for key, value in recovered.items():
+                recovered[key] = list(recovered[key].values())
+            self.labels = recovered
+        except FileNotFoundError:
+            self.labels = {}
+        except e as Exception:
+            print(e)
 
     def answer_yes(self):
         """ Writes answer (yes) to current question to file """
-        self.write_answer_to_file(1)
+        self.log_answer(1)
         self.ui.yes.setFocus()
         self.next_question()
 
     def answer_no(self):
         """ Writes answer (no) to current question to file """
-        self.write_answer_to_file(0)
+        self.log_answer(0)
         self.ui.no.setFocus()
         self.next_question()
 
-    def write_answer_to_file(self,answer):
+    def log_answer(self, answer):
+        assert type(self.labels) == type({})
+        try:#Assure we have a line of data for the current index
+            self.labels[self.idx_image]
+        except KeyError:
+            self.labels[self.idx_image] = [None for x in range(len(self.questions))]
+        self.labels[self.idx_image][self.idx_question] = answer
+
+    def write_answers_to_file(self):
         """ Writes answer to current question to file """
-        if not self.outpath:#Init file if no "labels.csv" in directory & filepath was not set manually
-            self.outpath = os.getcwd()+"/"+"labels.csv"
-            if not "labels.csv" in os.listdir():
-                self.init_outfile()
+        df = pd.DataFrame.from_dict(self.labels, orient = "index", columns=self.questions)
+        df.to_csv(self.outpath,sep =";")
+        #self.outpath
+        #if self.idx_image
 
-        if type(self.label_array)==type(None):# in case the label array wasnt already loaded do so
-            self.load_outfile()
+        #self.label_array[self.idx_image,self.idx_question] = answer
 
-        if self.idx_image >= len(self.label_array):#increase_size & display warning as there is no image file for idx
-            #tmp = self.label_array.copy()
-            #self.label_array = np.ndarray(shape=(self.idx_image+1,len(self.questions)),dtype=np.int32)
-            #self.label_array.fill(np.NaN)
-            #self.label_array[:tmp.shape[0],:] = tmp
-            QMessageBox.about(self, "Attention", "No imagefile for current index")
-            return
-
-        print("self.label_array.shape")
-        print(self.label_array.shape)
-        self.label_array[self.idx_image,self.idx_question] = answer
-
-        pd.DataFrame(self.label_array, columns =self.questions).to_csv(self.outpath,sep =";")
+        #pd.DataFrame(self.label_array, columns =self.questions).to_csv(self.outpath,sep =";")
+        return
 
     def previous_question(self):
         """ Changes index to previous file and draws respective asparagus"""
@@ -460,20 +441,22 @@ class LabelingDialog(QWidget):
         self.images.sort()
 
         self.idx_image = 0
-        self.draw_aspargus()
+        self.draw_asparagus()
 
     def next_image(self):
+        self.write_answers_to_file()
+
         if self.idx_image + 1 >= len(self.images):
             QMessageBox.about(self, "Attention", "Last image reached")
             return
+
         self.idx_image += 1
-        self.draw_aspargus()
+        self.draw_asparagus()
         self.ui.asparagus_no.blockSignals(True)
         self.ui.asparagus_no.setValue(self.idx_image)
         self.ui.asparagus_no.blockSignals(False)
 
-
-    def draw_aspargus(self):
+    def draw_asparagus(self):
         """ Draws image of asparagus pieces from three perspectives"""
         try:
             imgs = []
@@ -517,14 +500,14 @@ class LabelingDialog(QWidget):
             QMessageBox.about(self, "Attention", "First image reached")
             return
         self.idx_image -= 1
-        self.draw_aspargus()
+        self.draw_asparagus()
         self.ui.asparagus_no.blockSignals(True)
         self.ui.asparagus_no.setValue(self.idx_image)
         self.ui.asparagus_no.blockSignals(False)
 
     def set_index(self,idx):
         self.idx_image = idx
-        self.draw_aspargus()
+        self.draw_asparagus()
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
 
@@ -551,28 +534,36 @@ class SourceDirOpener(QWidget):
     def get_filenames(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        path = QFileDialog.getExistingDirectory(None,"Select folder...",
-                                                  os.getcwd(),
-                                                  options=options)
+        path = QFileDialog.getExistingDirectory(None,"Select folder...",os.getcwd(),options=options)
         if path:
-            #path = os.path.split(fileName)[0]
-            #self.filenames.emit([path+"/"+x for x in os.listdir(path) if ".bmp" in x])
             self.filenames.emit(path)
 
-
-class OutputFileSpecifier(QWidget):
+class OutputFileSelector(QWidget):
     outfilepath = pyqtSignal(str)
     def __init__(self):
         QWidget.__init__(self)
+
     def get_outputfile(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(None,"Select the output file", "",
-                                                  "csv (*.csv);;",
-                                                  options=options)
+        fileName, _ = QFileDialog.getOpenFileName(None,"Select the output file", "", "csv (*.csv);;", options=options)
         if fileName:
             self.outfilepath.emit(fileName)
 
+class OutputFileCreator(QWidget):
+    outfilepath = pyqtSignal(str)
+    def __init__(self):
+        QWidget.__init__(self)
+
+    def create_outputfile(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        filename, _ = QFileDialog.getSaveFileName(None,"Select the output file", "", "csv (*.csv);;", options=options)
+
+        if filename:
+            if not filename.endswith(".csv"):
+                filename += ".csv"
+            self.outfilepath.emit(filename)
 
 class HandLabelAssistant():
     def __init__(self):
@@ -580,45 +571,54 @@ class HandLabelAssistant():
 
         #[1] First we open our main window and install an event handler/controller
         MainWindow = QtWidgets.QMainWindow()#Create a window
-        ui = Ui_Asparator()#Instanciate our UI
-        ui.setupUi(MainWindow)#Setup our UI as this MainWindow
+        self.ui = Ui_Asparator()#Instanciate our UI
+        self.ui.setupUi(MainWindow)#Setup our UI as this MainWindow
 
-        main_app = MainApp(ui.centralwidget, ui)#Install MainApp as event filter for handling of arrow keys
+        self.main_app = MainApp(self.ui.centralwidget, self.ui)#Install MainApp as event filter for handling of arrow keys
         # Note: does not capture arrow keys as respective events are used to target on GUI elements:
         # MainWindow.keyPressEvent = lambda e: print(e.key())
 
-        ui.centralwidget.installEventFilter(main_app)
+        self.ui.centralwidget.installEventFilter(self.main_app)
         MainWindow.showMaximized()#Doesn't work via XMING
 
         #[2] Then here comes the code to open another window. The interactive labeling interface...
-        label_window = QtWidgets.QMainWindow(parent=MainWindow)
+        self.label_window = QtWidgets.QMainWindow(parent=MainWindow)
         ui_label_assistant = Ui_LabelDialog()
-        ui_label_assistant.setupUi(label_window)
-        ui.actionOpen_labeling_dialog.triggered.connect(label_window.show)#open upon user inputs
+        ui_label_assistant.setupUi(self.label_window)
+        self.labeling_app = LabelingDialog(ui_label_assistant.centralwidget, ui_label_assistant)#Install MainApp as event filter
+        ui_label_assistant.centralwidget.installEventFilter(self.labeling_app)
 
-        labeling_app = LabelingDialog(ui_label_assistant.centralwidget, ui_label_assistant)#Install MainApp as event filter
-        ui_label_assistant.centralwidget.installEventFilter(labeling_app)
+        self.source_dir_opener = SourceDirOpener()#We open a file dialog upon click on action
+        self.output_file_selector = OutputFileSelector()#We open a file dialog upon click on action...
+        self.output_file_creator = OutputFileCreator()#We open a file dialog upon click on action...
 
-        fd = SourceDirOpener()#We open a file dialog upon click on action
-        sd = OutputFileSpecifier()#We open a file dialog upon click on action...
 
-        self.make_connections(labeling_app, main_app, ui, fd, sd)
+        self.make_connections()
         MainWindow.show()#and we show it directly
         sys.exit(app.exec_())
 
-
-    def make_connections(self, labeling_app, main_app, ui, fd, sd):
+    def make_connections(self):
+        self.ui.actionOpen_labeling_dialog.triggered.connect(self.open_labeling_dialog)#open upon user input
         # Connect actions (Dropdown menu in upper bar) to file dialogs and file dialogs to methods of
-        fd.filenames.connect(main_app.set_filenames)
-        fd.filenames.connect(labeling_app.set_filenames)#Set filenames for both apps if a directory is chosen
-        ui.actionOpen_file_directory.triggered.connect(fd.get_filenames)
+        self.source_dir_opener.filenames.connect(self.main_app.set_filenames)
+        self.source_dir_opener.filenames.connect(self.labeling_app.set_filenames)#Set filenames for both apps if a directory is chosen
+        self.ui.actionOpen_file_directory.triggered.connect(self.source_dir_opener.get_filenames)
 
-        sd.outfilepath.connect(main_app.set_label_file)
-        sd.outfilepath.connect(labeling_app.set_output_file)
-        ui.actionLoad_label_file.triggered.connect(sd.get_outputfile)
+        self.output_file_selector.outfilepath.connect(self.main_app.set_label_file)
+        self.output_file_selector.outfilepath.connect(self.labeling_app.set_output_file)
 
-        ui.actionClose_3.triggered.connect(lambda x: sys.exit())# We close upon click on action
+        self.output_file_creator.outfilepath.connect(self.main_app.set_label_file)
+        self.output_file_creator.outfilepath.connect(self.labeling_app.set_output_file)
 
+        self.ui.actionLoad_label_file.triggered.connect(self.output_file_selector.get_outputfile)
+        self.ui.actionCreate_new_label_file.triggered.connect(self.output_file_creator.create_outputfile)
+        self.ui.actionClose_3.triggered.connect(lambda x: sys.exit())# We close upon click on action
+
+    def open_labeling_dialog(self):
+        if(type(self.labeling_app.labels) == type(None)):
+            QMessageBox.about(self.main_app,"Attention", "Specify outputfile first!")
+        else:
+             self.label_window.show()
 
 if __name__ == "__main__":
     assistant = HandLabelAssistant()
