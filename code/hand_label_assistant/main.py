@@ -237,6 +237,7 @@ class MainApp(QWidget):
 
         self.update_checkboxes()
         self.draw_asparagus()
+        self.update_info()
 
     def draw_asparagus(self):
         """ Draws image of asparagus pieces from three perspectives"""
@@ -278,6 +279,7 @@ class MainApp(QWidget):
         self.idx_image -= 1
         self.update_checkboxes()
         self.draw_asparagus()
+        self.update_info()
 
     def eventFilter(self, source, event):
         """ Filters key events such that arrow keys may be handled.
@@ -292,12 +294,12 @@ class MainApp(QWidget):
 
             if event.key() == id_right:
                 self.next_image()
-                self.update_info()
+
                 self.draw_asparagus()
 
             elif event.key() == id_left:
                 self.previous_image()
-                self.update_info()
+
                 self.draw_asparagus()
 
 
@@ -453,6 +455,7 @@ class LabelingDialog(QWidget):
 
         self.idx_image += 1
         self.draw_asparagus()
+        self.update_info()
         self.ui.asparagus_no.blockSignals(True)
         self.ui.asparagus_no.setValue(self.idx_image)
         self.ui.asparagus_no.blockSignals(False)
@@ -502,6 +505,7 @@ class LabelingDialog(QWidget):
             return
         self.idx_image -= 1
         self.draw_asparagus()
+        self.update_info()
         self.ui.asparagus_no.blockSignals(True)
         self.ui.asparagus_no.setValue(self.idx_image)
         self.ui.asparagus_no.blockSignals(False)
@@ -509,6 +513,7 @@ class LabelingDialog(QWidget):
     def set_index(self,idx):
         self.idx_image = idx
         self.draw_asparagus()
+        self.update_info()
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
 
@@ -520,11 +525,9 @@ class LabelingDialog(QWidget):
 
             if event.key() == id_right:
                 self.answer_no()
-                self.update_info()
 
             elif event.key() == id_left:
                 self.answer_yes()
-                self.update_info()
 
         return self.widget_handled.eventFilter(source, event)#forward event
 
