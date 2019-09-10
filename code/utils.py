@@ -84,3 +84,28 @@ def find_bounds(img):
     lower = nonz[0][-1]
 
     return upper, lower
+
+def head_finder(img):
+    """Cut image to only display the head of the asparagus.
+    Args:
+        img: the image
+    Return:
+        head: the image cropped around the head
+    """
+    # binarize the image
+    img_bin = binarize(img,20)
+    # indices of non empty rows
+    ind_row = np.nonzero(img_bin.any(axis=1))[0] 
+    # the first one is the highest row with non-zero pixels
+    upper = ind_row[0]
+    # crop the image rows
+    img_crop = img_bin[upper-20:upper+200,:]
+    # indices of non empty columns 
+    ind_col = np.nonzero(img_crop.any(axis=0))[0] 
+    # find left most and right most column
+    left = ind_col[0]
+    right = ind_col[-1]
+    # crop image columns
+    head = img[upper-20:upper+200,left:right,:]
+
+    return head

@@ -242,8 +242,8 @@ if __name__ == "__main__":
 
     
 
-    img_dir = "../images/raw_data/"
-    target_dir = "../images/test/"
+    img_dir = "C:/Users/Sophia/Documents/GitHub/asparagus/Blume/"
+    target_dir = "C:/Users/Sophia/Documents/GitHub/asparagus/Blume/clean/"
     target_dir_path = Path(target_dir)
     if not target_dir_path.is_dir():
         os.makedirs(target_dir_path)
