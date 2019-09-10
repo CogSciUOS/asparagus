@@ -253,6 +253,7 @@ class MainApp(QWidget):
                 if im.shape[1] > max_x:
                     max_x = im.shape[1]
 
+
             n_channels = imgs[0].shape[2]
             combined = np.zeros([max_y,max_x,n_channels],dtype=np.uint8)
 
@@ -323,7 +324,7 @@ class LabelingDialog(QWidget):
         self.idx_image = 0
         self.images = []
 
-        self.questions = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
+        self.questions = ["bruch","violett","blume","rost","krumm","keule"]
 
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
