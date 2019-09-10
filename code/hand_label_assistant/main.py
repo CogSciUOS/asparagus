@@ -206,7 +206,7 @@ class MainApp(QWidget):
         print(directory)
         self.files = []
         try:
-            self.rek_get_files(directory,".*\.bmp")#Traverse subdirectories & get all .bmp filepaths
+            self.rek_get_files(directory,".*\.png")#Traverse subdirectories & get all .bmp filepaths
         except:
             self.images = []
             self.idx_image = 0
@@ -214,7 +214,7 @@ class MainApp(QWidget):
         ids_to_files = {}
 
         for path in self.files:
-            match = re.search(".*/(.*)_[a-z]\.bmp",path)
+            match = re.search(".*/(.*)_[a-z]\.png",path)
             if match:#Get id using regex.
                 id = match.groups()[0]
                 try:#Create list as key of id_to_files if it doesn't exist already.
@@ -424,12 +424,12 @@ class LabelingDialog(QWidget):
         """
 
         self.files = []#All files in subtree
-        self.rek_get_files(directory,".*\.bmp")#Traverse subdirectories & get all .bmp filepaths
+        self.rek_get_files(directory,".*\.png")#Traverse subdirectories & get all .bmp filepaths
 
         ids_to_files = {}
 
         for path in self.files:
-            match = re.search(".*/(.*)_[a-z]\.bmp",path)
+            match = re.search(".*/(.*)_[a-z]\.png",path)
             if match:#Get id using regex.
                 id = match.groups()[0]
                 try:#Create list as key of id_to_files if it doesn't exist already.
@@ -489,7 +489,7 @@ class LabelingDialog(QWidget):
         try:
             msg = ""
             for img_path in self.images[self.idx_image]: # change to idx??
-                img_name = re.search(".*/(.*_[a-z]\.bmp)",img_path).groups()[0]
+                img_name = re.search(".*/(.*_[a-z]\.png)",img_path).groups()[0]
                 msg += " // " + img_name + " // "
             self.ui.asparagus_name.setText(msg)
         except Exception as e:
