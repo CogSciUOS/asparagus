@@ -1,5 +1,5 @@
 """
-This file contains functions for manually extracting certain properties from pre-processed asparagus 
+This file contains functions for manually extracting certain properties from pre-processed asparagus
 pieces and the utility functions that are needed.
 """
 
@@ -7,7 +7,7 @@ pieces and the utility functions that are needed.
 import cv2
 import matplotlib
 import numpy as np
-import scipy.stats as stats 
+import scipy.stats as stats
 import skimage.measure as measure
 from scipy.ndimage import label, find_objects
 from preprocessor import *
@@ -37,16 +37,16 @@ def get_horizontal_slices(img, k):
         img = the preprocessed image
         k = the number of slices
 
-    returns: 
+    returns:
         the slice_points (y-coordinates)
         an np array([a1, a2],[b1,b2] ... ) where a1,a2 = x-coordinates of asparagus outline
     """
     # find upper and lower bound of asparagus piece
     upper, lower = find_bounds(img)
     # evenly distribute the slices between the bounds, but start a little lower than the head
-    # and end a little earlier than the bottom 
+    # and end a little earlier than the bottom
     slice_points = np.floor(np.linspace(upper+100, lower-20, k))
-    # slice the image at the slice_points and return the left and right pixel 
+    # slice the image at the slice_points and return the left and right pixel
     def slice_img(img, sp):
         sp = int(sp)
         bin_img = binarize(img, 20)
@@ -54,11 +54,11 @@ def get_horizontal_slices(img, k):
         left = line[0][0]
         right = line[0][-1]
         return left, right
-    
+
     return slice_points, np.array([[left, right] for left, right in [slice_img(img, sp) for sp in slice_points]])
 
 def curvature_score(img):
-    """ Returns a score for the curvature of the aparagus piece. 
+    """ Returns a score for the curvature of the aparagus piece.
         A perfectly straight aspargus yields a score of 0
         Args:
             slices (np.array): from get_slices function
@@ -68,8 +68,7 @@ def curvature_score(img):
     """
     rows, horizontal_slices = get_horizontal_slices(img, 5)
     centers = np.mean(horizontal_slices, axis=1)
-    _, _, _, _, std_err = stats.linregress(rows, centers)
-    
+    std_err = stats.linregress(rows, centers)[-1]
     return std_err
 
 
@@ -80,7 +79,7 @@ def get_width(img, k):
         img: the image from which the width should be extracted
         k: number of rows in which the width should be extracted
 
-    Returns: 
+    Returns:
         min and max width of the k different rows (# of pixels)
     '''
     # rotate the image
@@ -94,38 +93,46 @@ def get_width(img, k):
 
 
 
-# TODO: 
-# - Return a meaningful value
-# - change input
-def get_violett(img, _max_set):
-    """Checks for violett parts in the picture.
-
-    Calculates a value of how violett part in ???
-
+def check_purple(img, threshold_purple=6, ignore_pale=0.3):
+    """ Checks if an asparagus piece is purple.
     Args:
-        filePath (string): Path to image
-
+        img:                A numpy array representing an RGB image where masked out pixels are black.
+        threshold_purple:   If the histogram of color-hues (0-100) has a peak below this threshold
+                            the piece is considered to be purple.
+        ignore_pale:        Don't consider pixels with a saturation value below ignore_pale
     Returns:
-        TODO: value: Description of return value
+        bool: A boolean that indicates wether the piece is purple or not.
+        list: A list representing the histogram of hues with 100 bins.
+    Examples:
+        >>> fig, ax = plt.subplots(2,1,figsize=(14,10))
+
+        >>> is_purple, hist_hue_purple = check_purple(image_of_purple_piece)
+        >>> print(is_purple)
+        >>> is_purple, hist_hue_white = check_purple(image_of_white_piece)
+        >>> print(is_purple)
+        >>> ax[0].plot(hist_hue_purple)
+        >>> ax[0].plot(hist_hue_white)
+        >>> ax[1].imshow([np.linspace(0, 1, 256)], aspect='auto', cmap=plt.get_cmap("hsv"))
     """
+    hsv = matplotlib.colors.rgb_to_hsv(img)
+    hue = hsv[:,:,0]
+    sat = hsv[:,:,1]
+    bins = np.linspace(0,1,101)
+
+    #Mask out black values:
+    mask = ~np.logical_and(np.logical_and(img[:,:,0]==0, img[:,:,1]==0),img[:,:,2]==0)
+    mask = np.logical_and(mask,sat>ignore_pale)
 
 
-    hue = matplotlib.colors.rgb_to_hsv(img)[:,:,0]
-    sat = matplotlib.colors.rgb_to_hsv(img)[:,:,1]
+    hist = np.histogram(hue[mask],bins=bins)[0]
 
-    mask = ~np.logical_and(np.logical_and(img[:,:,0] == 0, img[:,:,1] == 0), img[:,:,2] == 0) # sobald eins true ist ist alles true
-    
-    # TODO: discussible 
-    # set the pixel with low saturation to black
-    mask = np.logical_and(mask, sat > _max_set) 
+    peak = np.argmax(hist)
 
-    #TODO:
-    # calcualte return value ( what makes sense? #Pixel above threshold? hue and or satuation values above threshold?)
-    # some normalized value [0 1]? 
-    # or boolean?
-    return_value = 0
+    is_purple = False
+    if peak < threshold_purple:
+        is_purple = True
 
-    return return_value
+    return is_purple, hist
 
 def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), max_count=30000):
     """ Counts the number of pixels that might be rusty.
@@ -153,6 +160,5 @@ def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), 
     ax2.imshow(img)
     fig.suptitle("rust count = " + str(value))
     plt.show()
-    
-    return value
 
+    return value
