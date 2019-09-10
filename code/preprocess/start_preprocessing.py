@@ -9,7 +9,6 @@ import numpy as np
 import matplotlib
 from scipy.ndimage.morphology import binary_hit_or_miss
 from scipy.ndimage.measurements import center_of_mass
-import matplotlib.pyplot as plt
 from submit_script import*
 
 files = []
@@ -106,8 +105,7 @@ def preprocess(triple,outpath,file_id):
         im_with = image[:lowest,leftmost:rightmost]
         # remove background
         im_without = remove_background(im_with)
-        plt.imshow(im_without)
-        plt.show()
+
         # Shift coordinates such that center of gravity is in middle        
         y,x = np.array(center_of_mass(im_without[:,:,0]),dtype=np.int32)
         shift = x-width//2
@@ -119,8 +117,6 @@ def preprocess(triple,outpath,file_id):
         im_with = img_pad[:lowest,new_center-width//2:new_center+width//2]
         # remove background a second time because we shifted the window
         im_without = remove_background(im_with)
-        plt.imshow(im_without)
-        plt.show()
 
         # save both versions in the respective directory
         Image.fromarray(im_with).save(out_with)
