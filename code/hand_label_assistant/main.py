@@ -257,7 +257,6 @@ class MainApp(QWidget):
 
             n_channels = imgs[0].shape[2]
             combined = np.zeros([max_y,max_x,n_channels],dtype=np.uint8)
-
             y_offset = 0
             for im in imgs:
                 combined[y_offset:y_offset+im.shape[0],:im.shape[1],:] = im
@@ -268,8 +267,41 @@ class MainApp(QWidget):
             return
 
     def update_info(self):
-        """ Updates information about aspargus"""
-        self.ui.label_2.setText("Aspargus no. " + str(self.idx_image) )
+        try:
+            msg = ""
+            for img_path in self.images[self.idx_image]: # change to idx??
+                img_name = re.search(".*/(.*_[a-z]\.png)",img_path).groups()[0]
+                msg += " " + img_name + " "
+            self.ui.label_2.setText(msg)
+        except:
+            pass
+
+    def draw_asparagus(self):
+        """ Draws image of asparagus pieces from three perspectives"""
+        try:
+            imgs = []
+            max_y = 0
+            max_x = 0
+            for i, fname in enumerate(self.images[self.idx_image]):
+                im = imageio.imread(fname)
+                im = np.rot90(im).copy()
+                imgs.append(im)
+
+                max_y += im.shape[0]
+                if im.shape[1] > max_x:
+                    max_x = im.shape[1]
+
+
+            n_channels = imgs[0].shape[2]
+            combined = np.zeros([max_y,max_x,n_channels],dtype=np.uint8)
+            y_offset = 0
+            for im in imgs:
+                combined[y_offset:y_offset+im.shape[0],:im.shape[1],:] = im
+                y_offset += im.shape[0]
+
+            self.ui.label.update(combined)
+        except:
+            return
 
     def previous_image(self):
         """ Updates index to previous Aspargus"""
@@ -321,12 +353,12 @@ class LabelingDialog(QWidget):
         QWidget.__init__(self, widget_handled)
 
         self.outpath = None
-        self.labels = None#After loading a dictionary that contains key= index of asparagus to value=list of properties
+        self.labels = None#After loading a dLast image reachedictionary that contains key= index of asparagus to value=list of properties
 
         self.idx_image = 0
-        self.images = []
+        self.images = {}
 
-        self.questions = ["bruch","violett","blume","rost","krumm","keule"]
+        self.questions = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
 
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
@@ -431,17 +463,17 @@ class LabelingDialog(QWidget):
         ids_to_files = {}
 
         for path in self.files:
-            match = re.search(".*/(.*)_[a-z]\.png",path)
+            match = re.search(".*/([0-9]+)_[a-z]\.png",path)
             if match:#Get id using regex.
-                id = match.groups()[0]
+                id = int(match.groups()[0])
                 try:#Create list as key of id_to_files if it doesn't exist already.
                     ids_to_files[id]
                 except:
                     ids_to_files[id] = []
                 ids_to_files[id].append(path)#Append filename to list.
 
-        self.images = list(ids_to_files.values())
-        self.images.sort()
+        self.images = ids_to_files#list(ids_to_files.values())
+        #self.images.sort()
 
         self.idx_image = 0
         self.draw_asparagus()
@@ -449,9 +481,9 @@ class LabelingDialog(QWidget):
     def next_image(self):
         self.write_answers_to_file()
 
-        if self.idx_image + 1 >= len(self.images):
-            QMessageBox.about(self, "Attention", "Last image reached")
-            return
+        #if self.idx_image + 1 >= len(self.images):
+        #    QMessageBox.about(self, "Attention", "Last image reached")
+        #    return
 
         self.idx_image += 1
         self.draw_asparagus()
@@ -484,6 +516,8 @@ class LabelingDialog(QWidget):
                 y_offset += im.shape[0]
 
             self.ui.label.update(combined)
+        except KeyError:
+            QMessageBox.about(self, "Attention", "No images found for current index (" + str(self.idx_image) + ")")
         except Exception as e:
             print(e)
             return
@@ -495,9 +529,8 @@ class LabelingDialog(QWidget):
                 img_name = re.search(".*/(.*_[a-z]\.png)",img_path).groups()[0]
                 msg += " // " + img_name + " // "
             self.ui.asparagus_name.setText(msg)
-        except Exception as e:
-            print("Couldn't update aspargus name. No name for image idx")
-            print(e)
+        except:
+            pass
 
     def previous_image(self):
         if self.idx_image -1 < 0:
