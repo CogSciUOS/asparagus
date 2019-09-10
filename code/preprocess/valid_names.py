@@ -1,4 +1,6 @@
 from start_preprocessing import*
+import os.path
+import os
 def get_valid_triples(root):
     
     """ List the files from which all three images exist.
@@ -12,8 +14,7 @@ def get_valid_triples(root):
     # get the names of all files in the root directory and all subdirectories
     files = get_files(root,".bmp","before2019")
 
-    valid_triples = [] 
-    missing = []     
+    valid_triples = []
     # iterate over all file names
     for i,f in enumerate(files):
         triple = []
@@ -22,6 +23,7 @@ def get_valid_triples(root):
             # get second and third image (same prefix, but ends with F01 and F02)
             second_perspective = f[:-7]+"F01.bmp"
             third_perspective = f[:-7]+"F02.bmp"
+            #print("second"+second_perspective)
             # if those other two images exist append all to the valid_triples list
             if os.path.isfile(root+second_perspective) and os.path.isfile(root+third_perspective):
                 triple.append(root+f)
@@ -34,8 +36,7 @@ def get_valid_triples(root):
 
 if __name__ == "__main__":
     import csv
-    root = "C:/Users/Sophia/Documents/GitHub/asparagus/Rost/"
-    # root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
+    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
     valid = get_valid_triples(root)
     # safe list of valid names in a csv file
     # each row contains a triplet of file directories
@@ -44,10 +45,11 @@ if __name__ == "__main__":
         for i in valid:
             writer.writerow(i)
 
-    # use this to read the file back in
-    valids = []
-    with open(root+'valid_files.csv', 'r') as f:
-        reader = csv.reader(f)
-        # only read in the non empty lists
-        for row in filter(None, reader):
-            valids.append(row)
+    # # use this to read the file back in
+    # valids = []
+    # with open(root+'valid_files.csv', 'r') as f:
+
+    #     reader = csv.reader(f)
+    #     # only read in the non empty lists
+    #     for row in filter(None, reader):
+    #         valids.append(row)
