@@ -1,6 +1,30 @@
-from start_preprocessing import*
 import os.path
 import os
+import csv
+
+files = []
+def rek_get_files(path, name_contains, ignore, root=None):
+    for f in os.scandir(path):
+        if ignore in f.path:
+            continue
+        if f.is_dir():
+            print("Get all filenames in ... " + f.path)
+            rek_get_files(f.path+"/", name_contains, ignore, root)
+        else:
+            if name_contains in f.name:
+                if root == None:
+                     files.append(path+f.name)
+                else:
+                     files.append((path+f.name)[len(root):])
+
+def get_files(path, name_contains, ignore, use_full_path=False):
+    files.clear()
+    if use_full_path:
+        rek_get_files(path, name_contains, ignore)
+    else:
+        rek_get_files(path, name_contains, ignore, root=path)
+    return files
+
 def get_valid_triples(root):
     
     """ List the files from which all three images exist.
@@ -35,7 +59,6 @@ def get_valid_triples(root):
     return valid_triples
 
 if __name__ == "__main__":
-    import csv
     root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
     valid = get_valid_triples(root)
     # safe list of valid names in a csv file
@@ -45,11 +68,4 @@ if __name__ == "__main__":
         for i in valid:
             writer.writerow(i)
 
-    # # use this to read the file back in
-    # valids = []
-    # with open(root+'valid_files.csv', 'r') as f:
 
-    #     reader = csv.reader(f)
-    #     # only read in the non empty lists
-    #     for row in filter(None, reader):
-    #         valids.append(row)
