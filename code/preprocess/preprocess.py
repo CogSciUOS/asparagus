@@ -47,19 +47,21 @@ def preprocess(triple,outpath,file_id):
 
         #Shift coordinates such that center of gravity is in middle
         # this if-else is to fix the bug when running this on the grid - might delete if turns out wrong
-        if np.isnan(im[:,:,0]).any():
-            continue
-        else:
-            y,x = np.array(center_of_mass(im[:,:,0]), dtype=np.int32)
-            shift = x-width//2
-            x_center = x_center + shift
+        #if np.isnan(im[:,:,0]).any():
+        #    continue
+        #else:
+        c = center_of_mass(im[:,:,0])
+        c = np.nan_to_num(c)
+        y,x = np.array(c, dtype=np.int32)
+        shift = x-width//2
+        x_center = x_center + shift
 
-            im = np.array(original_img)
-            pad = (width//2)+1
-            im = np.pad(im,[[0,0],[pad,pad],[0,0]], 'constant')
-            x_center += pad
-            im = im[:lowest,x_center-width//2:x_center+width//2]#crop
-            im = remove_background(im)
+        im = np.array(original_img)
+        pad = (width//2)+1
+        im = np.pad(im,[[0,0],[pad,pad],[0,0]], 'constant')
+        x_center += pad
+        im = im[:lowest,x_center-width//2:x_center+width//2]#crop
+        im = remove_background(im)
 
 
         Image.fromarray(im).save(out)
