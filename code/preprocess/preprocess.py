@@ -22,9 +22,9 @@ def preprocess(triple,outpath,file_id):
         imgs.append(Image.open(fpath2))
         imgs.append(Image.open(fpath3))
         assert len(imgs) == 3
-        assert len(list(imgs[0].shape)) == 3
-        assert len(list(imgs[0].shape)) == 3
-        assert len(list(imgs[0].shape)) == 3
+        assert len(list(np.array(imgs[0]).shape)) == 3
+        assert len(list(np.array(imgs[1]).shape)) == 3
+        assert len(list(np.array(imgs[2]).shape)) == 3
     except Exception as e:
         print("Could not load all images correctly. Triple:")
         print(triple)
