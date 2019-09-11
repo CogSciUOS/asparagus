@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1425</width>
-    <height>980</height>
+    <width>1654</width>
+    <height>1107</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -96,7 +96,14 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="asparagus_no">
+              <widget class="QRadioButton" name="extractFeatures">
+               <property name="text">
+                <string>Extract Features</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="asparagus_number">
                <property name="minimumSize">
                 <size>
                  <width>80</width>
@@ -186,20 +193,20 @@
     <item>
      <widget class="QScrollArea" name="scrollArea">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="minimumSize">
        <size>
-        <width>200</width>
+        <width>400</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>300</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
@@ -211,8 +218,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>298</width>
-         <height>960</height>
+         <width>398</width>
+         <height>1087</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -226,7 +233,7 @@
             <widget class="ImageDisplay" name="color">
              <property name="minimumSize">
               <size>
-               <width>250</width>
+               <width>300</width>
                <height>150</height>
               </size>
              </property>
@@ -397,7 +404,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="usePredictedValueBlooming">
+            <widget class="QCheckBox" name="usePredictionBlooming">
              <property name="text">
               <string>Use predicted value</string>
              </property>
@@ -475,7 +482,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="usePredictedValueLength">
+            <widget class="QCheckBox" name="usePredictionLength">
              <property name="text">
               <string>Use predicted value</string>
              </property>
@@ -631,7 +638,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="usePredictedValueWidth">
+            <widget class="QCheckBox" name="usePredictionWidth">
              <property name="text">
               <string>Use predicted value</string>
              </property>
@@ -709,7 +716,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="usePredictedValueBended">
+            <widget class="QCheckBox" name="usePredictionBended">
              <property name="text">
               <string>Use predicted value</string>
              </property>

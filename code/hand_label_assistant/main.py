@@ -16,6 +16,10 @@ import pandas as pd
 import imageio
 
 import re
+from feature_extraction.feature_extraction import *
+from feature_extraction.color_plot import color_plot
+
+from collections import Counter
 
 class MainApp(QWidget):
     coordinates = pyqtSignal(QRect)
@@ -120,7 +124,7 @@ class MainApp(QWidget):
 	                            self.nodes_to_ui["is_krumm_dick"].setEnabled(True)
 	                        else:
 	                            self.nodes_to_ui["is_bended_medium"].setChecked(True)
-	                            self.nodes_to_ui["is_bended_medium"].setEnabled(True)
+	                            self.nodes_feature_extractionto_ui["is_bended_medium"].setEnabled(True)
 
 	                            if self.current_data["is_violet"]:
 	                                self.nodes_to_ui["is_bended_medium_violet"].setChecked(True)
@@ -341,15 +345,14 @@ class MainApp(QWidget):
         return self.widget_handled.eventFilter(source, event)#forward event
 
 class LabelingDialog(QWidget):
-    coordinates = pyqtSignal(QRect)
-
     def __init__(self, widget_handled, ui):
         """ Initializes LabelingDialog App
         Args:
             widget_handeled: Events for this widget are handeled by LabelingDialog to access arrow keys
             ui: User interface
         """
-
+        self.thread = LabelingDialog.Features(self)
+        self.extract_features = False
         self.ui = ui
         self.make_conncections()
         self.widget_handled = widget_handled #Widget for event Handling. All events are checked and if not arrow keys passed on. See eventFilter below
@@ -360,21 +363,93 @@ class LabelingDialog(QWidget):
 
         self.idx_image = 0
         self.images = {}
+        self.ui.color.set_gray_background()
 
-        self.questions = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
-        self.outfile_variables = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
+
+        headers_main_variables = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
+        headers_set_via_feature_extraction = ["auto_violet","auto_blooming","auto_length","auto_rust","auto_width","auto_bended"]
+        headers_additional_extracted_features = []
+
+        self.outfile_headers = []
+        self.outfile_headers.extend(headers_main_variables)
+        self.outfile_headers.extend(headers_set_via_feature_extraction)
+        self.outfile_headers.extend(headers_additional_extracted_features)
+
+        self.questions = headers_main_variables
+
+
+        self.feature_to_questions = { "width":["very_thick","thick","medium_thick","thin","very_thin"],
+                                 "blooming":["has_blume"],
+                                 "length":["is_bruch"],
+                                 "rust":["has_rost"],
+                                 "violet":["is_violet"],
+                                 "bended":["is_bended"]
+                                }
+        self.automatic = []
 
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
 
+
+    def use_feature_extraction_for(self, feature):
+        remove = self.feature_to_questions[feature]
+        for x in remove:
+            self.questions.remove(x)
+
+    def use_question_for(self, feature):
+        self.questions.extend(self.feature_to_questions[feature])
+
+
     def make_conncections(self):
         """ Establish connections between UI elements and functionalities"""
-        self.ui.asparagus_no.valueChanged.connect(lambda x: self.set_index(int(x)))
-
+        self.ui.asparagus_number.valueChanged.connect(lambda x: self.set_index(int(x)))
         self.ui.previous_question.clicked.connect(self.previous_question)
         self.ui.next_question.clicked.connect(self.next_question)
         self.ui.yes.clicked.connect(self.answer_yes)
         self.ui.no.clicked.connect(self.answer_no)
+
+        self.ui.usePredictionLength.stateChanged.connect(lambda x: self.use_feature_extraction_for("length") if x else self.use_question_for("length"))
+        self.ui.usePredictionBlooming.stateChanged.connect(lambda x: self.use_feature_extraction_for("blooming") if x else self.use_question_for("blooming"))
+        self.ui.usePredictionRust.stateChanged.connect(lambda x: self.use_feature_extraction_for("rust") if x else self.use_question_for("rust"))
+        self.ui.usePredictionWidth.stateChanged.connect(lambda x: self.use_feature_extraction_for("width") if x else self.use_question_for("width"))
+        self.ui.usePredictionBended.stateChanged.connect(lambda x: self.use_feature_extraction_for("bended") if x else self.use_question_for("bended"))
+        self.ui.usePredictionViolet.stateChanged.connect(lambda x: self.use_feature_extraction_for("violet") if x else self.use_question_for("violet"))
+
+        self.ui.extractFeatures.toggled.connect(self.toggle_feature_extraction)
+
+        self.thread.color_plot.connect(self.ui.color.update)
+
+        self.thread.predictionWidth.connect(self.ui.predictionWidth.setText)
+        self.thread.predictionBended.connect(self.ui.predictionBended.setText)
+        self.thread.predictionLength.connect(self.ui.predictionLength.setText)
+        self.thread.predictionViolet.connect(self.ui.predictionViolet.setText)
+        self.thread.predictionRust.connect(self.ui.predictionRust.setText)
+        self.thread.predictionBlooming.connect(self.ui.predictionBlooming.setText)
+
+        self.thread.predictionWidth_2.connect(self.ui.predictionWidth_2.setText)
+        self.thread.predictionBended_2.connect(self.ui.predictionBended_2.setText)
+        self.thread.predictionLength_2.connect(self.ui.predictionLength_2.setText)
+        self.thread.predictionViolet_2.connect(self.ui.predictionViolet_2.setText)
+        self.thread.predictionRust_2.connect(self.ui.predictionRust_2.setText)
+        self.thread.predictionBlooming_2.connect(self.ui.predictionBlooming_2.setText)
+
+        self.thread.predictionWidth_3.connect(self.ui.predictionWidth_3.setText)
+        self.thread.predictionBended_3.connect(self.ui.predictionBended_3.setText)
+        self.thread.predictionLength_3.connect(self.ui.predictionLength_3.setText)
+        self.thread.predictionViolet_3.connect(self.ui.predictionViolet_3.setText)
+        self.thread.predictionRust_3.connect(self.ui.predictionRust_3.setText)
+        self.thread.predictionBlooming_3.connect(self.ui.predictionBlooming_3.setText)
+
+        self.thread.overallPredictionWidth.connect(self.ui.overallPredictionWidth.setText)
+        self.thread.overallPredictionBended.connect(self.ui.overallPredictionBended.setText)
+        self.thread.overallPredictionLength.connect(self.ui.overallPredictionLength.setText)
+        self.thread.overallPredictionViolet.connect(self.ui.overallPredictionViolet.setText)
+        self.thread.overallPredictedValueRust.connect(self.ui.overallPredictedValueRust.setText)
+        self.thread.overallPredictionBlooming.connect(self.ui.overallPredictionBlooming.setText)
+
+    def toggle_feature_extraction(self):
+        self.extract_features = not self.extract_features
+        self.set_index(self.idx_image)
 
     def set_output_file(self, path):
         """ Sets output file
@@ -414,12 +489,12 @@ class LabelingDialog(QWidget):
         try:#Assure we have a line of data for the current index
             self.labels[self.idx_image]
         except KeyError:
-            self.labels[self.idx_image] = [None for x in range(len(self.questions))]
+            self.labels[self.idx_image] = [None for x in range(len(self.outfile_headers))]
         self.labels[self.idx_image][self.idx_question] = answer
 
     def write_answers_to_file(self):
         """ Writes answer to current question to file """
-        df = pd.DataFrame.from_dict(self.labels, orient = "index", columns=self.questions)
+        df = pd.DataFrame.from_dict(self.labels, orient = "index", columns=self.outfile_headers)
         df.to_csv(self.outpath,sep =";")
         return
 
@@ -471,24 +546,78 @@ class LabelingDialog(QWidget):
                 ids_to_files[id].append(path)#Append filename to list.
 
         self.images = ids_to_files#list(ids_to_files.values())
-        #self.images.sort()
-
         self.idx_image = 0
         self.draw_asparagus()
 
     def next_image(self):
         self.write_answers_to_file()
+        self.set_index(self.idx_image+1)
 
-        #if self.idx_image + 1 >= len(self.images):
-        #    QMessageBox.about(self, "Attention", "Last image reached")
-        #    return
 
-        self.idx_image += 1
-        self.draw_asparagus()
-        self.update_info()
-        self.ui.asparagus_no.blockSignals(True)
-        self.ui.asparagus_no.setValue(self.idx_image)
-        self.ui.asparagus_no.blockSignals(False)
+    class Features(QThread):
+        color_plot = pyqtSignal(np.ndarray)
+        predictionWidth = pyqtSignal(str)
+        predictionBended = pyqtSignal(str)
+        predictionLength = pyqtSignal(str)
+        predictionViolet = pyqtSignal(str)
+        predictionRust = pyqtSignal(str)
+        predictionBlooming = pyqtSignal(str)
+
+        predictionWidth_2 = pyqtSignal(str)
+        predictionBended_2 = pyqtSignal(str)
+        predictionLength_2 = pyqtSignal(str)
+        predictionViolet_2 = pyqtSignal(str)
+        predictionRust_2 = pyqtSignal(str)
+        predictionBlooming_2 = pyqtSignal(str)
+
+        predictionWidth_3 = pyqtSignal(str)
+        predictionBended_3 = pyqtSignal(str)
+        predictionLength_3 = pyqtSignal(str)
+        predictionViolet_3 = pyqtSignal(str)
+        predictionRust_3 = pyqtSignal(str)
+        predictionBlooming_3 = pyqtSignal(str)
+
+        overallPredictionWidth = pyqtSignal(str)
+        overallPredictionBended = pyqtSignal(str)
+        overallPredictionLength = pyqtSignal(str)
+
+        overallPredictionViolet = pyqtSignal(str)
+        overallPredictedValueRust = pyqtSignal(str)
+        overallPredictionBlooming = pyqtSignal(str)
+
+        def __init__(self, outer):
+            super().__init__()
+            self.outer = outer
+            #self.color_plot.connect(self.outer.ui.color.update)
+
+        def run(self):
+            try:
+                imgs = [np.array(imageio.imread(fname)) for fname in self.outer.images[self.outer.idx_image]]
+                self.color_plot.emit(color_plot(imgs))
+            except:
+                return#No images loaded
+
+            try:
+                p = [estimate_width(np.rot90(x)) for x in imgs]
+                self.predictionWidth.emit(str(int(p[0][1])))#Numerical widthprint('% 6.2f' % v)
+                self.predictionWidth_2.emit(str(int(p[1][1])))
+                self.predictionWidth_3.emit(str(int(p[2][1])))
+                most_common = Counter(np.array(p)[:,0]).most_common(1)[0][0]
+                self.overallPredictionWidth.emit(most_common)
+
+                self.outer.current_data[self.outer.outfile_headers.index("auto_width")] = most_common
+
+            except Exception as e:
+                print(e)
+
+            try:
+                p = [estimate_bended(np.rot90(x),1) for x in imgs]
+                self.predictionBended.emit('{:3.3}'.format(p[0][1]))
+                self.predictionBended_2.emit('{:3.3}'.format(p[1][1]))
+                self.predictionBended_3.emit('{:3.3}'.format(p[2][1]))
+            except Exception as e:
+                print(e)
+
 
     def draw_asparagus(self):
         """ Draws image of asparagus pieces from three perspectives"""
@@ -525,28 +654,27 @@ class LabelingDialog(QWidget):
             msg = ""
             for img_path in self.images[self.idx_image]: # change to idx??
                 img_name = re.search(".*/(.*_[a-z]\.png)",img_path).groups()[0]
-                msg += " // " + img_name + " // "
+                msg += " | " + img_name + " | "
             self.ui.asparagus_name.setText(msg)
         except:
             pass
 
     def previous_image(self):
-        if self.idx_image -1 < 0:
-            QMessageBox.about(self, "Attention", "First image reached")
-            return
-        self.idx_image -= 1
-        self.draw_asparagus()
-        self.update_info()
-        self.ui.asparagus_no.blockSignals(True)
-        self.ui.asparagus_no.setValue(self.idx_image)
-        self.ui.asparagus_no.blockSignals(False)
+        self.set_index(self.idx_image-1)
+
 
     def set_index(self,idx):
         self.idx_image = idx
         self.draw_asparagus()
         self.update_info()
-        self.idx_question = 0
-        self.ui.question.setText(self.questions[self.idx_question])
+
+        self.ui.asparagus_number.blockSignals(True)
+        self.ui.asparagus_number.setValue(self.idx_image)
+        self.ui.asparagus_number.blockSignals(False)
+
+        if self.extract_features:
+            self.thread.start()
+
 
     def eventFilter(self, source, event):
         if event.type() == QtCore.QEvent.KeyRelease:
@@ -652,6 +780,7 @@ class HandLabelAssistant():
     def open_labeling_dialog(self):
         if(type(self.labeling_app.labels) == type(None)):
             QMessageBox.about(self.main_app,"Attention", "Specify outputfile first!")
+            self.label_window.show()
         else:
              self.label_window.show()
 
