@@ -362,6 +362,7 @@ class LabelingDialog(QWidget):
         self.images = {}
 
         self.questions = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
+        self.outfile_variables = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
 
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
@@ -420,12 +421,6 @@ class LabelingDialog(QWidget):
         """ Writes answer to current question to file """
         df = pd.DataFrame.from_dict(self.labels, orient = "index", columns=self.questions)
         df.to_csv(self.outpath,sep =";")
-        #self.outpath
-        #if self.idx_image
-
-        #self.label_array[self.idx_image,self.idx_question] = answer
-
-        #pd.DataFrame(self.label_array, columns =self.questions).to_csv(self.outpath,sep =";")
         return
 
     def previous_question(self):
