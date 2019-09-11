@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'main_ui.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Asparator(object):
     def setupUi(self, Asparator):
@@ -334,9 +336,14 @@ class Ui_Asparator(object):
         self.actionClose_3.setObjectName("actionClose_3")
         self.actionLoad_label_file = QtWidgets.QAction(Asparator)
         self.actionLoad_label_file.setObjectName("actionLoad_label_file")
+        self.actionCreate_new_label_file = QtWidgets.QAction(Asparator)
+        self.actionCreate_new_label_file.setObjectName("actionCreate_new_label_file")
         self.menuFile.addAction(self.actionOpen_file_directory)
-        self.menuFile.addAction(self.actionOpen_labeling_dialog)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionCreate_new_label_file)
         self.menuFile.addAction(self.actionLoad_label_file)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionOpen_labeling_dialog)
         self.menuFile.addAction(self.actionClose_3)
         self.menuBar.addAction(self.menuFile.menuAction())
 
@@ -399,5 +406,5 @@ class Ui_Asparator(object):
         self.actionOpen_labeling_dialog.setText(_translate("Asparator", "Open labeling dialog"))
         self.actionClose_3.setText(_translate("Asparator", "Close"))
         self.actionLoad_label_file.setText(_translate("Asparator", "Load label file"))
-
+        self.actionCreate_new_label_file.setText(_translate("Asparator", "Create new label file"))
 from imagedisplay import ImageDisplay
