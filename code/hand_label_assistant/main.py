@@ -75,92 +75,95 @@ class MainApp(QWidget):
                     self.current_data[paraphrase] = False
         except KeyError:
             return#no info for aspargus piece
+        try:
+	        if self.current_data["is_bruch"]:
+	            self.nodes_to_ui["is_bruch"].setChecked(True)
+	            self.nodes_to_ui["is_bruch"].setEnabled(True)
+	        else:
+	            self.nodes_to_ui["is_not_bruch"].setChecked(True)
+	            self.nodes_to_ui["is_not_bruch"].setEnabled(True)
 
-        if self.current_data["is_bruch"]:
-            self.nodes_to_ui["is_bruch"].setChecked(True)
-            self.nodes_to_ui["is_bruch"].setEnabled(True)
-        else:
-            self.nodes_to_ui["is_not_bruch"].setChecked(True)
-            self.nodes_to_ui["is_not_bruch"].setEnabled(True)
+	            if self.current_data["has_blume"]:
+	                self.nodes_to_ui["has_blume"].setChecked(True)
+	                self.nodes_to_ui["has_blume"].setEnabled(True)
 
-            if self.current_data["has_blume"]:
-                self.nodes_to_ui["has_blume"].setChecked(True)
-                self.nodes_to_ui["has_blume"].setEnabled(True)
+	                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
+	                    self.nodes_to_ui["is_blume_dick"].setChecked(True)
+	                    self.nodes_to_ui["is_blume_dick"].setEnabled(True)
+	                else:
+	                    self.nodes_to_ui["is_blume_duenn"].setChecked(True)
+	                    self.nodes_to_ui["is_blume_duenn"].setEnabled(True)
 
-                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-                    self.nodes_to_ui["is_blume_dick"].setChecked(True)
-                    self.nodes_to_ui["is_blume_dick"].setEnabled(True)
-                else:
-                    self.nodes_to_ui["is_blume_duenn"].setChecked(True)
-                    self.nodes_to_ui["is_blume_duenn"].setEnabled(True)
+	            else:
+	                self.nodes_to_ui["has_no_blume"].setChecked(True)
+	                self.nodes_to_ui["has_no_blume"].setEnabled(True)
 
-            else:
-                self.nodes_to_ui["has_no_blume"].setChecked(True)
-                self.nodes_to_ui["has_no_blume"].setEnabled(True)
+	                if self.current_data["has_rost"]:
+	                    self.nodes_to_ui["has_rost"].setChecked(True)
+	                    self.nodes_to_ui["has_rost"].setEnabled(True)
 
-                if self.current_data["has_rost"]:
-                    self.nodes_to_ui["has_rost"].setChecked(True)
-                    self.nodes_to_ui["has_rost"].setEnabled(True)
+	                    if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
+	                        self.nodes_to_ui["is_rost_dick"].setChecked(True)
+	                        self.nodes_to_ui["is_rost_dick"].setEnabled(True)
+	                    else:
+	                        self.nodes_to_ui["is_rost_duenn"].setChecked(True)
+	                        self.nodes_to_ui["is_rost_duenn"].setEnabled(True)
+	                else:
+	                    self.nodes_to_ui["has_no_rost"].setChecked(True)
+	                    self.nodes_to_ui["has_no_rost"].setEnabled(True)
 
-                    if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-                        self.nodes_to_ui["is_rost_dick"].setChecked(True)
-                        self.nodes_to_ui["is_rost_dick"].setEnabled(True)
-                    else:
-                        self.nodes_to_ui["is_rost_duenn"].setChecked(True)
-                        self.nodes_to_ui["is_rost_duenn"].setEnabled(True)
-                else:
-                    self.nodes_to_ui["has_no_rost"].setChecked(True)
-                    self.nodes_to_ui["has_no_rost"].setEnabled(True)
+	                    if self.current_data["is_bended"]:
+	                        self.nodes_to_ui["is_bended"].setChecked(True)
+	                        self.nodes_to_ui["is_bended"].setEnabled(True)
+	                        if self.current_data["very_thick"]:#>26mm
+	                            self.nodes_to_ui["is_krumm_dick"].setChecked(True)
+	                            self.nodes_to_ui["is_krumm_dick"].setEnabled(True)
+	                        else:
+	                            self.nodes_to_ui["is_bended_medium"].setChecked(True)
+	                            self.nodes_to_ui["is_bended_medium"].setEnabled(True)
 
-                    if self.current_data["is_bended"]:
-                        self.nodes_to_ui["is_bended"].setChecked(True)
-                        self.nodes_to_ui["is_bended"].setEnabled(True)
-                        if self.current_data["very_thick"]:#>26mm
-                            self.nodes_to_ui["is_krumm_dick"].setChecked(True)
-                            self.nodes_to_ui["is_krumm_dick"].setEnabled(True)
-                        else:
-                            self.nodes_to_ui["is_bended_medium"].setChecked(True)
-                            self.nodes_to_ui["is_bended_medium"].setEnabled(True)
+	                            if self.current_data["is_violet"]:
+	                                self.nodes_to_ui["is_bended_medium_violet"].setChecked(True)
+	                                self.nodes_to_ui["is_bended_medium_violet"].setEnabled(True)
+	                            else:
+	                                self.nodes_to_ui["is_bended_medium_non_violet"].setChecked(True)
+	                                self.nodes_to_ui["is_bended_medium_non_violet"].setEnabled(True)
+	                    else:
+	                        self.nodes_to_ui["is_not_bended"].setChecked(True)
+	                        self.nodes_to_ui["is_not_bended"].setEnabled(True)
+	                        if self.current_data["is_violet"]:
+	                                self.nodes_to_ui["is_not_bended_violet"].setChecked(True)
+	                                self.nodes_to_ui["is_not_bended_violet"].setEnabled(True)
 
-                            if self.current_data["is_violet"]:
-                                self.nodes_to_ui["is_bended_medium_violet"].setChecked(True)
-                                self.nodes_to_ui["is_bended_medium_violet"].setEnabled(True)
-                            else:
-                                self.nodes_to_ui["is_bended_medium_non_violet"].setChecked(True)
-                                self.nodes_to_ui["is_bended_medium_non_violet"].setEnabled(True)
-                    else:
-                        self.nodes_to_ui["is_not_bended"].setChecked(True)
-                        self.nodes_to_ui["is_not_bended"].setEnabled(True)
-                        if self.current_data["is_violet"]:
-                                self.nodes_to_ui["is_not_bended_violet"].setChecked(True)
-                                self.nodes_to_ui["is_not_bended_violet"].setEnabled(True)
+	                                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
+	                                    self.nodes_to_ui["is_violet_dick"].setChecked(True)
+	                                    self.nodes_to_ui["is_violet_dick"].setEnabled(True)
+	                                else:
+	                                    self.nodes_to_ui["is_violet_duenn"].setChecked(True)
+	                                    self.nodes_to_ui["is_violet_duenn"].setEnabled(True)
+	                        else:
+	                                self.nodes_to_ui["is_not_bended_non_violet"].setChecked(True)
+	                                self.nodes_to_ui["is_not_bended_non_violet"].setEnabled(True)
+	                                if self.current_data["very_thick"]:
+	                                    self.nodes_to_ui["is_dicke"].setChecked(True)
+	                                    self.nodes_to_ui["is_dicke"].setEnabled(True)
+	                                elif self.current_data["thick"]:
+	                                    self.nodes_to_ui["is_anna"].setChecked(True)
+	                                    self.nodes_to_ui["is_anna"].setEnabled(True)
+	                                elif self.current_data["medium_thick"]:
+	                                    self.nodes_to_ui["is_bona"].setChecked(True)
+	                                    self.nodes_to_ui["is_bona"].setEnabled(True)
+	                                elif self.current_data["thin"]:
+	                                    self.nodes_to_ui["is_clara"].setChecked(True)
+	                                    self.nodes_to_ui["is_clara"].setEnabled(True)
+	                                elif self.current_data["very_thin"]:
+	                                    self.nodes_to_ui["is_suppe"].setChecked(True)
+	                                    self.nodes_to_ui["is_suppe"].setEnabled(True)
+	                                else:
+	                                    print("Missing thickness value!!!")
+        except:
+            print("Invalid file!!!")
 
-                                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-                                    self.nodes_to_ui["is_violet_dick"].setChecked(True)
-                                    self.nodes_to_ui["is_violet_dick"].setEnabled(True)
-                                else:
-                                    self.nodes_to_ui["is_violet_duenn"].setChecked(True)
-                                    self.nodes_to_ui["is_violet_duenn"].setEnabled(True)
-                        else:
-                                self.nodes_to_ui["is_not_bended_non_violet"].setChecked(True)
-                                self.nodes_to_ui["is_not_bended_non_violet"].setEnabled(True)
-                                if self.current_data["very_thick"]:
-                                    self.nodes_to_ui["is_dicke"].setChecked(True)
-                                    self.nodes_to_ui["is_dicke"].setEnabled(True)
-                                elif self.current_data["thick"]:
-                                    self.nodes_to_ui["is_anna"].setChecked(True)
-                                    self.nodes_to_ui["is_anna"].setEnabled(True)
-                                elif self.current_data["medium_thick"]:
-                                    self.nodes_to_ui["is_bona"].setChecked(True)
-                                    self.nodes_to_ui["is_bona"].setEnabled(True)
-                                elif self.current_data["thin"]:
-                                    self.nodes_to_ui["is_clara"].setChecked(True)
-                                    self.nodes_to_ui["is_clara"].setEnabled(True)
-                                elif self.current_data["very_thin"]:
-                                    self.nodes_to_ui["is_suppe"].setChecked(True)
-                                    self.nodes_to_ui["is_suppe"].setEnabled(True)
-                                else:
-                                    print("Missing thickness value!!!")
 
     def make_connections(self):
         """ Establishes connections between user interface elements and functionalities"""

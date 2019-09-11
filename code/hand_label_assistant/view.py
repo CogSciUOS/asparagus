@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'main_ui.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Asparator(object):
     def setupUi(self, Asparator):
@@ -405,5 +407,4 @@ class Ui_Asparator(object):
         self.actionClose_3.setText(_translate("Asparator", "Close"))
         self.actionLoad_label_file.setText(_translate("Asparator", "Load label file"))
         self.actionCreate_new_label_file.setText(_translate("Asparator", "Create new label file"))
-
 from imagedisplay import ImageDisplay
