@@ -306,7 +306,7 @@ class MainApp(QWidget):
                 combined[y_offset:y_offset+im.shape[0],:im.shape[1],:] = im
                 y_offset += im.shape[0]
 
-            self.ui.label.update(combined)
+            self.ui.label.update(np.rot90(combined))
         except:
             return
 
@@ -366,8 +366,8 @@ class LabelingDialog(QWidget):
         self.ui.color.set_gray_background()
 
 
-        headers_main_variables = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
-        headers_set_via_feature_extraction = ["auto_violet","auto_blooming","auto_length","auto_rust","auto_width","auto_bended"]
+        headers_main_variables = ["is_bruch","is_hollow","has_blume","has_rost_head","has_rost_body","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin","unclassified"]
+        headers_set_via_feature_extraction = ["auto_violet","auto_blooming","auto_length","auto_rust_head","auto_rust_body","auto_width","auto_bended"]
         headers_additional_extracted_features = []
 
         self.outfile_headers = []
@@ -375,13 +375,13 @@ class LabelingDialog(QWidget):
         self.outfile_headers.extend(headers_set_via_feature_extraction)
         self.outfile_headers.extend(headers_additional_extracted_features)
 
-        self.questions = headers_main_variables
+        self.questions = headers_main_variables[:-1]
 
 
         self.feature_to_questions = { "width":["very_thick","thick","medium_thick","thin","very_thin"],
                                  "blooming":["has_blume"],
                                  "length":["is_bruch"],
-                                 "rust":["has_rost"],
+                                 "rust":["has_rost_head","has_rost_body"],
                                  "violet":["is_violet"],
                                  "bended":["is_bended"]
                                 }
