@@ -50,5 +50,5 @@ class ImageDisplay(QLabel):
         image = QImage(frame.data, width, height, bytesPerLine, QImage.Format_RGB888)
         self.pixmap = QPixmap(image)
         size = self.size()
-        scaledPix = self.pixmap.scaled(size, Qt.KeepAspectRatio, transformMode = Qt.FastTransformation)
+        scaledPix = self.pixmap.scaled(size, Qt.KeepAspectRatio, transformMode = Qt.SmoothTransformation)
         self.setPixmap(scaledPix)

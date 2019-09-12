@@ -622,12 +622,14 @@ class LabelingDialog(QWidget):
                 idx_image = self.outer.idx_image#At creation time
             except KeyError:
                 #If there are no images for the index for whatever reason. Just dont do anything.
+                self.outer.ui.asparagus_number.setEnabled(True)
                 return
 
             try:
                 self.color_plot.emit(color_plot(imgs))
             except:
-                return 
+                self.outer.ui.asparagus_number.setEnabled(True)
+                return
 
             try:
                 p = [estimate_width(np.rot90(x)) for x in imgs]
@@ -652,6 +654,7 @@ class LabelingDialog(QWidget):
                 print(e)
 
             #ADD YOUR CODE HERE
+            self.outer.ui.asparagus_number.setEnabled(True)
 
 
     def draw_asparagus(self):
@@ -699,6 +702,8 @@ class LabelingDialog(QWidget):
 
 
     def set_index(self,idx):
+        if(self.thread.isRunning()):
+            return
         self.idx_image = idx
         self.draw_asparagus()
         self.update_info()
@@ -713,6 +718,7 @@ class LabelingDialog(QWidget):
 
 
         if self.extract_features:
+            self.ui.asparagus_number.setEnabled(False)
             self.thread.start()
 
 
