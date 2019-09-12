@@ -20,6 +20,8 @@ pytest = "*"
 pyqt5 = "*"
 imageio = "*"
 pandas = "*"
+cv2 = "*"
+opencv = "*"
 
 [requires]
 python_version = "3.7"
