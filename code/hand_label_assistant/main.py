@@ -627,7 +627,7 @@ class LabelingDialog(QWidget):
             try:
                 self.color_plot.emit(color_plot(imgs))
             except:
-                return#No images loaded
+                return 
 
             try:
                 p = [estimate_width(np.rot90(x)) for x in imgs]
@@ -636,20 +636,22 @@ class LabelingDialog(QWidget):
                 self.predictionWidth_3.emit(str(int(p[2][1])))
                 most_common = Counter(np.array(p)[:,0]).most_common(1)[0][0]
                 self.overallPredictionWidth.emit(most_common)
-
-                #self.outer.labels[self.outer.idx_image][self.outer.outfile_headers.index("auto_width")] = most_common
                 self.outer.set_value_for_label(most_common, "auto_width",idx_image)
-
             except Exception as e:
                 print(e)
 
             try:
-                p = [estimate_bended(x,1) for x in imgs]
-                self.predictionBended.emit('{:10.10}'.format(p[0][1]))
-                self.predictionBended_2.emit('{:10.10}'.format(p[1][1]))
-                self.predictionBended_3.emit('{:10.10}'.format(p[2][1]))
+                p = [estimate_bended(x,threshold = 120) for x in imgs]
+                self.predictionBended.emit(str(int(p[0][1])))#'{:10.1}'.format(p[0][1]))
+                self.predictionBended_2.emit(str(int(p[1][1])))#'{:10.1}'.format(p[1][1]))
+                self.predictionBended_3.emit(str(int(p[2][1])))#'{:10.1}'.format(p[2][1]))
+                is_bended = np.sum(np.array(p)[:,0])>1#If at least one image shows it's bended
+                self.overallPredictionBended.emit(str(is_bended))
+                self.outer.set_value_for_label(is_bended, "auto_bended",idx_image)
             except Exception as e:
                 print(e)
+
+            #ADD YOUR CODE HERE
 
 
     def draw_asparagus(self):
