@@ -52,7 +52,7 @@ def get_length(img):
     # TODO: Umrechnungsfaktor von Pixel zu mm
     return length/4.2
 
-def get_horizontal_slices(img, k):
+def get_horizontal_slices(img, k,discard_upper=100, discard_lower=20):
     """
     Calculates the x-coordinates of the outline of the asparagus pieces, measured at k evenly
     spaced horizontal slicing points.
@@ -65,9 +65,9 @@ def get_horizontal_slices(img, k):
     """
     # find upper and lower bound of asparagus piece
     upper, lower = find_bounds(img)
-    # evenly distribute the slices between the bounds, but    print(hsv.shape) start a little lower than the head
+    # evenly distribute the slices between the bounds, but start a little lower than the head
     # and end a little earlier than the bottom
-    slice_points = np.floor(np.linspace(upper+100, lower-20, k))
+    slice_points = np.floor(np.linspace(upper+discard_upper, lower-discard_lower, k))
     # slice the image at the slice_points and return the left and right pixel
     def slice_img(img, sp):
         sp = int(sp)
@@ -78,15 +78,7 @@ def get_horizontal_slices(img, k):
         return left, right
 
     return slice_points, np.array([[left, right] for left, right in [slice_img(img, sp) for sp in slice_points]])
-def estimate_bended(img, threshold, k = 10):
-    curvature = curvature_score(img, k)
-    if(curvature>threshold):
-        return True, curvature
-    else:
-        return False, curvature
 
-def estimate_purple(img, threshold_purple=6, ignore_pale=0.3):
-    return is_purple(img, threshold_purple, ignore_pale)
 def curvature_score(img, k):
     """ Returns a score for the curvature of the aparagus piece.
         A perfectly straight aspargus yields a score of 0
@@ -96,10 +88,12 @@ def curvature_score(img, k):
         Returns:
             std_err (float): standard error of linear regression through the slices
     """
-    rows, horizontal_slices = get_horizontal_slices(img, k)
+    rows, horizontal_slices = get_horizontal_slices(img, k, 200,200)
     centers = np.mean(horizontal_slices, axis=1)
-    std_err = stats.linregress(rows, centers)[-1]
-    return std_err
+
+    #print([list(rows),list(centers)])
+    score = (stats.linregress((rows,centers))[-1]*1000)**2#std_err
+    return score
 
 
 

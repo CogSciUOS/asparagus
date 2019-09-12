@@ -387,6 +387,8 @@ class LabelingDialog(QWidget):
         self.automatic = []
 
         self.idx_question = 0
+        self.ui.question.setText(self.questions[self.idx_question])
+        self.update_info()
 
     def not_classifiable(self):
         try:
@@ -643,9 +645,9 @@ class LabelingDialog(QWidget):
 
             try:
                 p = [estimate_bended(x,1) for x in imgs]
-                self.predictionBended.emit('{:3.3}'.format(p[0][1]))
-                self.predictionBended_2.emit('{:3.3}'.format(p[1][1]))
-                self.predictionBended_3.emit('{:3.3}'.format(p[2][1]))
+                self.predictionBended.emit('{:10.10}'.format(p[0][1]))
+                self.predictionBended_2.emit('{:10.10}'.format(p[1][1]))
+                self.predictionBended_3.emit('{:10.10}'.format(p[2][1]))
             except Exception as e:
                 print(e)
 
@@ -699,9 +701,14 @@ class LabelingDialog(QWidget):
         self.draw_asparagus()
         self.update_info()
 
+
         self.ui.asparagus_number.blockSignals(True)
         self.ui.asparagus_number.setValue(self.idx_image)
         self.ui.asparagus_number.blockSignals(False)
+
+        self.idx_question = 0
+        self.ui.question.setText(self.questions[self.idx_question])
+
 
         if self.extract_features:
             self.thread.start()
