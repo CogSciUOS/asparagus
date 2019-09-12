@@ -2,18 +2,16 @@
 
 # Form implementation generated from reading ui file 'label_dialog.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_LabelDialog(object):
     def setupUi(self, LabelDialog):
         LabelDialog.setObjectName("LabelDialog")
-        LabelDialog.resize(1654, 1107)
+        LabelDialog.resize(1368, 515)
         self.centralwidget = QtWidgets.QWidget(LabelDialog)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -111,12 +109,12 @@ class Ui_LabelDialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
         self.scrollArea.setSizePolicy(sizePolicy)
-        self.scrollArea.setMinimumSize(QtCore.QSize(400, 0))
+        self.scrollArea.setMinimumSize(QtCore.QSize(100, 0))
         self.scrollArea.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 398, 1087))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 334, 830))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
@@ -424,7 +422,7 @@ class Ui_LabelDialog(object):
         _translate = QtCore.QCoreApplication.translate
         LabelDialog.setWindowTitle(_translate("LabelDialog", "Hand Label Assistant"))
         self.extractFeatures.setText(_translate("LabelDialog", "Extract Features"))
-        self.resetCurrentAsparagus.setText(_translate("LabelDialog", "Reset current asparagus"))
+        self.resetCurrentAsparagus.setText(_translate("LabelDialog", "Not classifiable"))
         self.previous_question.setText(_translate("LabelDialog", "<<"))
         self.next_question.setText(_translate("LabelDialog", ">>"))
         self.yes.setText(_translate("LabelDialog", "Yes"))
@@ -441,4 +439,5 @@ class Ui_LabelDialog(object):
         self.usePredictionWidth.setText(_translate("LabelDialog", "Use predicted value"))
         self.groupBoxBended.setTitle(_translate("LabelDialog", "Bended"))
         self.usePredictionBended.setText(_translate("LabelDialog", "Use predicted value"))
+
 from imagedisplay import ImageDisplay

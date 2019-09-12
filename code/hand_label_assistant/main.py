@@ -390,6 +390,8 @@ class LabelingDialog(QWidget):
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
 
+    def not_classifiable(self):
+        self.current_data[self.headers_main_variables.index("unclassified")] = 1
 
     def use_feature_extraction_for(self, feature):
         remove = self.feature_to_questions[feature]
@@ -407,6 +409,7 @@ class LabelingDialog(QWidget):
         self.ui.next_question.clicked.connect(self.next_question)
         self.ui.yes.clicked.connect(self.answer_yes)
         self.ui.no.clicked.connect(self.answer_no)
+        self.ui.notClassifiable.clicked.connect(self.not_classifiable) 
 
         self.ui.usePredictionLength.stateChanged.connect(lambda x: self.use_feature_extraction_for("length") if x else self.use_question_for("length"))
         self.ui.usePredictionBlooming.stateChanged.connect(lambda x: self.use_feature_extraction_for("blooming") if x else self.use_question_for("blooming"))

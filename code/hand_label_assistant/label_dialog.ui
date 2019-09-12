@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1654</width>
-    <height>1107</height>
+    <width>1368</width>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,7 +137,7 @@
              <item>
               <widget class="QPushButton" name="resetCurrentAsparagus">
                <property name="text">
-                <string>Reset current asparagus</string>
+                <string>Not classifiable</string>
                </property>
               </widget>
              </item>
@@ -200,7 +200,7 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>400</width>
+        <width>100</width>
         <height>0</height>
        </size>
       </property>
@@ -218,8 +218,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>398</width>
-         <height>1087</height>
+         <width>334</width>
+         <height>830</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_10">
