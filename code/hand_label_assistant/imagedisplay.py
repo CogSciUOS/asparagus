@@ -24,7 +24,7 @@ class ImageDisplay(QLabel):
         self.setStyleSheet("background-color: rgb(255,255,255); margin:0px; border:0px solid rgb(0, 255, 0); ")
 
     def set_gray_background(self):
-        self.setStyleSheet("background-color: rgb(239,240,242); margin:0px; border:0px solid rgb(0, 255, 0); ")
+        self.setStyleSheet("background-color: rgb(236,232,228); margin:0px; border:0px solid rgb(0, 255, 0); ")
 
     def resizeEvent(self, event):
         """ Rescales the Pixmap that contains the image when QLabel changes size

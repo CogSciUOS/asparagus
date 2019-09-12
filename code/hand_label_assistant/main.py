@@ -615,8 +615,12 @@ class LabelingDialog(QWidget):
 
 
         def run(self):
-            imgs = [np.array(imageio.imread(fname)) for fname in self.outer.images[self.outer.idx_image]]
-            idx_image = self.outer.idx_image#At creation time
+            try:
+                imgs = [np.array(imageio.imread(fname)) for fname in self.outer.images[self.outer.idx_image]]
+                idx_image = self.outer.idx_image#At creation time
+            except KeyError:
+                #If there are no images for the index for whatever reason. Just dont do anything.
+                return
 
             try:
                 self.color_plot.emit(color_plot(imgs))
