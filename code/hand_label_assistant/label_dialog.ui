@@ -135,7 +135,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="resetCurrentAsparagus">
+              <widget class="QPushButton" name="notClassifiable">
                <property name="text">
                 <string>Not classifiable</string>
                </property>
@@ -218,8 +218,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>334</width>
-         <height>830</height>
+         <width>344</width>
+         <height>960</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_10">
