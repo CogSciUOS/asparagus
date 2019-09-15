@@ -10,7 +10,32 @@ import numpy as np
 import scipy.stats as stats
 import skimage.measure as measure
 from scipy.ndimage import label, find_objects
-from utils import *
+from feature_extraction.utils import *
+
+
+def estimate_bended(img, threshold, k = 10):
+    curvature = curvature_score(img, k)
+    if(curvature>threshold):
+        return True, curvature
+    else:
+        return False, curvature
+
+def estimate_width(img, low_high=[[0,8],[8,15],[15,20],[20,25],[25,30]]):
+    width = get_width(img,5)
+    if(width>low_high[0][0] and width<low_high[0][1]):
+        return "very_thin", width
+    elif(width>low_high[1][0] and width<low_high[1][1]):
+        return "thin", width
+    elif(width>low_high[2][0] and width<low_high[2][1]):
+        return "medium_thick", width
+    elif(width>low_high[3][0] and width<low_high[3][1]):
+        return "thick", width
+    elif(width>low_high[4][0] and width<low_high[4][1]):
+        return "very_thick", width
+
+def estimate_purple(img, threshold_purple=6, ignore_pale=0.3):
+    return is_purple(img, threshold_purple, ignore_pale)
+
 
 def get_length(img):
     '''Simple length extraction
@@ -27,7 +52,7 @@ def get_length(img):
     # TODO: Umrechnungsfaktor von Pixel zu mm
     return length/4.2
 
-def get_horizontal_slices(img, k):
+def get_horizontal_slices(img, k,discard_upper=100, discard_lower=20):
     """
     Calculates the x-coordinates of the outline of the asparagus pieces, measured at k evenly
     spaced horizontal slicing points.
@@ -42,7 +67,7 @@ def get_horizontal_slices(img, k):
     upper, lower = find_bounds(img)
     # evenly distribute the slices between the bounds, but start a little lower than the head
     # and end a little earlier than the bottom
-    slice_points = np.floor(np.linspace(upper+100, lower-20, k))
+    slice_points = np.floor(np.linspace(upper+discard_upper, lower-discard_lower, k))
     # slice the image at the slice_points and return the left and right pixel
     def slice_img(img, sp):
         sp = int(sp)
@@ -63,10 +88,13 @@ def curvature_score(img, k):
         Returns:
             std_err (float): standard error of linear regression through the slices
     """
-    rows, horizontal_slices = get_horizontal_slices(img, k)
+    rows, horizontal_slices = get_horizontal_slices(img, k, 200,200)
     centers = np.mean(horizontal_slices, axis=1)
-    std_err = stats.linregress(rows, centers)[-1]
-    return std_err
+
+    #print([list(rows),list(centers)])
+    score = (stats.linregress((rows,centers))[-1]*1000)**2#std_err
+    return score
+
 
 
 def get_width(img, k):
@@ -75,7 +103,7 @@ def get_width(img, k):
         img: the image from which the width should be extracted
         k: number of rows in which the width should be extracted
     Returns:
-        min and max width of the k different rows (# of pixels)
+        width at different positions
     '''
     # rotate the image
     img = rotate_to_base(img)
@@ -84,7 +112,7 @@ def get_width(img, k):
     # calculate the difference between the points in each slice
     width = np.diff(horizontal_slices, axis=1)
     # TODO: Umrechnungsfaktor von Pixel zu mm
-    return np.max(width)/4.2, np.min(width)/4.2
+    return np.mean(width)/4.2
 
 
 
@@ -94,7 +122,7 @@ def check_purple(img, threshold_purple=6, ignore_pale=0.3):
         img:                A numpy array representing an RGB image where masked out pixels are black.
         threshold_purple:   If the histogram of color-hues (0-100) has a peak below this threshold
                             the piece is considered to be purple.
-        ignore_pale:        Don't consider pixels with a saturation value below ignore_pale
+        ignore_pale:        Don't consider pixe    print(hsv.shape)ls with a saturation value below ignore_pale
     Returns:
         bool: A boolean that indicates wether the piece is purple or not.
         list: A list representing the histogram of hues with 100 bins.

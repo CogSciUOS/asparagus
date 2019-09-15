@@ -210,7 +210,6 @@ class MainApp(QWidget):
         Args:
             names: List of filenames
         """
-        print(directory)
         self.files = []
         try:
             self.rek_get_files(directory,".*\.png")#Traverse subdirectories & get all .bmp filepaths
@@ -306,7 +305,7 @@ class MainApp(QWidget):
                 combined[y_offset:y_offset+im.shape[0],:im.shape[1],:] = im
                 y_offset += im.shape[0]
 
-            self.ui.label.update(np.rot90(combined))
+            self.ui.label.update(combined)
         except:
             return
 
@@ -359,7 +358,7 @@ class LabelingDialog(QWidget):
         QWidget.__init__(self, widget_handled)
 
         self.outpath = None
-        self.labels = None#After loading a dLast image reachedictionary that contains key= index of asparagus to value=list of properties
+        self.labels = None#After loading a dictionary that contains: key=*index of asparagus* to value=*list of properties*
 
         self.idx_image = 0
         self.images = {}
@@ -375,7 +374,7 @@ class LabelingDialog(QWidget):
         self.outfile_headers.extend(headers_set_via_feature_extraction)
         self.outfile_headers.extend(headers_additional_extracted_features)
 
-        self.questions = headers_main_variables[:-1]
+        self.questions = headers_main_variables[:-1]#Questions must be the first rows in out
 
 
         self.feature_to_questions = { "width":["very_thick","thick","medium_thick","thin","very_thin"],
@@ -389,7 +388,14 @@ class LabelingDialog(QWidget):
 
         self.idx_question = 0
         self.ui.question.setText(self.questions[self.idx_question])
+        self.update_info()
 
+    def not_classifiable(self):
+        try:
+            self.set_value_for_label(1, "unclassified")
+            self.next_image()
+        except e as Exception:
+            print(e)
 
     def use_feature_extraction_for(self, feature):
         remove = self.feature_to_questions[feature]
@@ -407,6 +413,7 @@ class LabelingDialog(QWidget):
         self.ui.next_question.clicked.connect(self.next_question)
         self.ui.yes.clicked.connect(self.answer_yes)
         self.ui.no.clicked.connect(self.answer_no)
+        self.ui.notClassifiable.clicked.connect(self.not_classifiable)
 
         self.ui.usePredictionLength.stateChanged.connect(lambda x: self.use_feature_extraction_for("length") if x else self.use_question_for("length"))
         self.ui.usePredictionBlooming.stateChanged.connect(lambda x: self.use_feature_extraction_for("blooming") if x else self.use_question_for("blooming"))
@@ -447,6 +454,7 @@ class LabelingDialog(QWidget):
         self.thread.overallPredictedValueRust.connect(self.ui.overallPredictedValueRust.setText)
         self.thread.overallPredictionBlooming.connect(self.ui.overallPredictionBlooming.setText)
 
+
     def toggle_feature_extraction(self):
         self.extract_features = not self.extract_features
         self.set_index(self.idx_image)
@@ -484,19 +492,37 @@ class LabelingDialog(QWidget):
         self.ui.no.setFocus()
         self.next_question()
 
-    def log_answer(self, answer):
-        assert type(self.labels) == type({})
+    def set_value_for_label(self, value, label, idx = None):
+        """ Sets value for a given label. Exception passed on if self.labels is not set yet."""
+        if not type(self.labels) == type({}):
+            QMessageBox.about(self, "Attention", "Load output file first.")
+            return
+
+        if idx == None:
+            idx = self.idx_image
+
         try:#Assure we have a line of data for the current index
-            self.labels[self.idx_image]
+            self.labels[idx]
         except KeyError:
-            self.labels[self.idx_image] = [None for x in range(len(self.outfile_headers))]
-        self.labels[self.idx_image][self.idx_question] = answer
+            self.labels[idx] = [None for x in range(len(self.outfile_headers))]
+
+        try:
+            self.labels[idx][self.outfile_headers.index(label)] = value
+        except e as Exception:
+            print("Couldn't set label")
+            print(e)
+
+    def log_answer(self, answer):
+        self.set_value_for_label(answer,self.questions[self.idx_question])
 
     def write_answers_to_file(self):
         """ Writes answer to current question to file """
-        df = pd.DataFrame.from_dict(self.labels, orient = "index", columns=self.outfile_headers)
-        df.to_csv(self.outpath,sep =";")
-        return
+        try:
+            df = pd.DataFrame.from_dict(self.labels, orient = "index", columns=self.outfile_headers)
+            df.to_csv(self.outpath,sep =";")
+        except:
+            QMessageBox.about(self, "Attention", "Writing file failed.")
+
 
     def previous_question(self):
         """ Changes index to previous file and draws respective asparagus"""
@@ -588,14 +614,22 @@ class LabelingDialog(QWidget):
         def __init__(self, outer):
             super().__init__()
             self.outer = outer
-            #self.color_plot.connect(self.outer.ui.color.update)
+
 
         def run(self):
             try:
                 imgs = [np.array(imageio.imread(fname)) for fname in self.outer.images[self.outer.idx_image]]
+                idx_image = self.outer.idx_image#At creation time
+            except KeyError:
+                #If there are no images for the index for whatever reason. Just dont do anything.
+                self.outer.ui.asparagus_number.setEnabled(True)
+                return
+
+            try:
                 self.color_plot.emit(color_plot(imgs))
             except:
-                return#No images loaded
+                self.outer.ui.asparagus_number.setEnabled(True)
+                return
 
             try:
                 p = [estimate_width(np.rot90(x)) for x in imgs]
@@ -604,19 +638,23 @@ class LabelingDialog(QWidget):
                 self.predictionWidth_3.emit(str(int(p[2][1])))
                 most_common = Counter(np.array(p)[:,0]).most_common(1)[0][0]
                 self.overallPredictionWidth.emit(most_common)
-
-                self.outer.current_data[self.outer.outfile_headers.index("auto_width")] = most_common
-
+                self.outer.set_value_for_label(most_common, "auto_width",idx_image)
             except Exception as e:
                 print(e)
 
             try:
-                p = [estimate_bended(np.rot90(x),1) for x in imgs]
-                self.predictionBended.emit('{:3.3}'.format(p[0][1]))
-                self.predictionBended_2.emit('{:3.3}'.format(p[1][1]))
-                self.predictionBended_3.emit('{:3.3}'.format(p[2][1]))
+                p = [estimate_bended(x,threshold = 120) for x in imgs]
+                self.predictionBended.emit(str(int(p[0][1])))#'{:10.1}'.format(p[0][1]))
+                self.predictionBended_2.emit(str(int(p[1][1])))#'{:10.1}'.format(p[1][1]))
+                self.predictionBended_3.emit(str(int(p[2][1])))#'{:10.1}'.format(p[2][1]))
+                is_bended = np.sum(np.array(p)[:,0])>1#If at least one image shows it's bended
+                self.overallPredictionBended.emit(str(is_bended))
+                self.outer.set_value_for_label(is_bended, "auto_bended",idx_image)
             except Exception as e:
                 print(e)
+
+            #ADD YOUR CODE HERE
+            self.outer.ui.asparagus_number.setEnabled(True)
 
 
     def draw_asparagus(self):
@@ -642,7 +680,7 @@ class LabelingDialog(QWidget):
                 combined[y_offset:y_offset+im.shape[0],:im.shape[1],:] = im
                 y_offset += im.shape[0]
 
-            self.ui.label.update(combined)
+            self.ui.label.update(np.rot90(combined,3).copy())
         except KeyError:
             QMessageBox.about(self, "Attention", "No images found for current index (" + str(self.idx_image) + ")")
         except Exception as e:
@@ -664,15 +702,23 @@ class LabelingDialog(QWidget):
 
 
     def set_index(self,idx):
+        if(self.thread.isRunning()):
+            return
         self.idx_image = idx
         self.draw_asparagus()
         self.update_info()
+
 
         self.ui.asparagus_number.blockSignals(True)
         self.ui.asparagus_number.setValue(self.idx_image)
         self.ui.asparagus_number.blockSignals(False)
 
+        self.idx_question = 0
+        self.ui.question.setText(self.questions[self.idx_question])
+
+
         if self.extract_features:
+            self.ui.asparagus_number.setEnabled(False)
             self.thread.start()
 
 
