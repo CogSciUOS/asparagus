@@ -5,6 +5,10 @@ import pandas as pd
 import numpy as np
 
 
+"""
+Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)
+"""
+
 annotations_1 = pd.read_csv("../annotations/annotator_1.csv", delimiter=";")
 annotations_2 = pd.read_csv("../annotations/annotator_2.csv", delimiter=";")
 
@@ -15,3 +19,5 @@ if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
 for column in annotations_1.columns[1:]:
     print("For the category", column, "the kappa is:", cohen_kappa_score(
         annotations_1[column], annotations_2[column], labels=[1.0, 0.0]))
+
+    # if greater than 0.8 successful
