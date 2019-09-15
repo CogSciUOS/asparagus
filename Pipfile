@@ -24,5 +24,3 @@ opencv-python = "*"
 scikit-image = "*"
 utils = "*"
 
-[requires]
-python_version = "3.7"
