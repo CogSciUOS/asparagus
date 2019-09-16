@@ -23,10 +23,11 @@ def compute_agreement(filename_1, filename_2, threshold_score=0.8):
 
     # Check for NaNs
     if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
-        print("There are missing values in the csv file. Fix it and come back here!")
-        sys.exit(1)
+        raise ValueError(
+            "There are missing values in the csv file. Fix it and come back here!")
 
     print("!!! Scores above .8 are generally considered good agreement; zero or lower means no agreement(practically random labels) !!!")
+    print()
 
     # calculate kappa for each category/column
     for column in annotations_1.columns[1:]:
