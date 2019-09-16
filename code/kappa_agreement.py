@@ -10,11 +10,14 @@ def compute_agreement(filename_1, filename_2, threshold_score=0.8):
     and computes Cohen’s kappa, a score that expresses the level of agreement between two annotators on a classification problem.
 
     Arguments:
-        filename_1 {str} -- first annotation file name
-        filename_2 {str} -- first annotation file name
+        filename_1 (str): first annotation file name
+        filename_2 (str): first annotation file name
 
     Keyword Arguments:
-        threshold_score {float} -- determines whether you decide that agreement is acceptable or not (default: {0.8})
+        threshold_score (float): threshold whether agreement is acceptable or not (default: (0.8))
+
+    Returns:
+        None TODO
     """
 
     # read in files
