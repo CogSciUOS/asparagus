@@ -25,4 +25,3 @@ opencv-python = "*"
 scikit-image = "*"
 utils = "*"
 scikit-learn = "*"
-
