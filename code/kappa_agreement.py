@@ -47,9 +47,6 @@ def compute_agreement(filename_1, filename_2, threshold_score=0.8):
 
 if __name__ == "__main__":
 
-    #filename_1 = "../annotations/annotator_1.csv"
-    #filename_2 = "../annotations/annotator_2.csv"
-
     filename_1 = sys.argv[1]
     filename_2 = sys.argv[2]
 
