@@ -17,9 +17,7 @@ numpy = "*"
 matplotlib = "*"
 scipy = "*"
 pytest = "*"
-<<<<<<< HEAD
 
-=======
 pyqt5 = "*"
 imageio = "*"
 pandas = "*"
@@ -27,4 +25,6 @@ opencv-python = "*"
 scikit-image = "*"
 utils = "*"
 scikit-learn = "*"
->>>>>>> d20c0d1... adding csv annotations
+
+[requires]	
+python_version = "3.6"
