@@ -18,5 +18,10 @@ matplotlib = "*"
 scipy = "*"
 pytest = "*"
 
-[requires]
-python_version = "3.7"
+pyqt5 = "*"
+imageio = "*"
+pandas = "*"
+opencv-python = "*"
+scikit-image = "*"
+utils = "*"
+scikit-learn = "*"
