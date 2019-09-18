@@ -5,10 +5,6 @@
    3) the outputfile name ("agreement" + first_name + second_name)
 
    Example: python kappa_agreement.py ../annotations/annotator_1.csv ../annotations/annotator_2.csv agreement_annotator_1_annotator_2.csv
-
-Raises:
-    ValueError: if there are Nans in the csv files
-    
 """
 
 from sklearn.metrics import cohen_kappa_score
@@ -31,7 +27,7 @@ def compute_agreement(filename_1, filename_2, threshold_score=0.8):
         threshold_score (float): threshold whether agreement is acceptable or not (default: (0.8))
 
     Returns:
-        None TODO
+        a dictionary of {category: kappa_score}
     """
 
     # read in files
