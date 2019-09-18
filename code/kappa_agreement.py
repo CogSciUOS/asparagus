@@ -58,15 +58,11 @@ def write_to_file(filename, kappa_dict):
         filename (str): how you want to name the output file with the agreement scores
         kappa_dict (dict): dictionary with kappa score for each column
     """
-    try:
-        with open("../annotations/"+filename, 'w') as csvfile:
-            writer = csv.writer(csvfile)
+    with open("../annotations/"+filename, 'w') as csvfile:
+        writer = csv.writer(csvfile)
 
-            for column, kappa in kappa_dict.items():
-                writer.writerow([column, kappa])
-
-    except IOError:
-        print("I/O error")
+        for column, kappa in kappa_dict.items():
+            writer.writerow([column, kappa])
 
 
 if __name__ == "__main__":
