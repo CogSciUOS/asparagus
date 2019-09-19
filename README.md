@@ -8,4 +8,6 @@ The repository shows how we classify images of asparagus with Machine Learning m
 We also developed an app to manually label the asparagus images.
 
 Have a look at our [documentation](https://asparagus.readthedocs.io/en/latest/)!
+
+
 (To do a hard refresh of your browser use e.g. `Cmd + f5`)
