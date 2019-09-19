@@ -40,8 +40,8 @@ start the virtual environment (If you end up with problems here, look at the pip
 
  then you want to go into hand_label_assistant:
 ```
-(asparagus) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ cd code/hand_label_assistant
+(asparagus) (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ cd code/hand_label_assistant
 ```
 ```
-(asparagus) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus/code/hand_label_assistant $ python main.py
+(asparagus) (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus/code/hand_label_assistant $ python main.py
 ```
