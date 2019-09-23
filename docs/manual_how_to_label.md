@@ -39,7 +39,6 @@
 go to the path where you saved it and write in the terminal:
 ```
 gedit [filename].csv
-
 ```
 
 ## general remarks concerning sorting by Silvan
