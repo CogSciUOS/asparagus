@@ -3,7 +3,7 @@
 
 A copy - paste of the process on my laptop
 
-log into uni server network: 
+log into uni server network:
 ```
 (base) 83adbaa6:~ Malin$ ssh -Y mspaniol@gate.ikw.uos.de
 ```
@@ -32,7 +32,9 @@ in your cloned repository, you should go into asparagus and switch to the branch
 (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ git checkout hand_label_app
 ```
 
-start the virtual environment (If you end up with problems here, look at the pipenv documentation and make sure pipenv is installed via pip)
+Start the virtual environment (If you end up with problems here, look at the pipenv documentation and make sure pipenv is installed via pip (```pip install pipenv```)).
+We use use this virtual environment here, so that we do not individually have to install and update packages such as pyqt5, numpy, pandas ... but that by activating the virtual environment, it automatically has all necessary packages available, for - in this case - opening the label app. Pipenv behaves similar to pip. If you write code and with new packages, please update the pipfile, (and push it!) so that it is available to all others using the virtual environment (the commands can also be found[here](https://medium.com/@krishnaregmi/pipenv-vs-virtualenv-vs-conda-environment-3dde3f6869ed)). 
+
 ```
 (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ pipenv install
 (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ pipenv shell
