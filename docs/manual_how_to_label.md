@@ -61,7 +61,8 @@ We have 13 different labeled folders in the path /net/projects/scratch/summer/va
 I now decided that we will classify the **first 100 images of each folder twice**. (shout if you have a better idea)
 
 This gives us:
-
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
 |1A_Anna | Malin & Josefine|
 |1A_Bona | Subir & Maren|
 |1A_Clara | Luana & Richard|
