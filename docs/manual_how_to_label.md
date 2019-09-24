@@ -62,16 +62,16 @@ I now decided that we will classify the **first 100 images of each folder twice*
 
 This gives us:
 
-1A_Anna --> Malin & Josefine
-1A_Bona --> Subir & Maren
-1A_Clara --> Luana & Richard
-1A_Krumme --> Michael & Sophia
-1A_Violett --> Josefine & Katha
-2A --> Maren & Malin
-2B --> Richard & Subir
-Blume --> Sophia & Luana
-Dicke --> Katha & Michael
-Hohle --> Malin & Sophia
-Köpfe --> Subir & Josefine
-Rost --> Luana & Maren
-Suppe --> Michael & Richard
+|1A_Anna | Malin & Josefine|
+|1A_Bona | Subir & Maren|
+|1A_Clara | Luana & Richard|
+|1A_Krumme | Michael & Sophia|
+|1A_Violett | Josefine & Katha|
+|2A | Maren & Malin|
+|2B | Richard & Subir|
+|Blume | Sophia & Luana|
+|Dicke | Katha & Michael|
+|Hohle | Malin & Sophia|
+|Köpfe | Subir & Josefine|
+|Rost | Luana & Maren|
+|Suppe | Michael & Richard|
