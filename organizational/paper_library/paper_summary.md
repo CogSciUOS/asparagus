@@ -114,4 +114,4 @@
 | helpful        | 4/5                                                                                     |
 | authors        | @PMC3900052                                                                            |
 | year           | 2012                                                                                    |
-| summary        | This paper includes information about the kappa agreement. The kappa can range from −1 to +1. Cohen suggested the Kappa result be interpreted as follows: values ≤ 0 as indicating no agreement and 0.01–0.20 as none to slight, 0.21–0.40 as fair, 0.41– 0.60 as moderate, 0.61–0.80 as substantial, and 0.81–1.00 as almost perfect agreement.  |
+| summary        | This paper includes information about the kappa agreement. The kappa can range from −1 to +1. Cohen suggests the Kappa result to be interpreted as follows: values ≤ 0 as indicating no agreement and 0.01–0.20 as none to slight, 0.21–0.40 as fair, 0.41– 0.60 as moderate, 0.61–0.80 as substantial, and 0.81–1.00 as almost perfect agreement.  |
