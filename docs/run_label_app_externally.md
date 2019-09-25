@@ -27,7 +27,7 @@ go into your folder and clone the github repository there:
 ```
 (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/[YOUR_NAME]$ git clone https://github.com/CogSciUOS/asparagus.git
 ```
-in your cloned repository, you should go into asparagus and switch to the branch hand_label_assistant
+in your cloned repository, you should go into asparagus and switch to the branch hand_label_app
 ```
 (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ git checkout hand_label_app
 ```
