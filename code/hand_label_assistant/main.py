@@ -245,32 +245,6 @@ class MainApp(QWidget):
         self.draw_asparagus()
         self.update_info()
 
-    def draw_asparagus(self):
-        """ Draws image of asparagus pieces from three perspectives"""
-        try:
-            imgs = []
-            max_y = 0
-            max_x = 0
-            for i, fname in enumerate(self.images[self.idx_image]):
-                im = imageio.imread(fname)
-                im = np.rot90(im).copy()
-                imgs.append(im)
-
-                max_y += im.shape[0]
-                if im.shape[1] > max_x:
-                    max_x = im.shape[1]
-
-
-            n_channels = imgs[0].shape[2]
-            combined = np.zeros([max_y,max_x,n_channels],dtype=np.uint8)
-            y_offset = 0
-            for im in imgs:
-                combined[y_offset:y_offset+im.shape[0],:im.shape[1],:] = im
-                y_offset += im.shape[0]
-
-            self.ui.label.update(combined)
-        except:
-            return
 
     def update_info(self):
         try:
@@ -403,6 +377,7 @@ class LabelingDialog(QWidget):
             self.questions.remove(x)
 
     def use_question_for(self, feature):
+        print("I should see you")
         self.questions.extend(self.feature_to_questions[feature])
 
 
@@ -641,6 +616,17 @@ class LabelingDialog(QWidget):
                 self.outer.set_value_for_label(most_common, "auto_width",idx_image)
             except Exception as e:
                 print(e)
+            
+            try:
+                p = [estimate_purple(x, threshold_purple=10) for x in imgs]
+                self.predictionViolet.emit(str(p[0]))#Numerical widthprint('% 6.2f' % v)
+                self.predictionViolet_2.emit(str(p[1]))
+                self.predictionViolet_3.emit(str(p[2]))
+                most_common = Counter(np.array(p)).most_common(1)[0][0]
+                self.overallPredictionViolet.emit(str(most_common))
+                self.outer.set_value_for_label(int(most_common), "auto_violet",idx_image)
+            except Exception as e:
+                print(e)
 
             try:
                 p = [estimate_bended(x,threshold = 120) for x in imgs]
@@ -649,7 +635,7 @@ class LabelingDialog(QWidget):
                 self.predictionBended_3.emit(str(int(p[2][1])))#'{:10.1}'.format(p[2][1]))
                 is_bended = np.sum(np.array(p)[:,0])>1#If at least one image shows it's bended
                 self.overallPredictionBended.emit(str(is_bended))
-                self.outer.set_value_for_label(is_bended, "auto_bended",idx_image)
+                self.outer.set_value_for_label(int(is_bended), "auto_bended",idx_image)
             except Exception as e:
                 print(e)
 

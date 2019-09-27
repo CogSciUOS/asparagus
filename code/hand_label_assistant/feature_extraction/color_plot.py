@@ -9,7 +9,7 @@ def fig2rgb_array(fig):
     ncols, nrows = fig.canvas.get_width_height()
     return np.fromstring(buf, dtype=np.uint8).reshape(nrows, ncols, 3)
 
-def color_plot(images,figsize=(8, 8),dpi=200):
+def color_plot(images,figsize=(12, 8),dpi=200):
     fig = plt.figure(figsize=figsize,dpi=dpi)
     fig.subplots_adjust(wspace=0, hspace=0)
     gs = gridspec.GridSpec(2, 1, height_ratios=[3, .5])

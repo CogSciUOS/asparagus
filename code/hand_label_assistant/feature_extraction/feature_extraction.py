@@ -33,8 +33,8 @@ def estimate_width(img, low_high=[[0,8],[8,15],[15,20],[20,25],[25,30]]):
     elif(width>low_high[4][0] and width<low_high[4][1]):
         return "very_thick", width
 
-def estimate_purple(img, threshold_purple=6, ignore_pale=0.3):
-    return is_purple(img, threshold_purple, ignore_pale)
+def estimate_purple(img, threshold_purple=10, ignore_pale=0.3):
+    return check_purple(img, threshold_purple, ignore_pale)[0]
 
 
 def get_length(img):
@@ -116,7 +116,7 @@ def get_width(img, k):
 
 
 
-def check_purple(img, threshold_purple=6, ignore_pale=0.3):
+def check_purple(img, threshold_purple=10, ignore_pale=0.3):
     """ Checks if an asparagus piece is purple.
     Args:
         img:                A numpy array representing an RGB image where masked out pixels are black.
@@ -148,10 +148,9 @@ def check_purple(img, threshold_purple=6, ignore_pale=0.3):
 
     hist = np.histogram(hue[mask],bins=bins)[0]
 
-    peak = np.argmax(hist)
-
+    in_purple_color_range = np.sum(hist[75:])
     is_purple = False
-    if peak < threshold_purple:
+    if in_purple_color_range > threshold_purple:
         is_purple = True
 
     return is_purple, hist
