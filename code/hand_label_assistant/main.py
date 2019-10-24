@@ -616,7 +616,7 @@ class LabelingDialog(QWidget):
                 self.outer.set_value_for_label(most_common, "auto_width",idx_image)
             except Exception as e:
                 print(e)
-            
+
             try:
                 p = [estimate_purple(x, threshold_purple=10) for x in imgs]
                 self.predictionViolet.emit(str(p[0]))#Numerical widthprint('% 6.2f' % v)
@@ -636,6 +636,15 @@ class LabelingDialog(QWidget):
                 is_bended = np.sum(np.array(p)[:,0])>1#If at least one image shows it's bended
                 self.overallPredictionBended.emit(str(is_bended))
                 self.outer.set_value_for_label(int(is_bended), "auto_bended",idx_image)
+            except Exception as e:
+                print(e)
+
+            try:
+                p = [estimate_length(x) for x in imgs]
+                self.predictionLength.emit(str(int(p[0])))
+                self.predictionLength_2.emit(str(int(p[1])))
+                self.predictionLength_3.emit(str(int(p[2])))
+                self.overallPredictionLength.emit(str(np.mean(np.array(p))))
             except Exception as e:
                 print(e)
 
