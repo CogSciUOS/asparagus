@@ -644,7 +644,10 @@ class LabelingDialog(QWidget):
                 self.predictionLength.emit(str(int(p[0])))
                 self.predictionLength_2.emit(str(int(p[1])))
                 self.predictionLength_3.emit(str(int(p[2])))
-                self.overallPredictionLength.emit(str(np.mean(np.array(p))))
+                length = np.round(str(np.mean(np.array(p))))
+                self.overallPredictionLength.emit(int(length))
+                self.outer.set_value_for_label(int(length), "auto_length",idx_image)
+
             except Exception as e:
                 print(e)
 
