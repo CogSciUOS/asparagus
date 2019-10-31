@@ -63,7 +63,7 @@ if __name__ == "__main__":
     valid = get_valid_triples(root)
     # safe list of valid names in a csv file
     # each row contains a triplet of file directories
-    with open(root+'valid_files.csv', 'w') as outfile:
+    with open(root+'valid_files_31_10.csv', 'w') as outfile:
         writer = csv.writer(outfile, delimiter=',')
         for i in valid:
             writer.writerow(i)
