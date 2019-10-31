@@ -4,7 +4,7 @@ import csv
 
 if __name__ == "__main__":
     path_to_valid_names = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/valid_files_31_10.csv"
-    outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/preprocessed_oct_31/background_removed/"
+    outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/preprocessed_oct_31_2/background_removed/"
     files_per_job = 10000
 	# get valid file names
     valid_triples = []
