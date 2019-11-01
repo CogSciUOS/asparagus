@@ -59,11 +59,11 @@ def get_valid_triples(root):
     return valid_triples
 
 if __name__ == "__main__":
-    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
+    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna"
     valid = get_valid_triples(root)
     # safe list of valid names in a csv file
     # each row contains a triplet of file directories
-    with open(root+'valid_files_31_10.csv', 'w') as outfile:
+    with open(root+'valids_1A_Anna.csv', 'w') as outfile:
         writer = csv.writer(outfile, delimiter=',')
         for i in valid:
             writer.writerow(i)
