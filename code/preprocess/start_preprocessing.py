@@ -3,8 +3,8 @@ import os
 import csv
 
 if __name__ == "__main__":
-    path_to_valid_names = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/valid_files_31_10.csv"
-    outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/preprocessed_oct_31_2/background_removed/"
+    path_to_valid_names = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna"
+    outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna/preprocessed"
     files_per_job = 10000
 	# get valid file names
     valid_triples = []
