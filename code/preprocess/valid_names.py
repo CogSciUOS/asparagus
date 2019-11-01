@@ -59,7 +59,7 @@ def get_valid_triples(root):
     return valid_triples
 
 if __name__ == "__main__":
-    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna"
+    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna/"
     valid = get_valid_triples(root)
     # safe list of valid names in a csv file
     # each row contains a triplet of file directories
