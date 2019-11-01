@@ -3,7 +3,7 @@ import os
 import csv
 
 if __name__ == "__main__":
-    path_to_valid_names = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna"
+    path_to_valid_names = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna/valids_1A_Anna.csv"
     outpath = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna/preprocessed"
     files_per_job = 10000
 	# get valid file names
