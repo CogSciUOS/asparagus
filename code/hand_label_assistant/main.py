@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import *
 import os
 import sys
 
+import traceback
+
 from qevent_to_name import *
 
 from view import *
@@ -20,10 +22,9 @@ from feature_extraction.feature_extraction import *
 from feature_extraction.color_plot import color_plot
 
 from collections import Counter
+from pandas_model import PandasModel
 
 class MainApp(QWidget):
-    coordinates = pyqtSignal(QRect)
-
     def __init__(self, widget_handled, ui):
         """ Initializes Main App.
         args:
@@ -37,137 +38,11 @@ class MainApp(QWidget):
 
         self.idx_image = 0
         self.images = []
+        self.table_model = None
+        self.ui.table.setFocusPolicy(Qt.NoFocus)
+
         self.draw_asparagus()
         self.update_info()
-
-        self.ui.tree.set_white_background()
-        self.ui.tree.update(imageio.imread("tree11.bmp"))
-
-        #For self.nodes_to_ui, a dictionary to map names of nodes in the decision tree to the respective ui elements
-        self.ui_nodes = [self.ui.is_bruch,self.ui.is_not_bruch,self.ui.has_blume,self.ui.is_blume_dick,self.ui.is_blume_duenn,self.ui.has_no_blume,self.ui.has_rost,self.ui.is_rost_dick,
-                    self.ui.is_rost_duenn,self.ui.has_no_rost,self.ui.is_bended,self.ui.is_krumm_dick,self.ui.is_bended_medium,self.ui.is_bended_medium_non_violet,self.ui.is_bended_medium_violet,self.ui.is_not_bended
-                    ,self.ui.is_not_bended_non_violet,self.ui.is_dicke,self.ui.is_anna,self.ui.is_bona,self.ui.is_clara,self.ui.is_suppe,self.ui.is_not_bended_violet,self.ui.is_violet_dick,self.ui.is_violet_duenn]
-
-        self.nodes = ["is_bruch","is_not_bruch","has_blume","is_blume_dick","is_blume_duenn","has_no_blume","has_rost","is_rost_dick",
-                    "is_rost_duenn","has_no_rost","is_bended","is_krumm_dick","is_bended_medium","is_bended_medium_non_violet","is_bended_medium_violet","is_not_bended"
-                    ,"is_not_bended_non_violet","is_dicke","is_anna","is_bona","is_clara","is_suppe","is_not_bended_violet","is_violet_dick","is_violet_duenn"]
-
-        self.label_file = None
-        self.labels = None
-
-        self.nodes_to_ui = {}
-        for node, ui_node in zip(self.nodes,self.ui_nodes):
-            self.nodes_to_ui[node] = ui_node
-
-    def update_checkboxes(self):
-        """ Updates checkboxes"""
-        for k,v in self.nodes_to_ui.items():
-            self.nodes_to_ui[k].setChecked(False)
-            self.nodes_to_ui[k].setEnabled(False)
-            self.nodes_to_ui[k].setFocusPolicy(QtCore.Qt.NoFocus)#No focus  via arrow keys
-
-        if type(self.labels)==type(None):
-            return
-
-        try:
-            categories = ["is_bruch","has_keule","has_blume","has_rost","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin"]
-            self.current_data = {}
-            for integer, paraphrase in zip(self.labels[self.idx_image],categories):
-                if integer:
-                    self.current_data[paraphrase] = True
-                else:
-                    self.current_data[paraphrase] = False
-        except KeyError:
-            return#no info for aspargus piece
-        try:
-	        if self.current_data["is_bruch"]:
-	            self.nodes_to_ui["is_bruch"].setChecked(True)
-	            self.nodes_to_ui["is_bruch"].setEnabled(True)
-	        else:
-	            self.nodes_to_ui["is_not_bruch"].setChecked(True)
-	            self.nodes_to_ui["is_not_bruch"].setEnabled(True)
-
-	            if self.current_data["has_blume"]:
-	                self.nodes_to_ui["has_blume"].setChecked(True)
-	                self.nodes_to_ui["has_blume"].setEnabled(True)
-
-	                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-	                    self.nodes_to_ui["is_blume_dick"].setChecked(True)
-	                    self.nodes_to_ui["is_blume_dick"].setEnabled(True)
-	                else:
-	                    self.nodes_to_ui["is_blume_duenn"].setChecked(True)
-	                    self.nodes_to_ui["is_blume_duenn"].setEnabled(True)
-
-	            else:
-	                self.nodes_to_ui["has_no_blume"].setChecked(True)
-	                self.nodes_to_ui["has_no_blume"].setEnabled(True)
-
-	                if self.current_data["has_rost"]:
-	                    self.nodes_to_ui["has_rost"].setChecked(True)
-	                    self.nodes_to_ui["has_rost"].setEnabled(True)
-
-	                    if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-	                        self.nodes_to_ui["is_rost_dick"].setChecked(True)
-	                        self.nodes_to_ui["is_rost_dick"].setEnabled(True)
-	                    else:
-	                        self.nodes_to_ui["is_rost_duenn"].setChecked(True)
-	                        self.nodes_to_ui["is_rost_duenn"].setEnabled(True)
-	                else:
-	                    self.nodes_to_ui["has_no_rost"].setChecked(True)
-	                    self.nodes_to_ui["has_no_rost"].setEnabled(True)
-
-	                    if self.current_data["is_bended"]:
-	                        self.nodes_to_ui["is_bended"].setChecked(True)
-	                        self.nodes_to_ui["is_bended"].setEnabled(True)
-	                        if self.current_data["very_thick"]:#>26mm
-	                            self.nodes_to_ui["is_krumm_dick"].setChecked(True)
-	                            self.nodes_to_ui["is_krumm_dick"].setEnabled(True)
-	                        else:
-	                            self.nodes_to_ui["is_bended_medium"].setChecked(True)
-	                            self.nodes_feature_extractionto_ui["is_bended_medium"].setEnabled(True)
-
-	                            if self.current_data["is_violet"]:
-	                                self.nodes_to_ui["is_bended_medium_violet"].setChecked(True)
-	                                self.nodes_to_ui["is_bended_medium_violet"].setEnabled(True)
-	                            else:
-	                                self.nodes_to_ui["is_bended_medium_non_violet"].setChecked(True)
-	                                self.nodes_to_ui["is_bended_medium_non_violet"].setEnabled(True)
-	                    else:
-	                        self.nodes_to_ui["is_not_bended"].setChecked(True)
-	                        self.nodes_to_ui["is_not_bended"].setEnabled(True)
-	                        if self.current_data["is_violet"]:
-	                                self.nodes_to_ui["is_not_bended_violet"].setChecked(True)
-	                                self.nodes_to_ui["is_not_bended_violet"].setEnabled(True)
-
-	                                if self.current_data["thick"] or self.current_data["very_thick"]:#>20mm
-	                                    self.nodes_to_ui["is_violet_dick"].setChecked(True)
-	                                    self.nodes_to_ui["is_violet_dick"].setEnabled(True)
-	                                else:
-	                                    self.nodes_to_ui["is_violet_duenn"].setChecked(True)
-	                                    self.nodes_to_ui["is_violet_duenn"].setEnabled(True)
-	                        else:
-	                                self.nodes_to_ui["is_not_bended_non_violet"].setChecked(True)
-	                                self.nodes_to_ui["is_not_bended_non_violet"].setEnabled(True)
-	                                if self.current_data["very_thick"]:
-	                                    self.nodes_to_ui["is_dicke"].setChecked(True)
-	                                    self.nodes_to_ui["is_dicke"].setEnabled(True)
-	                                elif self.current_data["thick"]:
-	                                    self.nodes_to_ui["is_anna"].setChecked(True)
-	                                    self.nodes_to_ui["is_anna"].setEnabled(True)
-	                                elif self.current_data["medium_thick"]:
-	                                    self.nodes_to_ui["is_bona"].setChecked(True)
-	                                    self.nodes_to_ui["is_bona"].setEnabled(True)
-	                                elif self.current_data["thin"]:
-	                                    self.nodes_to_ui["is_clara"].setChecked(True)
-	                                    self.nodes_to_ui["is_clara"].setEnabled(True)
-	                                elif self.current_data["very_thin"]:
-	                                    self.nodes_to_ui["is_suppe"].setChecked(True)
-	                                    self.nodes_to_ui["is_suppe"].setEnabled(True)
-	                                else:
-	                                    print("Missing thickness value!!!")
-        except:
-            print("Invalid file!!!")
-
 
     def make_connections(self):
         """ Establishes connections between user interface elements and functionalities"""
@@ -176,26 +51,6 @@ class MainApp(QWidget):
         self.ui.previous_asparagus.clicked.connect(self.previous_image)
         self.ui.previous_asparagus.clicked.connect(self.update_info)
 
-    def set_label_file(self, path):
-        """ Sets output file.
-            Args:
-                path
-        """
-        print(path)
-        self.label_file = path
-        self.load_labels()
-
-    def load_labels(self):
-        try:
-            recovered = pd.read_csv(self.label_file, index_col=0, sep =";").to_dict(orient="index")
-            for key, value in recovered.items():
-                recovered[key] = list(recovered[key].values())
-            self.labels = recovered
-        except FileNotFoundError:
-            self.labels = {}
-        except Exception as e:
-            print(e)
-        self.update_checkboxes()
 
     def rek_get_files(self, path, regex):
         for f in os.scandir(path):
@@ -234,6 +89,28 @@ class MainApp(QWidget):
 
         self.idx_image = 0
         self.draw_asparagus()
+        self.update_info()
+
+    def set_label_file(self, path):
+        """ Sets output file.
+            Args:
+                path
+        """
+        self.label_file = path
+        self.load_labels()
+
+    def load_labels(self):
+        try:
+            recovered = pd.read_csv(self.label_file, index_col=0, sep =";")#.to_dict(orient="index")
+            self.table_model = PandasModel(recovered)
+            self.ui.table.setModel(self.table_model)
+            #for key, value in recovered.items():
+            #    recovered[key] = list(recovered[key].values())
+            self.labels = recovered
+        except FileNotFoundError:
+            self.labels = None
+        except Exception as e:
+            print(e)
 
     def next_image(self):
         """Updates index to next aspargus and elicits redrawing"""
@@ -241,10 +118,8 @@ class MainApp(QWidget):
             return
         self.idx_image += 1
 
-        self.update_checkboxes()
         self.draw_asparagus()
         self.update_info()
-
 
     def update_info(self):
         try:
@@ -280,7 +155,8 @@ class MainApp(QWidget):
                 y_offset += im.shape[0]
 
             self.ui.label.update(combined)
-        except:
+        except Exception as e:
+            print(e)
             return
 
     def previous_image(self):
@@ -289,7 +165,6 @@ class MainApp(QWidget):
             return
 
         self.idx_image -= 1
-        self.update_checkboxes()
         self.draw_asparagus()
         self.update_info()
 
@@ -380,7 +255,6 @@ class LabelingDialog(QWidget):
         print("I should see you")
         self.questions.extend(self.feature_to_questions[feature])
 
-
     def make_conncections(self):
         """ Establish connections between UI elements and functionalities"""
         self.ui.asparagus_number.valueChanged.connect(lambda x: self.set_index(int(x)))
@@ -423,12 +297,15 @@ class LabelingDialog(QWidget):
         self.thread.predictionBlooming_3.connect(self.ui.predictionBlooming_3.setText)
 
         self.thread.overallPredictionWidth.connect(self.ui.overallPredictionWidth.setText)
+        self.thread.overallPredictionWidth.connect(lambda x: self.set_value_for_label(x, "auto_width",self.idx_image))
         self.thread.overallPredictionBended.connect(self.ui.overallPredictionBended.setText)
+        self.thread.overallPredictionBended.connect(lambda x: self.set_value_for_label(x, "auto_bended",self.idx_image))
         self.thread.overallPredictionLength.connect(self.ui.overallPredictionLength.setText)
+        self.thread.overallPredictionLength.connect(lambda x: self.set_value_for_label(x, "auto_length",self.idx_image))
         self.thread.overallPredictionViolet.connect(self.ui.overallPredictionViolet.setText)
+        self.thread.overallPredictionViolet.connect(lambda x: self.set_value_for_label(x, "auto_violet",self.idx_image))
         self.thread.overallPredictedValueRust.connect(self.ui.overallPredictedValueRust.setText)
         self.thread.overallPredictionBlooming.connect(self.ui.overallPredictionBlooming.setText)
-
 
     def toggle_feature_extraction(self):
         self.extract_features = not self.extract_features
@@ -472,6 +349,7 @@ class LabelingDialog(QWidget):
         if not type(self.labels) == type({}):
             QMessageBox.about(self, "Attention", "Load output file first.")
             return
+        print("set value")
 
         if idx == None:
             idx = self.idx_image
@@ -498,7 +376,6 @@ class LabelingDialog(QWidget):
         except:
             QMessageBox.about(self, "Attention", "Writing file failed.")
 
-
     def previous_question(self):
         """ Changes index to previous file and draws respective asparagus"""
         if(self.idx_question==0):
@@ -511,6 +388,9 @@ class LabelingDialog(QWidget):
     def next_question(self):
         """ Changes index to next file and draws respective asparagus"""
         if(self.idx_question==len(self.questions)-1):
+            if self.thread.isRunning():
+                QMessageBox.about(self, "Attention", "Feature extraction still running")
+                return
             self.next_image()
             self.idx_question = 0
         else:
@@ -553,7 +433,13 @@ class LabelingDialog(QWidget):
     def next_image(self):
         self.write_answers_to_file()
         self.set_index(self.idx_image+1)
+        if not self.idx_image in self.images:#In case of failure a message is printed elsewhere
+            self.set_index(self.idx_image-1)
 
+    def previous_image(self):
+        self.set_index(self.idx_image-1)
+        if not self.idx_image in self.images:#In case of failure a message is printed elsewhere
+            self.set_index(self.idx_image+1)
 
     class Features(QThread):
         color_plot = pyqtSignal(np.ndarray)
@@ -590,7 +476,6 @@ class LabelingDialog(QWidget):
             super().__init__()
             self.outer = outer
 
-
         def run(self):
             try:
                 imgs = [np.array(imageio.imread(fname)) for fname in self.outer.images[self.outer.idx_image]]
@@ -613,9 +498,9 @@ class LabelingDialog(QWidget):
                 self.predictionWidth_3.emit(str(int(p[2][1])))
                 most_common = Counter(np.array(p)[:,0]).most_common(1)[0][0]
                 self.overallPredictionWidth.emit(most_common)
-                self.outer.set_value_for_label(most_common, "auto_width",idx_image)
             except Exception as e:
-                print(e)
+                print(traceback.format_exc())
+                print("Couldn't set auto width")
 
             try:
                 p = [estimate_purple(x, threshold_purple=10) for x in imgs]
@@ -624,9 +509,9 @@ class LabelingDialog(QWidget):
                 self.predictionViolet_3.emit(str(p[2]))
                 most_common = Counter(np.array(p)).most_common(1)[0][0]
                 self.overallPredictionViolet.emit(str(most_common))
-                self.outer.set_value_for_label(int(most_common), "auto_violet",idx_image)
             except Exception as e:
-                print(e)
+                print(traceback.format_exc())
+                print("Couldn't set auto purple")
 
             try:
                 p = [estimate_bended(x,threshold = 120) for x in imgs]
@@ -635,25 +520,23 @@ class LabelingDialog(QWidget):
                 self.predictionBended_3.emit(str(int(p[2][1])))#'{:10.1}'.format(p[2][1]))
                 is_bended = np.sum(np.array(p)[:,0])>1#If at least one image shows it's bended
                 self.overallPredictionBended.emit(str(is_bended))
-                self.outer.set_value_for_label(int(is_bended), "auto_bended",idx_image)
             except Exception as e:
-                print(e)
+                print(traceback.format_exc())
+                print("Couldn't set auto bended")
 
             try:
                 p = [estimate_length(x) for x in imgs]
                 self.predictionLength.emit(str(int(p[0])))
                 self.predictionLength_2.emit(str(int(p[1])))
                 self.predictionLength_3.emit(str(int(p[2])))
-                length = np.round(str(np.mean(np.array(p))))
-                self.overallPredictionLength.emit(int(length))
-                self.outer.set_value_for_label(int(length), "auto_length",idx_image)
-
+                length = np.round(np.mean(np.array(p)))
+                self.overallPredictionLength.emit(str(length))
             except Exception as e:
-                print(e)
+                print(traceback.format_exc())
+                print("Couldn't set auto length")
 
             #ADD YOUR CODE HERE
             self.outer.ui.asparagus_number.setEnabled(True)
-
 
     def draw_asparagus(self):
         """ Draws image of asparagus pieces from three perspectives"""
@@ -695,12 +578,9 @@ class LabelingDialog(QWidget):
         except:
             pass
 
-    def previous_image(self):
-        self.set_index(self.idx_image-1)
-
-
     def set_index(self,idx):
         if(self.thread.isRunning()):
+            QMessageBox.about(self, "Attention", "Feature extraction still running")
             return
         self.idx_image = idx
         self.draw_asparagus()
@@ -718,7 +598,6 @@ class LabelingDialog(QWidget):
         if self.extract_features:
             self.ui.asparagus_number.setEnabled(False)
             self.thread.start()
-
 
     def eventFilter(self, source, event):
         if event.type() == QtCore.QEvent.KeyRelease:
@@ -805,26 +684,38 @@ class HandLabelAssistant():
         sys.exit(app.exec_())
 
     def make_connections(self):
+        # Connect actions (Dropdown menu in upper bar) to file dialogs and file dialog)
         self.ui.actionOpen_labeling_dialog.triggered.connect(self.open_labeling_dialog)#open upon user input
-        # Connect actions (Dropdown menu in upper bar) to file dialogs and file dialogs to methods of
+        self.ui.start_labeling.clicked.connect(self.open_labeling_dialog)#open upon user input
         self.source_dir_opener.filenames.connect(self.main_app.set_filenames)
         self.source_dir_opener.filenames.connect(self.labeling_app.set_filenames)#Set filenames for both apps if a directory is chosen
         self.ui.actionOpen_file_directory.triggered.connect(self.source_dir_opener.get_filenames)
 
-        self.output_file_selector.outfilepath.connect(self.main_app.set_label_file)
         self.output_file_selector.outfilepath.connect(self.labeling_app.set_output_file)
+        self.output_file_selector.outfilepath.connect(self.main_app.set_label_file)
 
-        self.output_file_creator.outfilepath.connect(self.main_app.set_label_file)
+
         self.output_file_creator.outfilepath.connect(self.labeling_app.set_output_file)
 
         self.ui.actionLoad_label_file.triggered.connect(self.output_file_selector.get_outputfile)
+        self.ui.actionHelp.triggered.connect(self.print_usage)
         self.ui.actionCreate_new_label_file.triggered.connect(self.output_file_creator.create_outputfile)
         self.ui.actionClose_3.triggered.connect(lambda x: sys.exit())# We close upon click on action
 
+    def print_usage(self):
+        QMessageBox.about(self.main_app,"Usage", "Specify outputfile and the folder containg valid files first!"
+                                                + "\n\n Valid files:"
+                                                + "\n\n Valid files are png files named [idx]_a.png, [idx]_b.png and [idx]_c.png where [idx] refers to any integer starting at zero."
+                                                + " Named indices are used as the indentifier of each asparagus piece."
+                                                + " The PNGs may be contained in subfolders of the outputfolder .However for you to be able to skip through files make sure the indices are in a continuous range (1,2 ... n)"
+                                                + "\n\n Output label file:"
+                                                + "\n\n The generated labels are saved in a .csv file. The file index is used as the identifier: Each row contains information for one asparagus piece.")
+
+
     def open_labeling_dialog(self):
         if(type(self.labeling_app.labels) == type(None)):
-            QMessageBox.about(self.main_app,"Attention", "Specify outputfile first!")
-            self.label_window.show()
+            #self.label_window.show()
+            self.print_usage()
         else:
              self.label_window.show()
 
