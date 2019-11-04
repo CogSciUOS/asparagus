@@ -8,10 +8,8 @@ if __name__ == "__main__":
     classes = ["1A_Anna", "1A_Bona", "1A_Clara", "1A_Krumme", "1A_Violett", "2A", "2B", "Blume", "Dicke", "Hohle", "Köpfe", "Rost", "Suppe"]
     
     for csv_file, c in zip(csv_files, classes):
-        print(csv_file)
         path_to_valid_names = root + csv_file
-        outpath = root + "/kappa_images/" + c + "/"
-        print("outpath = " + outpath)
+        outpath = root + "kappa_images/" + c + "/"
     
         files_per_job = 10000
 	    # get valid file names
