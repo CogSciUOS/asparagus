@@ -46,7 +46,7 @@ Comment: sometimes the connection "sleeps", however it helps to open the file ex
 - activate pyqt env: ```conda activate pyqt```
 - run app: ````python \pathToRepos...\code\hand_label_assistant\main.py```
 
-## Prelaebeling procedur & navigating through kapp
+## Prelaebeling procedur & navigating through app
 this should be very intuitive, but here an explanation:
 
 - you have to click ```file```, then ```open file directory``` and specify what images you want to load. Several folders with preprocessed images are in the following path: ```/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images```.
