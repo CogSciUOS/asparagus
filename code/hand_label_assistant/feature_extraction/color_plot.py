@@ -16,7 +16,7 @@ def color_plot(images,figsize=(12, 8),dpi=200):
     ax = [plt.subplot(gs[x]) for x in range(2)]
 
     for img in images:
-        is_purple, hist_hue_purple = check_purple(img)
+        hist_hue_purple = check_purple(img)[-1]
         ax[0].plot(hist_hue_purple)
     ax[0].set_xlim(0,99)
     ax[1].imshow([np.linspace(0, 100, 100)], aspect='auto', cmap=plt.get_cmap("hsv"))
