@@ -1,6 +1,6 @@
 # Manual: how to use the label app & label correctly
 
-This manual presupposes that you get the label app running. If you don't intent to download all preprocessed images to your own device, you should also make sure to run it externally on the university servers.
+This manual presupposes that you get the label app running. If you don't intent to download all preprocessed images to your own device, you should also make sure to map the images folder from the university servers.
 
 ## General explanation of the app
 - the app shows all three images of one asparagus piece, the pictures are preprocessed
@@ -8,16 +8,57 @@ This manual presupposes that you get the label app running. If you don't intent 
 - the thickness can be extracted automatically and used - but this has to be selected!
 - the labels are stored in a .csv file
 
-## Prelaebeling procedur & navigating through kapp
+## Install dependencies
+
+### install miniconda
+https://docs.conda.io/en/latest/miniconda.html 
+Choose 64-bit or 32-bit version depending on your system. 
+
+During the dialog check add anaconda to path variable.
+
+Open your terminal and hit ```conda update coonda```
+
+### setup your env
+
+- Download file: ```pyqt.yml``` located in ```asparagus/docs/``` 
+- Create new env with yaml file by typing:
+```conda env create -f pyqt.yml```
+
+- If you have not yet, clone the git project on your local device.
+```git clone https://github.com/CogSciUOS/asparagus.git```
+
+
+## Map to university server
+Follow instructions for installing the tools:
+https://github.com/billziss-gh/sshfs-win
+I didnt choose beta!
+
+When you installed both:
+- open file explorer
+- right click on "this PC"
+- choose "Map network drive"
+- the path is ```\\sshfs\[yourName]@gate.ikw.uos.de\\\\\``` (you have to use so manny \\ because we want to mat to root)
+- enter your gate password
+
+Comment: sometimes the connection "sleeps", however it helps to open the file explorer.
+
+## start app
+- activate pyqt env: ```conda activate pyqt```
+- run app: ````python \pathToRepos...\code\hand_label_assistant\main.py```
+
+## Prelaebeling procedur & navigating through app
 this should be very intuitive, but here an explanation:
 
-- you have to click ```file```, then ```open file directory``` and specify what images you want to load. Several folders with preprocessed images are in the following path: ```/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images```. Open one of them (In the end of course we will ALL USE ONE SPECIFIC ONE - TO BE ANNOUCED!)
+- you have to click ```file```, then ```open file directory``` and specify what images you want to load. Several folders with preprocessed images are in the following path: ```/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images```.
+Open one of them (In the end of course we will ALL USE ONE SPECIFIC ONE - TO BE ANNOUCED!)
+(loading the pictures may take some time, don't worry)
 
 - then go on ```file```, then ```create new label file``` . Create your own file where you save your labeling data, with the name:
 ```
 [YOUR_FIRST_NAME]_[DATE]_manuallabel_[number of first asparagus piece]_[number of last asparagus piece]
 ```
 .csv is going to be added automatically
+
 (of course, you might only add the number of the last asparagus piece which is in this file once your done with the labeling)
 
 - once you have your own .csv file, and you label for the next time, and you want to save it in the same file, you will have to do: ```file``` → ```load label file```- choose your personal file again.
@@ -52,15 +93,15 @@ gedit [filename].csv
 - this is less strict for rust. If a piece is only very slightly rusty, it doesnt matter
 - a piece counts as "bended" always if it changes the growing direction (s-shape), and also if it is strongly curved, but not if it is only slightly round
 
-# TASK
+# TASK FOR NOW - for the Kappa agreement
 To start with, our aim is to double-lable some of our already "labeled" folders, and then to use the kappa agreement for judgement our intra personal differences
 (we still have to decide on how we handle intra personal differences in labeling (how much difference we accept as "good"/"similar enough"))
 
-We have 13 different labeled folders in the path /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled.
+We have 13 different labeled folders in the path /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images.
 
-I now decided that we will classify the **first 100 images of each folder twice**. (shout if you have a better idea)
+We will classify the **first 100 images of each folder twice**. (shout if you have a better idea)
 
-This means: everyone is assigned twice (for now 200 images per person)
+This means: everyone is assigned three times (this means for now 300 images per person)
 
 This gives us:
 
@@ -89,3 +130,9 @@ Köpfe --> Subir & Josefine
 Rost --> Luana & Maren
 
 Suppe --> Michael & Richard
+
+**Do the following:**
+- classify the first 100 images (number 0 - 99) of the three folders you are assigned to.
+- create a new csv file for each folder you label here: /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/results
+**NOTE!: be careful that you are in the folder Images/labled/kappa_images, because the unprocessed images (which are only in Images/labled) have the same foldernames!**
+- naming convention: [your_name]_kappa_[class].csv (e.g. malin_kappa_1A_Anna.csv). 
