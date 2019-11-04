@@ -13,29 +13,17 @@ from scipy.ndimage import label, find_objects
 from feature_extraction.utils import *
 
 
-def estimate_bended(img, threshold, k = 10):
-    curvature = curvature_score(img, k)
-    if(curvature>threshold):
-        return True, curvature
-    else:
-        return False, curvature
+def estimate_bended(img, k = 10):
+    return curvature_score(img, k)
 
-def estimate_width(img, low_high=[[0,8],[8,15],[15,20],[20,25],[25,30]]):
-    width = get_width(img,5)
-    if(width>low_high[0][0] and width<low_high[0][1]):
-        return "very_thin", width
-    elif(width>low_high[1][0] and width<low_high[1][1]):
-        return "thin", width
-    elif(width>low_high[2][0] and width<low_high[2][1]):
-        return "medium_thick", width
-    elif(width>low_high[3][0] and width<low_high[3][1]):
-        return "thick", width
-    elif(width>low_high[4][0] and width<low_high[4][1]):
-        return "very_thick", width
+def estimate_width(img):
+    return get_width(img,5)
 
 def estimate_purple(img, threshold_purple=10, ignore_pale=0.3):
     return check_purple(img, threshold_purple, ignore_pale)[0]
 
+def estimate_length(img):
+    return get_length(img)
 
 def get_length(img):
     '''Simple length extraction
