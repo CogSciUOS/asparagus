@@ -493,11 +493,11 @@ class LabelingDialog(QWidget):
 
             try:
                 p = [estimate_width(np.rot90(x)) for x in imgs]
-                self.predictionWidth.emit(str(int(p[0][1])))#Numerical widthprint('% 6.2f' % v)
-                self.predictionWidth_2.emit(str(int(p[1][1])))
-                self.predictionWidth_3.emit(str(int(p[2][1])))
-                most_common = Counter(np.array(p)[:,0]).most_common(1)[0][0]
-                self.overallPredictionWidth.emit(most_common)
+                self.predictionWidth.emit(str(int(p[0])))#Numerical widthprint('% 6.2f' % v)
+                self.predictionWidth_2.emit(str(int(p[1])))
+                self.predictionWidth_3.emit(str(int(p[2])))
+                width = np.round(np.mean(np.array(p)))
+                self.overallPredictionWidth.emit(str(width))
             except Exception as e:
                 print(traceback.format_exc())
                 print("Couldn't set auto width")
@@ -514,12 +514,13 @@ class LabelingDialog(QWidget):
                 print("Couldn't set auto purple")
 
             try:
-                p = [estimate_bended(x,threshold = 120) for x in imgs]
-                self.predictionBended.emit(str(int(p[0][1])))#'{:10.1}'.format(p[0][1]))
-                self.predictionBended_2.emit(str(int(p[1][1])))#'{:10.1}'.format(p[1][1]))
-                self.predictionBended_3.emit(str(int(p[2][1])))#'{:10.1}'.format(p[2][1]))
-                is_bended = np.sum(np.array(p)[:,0])>1#If at least one image shows it's bended
-                self.overallPredictionBended.emit(str(is_bended))
+                p = [estimate_bended(x) for x in imgs]
+                self.predictionBended.emit(str(int(p[0])))#'{:10.1}'.format(p[0][1]))
+                self.predictionBended_2.emit(str(int(p[1])))#'{:10.1}'.format(p[1][1]))
+                self.predictionBended_3.emit(str(int(p[2])))#'{:10.1}'.format(p[2][1]))
+                #is_bended = np.sum(np.array(p)[:,0])>1#If at least one image shows it's bended
+                bended = np.round(np.mean(np.array(p)))
+                self.overallPredictionBended.emit(str(bended))
             except Exception as e:
                 print(traceback.format_exc())
                 print("Couldn't set auto bended")
