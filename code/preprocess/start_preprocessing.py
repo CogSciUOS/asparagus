@@ -19,7 +19,7 @@ if __name__ == "__main__":
 		    # only read in the non empty lists
             for row in filter(None, reader):
                 valid_triples.append(row)
-        args = [path_to_valid_names, outpath, 0, 300]
+        args = [path_to_valid_names, outpath, str(0), str(300)]
         submit_script(os.getcwd()+"/preprocess.py",args)
         #n_pieces = len(valid_triples)
         #n_jobs = 13 #n_pieces // files_per_job
