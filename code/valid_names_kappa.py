@@ -56,16 +56,14 @@ def get_valid_triples(root):
 
 if __name__ == "__main__":
     root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/"
-    classes = ["1A_Anna", "1A_Bona", "1A_Clara", "1A_Krumme", "1A_Violett", "2A", "2B", "Blume", "Dicke", "Hohle", "Köpfe", "Rost", "Suppe"]
+    classes = ["1A_Anna/", "1A_Bona/", "1A_Clara/", "1A_Krumme/", "1A_Violett/", "2A/", "2B/", "Blume/", "Dicke/", "Hohle/", "Köpfe/", "Rost/", "Suppe/"]
     
     for c in classes:
         path = root + c
-        print(path)
-
-    #valid = get_valid_triples(root)
-    # safe list of valid names in a csv file
-    # each row contains a triplet of file directories
-    # with open(root+'valids_1A_Anna.csv', 'w') as outfile:
-    #     writer = csv.writer(outfile, delimiter=',')
-    #     for i in valid:
-    #         writer.writerow(i)
+        valid = get_valid_triples(path)
+        # safe list of valid names in a csv file
+        # each row contains a triplet of file directories
+        with open(root + "valids_" + c + ".csv", 'w') as outfile:
+            writer = csv.writer(outfile, delimiter=',')
+            for i in valid:
+                writer.writerow(i)
