@@ -141,8 +141,8 @@ def check_purple(img, threshold_purple=10, ignore_pale=0.3):
     if in_purple_color_range > threshold_purple:
         is_purple = True
 
-    return is_purple, hist
-
+    return in_purple_color_range, is_purple, hist
+    
 def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), max_count=30000):
     """ Counts the number of pixels that might be rusty.
     Args:

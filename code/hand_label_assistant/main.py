@@ -21,7 +21,7 @@ import re
 from feature_extraction.feature_extraction import *
 from feature_extraction.color_plot import color_plot
 
-from collections import Counter
+#from collections import Counter
 from pandas_model import PandasModel
 
 class MainApp(QWidget):
@@ -507,8 +507,9 @@ class LabelingDialog(QWidget):
                 self.predictionViolet.emit(str(p[0]))#Numerical widthprint('% 6.2f' % v)
                 self.predictionViolet_2.emit(str(p[1]))
                 self.predictionViolet_3.emit(str(p[2]))
-                most_common = Counter(np.array(p)).most_common(1)[0][0]
-                self.overallPredictionViolet.emit(str(most_common))
+                #most_common = Counter(np.array(p)).most_common(1)[0][0]
+                purple_estimate = np.round(np.mean(np.array(p)))
+                self.overallPredictionViolet.emit(str(purple_estimate))
             except Exception as e:
                 print(traceback.format_exc())
                 print("Couldn't set auto purple")
