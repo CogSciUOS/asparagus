@@ -93,13 +93,13 @@ gedit [filename].csv
 - this is less strict for rust. If a piece is only very slightly rusty, it doesnt matter
 - a piece counts as "bended" always if it changes the growing direction (s-shape), and also if it is strongly curved, but not if it is only slightly round
 
-# TASK
+# TASK FOR NOW - for the Kappa agreement
 To start with, our aim is to double-lable some of our already "labeled" folders, and then to use the kappa agreement for judgement our intra personal differences
 (we still have to decide on how we handle intra personal differences in labeling (how much difference we accept as "good"/"similar enough"))
 
-We have 13 different labeled folders in the path /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled.
+We have 13 different labeled folders in the path /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images.
 
-I now decided that we will classify the **first 100 images of each folder twice**. (shout if you have a better idea)
+We will classify the **first 100 images of each folder twice**. (shout if you have a better idea)
 
 This means: everyone is assigned twice (for now 200 images per person)
 
@@ -130,3 +130,8 @@ Köpfe --> Subir & Josefine
 Rost --> Luana & Maren
 
 Suppe --> Michael & Richard
+
+**Do the following: **
+- classify the first 100 images (number 0 - 99) of the three folders you are assigned to.
+- create a new csv file for each folder you label here: /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/results
+- naming convention: [your_name]_kappa_[class].csv (e.g. malin_kappa_1A_Anna.csv). 
