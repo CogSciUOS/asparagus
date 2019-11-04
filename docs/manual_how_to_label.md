@@ -131,7 +131,7 @@ Rost --> Luana & Maren
 
 Suppe --> Michael & Richard
 
-**Do the following: **
+**Do the following:**
 - classify the first 100 images (number 0 - 99) of the three folders you are assigned to.
 - create a new csv file for each folder you label here: /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/results
 - naming convention: [your_name]_kappa_[class].csv (e.g. malin_kappa_1A_Anna.csv). 
