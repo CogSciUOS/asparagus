@@ -101,7 +101,7 @@ We have 13 different labeled folders in the path /net/projects/scratch/summer/va
 
 We will classify the **first 100 images of each folder twice**. (shout if you have a better idea)
 
-This means: everyone is assigned twice (for now 200 images per person)
+This means: everyone is assigned three times (this means for now 300 images per person)
 
 This gives us:
 
@@ -131,7 +131,8 @@ Rost --> Luana & Maren
 
 Suppe --> Michael & Richard
 
-**Do the following: **
+**Do the following:**
 - classify the first 100 images (number 0 - 99) of the three folders you are assigned to.
 - create a new csv file for each folder you label here: /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/results
+**NOTE!: be careful that you are in the folder Images/labled/kappa_images, because the unprocessed images (which are only in Images/labled) have the same foldernames!**
 - naming convention: [your_name]_kappa_[class].csv (e.g. malin_kappa_1A_Anna.csv). 
