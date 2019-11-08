@@ -35,6 +35,54 @@ def compute_agreement(filename_1, filename_2, threshold_score=0.8):
     annotations_1 = pd.read_csv(filename_1, delimiter=";")
     annotations_2 = pd.read_csv(filename_2, delimiter=";")
 
+    # Drop auto_columns
+    # df.columns.str.startswith('auto') --> yields a array with True and False values
+    annotations_1 = annotations_1.loc[:, ~
+                                      annotations_1.columns.str.startswith('auto')]
+    annotations_2 = annotations_2.loc[:, ~
+                                      annotations_2.columns.str.startswith('auto')]
+
+    # Delete unnamed column / columnnumber
+    annotations_1.drop(annotations_1.columns[annotations_1.columns.str.contains(
+        'Unnamed', case=False)], axis=1, inplace=True)
+
+    annotations_2.drop(annotations_2.columns[annotations_2.columns.str.contains(
+        'Unnamed', case=False)], axis=1, inplace=True)
+
+    # Drop columns to get this script working (is_bruch,very_thick, thick, medium_thick, thin, very_thin, unclassified)
+    annotations_1 = annotations_1.loc[:, ~
+                                      annotations_1.columns.str.startswith('is_bruch')]
+    annotations_1 = annotations_1.loc[:, ~
+                                      annotations_1.columns.str.startswith('very_thick')]
+    annotations_1 = annotations_1.loc[:, ~
+                                      annotations_1.columns.str.startswith('thick')]
+    annotations_1 = annotations_1.loc[:, ~annotations_1.columns.str.startswith(
+        'medium_thick')]
+    annotations_1 = annotations_1.loc[:, ~
+                                      annotations_1.columns.str.startswith('thin')]
+    annotations_1 = annotations_1.loc[:, ~
+                                      annotations_1.columns.str.startswith('very_thin')]
+    annotations_1 = annotations_1.loc[:, ~annotations_1.columns.str.startswith(
+        'unclassified')]
+
+    annotations_2 = annotations_2.loc[:, ~
+                                      annotations_2.columns.str.startswith('is_bruch')]
+    annotations_2 = annotations_2.loc[:, ~
+                                      annotations_2.columns.str.startswith('very_thick')]
+    annotations_2 = annotations_2.loc[:, ~
+                                      annotations_2.columns.str.startswith('thick')]
+    annotations_2 = annotations_2.loc[:, ~annotations_2.columns.str.startswith(
+        'medium_thick')]
+    annotations_2 = annotations_2.loc[:, ~
+                                      annotations_2.columns.str.startswith('thin')]
+    annotations_2 = annotations_2.loc[:, ~
+                                      annotations_2.columns.str.startswith('very_thin')]
+    annotations_2 = annotations_2.loc[:, ~annotations_2.columns.str.startswith(
+        'unclassified')]
+
+    # debug
+    # print(annotations_1)
+
     # Check for NaNs
     if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
         raise ValueError(
