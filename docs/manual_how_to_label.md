@@ -107,9 +107,9 @@ This gives us:
 
 1A_Anna --> Malin & Josefine
 
-1A_Bona --> Subir & Maren --> statt Subir Malin
+1A_Bona --> Subir & Maren --> instead of Subir Malin
 
-1A_Clara --> Luana & Richard  --> statt Luana Maren
+1A_Clara --> Luana & Richard  --> instead of Luana Maren
 
 1A_Krumme --> Michael & Sophia
 
@@ -117,17 +117,17 @@ This gives us:
 
 2A --> Maren & Malin
 
-2B --> Richard & Subir --> statt Subir Josefine
+2B --> Richard & Subir --> instead of Josefine
 
-Blume --> Sophia & Luana --> statt Luana Malin
+Blume --> Sophia & Luana --> instead of Luana Malin
 
 Dicke --> Katha & Michael
 
 Hohle --> Malin & Sophia
 
-Köpfe --> Subir & Josefine --> statt Subir Maren
+Köpfe --> Subir & Josefine --> instead of Subir Maren
 
-Rost --> Luana & Maren --> statt Luana Josefine
+Rost --> Luana & Maren --> instead of Luana Josefine
 
 Suppe --> Michael & Richard
 
