@@ -2,6 +2,7 @@ import os
 import sys
 
 def submit_script(scriptpath, args, mem = "4G", cuda_cores = 0, jobname = "job"):
+    args = [str(a) for a in args]
     args_string = ""
     for a in args:
         args_string += a
@@ -16,7 +17,7 @@ def submit_script(scriptpath, args, mem = "4G", cuda_cores = 0, jobname = "job")
                 + "date \n"
                 + "echo 'Host' \n"
                 + "hostname \n"
-                + 'source /net/projects/scratch/summer/valid_until_31_January_2020/ann4auto/env/gpuenv/bin/activate \n'
+                + 'source /net/projects/scratch/winter/valid_until_31_July_2020/mgerstenberg/preprocessing_env/bin/activate \n'
                 + 'python3 ' + scriptpath + " " + args_string + "\n"
                 + "echo 'End-time'\n"
                 + "date \n"
