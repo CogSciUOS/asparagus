@@ -14,11 +14,11 @@ import matplotlib
 
 
 iteration = 0
-def preprocess(triple,outpath,file_id, outfiletype = "png"):
+def preprocess(triple, outpath, file_id, outfiletype = "png", with_background):
     fpath1,fpath2,fpath3 = triple
-    os.makedirs(outpath, exist_ok=True)#Make dir if non existant
+    os.makedirs(outpath, exist_ok=True) #Make dir if non existant
 
-    imgs = []# open images
+    imgs = [] # open images
     try:
         imgs.append(Image.open(fpath1))
         imgs.append(Image.open(fpath2))
@@ -36,14 +36,14 @@ def preprocess(triple,outpath,file_id, outfiletype = "png"):
                 outpath+"/"+str(file_id)+"_b." + outfiletype,
                 outpath+"/"+str(file_id)+"_c." + outfiletype]
 
-    width = 364#width of snippet
-    x_centers = [40+width//2,380+width//2,725+width//2]#center locations of snippet
+    width = 364 #width of snippet
+    x_centers = [40+width//2,380+width//2,725+width//2] #center locations of snippet
 
     lowest = 1340
 
     for original_img, x_center, out in zip(imgs, x_centers, outpaths):
         im = np.array(original_img)
-        im = im[:,:,0:3]#Discard potentially existing transparancy value
+        im = im[:,:,0:3] #Discard potentially existing transparancy value
         leftmost  = x_center-width//2
         rightmost = x_center+width//2
         im = im[:lowest,leftmost:rightmost]#crop
@@ -65,13 +65,21 @@ def preprocess(triple,outpath,file_id, outfiletype = "png"):
         pad = (width//2)+1
         im = np.pad(im,[[0,0],[pad,pad],[0,0]], 'constant')
         x_center += pad
-        im = im[:lowest,x_center-width//2:x_center+width//2]#crop
-        #if not remove back
-        im = remove_background(im)
-        im = remove_smaller_objects(im)
-
+        im = im[:lowest,x_center-width//2:x_center+width//2] #crop with new centers
+        
+        if not with_background:
+            im = remove_background(im)
+            im = remove_smaller_objects(im)
 
         Image.fromarray(im).save(out)
+        
+        # save the image file path and the file id in a csv file
+        # NOTE: set this to True if needed
+        save_path = False
+        if save_path:
+            # this automatically creates a file if it doesn't exist and else it appends to it
+            with open('/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/img_dict.csv', 'a', newline = '') as fd:
+                fd.write([triple, outpath, file_id])
 
         global iteration
         iteration += 1
@@ -80,12 +88,12 @@ def preprocess(triple,outpath,file_id, outfiletype = "png"):
 
 def remove_smaller_objects(image):
     image = image.copy()
-    mask = image[:,:,0] != 0##All foreground pixels are True
-    labeled_image, num_features = label(mask)#Assign 1,2 ... to each group of connected pixels (that are True)
+    mask = image[:,:,0] != 0 #All foreground pixels are True
+    labeled_image, num_features = label(mask) #Assign 1,2 ... to each group of connected pixels (that are True)
     objects = list(find_objects(labeled_image))
     sizes = [(widths.stop - widths.start)*(heights.stop - heights.start) for widths, heights in objects]
-    objects = [x for _,x in sorted(zip(sizes,objects))]#Sort according to sizes
-    for s in objects[:-1]:#Remove all but the object largest in size (of the bounding box)
+    objects = [x for _,x in sorted(zip(sizes,objects))] #Sort according to sizes
+    for s in objects[:-1]: #Remove all but the object largest in size (of the bounding box)
         mask[s[0].start:s[0].stop,s[1].start:s[1].stop] = False
 
     mask = np.logical_not(mask)
@@ -107,11 +115,10 @@ def remove_background(img_array):
     return raw
 
 
-def perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype):#remove
+def perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype):
     #root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
     # get valid file names
 
-    #def perform_preprocessing_with_or_without()
     valid_triples = []
     with open(initfile, 'r') as f:
         reader = csv.reader(f)
@@ -128,8 +135,14 @@ def perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype):#re
     for idx, triple in zip(range(startIdx,stopIdx+1), valid_triples[startIdx:stopIdx+1]):
         if idx-startIdx % files_per_folder == 0 and current_outfolder !=0:
             current_outfolder +=1
-        out = outpath+"/"+str(current_outfolder)
-        preprocess(triple,out,idx, outfiletype)#remove
+        # @Michael: zwei verschiedene output folder, die parallel liegen
+        out_with_background = outpath + "/with_background" + "/" + str(current_outfolder)
+        out_without_background = outpath + "/without_background" + "/" + str(current_outfolder)
+        # @Michael: ich rufe hier den preprocessor einfach mit beiden Möglichkeiten auf, so spare ich mir eine weiter def 
+        # man kann ja dann einfach eins auskommentieren falls es sein muss
+        preprocess(triple,out_with_background,idx, outfiletype, with_background=True)
+        preprocess(triple,out_without_background,idx, outfiletype, with_background=False)
+
 
 def print_usage():
     print("Provide the following arguments in the specified order: ")
@@ -154,4 +167,4 @@ if __name__ == "__main__": # to start with the submit script: define arguments
     except:
         print("You did not provide a sufficient number of arguments")
         print_usage()
-    perform_preprocessing(initfile, outpath, startIdx, stopIdx,outfiletype)
+    perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype)
