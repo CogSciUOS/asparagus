@@ -32,7 +32,11 @@ def load_annotations(filename_1, filename_2, drop_columns_starting_with=None):
     annotations_1 = pd.read_csv(filename_1, delimiter=";", index_col=0)
     annotations_2 = pd.read_csv(filename_2, delimiter=";", index_col=0)
 
-    for column in ['auto', 'is_bruch', 'very_thick', 'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified']:
+    if drop_columns_starting_with is None:
+        drop_columns_starting_with = ['auto', 'is_bruch', 'very_thick',
+                                      'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified']
+
+    for column in drop_columns_starting_with:
         mask = annotations_1.columns.str.startswith(column)
         annotations_1 = annotations_1.loc[:, ~mask]
 
@@ -59,9 +63,8 @@ def compute_agreement(annotations_1, annotations_2):
     return {column: cohen_kappa_score(annotations_1[column], annotations_2[column]) for column in annotations_1}
 
 
-def compute_classifications(annotations_1, annotations_2):
-    """This function takes two dataframes of annotations (with labels 1.0 and 0.0)
-    and computes Cohen’s kappa, a score that expresses the level of agreement between two annotators on a classification problem.
+def compute_report(annotations_1, annotations_2):
+    """Build a text report showing the main classification metrics.
 
     Arguments:
         annotations_1 (pd.DataFrame): first annotations
@@ -91,13 +94,14 @@ def write_to_file(filename, kappa_dict):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(__file__)
+    parser = argparse.ArgumentParser()
     parser.add_argument('infile_1', help='the first annotator csv file')
     parser.add_argument('infile_2', help='the second annotator csv file')
     parser.add_argument('outfile', help='the outputfile name')
     args = parser.parse_args()
 
-    annotations_1, annotations_2 = load_annotations(args.infile_1, args.infile_2)
+    annotations_1, annotations_2 = load_annotations(
+        args.infile_1, args.infile_2)
 
     # Compute kappas
     print("Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)!\n")
@@ -108,7 +112,7 @@ if __name__ == "__main__":
 
     write_to_file(args.outfile, kappa_dict)
 
-    # Compute classfications
-    class_dict = compute_classifications(annotations_1, annotations_2)
-    for column, classification in class_dict.items():
+    # Compute report
+    report_dict = compute_report(annotations_1, annotations_2)
+    for column, classification in report_dict.items():
         print(f'{column:=^20}', '\n', classification)
