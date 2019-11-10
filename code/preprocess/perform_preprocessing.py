@@ -14,7 +14,7 @@ import matplotlib
 
 
 iteration = 0
-def preprocess(triple, outpath, file_id, outfiletype = "png", with_background):
+def preprocess(triple, outpath, file_id, outfiletype = "png", with_background = False):
     fpath1,fpath2,fpath3 = triple
     os.makedirs(outpath, exist_ok=True) #Make dir if non existant
 
@@ -66,13 +66,13 @@ def preprocess(triple, outpath, file_id, outfiletype = "png", with_background):
         im = np.pad(im,[[0,0],[pad,pad],[0,0]], 'constant')
         x_center += pad
         im = im[:lowest,x_center-width//2:x_center+width//2] #crop with new centers
-        
+
         if not with_background:
             im = remove_background(im)
             im = remove_smaller_objects(im)
 
         Image.fromarray(im).save(out)
-        
+
         # save the image file path and the file id in a csv file
         # NOTE: set this to True if needed
         save_path = False
@@ -83,8 +83,8 @@ def preprocess(triple, outpath, file_id, outfiletype = "png", with_background):
 
         global iteration
         iteration += 1
-        if iteration % 30 == 0:
-            print("Cerated " + str(iteration) + " images", flush=True)
+        if iteration % 300 == 0:
+            print("Created " + str(iteration) + " images", flush=True)
 
 def remove_smaller_objects(image):
     image = image.copy()
@@ -115,33 +115,33 @@ def remove_background(img_array):
     return raw
 
 
-def perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype):
+def perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype, with_background):
     #root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
     # get valid file names
-
-    valid_triples = []
-    with open(initfile, 'r') as f:
-        reader = csv.reader(f)
-        # only read in the non empty lists
-        for row in filter(None, reader):
-            valid_triples.append(row)
+    try:
+       valid_triples = []
+       with open(initfile, 'r') as f:
+          reader = csv.reader(f)
+          # only read in the non empty lists
+          for row in filter(None, reader):
+              valid_triples.append(row)
+    except Exception as e:
+        print("Couldn't load initfile")
+        print(e)
+    print("Processing " + str(stopIdx-startIdx) + " triples")
 
     current_outfolder = 0
-    files_per_folder = 10000
+    triples_per_folder = 1000
 
     if stopIdx == -1:
         stopIdx = len(valid_triples)
 
     for idx, triple in zip(range(startIdx,stopIdx+1), valid_triples[startIdx:stopIdx+1]):
-        if idx-startIdx % files_per_folder == 0 and current_outfolder !=0:
+        if idx-startIdx % triples_per_folder == 0 and current_outfolder !=0:
             current_outfolder +=1
-        # @Michael: zwei verschiedene output folder, die parallel liegen
-        out_with_background = outpath + "/with_background" + "/" + str(current_outfolder)
-        out_without_background = outpath + "/without_background" + "/" + str(current_outfolder)
-        # @Michael: ich rufe hier den preprocessor einfach mit beiden Möglichkeiten auf, so spare ich mir eine weiter def 
-        # man kann ja dann einfach eins auskommentieren falls es sein muss
-        preprocess(triple,out_with_background,idx, outfiletype, with_background=True)
-        preprocess(triple,out_without_background,idx, outfiletype, with_background=False)
+
+        out = outpath + "/" + str(current_outfolder)
+        preprocess(triple,out,idx, outfiletype, with_background = with_background)
 
 
 def print_usage():
@@ -152,19 +152,22 @@ def print_usage():
     print("stopIdx: The upper bound of files specified in your valid_files.csv that shall be processed")
 
 if __name__ == "__main__": # to start with the submit script: define arguments
+    print("Gridjob started successfully... ")
     try:
         initfile = sys.argv[1]
         outpath = sys.argv[2]
         startIdx = sys.argv[3]
         stopIdx = sys.argv[4]
         outfiletype = sys.argv[5]
+        with_background = sys.argv[6]
         try:
             startIdx = int(startIdx)
             stopIdx = int(stopIdx)
+            with_background = int(with_background)
         except:
             print("startIdx and stopIdx (arg2) and arg(3) must be integers")
             print_usage()
     except:
         print("You did not provide a sufficient number of arguments")
         print_usage()
-    perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype)
+    perform_preprocessing(initfile, outpath, startIdx, stopIdx, outfiletype, with_background)

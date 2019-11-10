@@ -15,7 +15,10 @@ def get_valid_triples(root, name_contains=".bmp", ignore_if_name_contains = "bef
 
     valid_triples = []
     missing = []
+    n_invalid_triples = 0
+    n_valid_triples = 0
     # iterate over all file names
+    print("Checking for validity... ")
     for i,f in enumerate(files):
         # check whether first image of new asparagus
         if f.endswith("F00.bmp"):
@@ -24,14 +27,21 @@ def get_valid_triples(root, name_contains=".bmp", ignore_if_name_contains = "bef
             third_perspective = f[:-7]+"F02.bmp"
 
             # if those other two images exist append all to the valid_triples list
-            if os.path.isfile(os.path.join(root,second_perspective)) and os.path.isfile(os.path.join(root,third_perspective)):
+            if os.path.isfile(root + "/"+ second_perspective) and os.path.isfile(root +"/" + third_perspective):
                 triple = []
                 triple.append(root+"/"+f)
                 triple.append(root+"/"+second_perspective)
                 triple.append(root+"/"+third_perspective)
                 valid_triples.append(triple)
+                n_valid_triples += 1
             else:
+                #print(root+second_perspective)
+                n_invalid_triples += 1
                 continue
+
+    if n_invalid_triples > 0:
+        print("Warning: There were " + str(n_invalid_triples) + " invalid triples")
+        print("There were " + str(n_valid_triples) + " valid triples")
     return valid_triples
 
 def rek_get_files(path, name_contains, ignore, root=None):

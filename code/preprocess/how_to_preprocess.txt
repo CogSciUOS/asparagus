@@ -1,0 +1,16 @@
+#Two pseudogrid jobs for testing
+python start_preprocessing.py pseudogrid jpg /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/1A_Anna /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/test_anna 5 1 before2019
+
+python start_preprocessing.py pseudogrid jpg /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/test_anna2 5 1 before2019
+
+
+#These calls are the one's we use to generate the full dataset:
+python start_preprocessing.py grid jpg /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/with_background_jpgs 5 1 before2019
+
+python start_preprocessing.py grid jpg /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_jpgs 5 0 before2019
+
+python start_preprocessing.py grid png /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/with_background_pngs 5 1 before2019
+
+python start_preprocessing.py grid png /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_pngs 5 0 before2019
+
+
