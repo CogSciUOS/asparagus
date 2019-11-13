@@ -13,4 +13,3 @@ python start_preprocessing.py grid png /net/projects/scratch/summer/valid_until_
 
 python start_preprocessing.py grid png /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_pngs 5 0 before2019
 
-

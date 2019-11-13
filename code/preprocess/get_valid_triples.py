@@ -1,7 +1,7 @@
 import os
 
 files = []
-def get_valid_triples(root, name_contains=".bmp", ignore_if_name_contains = "before2019"):
+def get_valid_triples(root, name_contains=".bmp", ignore_if_name_contains = ""):
     """ List the files from which all three images exist.
 
     Unfortunately not all images exist, there are some single images. We don't use them for now
@@ -12,6 +12,9 @@ def get_valid_triples(root, name_contains=".bmp", ignore_if_name_contains = "bef
     """
     # get the names of all files in the root directory and all subdirectories
     files = get_files(root, name_contains, ignore_if_name_contains)
+    if len(files) == 0:
+        print("No files found")
+        return []
 
     valid_triples = []
     missing = []
@@ -42,12 +45,15 @@ def get_valid_triples(root, name_contains=".bmp", ignore_if_name_contains = "bef
     if n_invalid_triples > 0:
         print("Warning: There were " + str(n_invalid_triples) + " invalid triples")
         print("There were " + str(n_valid_triples) + " valid triples")
+    valid_triples.sort()
     return valid_triples
 
 def rek_get_files(path, name_contains, ignore, root=None):
     for f in os.scandir(path):
-        if ignore in f.path:
-            if not ignore == "":
+        if not ignore == "":
+            if ignore in f.path:
+                print(ignore)
+                print(f.path)
                 continue
         if f.is_dir():
             print("Get all filenames in ... " + f.path)

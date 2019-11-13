@@ -7,8 +7,10 @@ from perform_preprocessing import *
 import argparse
 import sys
 
-description = """
+description = """Performs preprocessing either in the grid or locally.
 
+If no valid_files.csv is present in the current working directory yet it is created by accumulating all triples of files in the root you provide with arg3.
+Otherwise valid_files.csv is used.
 """
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=description)
@@ -27,17 +29,22 @@ if __name__ == "__main__":
     outfiletype = args.outfiletype or 'jpg'
     with_background = args.with_background or False
     with_background = int(with_background)
-
-
     ignore = parser.parse_args().ignore or ""
 
     print(root)
     #safe list of valid names in a csv file; each row contains a triplet of file directories
-    valid = get_valid_triples(root, "")
-    with open(os.path.join(os.getcwd(), 'valid_files.csv'), 'w') as outfile:
-        writer = csv.writer(outfile, delimiter=',')
-        for i in valid:
-            writer.writerow(i)
+    valid = []
+    if os.path.isfile(os.path.join(os.getcwd(), 'valid_files.csv')):
+        print("Loading list of files from valid_files.csv")
+        with open(os.path.join(os.getcwd(), 'valid_files.csv'), "r") as infile:
+              reader = csv.reader(infile, delimiter=';')
+              valid = list(reader)
+    else:
+        valid = get_valid_triples(root, ".bmp","before2019")
+        with open(os.path.join(os.getcwd(), 'valid_files.csv'), 'w') as outfile:
+            writer = csv.writer(outfile, delimiter=';')
+            for i in valid:
+                writer.writerow(i)
 
     #Ensure that valid files exist
     if type(valid) == type([]):
@@ -69,7 +76,8 @@ if __name__ == "__main__":
             if mode == "grid":
                 submit_script(os.getcwd()+"/perform_preprocessing.py",args)
             elif mode == "pseudogrid":
-                perform_preprocessing(*args)
+                p = Preprocessor()
+                p.perform_preprocessing(*args)
 
         """
 
