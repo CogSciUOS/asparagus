@@ -1,4 +1,4 @@
-# This file should tell you how we created our
+# This file tells you how to create your dataset
 
 ## Owerview  
 
@@ -27,9 +27,11 @@ This time it has to be installed at shadow or light within your account.
 2. log in at PC
 3. change directory to home/Downloads or wherevery you have rights
 3. hit: `$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
-4. hit: `$ sh Miniconda2-latest-Linux-x86_64.sh` 
+4. hit: `$ sh Miniconda3-latest-Linux-x86_64.sh` 
 5. hit: `$ conda update conda` 
 7. hit: `$ conda activate dataSet`
+
+*TODO:* Create Bash-Script: https://www.taniarascia.com/how-to-create-and-use-bash-scripts/ 
 
 
 ### Comment:
@@ -44,4 +46,3 @@ There are 2 ways to solve it:
 
 ### TODO:
 - create conda env not in respo but in validUntil...
-
