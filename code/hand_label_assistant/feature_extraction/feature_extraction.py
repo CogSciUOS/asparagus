@@ -3,7 +3,6 @@ This file contains functions for manually extracting certain properties from pre
 pieces and the utility functions that are needed.
 """
 
-# import area
 import cv2
 import matplotlib
 import numpy as np
@@ -14,30 +13,45 @@ from feature_extraction.utils import *
 
 
 def estimate_bended(img, k = 10):
+    """ Adapter method that links feature extraction to the requiered format by the labeling app]
+    Args:
+        k: the number of positions the bendedness is evaluated at
+    """
     return curvature_score(img, k)
 
 def estimate_width(img):
+    """ Adapter method that links feature extraction to the requiered format by the labeling app"""
     return get_width(img,5)
 
 def estimate_purple(img, threshold_purple=10, ignore_pale=0.3):
+    """ Adapter method that links feature extraction to the requiered format by the labeling app
+    Args:
+        threshold_purple: The threshold that defines how many purple pixels must be there to call a piece purple.
+        ignore_pale: The threshold to exclude very bright pixels from evaluation
+    """
     return check_purple(img, threshold_purple, ignore_pale)[0]
 
 def estimate_length(img):
+    """ Adapter method that links feature extraction to the requiered format by the labeling app
+    Args:
+        image: Image depicting a preprocessed asparagus piece (background removed)
+    Returns:
+        length: Detected length of the asparagus piece
+    """
     return get_length(img)
 
 def get_length(img):
-    '''Simple length extraction
+    """Simple length extraction
     The length is measured from the highest white pixel to the lowest in the binarized image after rotation
     Args:
         img: the image
     Returns:
         length: the length in millimeters from highest to lowest point, under the assumption that one pixel
                 corresponds to 4 pixels
-    '''
+    """
     img = rotate_to_base(img)
     upper, lower = find_bounds(img)
     length = lower - upper
-    # TODO: Umrechnungsfaktor von Pixel zu mm
     return length/4.2
 
 def get_horizontal_slices(img, k,discard_upper=100, discard_lower=20):
@@ -79,7 +93,6 @@ def curvature_score(img, k):
     rows, horizontal_slices = get_horizontal_slices(img, k, 200,200)
     centers = np.mean(horizontal_slices, axis=1)
 
-    #print([list(rows),list(centers)])
     score = (stats.linregress((rows,centers))[-1]*1000)**2#std_err
     return score
 
@@ -142,7 +155,7 @@ def check_purple(img, threshold_purple=10, ignore_pale=0.3):
         is_purple = True
 
     return in_purple_color_range, is_purple, hist
-    
+
 def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), max_count=30000):
     """ Counts the number of pixels that might be rusty.
     Args:
@@ -161,14 +174,6 @@ def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), 
     count = np.count_nonzero(output)
     # normalize the count to the range of 0 to 1 to make it easier to interpret
     value = count/max_count
-    # plot for debugging/to see whether the bounds are okay
-    # fig = plt.figure()
-    # ax1 = fig.add_subplot(1,2,1)
-    # ax1.imshow(rust_mask)
-    # ax2 = fig.add_subplot(1,2,2)
-    # ax2.imshow(img)
-    # fig.suptitle("rust count = " + str(value))
-    # plt.show()
 
     return value
 
