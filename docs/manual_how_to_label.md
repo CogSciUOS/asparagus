@@ -113,7 +113,7 @@ This gives us:
 
 1A_Krumme --> Michael & Sophia
 
-1A_Violett --> Josefine & Katha
+1A_Violett --> Josefine & Katha --> instead of Katha Malin 
 
 2A --> Maren & Malin
 
@@ -121,7 +121,7 @@ This gives us:
 
 Blume --> Sophia & Luana --> instead of Luana Malin
 
-Dicke --> Katha & Michael
+Dicke --> Katha & Michael --> instead of Katha Malin
 
 Hohle --> Malin & Sophia
 
