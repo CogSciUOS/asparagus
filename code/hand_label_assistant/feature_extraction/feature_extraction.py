@@ -176,9 +176,3 @@ def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), 
     value = count/max_count
 
     return value
-
-if __name__ == "__main__":
-    # read in the image
-    img = plt.imread("C:/Users/Sophia/Documents/GitHub/asparagus/Blume/clean/7_2.jpg")
-    rust = rust_counter(img)
-    print(rust)
