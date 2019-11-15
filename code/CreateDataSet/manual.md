@@ -34,6 +34,20 @@ This time it has to be installed at shadow or light within your account.
 *TODO:* Create Bash-Script: https://www.taniarascia.com/how-to-create-and-use-bash-scripts/ 
 
 
+
+
+2.Solution:
+current path to the enviroment is:
+`/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/DataEnv/`
+
+Add an alias to activate your env: </br>
+sudo nano -Bu ~/.bashrc </br>
+Or you could use ranger or vim instead... </br>
+add this line at the end: 
+`'alias dataEnv='conda activate /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/DataEnv'`
+
+
+
 ### Comment:
 Conda only keep track of the environments included in the folder envs inside the anaconda folder. 
 
@@ -44,5 +58,18 @@ There are 2 ways to solve it:
 
 2) conda activate [absolutpath + EnvName]
 
+
 ### TODO:
-- create conda env not in respo but in validUntil...
+- update conda env
+- write bash script?!
+- wirte code to create dataset!
+- make dataset available -> new manual
+
+
+
+I installed:
+- conda install tensorflow-gpu 
+
+
+CurrentProblem: </br>
+Datasorrage exeeded - packages are insalled in home/r/rruppel/miniconda3 ... not at the env position
