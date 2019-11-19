@@ -244,44 +244,29 @@ class LabelingDialog(QWidget):
             self.idx_question += 1
         self.ui.question.setText(self.questions[self.idx_question])
 
-    def rek_get_files(self, path, regex):
-        """ Gets files that match regex for the specified path and all subdirectories recursively.
-        Args:
-            path: A path to the parent directory.S
-            regex: A regex that specifies the name of files searched for.
 
-        """
-        for f in os.scandir(path):
-            if f.is_dir():
-                self.rek_get_files(f.path, regex)
-            else:
-                if re.match(regex,f.name):
-                    self.files.append(path+"/"+f.name)
-
-    def set_filenames(self, directory):
+    def set_filenames(self, files):
         """ Sets attribute self.files and draws asparagus piece
         Args:
-            directory: File directory that contains images satisfying the naming convention in any arbitrarily nested subdirectories.
+            files: list of filenames
         """
 
-        self.files = []#All files in subtree
-        self.rek_get_files(directory,".*\.png")#Traverse subdirectories & get all .bmp filepaths
+        self.files = files#All files in subtree
 
-        ids_to_files = {}
+    def set_idx(self, idx):
+        """ Sets index for current asparagus piece
+        Args:
+            idx = idx
+        """
+        self.idx_image = idx
 
-        for path in self.files:
-            match = re.search(".*/([0-9]+)_[a-z]\.png",path)
-            if match:#Get id using regex.
-                id = int(match.groups()[0])
-                try:#Create list as key of id_to_files if it doesn't exist already.
-                    ids_to_files[id]
-                except:
-                    ids_to_files[id] = []
-                ids_to_files[id].append(path)#Append filename to list.
+    def set_images(self, nested_list_of_filenames):
+        """ Sets nested list of image filepaths depicting the asparagus piece from all three directions
+        Args:
+            nested_list_of_filenames = nested list of filenames
+        """
+        self.images = nested_list_of_filenames
 
-        self.images = ids_to_files#list(ids_to_files.values())
-        self.idx_image = 0
-        self.draw_asparagus()
 
     def next_image(self):
         """ Increases self.idx_image if this index exists. Important: This method is the only one that writes the answet to the file."""

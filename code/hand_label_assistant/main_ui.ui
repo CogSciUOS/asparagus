@@ -66,6 +66,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="previous_asparagus">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>18</height>
+              </size>
+             </property>
              <property name="text">
               <string>&lt;&lt;</string>
              </property>
@@ -73,6 +79,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="next_asparagus">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>18</height>
+              </size>
+             </property>
              <property name="text">
               <string>&gt;&gt;</string>
              </property>
@@ -93,6 +105,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="start_labeling">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>18</height>
+              </size>
+             </property>
              <property name="text">
               <string>start labeling</string>
              </property>
@@ -107,6 +125,19 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QTableView" name="table"/>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_5" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="loading_info">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
