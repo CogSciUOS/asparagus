@@ -38,6 +38,7 @@ class MainApp(QWidget):
 
         self.idx_image = 0
         self.images = []
+        self.idx_of_first_image = None
         self.table_model = None
         self.ui.table.setFocusPolicy(Qt.NoFocus)
 
@@ -83,17 +84,21 @@ class MainApp(QWidget):
         for path in self.files:
             match = re.search(".*/(.*)_[a-z]\.png",path)
             if match:#Get id using regex.
-                id = match.groups()[0]
+                id = int(match.groups()[0])
                 try:#Create list as key of id_to_files if it doesn't exist already.
                     ids_to_files[id]
                 except:
                     ids_to_files[id] = []
                 ids_to_files[id].append(path)#Append filename to list.
 
-        self.images = list(ids_to_files.values())
-        self.images.sort()
 
-        self.idx_image = 0
+
+        self.images = list(ids_to_files.items())
+        self.images.sort()
+        self.images = list(np.array(self.images)[:,1])
+        self.idx_of_first_image = np.min(np.array(self.images)[:,1])
+        self.idx = self.idx_of_first_image
+
         self.draw_asparagus()
         self.update_info()
 
