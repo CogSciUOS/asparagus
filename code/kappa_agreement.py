@@ -1,54 +1,82 @@
 """ This module computes the kappa agreement scores of our labelling outputs.
-   Please provide 3 commandline arguments: 
+   Please provide 3 commandline arguments:
    1) the first annotator csv file
    2) the second annotator csv file
    3) the outputfile name ("agreement" + first_name + second_name)
 
    Example: python kappa_agreement.py ../annotations/annotator_1.csv ../annotations/annotator_2.csv agreement_annotator_1_annotator_2.csv
 """
-
+import argparse
 import sys
 import csv
 
 import pandas as pd
 import numpy as np
 
-from sklearn.metrics import cohen_kappa_score
+from sklearn.metrics import cohen_kappa_score, classification_report
 
 
-def compute_agreement(filename_1, filename_2, threshold_score=0.8):
-    """This function takes two csv files of annotations (with labels 1.0 and 0.0)
+def load_annotations(filename_1, filename_2, drop_columns_starting_with=None):
+    """This functions loads two csv files of annotations.
+
+    The first columns are used as index columns.
+
+    Args:
+        drop_columns_starting_with(list): Columns starting with these strings will be dropped.
+                                          If it is `None`, it defaults to
+                                          ['auto', 'is_bruch', 'very_thick', 'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified'].
+
+    Returns:
+        The two dataframes.
+    """
+    annotations_1 = pd.read_csv(filename_1, delimiter=";", index_col=0)
+    annotations_2 = pd.read_csv(filename_2, delimiter=";", index_col=0)
+
+    if drop_columns_starting_with is None:
+        drop_columns_starting_with = ['auto', 'is_bruch', 'very_thick',
+                                      'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified']
+
+    for column in drop_columns_starting_with:
+        mask = annotations_1.columns.str.startswith(column)
+        annotations_1 = annotations_1.loc[:, ~mask]
+
+        mask = annotations_2.columns.str.startswith(column)
+        annotations_2 = annotations_2.loc[:, ~mask]
+
+    return annotations_1, annotations_2
+
+
+def compute_agreement(annotations_1, annotations_2):
+    """This function takes two dataframes of annotations (with labels 1.0 and 0.0)
     and computes Cohen’s kappa, a score that expresses the level of agreement between two annotators on a classification problem.
 
     Arguments:
-        filename_1 (str): first annotation file name
-        filename_2 (str): first annotation file name
-
-    Keyword Arguments:
-        threshold_score (float): threshold whether agreement is acceptable or not (default: (0.8))
+        annotations_1 (pd.DataFrame): first annotations
+        annotations_2 (pd.DataFrame): second annotations
 
     Returns:
         a dictionary of {category: kappa_score}
     """
-
-    # read in files
-    annotations_1 = pd.read_csv(filename_1, delimiter=";")
-    annotations_2 = pd.read_csv(filename_2, delimiter=";")
-
-    # Check for NaNs
     if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
         raise ValueError(
             "There are missing values in the csv file. Fix it and come back here!")
+    return {column: cohen_kappa_score(annotations_1[column], annotations_2[column]) for column in annotations_1}
 
-    print()
-    print("Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)!")
-    print()
 
-    # save kappas in dict
-    kappa_dict = {column: cohen_kappa_score(annotations_1[column], annotations_2[column], labels=[
-        1.0, 0.0]) for column in annotations_1.columns[1:]}
+def compute_report(annotations_1, annotations_2):
+    """Build a text report showing the main classification metrics.
 
-    return kappa_dict
+    Arguments:
+        annotations_1 (pd.DataFrame): first annotations
+        annotations_2 (pd.DataFrame): second annotations
+
+    Returns:
+        a dictionary of {category: classification_report}
+    """
+    if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
+        raise ValueError(
+            "There are missing values in the csv file. Fix it and come back here!")
+    return {column: classification_report(annotations_1[column], annotations_2[column]) for column in annotations_1}
 
 
 def write_to_file(filename, kappa_dict):
@@ -66,25 +94,25 @@ def write_to_file(filename, kappa_dict):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('infile_1', help='the first annotator csv file')
+    parser.add_argument('infile_2', help='the second annotator csv file')
+    parser.add_argument('outfile', help='the outputfile name')
+    args = parser.parse_args()
 
-    # takes filenames as commandline arguments
-    filename_1 = sys.argv[1]
-    filename_2 = sys.argv[2]
+    annotations_1, annotations_2 = load_annotations(
+        args.infile_1, args.infile_2)
 
-    # compute kappas
-    kappa_dict = compute_agreement(filename_1, filename_2, threshold_score=0.8)
-
-    # show for which categories there is not enough agreement
+    # Compute kappas
+    print("Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)!\n")
+    kappa_dict = compute_agreement(annotations_1, annotations_2)
     for column, kappa in kappa_dict.items():
-        if kappa >= 0.8:
-            # sufficient agreement
-            print("For the category", column,
-                  "the kappa is:", kappa, u'\u2713')
-        else:
-            # insufficient agreement
-            print("For the category", column,
-                  "the kappa is:", kappa, u'\u274C')
+        rating = '\u2713' if kappa >= 0.8 else '\u274C'
+        print(f"For the category {column}, the kappa is: {kappa} {rating}")
 
-    # save results in csv file
-    out_filename = sys.argv[3]
-    write_to_file(out_filename, kappa_dict)
+    write_to_file(args.outfile, kappa_dict)
+
+    # Compute report
+    report_dict = compute_report(annotations_1, annotations_2)
+    for column, classification in report_dict.items():
+        print(f'{column:=^20}', '\n', classification)
