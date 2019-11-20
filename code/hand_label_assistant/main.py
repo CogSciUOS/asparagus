@@ -112,6 +112,7 @@ class MainApp(QWidget):
             """
             for f in os.scandir(path):
                 if f.is_dir():
+                    print(".",end="")
                     self.rek_get_files(f.path, regex)
                 else:
                     self.n_files_found += 1
