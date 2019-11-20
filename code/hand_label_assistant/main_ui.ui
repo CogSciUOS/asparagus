@@ -24,7 +24,7 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QWidget" name="widget_3" native="true">
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="ImageDisplay" name="label">
              <property name="text">
@@ -32,15 +32,34 @@
              </property>
             </widget>
            </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
         </item>
         <item>
          <widget class="QWidget" name="widget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>50</height>
+            <height>999999</height>
            </size>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -66,6 +85,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="previous_asparagus">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>18</height>
+              </size>
+             </property>
              <property name="text">
               <string>&lt;&lt;</string>
              </property>
@@ -73,6 +98,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="next_asparagus">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>18</height>
+              </size>
+             </property>
              <property name="text">
               <string>&gt;&gt;</string>
              </property>
@@ -93,6 +124,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="start_labeling">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>18</height>
+              </size>
+             </property>
              <property name="text">
               <string>start labeling</string>
              </property>
@@ -107,6 +144,19 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QTableView" name="table"/>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_5" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="loading_info">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
