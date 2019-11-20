@@ -191,7 +191,6 @@ class LabelingDialog(QWidget):
         if not type(self.labels) == type({}):
             QMessageBox.about(self, "Attention", "Load output file first.")
             return
-        #print("set value")
 
         if idx == None:
             idx = self.idx_image

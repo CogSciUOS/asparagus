@@ -90,6 +90,10 @@ class MainApp(QWidget):
         idx = pyqtSignal(int)
         info = pyqtSignal(str)
         def __init__(self, outer):
+            """ Initializes the file loader
+            Args:
+                outer: The inctance of the outer class
+            """
             super(MainApp.FileLoader, self).__init__()
             self.outer = outer
             self.ui = outer.ui
@@ -117,7 +121,7 @@ class MainApp(QWidget):
                         self.files.append(path+"/"+f.name)
 
         def set_filenames(self, directory):
-            """ Sets attribute filenames and draws asparagus.
+            """ Gets the filenames for the given directory, starts the thread.
             Args:
                 names: List of filenames
             """
@@ -125,13 +129,14 @@ class MainApp(QWidget):
             self.start()
 
         def run(self):
+            """ Gets attribute filenames and draws asparagus.
+                Emits loaded files, images the idx and an update info regarding the progress of loading."""
             self.files = []
             images = []
             self.loading_stage = "Listing names: "
             try:
                 self.rek_get_files(self.directory,".*\.png")#Traverse subdirectories & get all .bmp filepaths
             except Exception as e:
-                print(e)
                 images = []
                 idx_image = 0
                 return
