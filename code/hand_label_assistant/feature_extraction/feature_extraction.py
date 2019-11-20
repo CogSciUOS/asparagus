@@ -46,12 +46,12 @@ def get_length(img):
     Args:
         img: the image
     Returns:
-        length: the length in millimeters from highest to lowest point, under the assumption that one pixel
-                corresponds to 4 pixels
+        length: the length in millimeters from highest to lowest point, under the assumption that one mm
+                corresponds to 4.2 pixels
     """
     img = rotate_to_base(img)
     upper, lower = find_bounds(img)
-    length = lower - upper
+    length = np.abs(lower - upper)
     return length/4.2
 
 def get_horizontal_slices(img, k,discard_upper=100, discard_lower=20):
@@ -147,7 +147,7 @@ def check_purple(img, threshold_purple=10, ignore_pale=0.3):
     mask = np.logical_and(mask,sat>ignore_pale)
 
 
-    hist = np.histogram(hue[mask],bins=bins)[0]
+    hist = np.histogram(hue[mask],bins=bins, density=True)[0]
 
     in_purple_color_range = np.sum(hist[75:])
     is_purple = False
