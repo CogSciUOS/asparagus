@@ -191,7 +191,6 @@ class LabelingDialog(QWidget):
         if not type(self.labels) == type({}):
             QMessageBox.about(self, "Attention", "Load output file first.")
             return
-        #print("set value")
 
         if idx == None:
             idx = self.idx_image
@@ -365,11 +364,11 @@ class LabelingDialog(QWidget):
 
             try:
                 p = [estimate_length(x) for x in imgs]
-                self.predictionLength.emit(str(int(p[0])))
-                self.predictionLength_2.emit(str(int(p[1])))
-                self.predictionLength_3.emit(str(int(p[2])))
-                length = np.round(np.mean(np.array(p)))
-                self.overallPredictionLength.emit(str(length))
+                self.predictionLength.emit(str(int(np.round(p[0]))))
+                self.predictionLength_2.emit(str(int(np.round(p[1]))))
+                self.predictionLength_3.emit(str(int(np.round(p[2]))))
+                length = np.mean(np.array(p))#TODO
+                self.overallPredictionLength.emit(str(int(np.round(length))))
             except Exception as e:
                 print(traceback.format_exc())
                 print("Couldn't set auto length")
