@@ -52,7 +52,7 @@ class LabelingDialog(QWidget):
         self.outfile_headers.extend(headers_set_via_feature_extraction)
         self.outfile_headers.extend(headers_additional_extracted_features)
 
-        self.questions = headers_main_variables[:-2]#Questions must be the first rows in out
+        self.questions = headers_main_variables[:-1]#Questions must be the first rows in out
 
 
         self.feature_to_questions = { "width":["very_thick","thick","medium_thick","thin","very_thin"],
