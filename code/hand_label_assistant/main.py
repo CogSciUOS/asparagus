@@ -74,7 +74,7 @@ class MainApp(QWidget):
         Args:
             idx = idx
         """
-        self.idx = idx
+        self.idx_image = idx
 
     def set_images(self, nested_list_of_filenames):
         """ Sets nested list of image filepaths depicting the asparagus piece from all three directions
@@ -86,7 +86,7 @@ class MainApp(QWidget):
 
     class FileLoader(QThread):
         loaded_files = pyqtSignal(list)
-        images = pyqtSignal(list)
+        images = pyqtSignal(dict)
         idx = pyqtSignal(int)
         info = pyqtSignal(str)
         def __init__(self, outer):
@@ -152,13 +152,10 @@ class MainApp(QWidget):
                         ids_to_files[id] = []
                     ids_to_files[id].append(path)#Append filename to list.
 
-            images = list(ids_to_files.items())
-            images.sort()
-            images = list(np.array(images)[:,1])
             idx = np.min(list(ids_to_files.keys()))
 
             self.loaded_files.emit(self.files)
-            self.images.emit(images)
+            self.images.emit(ids_to_files)
             self.idx.emit(idx)
 
     def set_label_file(self, path):
@@ -183,8 +180,6 @@ class MainApp(QWidget):
 
     def next_image(self):
         """ Updates index to next aspargus and elicits redrawing """
-        if self.idx_image + 1 >= len(self.images):
-            return
         self.idx_image += 1
 
         self.draw_asparagus()
@@ -231,9 +226,6 @@ class MainApp(QWidget):
 
     def previous_image(self):
         """ Updates index to previous Aspargus"""
-        if self.idx_image == 0:
-            return
-
         self.idx_image -= 1
         self.draw_asparagus()
         self.update_info()
@@ -353,11 +345,11 @@ class HandLabelAssistant():
         self.ui.start_labeling.clicked.connect(self.open_labeling_dialog)#open upon user input
         self.source_dir_opener.filenames.connect(self.main_app.file_loader.set_filenames)
 
-        self.main_app.file_loader.loaded_files.connect(self.labeling_app.set_filenames)
-        self.main_app.file_loader.idx.connect(self.labeling_app.set_idx)
         self.main_app.file_loader.images.connect(self.labeling_app.set_images)
-        self.main_app.file_loader.idx.connect(lambda: self.labeling_app.draw_asparagus())
-        self.main_app.file_loader.idx.connect(lambda: self.labeling_app.update_info())
+        self.main_app.file_loader.idx.connect(self.labeling_app.set_index)
+
+        #self.main_app.file_loader.idx.connect(lambda: self.labeling_app.draw_asparagus())
+        #self.main_app.file_loader.idx.connect(lambda: self.labeling_app.update_info())
 
         self.ui.actionOpen_file_directory.triggered.connect(self.source_dir_opener.get_filenames)
 
@@ -387,7 +379,6 @@ class HandLabelAssistant():
             self.print_usage()
         else:
              self.label_window.show()
-             self.labeling_app.draw_asparagus()
 
 if __name__ == "__main__":
     assistant = HandLabelAssistant()

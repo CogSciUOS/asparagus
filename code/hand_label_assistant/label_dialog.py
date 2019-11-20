@@ -45,14 +45,14 @@ class LabelingDialog(QWidget):
 
         headers_main_variables = ["is_bruch","is_hollow","has_blume","has_rost_head","has_rost_body","is_bended","is_violet","very_thick","thick","medium_thick","thin","very_thin","unclassified"]
         headers_set_via_feature_extraction = ["auto_violet","auto_blooming","auto_length","auto_rust_head","auto_rust_body","auto_width","auto_bended"]
-        headers_additional_extracted_features = []
+        headers_additional_extracted_features = ["filenames"]
 
         self.outfile_headers = []
         self.outfile_headers.extend(headers_main_variables)
         self.outfile_headers.extend(headers_set_via_feature_extraction)
         self.outfile_headers.extend(headers_additional_extracted_features)
 
-        self.questions = headers_main_variables[:-1]#Questions must be the first rows in out
+        self.questions = headers_main_variables[:-2]#Questions must be the first rows in out
 
 
         self.feature_to_questions = { "width":["very_thick","thick","medium_thick","thin","very_thin"],
@@ -166,7 +166,7 @@ class LabelingDialog(QWidget):
             self.labels = recovered
         except FileNotFoundError:
             self.labels = {}
-        except e as Exception:
+        except Exception as e:
             print(e)
 
     def answer_yes(self):
@@ -203,7 +203,7 @@ class LabelingDialog(QWidget):
 
         try:
             self.labels[idx][self.outfile_headers.index(label)] = value
-        except e as Exception:
+        except Exception as e:
             print("Couldn't set label")
             print(e)
 
@@ -217,6 +217,7 @@ class LabelingDialog(QWidget):
 
     def write_answers_to_file(self):
         """ Writes answer to questions for current idx to file """
+        self.set_value_for_label(str(self.images[self.idx_image]),"filenames")
         try:
             df = pd.DataFrame.from_dict(self.labels, orient = "index", columns=self.outfile_headers)
             df.to_csv(self.outpath,sep =";")
@@ -245,27 +246,12 @@ class LabelingDialog(QWidget):
         self.ui.question.setText(self.questions[self.idx_question])
 
 
-    def set_filenames(self, files):
-        """ Sets attribute self.files and draws asparagus piece
-        Args:
-            files: list of filenames
-        """
-
-        self.files = files#All files in subtree
-
-    def set_idx(self, idx):
-        """ Sets index for current asparagus piece
-        Args:
-            idx = idx
-        """
-        self.idx_image = idx
-
-    def set_images(self, nested_list_of_filenames):
+    def set_images(self, idx_to_list_of_paths):
         """ Sets nested list of image filepaths depicting the asparagus piece from all three directions
         Args:
-            nested_list_of_filenames = nested list of filenames
+            idx_to_list_of_paths = dict of list of filenames
         """
-        self.images = nested_list_of_filenames
+        self.images = idx_to_list_of_paths
 
 
     def next_image(self):
