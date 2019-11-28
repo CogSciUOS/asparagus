@@ -1,7 +1,8 @@
 import os
 import sys
+import ast
 
-def submit_script(scriptpath, args, environment = None,  mem = "4G", cuda_cores = 0, jobname = "job"):
+def submit_script(scriptpath, args, environment,  mem = "4G", cuda_cores = 0, jobname = "job"):
     """ Submits the specified script as a gridjob and passes arguments as command line parameters.
         Use the command line tools qstat to check the status of your gridjobs. Use qdel - u [YOUR_USERNAME] to delete
         all your running jobs. The output and error files are saved to your home directory (cd ~).
@@ -13,8 +14,6 @@ def submit_script(scriptpath, args, environment = None,  mem = "4G", cuda_cores 
         cuda_cores: The number of cuda_cores one wishes to use for computation.
         jobname: The name of the gridjob.
     """
-    if not environment:
-        environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/mgerstenberg/preprocessing_env/bin/activate'
     args = [str(a) for a in args]
     args_string = ""
     for a in args:
@@ -36,5 +35,17 @@ def submit_script(scriptpath, args, environment = None,  mem = "4G", cuda_cores 
                 + "date \n"
                 + '\n'+'toggle_here_document')
 
-if __name__ == "__main__":
-    submit_script(os.getcwd()+"/"+sys.argv[1],sys.argv[2:])
+def typecast(args):
+    """ Casts strings contained in args to the automatically detected type
+    Args:
+        args: List of arguments where each element is a strings
+    Returns:
+        List of arguments parsed to the detected variable type.
+    """
+    typecasted = []
+    for a in args:
+        try:
+            typecasted.append(ast.literal_eval(a))
+        except:
+            typecasted.append(a)
+    return typecasted

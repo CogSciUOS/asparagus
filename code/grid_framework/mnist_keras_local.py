@@ -1,6 +1,9 @@
 import tensorflow as tf
 import os
 import argparse
+from grid import typecast
+import sys
+
 
 def train_keras(n_neurons, optimizer, epochs):
     """ Trains a MLP on the mnist dataset. Uses the specified optimizer and number of fully connected layers.
@@ -8,6 +11,7 @@ def train_keras(n_neurons, optimizer, epochs):
         n_layers:  Number of neurons in the fully connected layer of the MLP.
         optimizer: Gradient descent optimizer.
     """
+
     mnist = tf.keras.datasets.mnist
 
     (x_train, y_train),(x_test, y_test) = mnist.load_data()
@@ -22,18 +26,8 @@ def train_keras(n_neurons, optimizer, epochs):
     model.compile(optimizer="adam", loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
     model.fit(x_train, y_train, epochs=epochs, verbose=2)
-    print("\n The performance in evaluation was: \n")
+    print("\n The performance in evaluation for " + str(n_neurons) +" neurons was: \n")
     print(model.evaluate(x_test, y_test,verbose=0))
 
 if __name__ == "__main__":
-    description = "Trains MLP on keras\n"
-    description += "Sample call: \n"
-    description += 'python mnist_keras.py 100 "adam" 1\n'
-
-    parser = argparse.ArgumentParser(description=description)
-    parser.add_argument("neurons",type=int, default=10, help="Number of neurons in the fully connected layer")
-    parser.add_argument("optimizer",type=str, default="adam", help="Optimizer for gradient descent")
-    parser.add_argument("epochs",type=int, default=1, help="Number of training epochs")
-
-    args = parser.parse_args()
-    train_keras(args.neurons, args.optimizer, args.epochs)#Make sure that the command line arguments have the same order as the ones of your method (here: train_keras)
+    train_keras(*typecast(sys.argv[1:]))
