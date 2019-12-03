@@ -1,4 +1,4 @@
-""" This module computes the kappa agreement scores of our labelling outputs.
+""" This module computes the kappa agreement scores, the accuracy and the f1 score of our labelling outputs.
    Please provide 3 commandline arguments:
    1) the first annotator csv file
    2) the second annotator csv file
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     accuracy_dict = compute_accuracy(annotations_1, annotations_2)
     for column, accuracy in accuracy_dict.items():
         print(f"For the category {column}, the accuracy is: {accuracy} {rating}")
-    out_acc = args.outfile + "_accuracy.csv"
+    out_acc = args.outfile + "_accuracy.csv"a
     write_to_file(out_acc, accuracy_dict)
 
     # compute f1 score
@@ -162,7 +162,6 @@ if __name__ == "__main__":
         print(f"For the category {column}, the f1 score is: {f1} {rating}")
     out_f1 = args.outfile + "_f1.csv"
     write_to_file(out_f1, f1_dict)
-
 
     # Compute report
     report_dict = compute_report(annotations_1, annotations_2)
