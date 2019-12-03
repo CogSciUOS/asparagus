@@ -64,6 +64,17 @@ def compute_agreement(annotations_1, annotations_2):
 
 
 def compute_accuracy(annotations_1, annotations_2):
+    """ This function takes two dataframes of annotations (with labels 1.0 and 0.0)
+    and computes the accuracy, another score that expresses the level of agreement
+    between two annotators on a classification problem.
+
+    Arguments:
+        annotations_1 (pd.DataFrame): first annotations
+        annotations_2 (pd.DataFrame): second annotations
+
+    Returns:
+        a dictionary of {category: accuracy}
+    """
     if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
         raise ValueError(
             "There are missing values in the csv file. Fix it and come back here!")
@@ -71,6 +82,17 @@ def compute_accuracy(annotations_1, annotations_2):
 
 
 def compute_f1_score(annotations_1, annotations_2):
+    """ This function takes two dataframes of annotations (with labels 1.0 and 0.0)
+    and computes the accuracy, another score that expresses the level of agreement
+    between two annotators on a classification problem.
+
+    Arguments:
+        annotations_1 (pd.DataFrame): first annotations
+        annotations_2 (pd.DataFrame): second annotations
+
+    Returns:
+        a dictionary of {category: accuracy}
+    """
     if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
         raise ValueError(
             "There are missing values in the csv file. Fix it and come back here!")
@@ -126,15 +148,15 @@ if __name__ == "__main__":
     out_kappa = args.outfile + "_kappa.csv"
     write_to_file(out_kappa, kappa_dict)
 
-    #write_to_file(args.outfile, kappa_dict)
 
+    # compute accuracy
     accuracy_dict = compute_accuracy(annotations_1, annotations_2)
     for column, accuracy in accuracy_dict.items():
         print(f"For the category {column}, the accuracy is: {accuracy} {rating}")
     out_acc = args.outfile + "_accuracy.csv"
     write_to_file(out_acc, accuracy_dict)
 
-
+    # compute f1 score
     f1_dict = compute_f1_score(annotations_1, annotations_2)
     for column, f1 in accuracy_dict.items():
         print(f"For the category {column}, the f1 score is: {f1} {rating}")
