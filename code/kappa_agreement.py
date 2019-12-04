@@ -13,7 +13,7 @@ import csv
 import pandas as pd
 import numpy as np
 
-from sklearn.metrics import cohen_kappa_score, classification_report
+from sklearn.metrics import cohen_kappa_score, accuracy_score, f1_score
 
 
 def load_annotations(filename_1, filename_2, drop_columns_starting_with=None):
@@ -63,23 +63,39 @@ def compute_agreement(annotations_1, annotations_2):
     return {column: cohen_kappa_score(annotations_1[column], annotations_2[column]) for column in annotations_1}
 
 
-def compute_report(annotations_1, annotations_2):
-    """Build a text report showing the main classification metrics.
-
+def compute_accuracy(annotations_1, annotations_2):
+    """ This function takes two dataframes of annotations (with labels 1.0 and 0.0)
+    and computes the accuracy, another score that expresses the level of agreement
+    between two annotators on a classification problem.
     Arguments:
         annotations_1 (pd.DataFrame): first annotations
         annotations_2 (pd.DataFrame): second annotations
-
     Returns:
-        a dictionary of {category: classification_report}
+        a dictionary of {category: accuracy}
     """
     if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
         raise ValueError(
             "There are missing values in the csv file. Fix it and come back here!")
-    return {column: classification_report(annotations_1[column], annotations_2[column]) for column in annotations_1}
+    return {column: accuracy_score(annotations_1[column], annotations_2[column]) for column in annotations_1}
 
 
-def write_to_file(filename, kappa_dict):
+def compute_f1_score(annotations_1, annotations_2):
+    """ This function takes two dataframes of annotations (with labels 1.0 and 0.0)
+    and computes the accuracy, another score that expresses the level of agreement
+    between two annotators on a classification problem.
+    Arguments:
+        annotations_1 (pd.DataFrame): first annotations
+        annotations_2 (pd.DataFrame): second annotations
+    Returns:
+        a dictionary of {category: f1score}
+    """
+    if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
+        raise ValueError(
+            "There are missing values in the csv file. Fix it and come back here!")
+    return {column: f1_score(annotations_1[column], annotations_2[column], average='weighted') for column in annotations_1}
+
+
+def write_to_file(filename, kappa_dict, accuracy_dict, f1_dict):
     """takes a dictionary of kappas and writes them into a csv_file in the annotationsfolder
 
     Arguments:
@@ -89,8 +105,17 @@ def write_to_file(filename, kappa_dict):
     with open("../annotations/"+filename, 'w') as csvfile:
         writer = csv.writer(csvfile)
 
+        writer.writerow(["Kappa:"])
         for column, kappa in kappa_dict.items():
             writer.writerow([column, kappa])
+
+        writer.writerow(["Accuracy:"])
+        for column, acc in accuracy_dict.items():
+            writer.writerow([column, acc])
+
+        writer.writerow(["F1:"])
+        for column, f1 in f1_dict.items():
+            writer.writerow([column, f1])
 
 
 if __name__ == "__main__":
@@ -104,15 +129,30 @@ if __name__ == "__main__":
         args.infile_1, args.infile_2)
 
     # Compute kappas
-    print("Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)!\n")
+    print("Kappas:")
+    print("Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)!")
     kappa_dict = compute_agreement(annotations_1, annotations_2)
     for column, kappa in kappa_dict.items():
         rating = '\u2713' if kappa >= 0.8 else '\u274C'
         print(f"For the category {column}, the kappa is: {kappa} {rating}")
+    print()
 
-    write_to_file(args.outfile, kappa_dict)
+    # Compute accuracy
+    print("Accuracy:")
+    accuracy_dict = compute_accuracy(annotations_1, annotations_2)
+    for column, accuracy in accuracy_dict.items():
+        rating = '\u2713' if accuracy >= 0.8 else '\u274C'
+        print(
+            f"For the category {column}, the accuracy is: {accuracy} {rating}")
+    print()
 
-    # Compute report
-    report_dict = compute_report(annotations_1, annotations_2)
-    for column, classification in report_dict.items():
-        print(f'{column:=^20}', '\n', classification)
+    # Compute f1 score
+    print("F1 scores:")
+    f1_dict = compute_f1_score(annotations_1, annotations_2)
+    for column, f1 in accuracy_dict.items():
+        rating = '\u2713' if f1 >= 0.8 else '\u274C'
+        print(f"For the category {column}, the f1 score is: {f1} {rating}")
+    print()
+
+    # Write to file
+    write_to_file(args.outfile, kappa_dict, accuracy_dict, f1_dict)
