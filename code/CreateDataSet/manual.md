@@ -1,5 +1,5 @@
 # Create a customised dataset
-This file tells you how to do
+This file tells you how to do!
 
 # Owerview  
 Old vs. new approach:</br>
@@ -46,14 +46,15 @@ To use the shared the installation you have to tell linux where it is.
     `$ exit` 
 4. If you'd prefer that conda's base environment not be activated on startup,</br>
     set the auto_activate_base parameter to false:</br>
-    `conda config --set auto_activate_base false`
+    `$ conda config --set auto_activate_base false`
 5. After Log in hit: </br>
     `$ conda activate dataSet`
 
 If you want to know more about shared installations:
 https://docs.anaconda.com/anaconda/install/multi-user/ 
 
-### TODO:
+
+# TODO:
 - wirte code to create dataset! 
     - try with MNIST, add / change labels afterwords
     - **make OUR dataset**
