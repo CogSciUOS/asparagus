@@ -50,7 +50,7 @@ To use the shared the installation you have to tell linux where it is.
 5. After Log in hit: </br>
     `$ conda activate dataSet`
 
-If you want to know more about shared installations:
+Check this link out, if you want to know more about shared installations:
 https://docs.anaconda.com/anaconda/install/multi-user/ 
 
 
