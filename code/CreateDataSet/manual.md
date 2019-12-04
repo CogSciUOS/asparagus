@@ -1,7 +1,7 @@
 # Create a customised dataset
 This file tells you how to do!
 
-# Owerview  
+## Owerview  
 Old vs. new approach:</br>
 https://stackoverflow.com/questions/37340129/tensorflow-training-on-my-own-image </br>
 Since with the introduction of tf.data in release r1.4, we can create a batch of images without placeholders and without queues.
@@ -44,11 +44,18 @@ To use the shared the installation you have to tell linux where it is.
     ```
 3. For changes to take effect, close and re-open your current shell.</br>
     `$ exit` 
+4. Log in again. If you want to use a single GPU log in to shadow or light.
+    You can test it with:
+    `$ nvidia-smi`
 4. If you'd prefer that conda's base environment not be activated on startup,</br>
     set the auto_activate_base parameter to false:</br>
     `$ conda config --set auto_activate_base false`
 5. After Log in hit: </br>
     `$ conda activate dataSet`
+6. Test a tensorflow file on the GPU</br>
+    `$ python /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/richard/tf_test.py` </br>
+    `$ nvidia-smi -l`
+
 
 Check this link out, if you want to know more about shared installations:
 https://docs.anaconda.com/anaconda/install/multi-user/ 
