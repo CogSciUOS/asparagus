@@ -48,12 +48,6 @@ Let's say you have a method train and eval that performs the learning part in a 
 
 <img src="1.jpg">
 
-
-![GitHub Logo](code/grid_framework/code/1.jpg)
-Format: ![Alt Text](url)
-
-
-
 As we've seen in principal a single call to submit script is enough to even send parameters to a script that is executed remotely. Hence its a good idea to **have a second script to start local and remote processing**. Consider making your startup script the interface for a user by making it a command line tool.
 
 ## The benefits of having a local mode in your startup script
