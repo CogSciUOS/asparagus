@@ -71,3 +71,6 @@ As you can see the combination of submit_script() in your starter script my_scri
 
 ## Limitations
 Mind that the number of characters to be passed as arguments via *submit_script()* is limited (several thousand characters still work). If you need to pass large amounts of data it's a better idea to pass the path to an initialization file that can be loaded by the gridjob that runs *my_script.py* and contains all the necessary information.
+
+## Next steps
+You can find a full example of how a startup script and the local script may be designed in this Folder. It shows how different versions of a multilayer neural network can be trained on the MNIST dataset loacally or in the grid.
