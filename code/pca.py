@@ -12,29 +12,32 @@ img_shape = img.shape[:2]
 print('image size = ',img_shape)
 
 # specify no of bands in the image
-n_bands = 7
+n_bands = 3
+
 # 3 dimensional dummy array with zeros
 MB_img = np.zeros((img_shape[0],img_shape[1],n_bands))
+
 # stacking up images into the array
 for i in range(n_bands):
-    MB_img[:,:,i] = cv2.imread('band'+str(i+1)+'.jpg',
-                               cv2.IMREAD_GRAYSCALE)
-# Let's take a look at scene
+    MB_img[:,:,i] = cv2.imread('band'+str(i+1)+'.jpg', cv2.IMREAD_GRAYSCALE)
+
+# take a look at the asparagus
 print('\n\nDispalying colour image of the scene')
-plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100))
+plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
 plt.imshow(img, vmin=0, vmax=255)
 plt.axis('off')
 plt.show()
 
 fig,axes = plt.subplots(2,4,figsize=(50,23),sharex='all', sharey='all')
 fig.subplots_adjust(wspace=0.1, hspace=0.15)
-fig.suptitle('Intensities at Different Bandwidth in the visible and Infra-red spectrum', fontsize=30)
+#fig.suptitle('Intensities at Different Bandwidth in visible and Infra-red spectrum', fontsize=30)
 axes = axes.ravel()
 for i in range(n_bands):
-    axes[i].imshow(MB_img[:,:,i],cmap='gray', vmin=0, vmax=255)
-    axes[i].set_title('band '+str(i+1),fontsize=25)
-    axes[i].axis('off')
+    axes[i].imshow(MB_img[:,:,i], cmap='gray', vmin=0, vmax=255)
+    #axes[i].set_title('band '+str(i+1),fontsize=25)
+    #axes[i].axis('off')
 fig.delaxes(axes[-1])
+plt.show(axes.all())
 
 #
 # # put 3 images of one asparagus piece into one list
