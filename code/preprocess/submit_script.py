@@ -1,14 +1,13 @@
 import os
 import sys
 
-
-def submit_script(scriptpath, args, mem = "4G", cuda_cores = 0,jobname = "job"):
+def submit_script(scriptpath, args, mem = "4G", cuda_cores = 0, jobname = "job"):
+    args = [str(a) for a in args]
     args_string = ""
     for a in args:
         args_string += a
         args_string += " "
     args_string = args_string[:-1]
-
 
     os.system('qsub -l mem='+ mem +' -l cuda_cores='+ str(cuda_cores)+" <<'toggle_here_document'\n"#use here document instead of loading a shell script from file
                 + "#!/bin/bash \n"
@@ -23,7 +22,6 @@ def submit_script(scriptpath, args, mem = "4G", cuda_cores = 0,jobname = "job"):
                 + "echo 'End-time'\n"
                 + "date \n"
                 + '\n'+'toggle_here_document')
-    
+
 if __name__ == "__main__":
     submit_script(os.getcwd()+"/"+sys.argv[1],sys.argv[2:])
-
