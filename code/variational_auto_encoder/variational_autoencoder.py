@@ -11,7 +11,7 @@ if __name__ == "__main__":
         if args.mode == "local":
             print("Make sure you did not forget to activate your environment:")
             print(environment)
-            from variational_autoencoder_local import main
-            main()
+            from variational_autoencoder_local import train_and_eval
+            train_and_eval()
         else:
             submit_script(path,[],environment)

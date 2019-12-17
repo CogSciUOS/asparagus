@@ -3,16 +3,20 @@ import os
 from PIL import Image
 import pickle
 
+import copy
+
 
 class Asparagus:
-    def __init__(self, path='/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_pngs/', batch_size=10, train_test_split=0.8, reload_filenames=False, random_seed = 42):
+    def __init__(self, path='/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/', batch_size=10, train_test_split=0.8, reload_filenames=False, flatten = False, random_seed = 42):
         self.batch_size = batch_size
         self.train_test_split = train_test_split
         self.x_train = []
+        self.flatten = flatten
         self.x_test = []
         self.return_validation = False
         self.return_training = True
         self.idx = 0
+        self.tensor_shape = None
 
         self.init_filenames(path, reload_filenames, random_seed)
 
@@ -57,13 +61,15 @@ class Asparagus:
         self.return_validation = False
         self.return_training = True
         self.idx = 0
-        return iter(self)
+        iterator = copy.deepcopy(self)
+        return iter(iterator)
 
     def get_validation_batches(self):
         self.return_validation = True
         self.return_training = False
         self.idx = 0
-        return iter(self)
+        iterator = copy.deepcopy(self)
+        return iter(iterator)
 
     def __iter__(self):
         return self
@@ -81,4 +87,14 @@ class Asparagus:
             raise StopIteration
 
         self.idx += self.batch_size
-        return [np.array(Image.open(f))[:,:,0] for f in files[start_idx:stop_idx]]#Use one channel only -> Pseudo grayscale
+        data = np.array([np.array(Image.open(f),dtype=np.float32)[:,:,0]/255.0 for f in files[start_idx:stop_idx]])#Use one channel only -> Pseudo grayscale
+
+        if not self.tensor_shape:#Make sure the shapes of all images are equal; Otherwise raise an Exception
+            self.tensor_shape = data.shape
+        else:
+            if not self.tensor_shape==data.shape:
+                raise Exception("Images must all be of same size")
+
+        if self.flatten:
+            data = data.reshape((-1,data.shape[1]*data.shape[2]))
+        return (data, None)

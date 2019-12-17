@@ -111,21 +111,12 @@ def plot_results(models, data, batch_size=128, model_name="vae_mnist"):
     plt.show()
 
 
-# MNIST dataset
-#(x_train, y_train), (x_test, y_test) = mnist.load_data()
-spar = Asparagus()
-
-image_size = next(spar.get_training_batches())[0].shape#x_train.shape[1]
-original_dim = image_size * image_size
-x_train = np.reshape(x_train, [-1, original_dim])
-x_test = np.reshape(x_test, [-1, original_dim])
-x_train = x_train.astype('float32') / 255
-x_test = x_test.astype('float32') / 255
+original_dim = 134*36
 
 # network parameters
 input_shape = (original_dim, )
 intermediate_dim = 512
-batch_size = 128
+batch_size = 10
 latent_dim = 2
 epochs = 50
 
@@ -159,22 +150,26 @@ plot_model(decoder, to_file='vae_mlp_decoder.png', show_shapes=True)
 outputs = decoder(encoder(inputs)[2])
 vae = Model(inputs, outputs, name='vae_mlp')
 
-def main(use_mse=True, weights=None):
-    models = (encoder, decoder)
-    data = (x_test, y_test)
 
+def variational_loss(reconstruction_loss = "mse"):
     # VAE loss = mse_loss or xent_loss + kl_loss
-    if use_mse:
-        reconstruction_loss = mse(inputs, outputs)
-    else:
+    if reconstruction_loss == "binary_crossentropy":
         reconstruction_loss = binary_crossentropy(inputs,outputs)
+    elif reconstruction_loss == "mse":
+        reconstruction_loss = mse(inputs, outputs)
 
     reconstruction_loss *= original_dim
     kl_loss = 1 + z_log_var - K.square(z_mean) - K.exp(z_log_var)
     kl_loss = K.sum(kl_loss, axis=-1)
     kl_loss *= -0.5
     vae_loss = K.mean(reconstruction_loss + kl_loss)
-    vae.add_loss(vae_loss)
+    return vae_loss
+
+def train_and_eval(reconstruction_loss="mse", weights=None):
+    models = (encoder, decoder)
+    data_interface = Asparagus(flatten=True,batch_size=batch_size)
+
+    vae.add_loss(variational_loss(reconstruction_loss))
     vae.compile(optimizer='adam')
     vae.summary()
     plot_model(vae,to_file='vae_mlp.png',show_shapes=True)
@@ -182,10 +177,12 @@ def main(use_mse=True, weights=None):
     if weights:
         vae.load_weights(weights)
     else:# train the autoencoder
-        vae.fit(x_train,epochs=epochs,batch_size=batch_size,validation_data=(x_test, None))
-        vae.save_weights('vae_mlp_mnist.h5')
+        for epoch in range(epochs):
+            train = data_interface.get_training_batches()
+            vae.fit_generator(generator = train, steps_per_epoch = len(train.x_train)//batch_size, verbose = 1)#TODO: change to verbose = 2
+        vae.save_weights('vae_mlp.h5')
 
-    plot_results(models,data,batch_size=batch_size,model_name="vae_mlp")
+    #plot_results(models,data,batch_size=batch_size,model_name="vae_mlp")
 
 
 if __name__ == '__main__':
@@ -195,4 +192,7 @@ if __name__ == '__main__':
     help_ = "Use mse loss instead of binary cross entropy (default)"
     parser.add_argument("-m","--mse",help=help_, action='store_true')
     args = parser.parse_args()
-    main(args.mse, args.weights)
+    if args.mse:
+        train_and_eval("mse", args.weights)
+    else:
+        train_and_eval("binary_crossentropy", args.weights)
