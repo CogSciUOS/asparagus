@@ -10,9 +10,8 @@ if __name__ == "__main__":
         environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/mgerstenberg/asparagus/code/grid_framework/test_environments/virtualenv/bin/activate'
         path = "/net/projects/scratch/winter/valid_until_31_July_2020/mgerstenberg/asparagus/code/variational_auto_encoder/variational_autoencoder_local.py"
         if args.mode == "local":
-            p1 = subprocess.Popen([environment])
-            p1.wait()
+            os.system(environment)
             #from variational_autoencoder_local import main
-            p2 = subprocess.Popen(["python " + path])
+            os.system("python " + path)
         else:
             submit_script(path,[],environment)
