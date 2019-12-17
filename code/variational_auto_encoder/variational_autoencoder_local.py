@@ -29,6 +29,7 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 import sys
+from asparagus import *
 
 # reparameterization trick
 # instead of sampling from Q(z|X), sample epsilon = N(0,I)
@@ -51,10 +52,7 @@ def sampling(args):
     return z_mean + K.exp(0.5 * z_log_var) * epsilon
 
 
-def plot_results(models,
-                 data,
-                 batch_size=128,
-                 model_name="vae_mnist"):
+def plot_results(models, data, batch_size=128, model_name="vae_mnist"):
     """Plots labels and MNIST digits as a function of the 2D latent vector
 
     # Arguments
@@ -114,9 +112,10 @@ def plot_results(models,
 
 
 # MNIST dataset
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+#(x_train, y_train), (x_test, y_test) = mnist.load_data()
+spar = Asparagus()
 
-image_size = x_train.shape[1]
+image_size = next(spar.get_training_batches())[0].shape#x_train.shape[1]
 original_dim = image_size * image_size
 x_train = np.reshape(x_train, [-1, original_dim])
 x_test = np.reshape(x_test, [-1, original_dim])
@@ -178,24 +177,15 @@ def main(use_mse=True, weights=None):
     vae.add_loss(vae_loss)
     vae.compile(optimizer='adam')
     vae.summary()
-    plot_model(vae,
-               to_file='vae_mlp.png',
-               show_shapes=True)
+    plot_model(vae,to_file='vae_mlp.png',show_shapes=True)
 
     if weights:
         vae.load_weights(weights)
-    else:
-        # train the autoencoder
-        vae.fit(x_train,
-                epochs=epochs,
-                batch_size=batch_size,
-                validation_data=(x_test, None))
+    else:# train the autoencoder
+        vae.fit(x_train,epochs=epochs,batch_size=batch_size,validation_data=(x_test, None))
         vae.save_weights('vae_mlp_mnist.h5')
 
-    plot_results(models,
-                 data,
-                 batch_size=batch_size,
-                 model_name="vae_mlp")
+    plot_results(models,data,batch_size=batch_size,model_name="vae_mlp")
 
 
 if __name__ == '__main__':
@@ -203,8 +193,6 @@ if __name__ == '__main__':
     help_ = "Load h5 model trained weights"
     parser.add_argument("-w", "--weights", help=help_)
     help_ = "Use mse loss instead of binary cross entropy (default)"
-    parser.add_argument("-m",
-                        "--mse",
-                        help=help_, action='store_true')
+    parser.add_argument("-m","--mse",help=help_, action='store_true')
     args = parser.parse_args()
     main(args.mse, args.weights)

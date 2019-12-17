@@ -81,4 +81,4 @@ class Asparagus:
             raise StopIteration
 
         self.idx += self.batch_size
-        return [np.array(Image.open(f)) for f in files[start_idx:stop_idx]]
+        return [np.array(Image.open(f))[:,:,0] for f in files[start_idx:stop_idx]]#Use one channel only -> Pseudo grayscale
