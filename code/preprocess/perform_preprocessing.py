@@ -8,6 +8,7 @@ import numpy as np
 from scipy.ndimage.morphology import binary_hit_or_miss
 from scipy.ndimage.measurements import center_of_mass
 from scipy.ndimage import label, find_objects
+from scipy.stats import linregress
 
 import csv
 import matplotlib
@@ -17,7 +18,7 @@ class Preprocessor():
     def __init__(self):
         self.iteration = 0
 
-    def preprocess(self, triple, outpath, file_id, outfiletype="png", with_background=False):
+    def preprocess(self, triple, outpath, file_id, outfiletype="png", with_background=False, rotate = False):
         fpath1, fpath2, fpath3 = triple
         os.makedirs(outpath, exist_ok=True)  # Make dir if non existant
 
@@ -83,18 +84,42 @@ class Preprocessor():
                 im = self.remove_background(im)
                 im = self.remove_smaller_objects(im)
 
-            Image.fromarray(im).save(out)
+                if rotate:
+                    im = self.rotate(im)
 
-            # save the image file path and the file id in a csv file
-            # NOTE: set this to True if needed
-            save_path = False
-            if save_path:
-                # this automatically creates a file if it doesn't exist and else it appends to it
-                with open('/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/img_dict.csv', 'a', newline='') as fd:
-                    fd.write([triple, outpath, file_id])
+            Image.fromarray(im).save(out)
 
             self.iteration += 1
             self.report_progress()
+
+    def center_points(self, img):
+        """  The result is an binary image with a line of 1px width that relates to the center points/skeleton of the aspragus.
+        """
+        #Binarize; Select all foreground pixels
+        img = img[:,:,0] > 0
+        img1 = np.zeros(img.shape,dtype=np.float32)# Will contain skeleton image with one pixel == 1 per row
+
+        for idx,[im,im1] in enumerate(zip(img,img1)):#enumerate rows of both images
+            pos = np.nanmean(np.where(im))
+            if not np.isnan(pos):
+                im1[np.int(np.mean(np.where(im)))] = 1#Set position in im1 to one for the mean along the row
+        return img1
+
+    def angle(self, img):
+        snippet = self.center_points(img)
+        angle = 90 # assume it's vertical
+        try:
+            slope, intercept, r, p, err = linregress(np.where(snippet))
+            angle = np.degrees(np.arctan(slope))
+        except:
+            pass#Something went wrong no rotation
+
+        return angle
+
+    def rotate(self, img):
+        angle = self.angle(img)
+        img = np.array(Image.fromarray(img).rotate(-angle))
+        return img
 
     def report_progress(self):
         if self.iteration % 300 == 0:
@@ -134,7 +159,7 @@ class Preprocessor():
         raw[:, :, 2][mask] = 0
         return raw
 
-    def perform_preprocessing(self, initfile, outpath, startIdx, stopIdx, outfiletype, with_background):
+    def perform_preprocessing(self, initfile, outpath, startIdx, stopIdx, outfiletype, with_background, rotate):
         #root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
         # get valid file names
         try:
@@ -164,7 +189,7 @@ class Preprocessor():
             file_of_current_outfolder += 1
 
             out = outpath + "/" + str(current_outfolder)
-            self.preprocess(triple, out, idx, outfiletype,with_background=with_background)
+            self.preprocess(triple, out, idx, outfiletype,with_background, rotate)
 
 
 def print_usage():
@@ -186,6 +211,7 @@ if __name__ == "__main__":  # to start with the submit script: define arguments
         stopIdx = sys.argv[4]
         outfiletype = sys.argv[5]
         with_background = sys.argv[6]
+        rotate = sys.argv[7]
         try:
             startIdx = int(startIdx)
             stopIdx = int(stopIdx)
@@ -198,4 +224,4 @@ if __name__ == "__main__":  # to start with the submit script: define arguments
         print_usage()
     p = Preprocessor()
     p.perform_preprocessing(initfile, outpath, startIdx,
-                            stopIdx, outfiletype, with_background)
+                            stopIdx, outfiletype, with_background, rotate)

@@ -21,8 +21,8 @@ if __name__ == "__main__":
     parser.add_argument('n_jobs',help="The number of gridjobs for preprocessing",nargs="?")
     parser.add_argument('with_background',help="Remove the background?",nargs="?")
     parser.add_argument('ignore', help='Specify this string (ignore) if you want to ignore folders or files that contain ignore', nargs="?")
-    parser.add_argument('rename_only', help='Rename valid triples only. Copy them to specified target location.', nargs="?")
-
+    parser.add_argument('rename_only', help='Rename valid triples only. Copy them to specified target location.', nargs="?", const = 0, type = int)
+    parser.add_argument('rotate', help='Rotate asparagus piece', nargs="?", const = 0, type=int)
 
     args = parser.parse_args()
     mode = args.mode or 'pseudogrid'
@@ -33,6 +33,7 @@ if __name__ == "__main__":
     with_background = int(with_background)
     ignore = args.ignore or ""
     rename_only = int(args.rename_only)
+    rotate = args.rotate
 
     print(root)
     #safe list of valid names in a csv file; each row contains a triplet of file directories
@@ -59,7 +60,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if mode == "local":
-        perform_preprocessing(os.path.join(os.getcwd(),'valid_files.csv'), outpath, 0, -1, outfiletype, with_background, rename_only)
+        perform_preprocessing(os.path.join(os.getcwd(),'valid_files.csv'), outpath, 0, -1, outfiletype, with_background, rename_only, rotate)
 
     elif mode == "grid" or mode == "pseudogrid":
         #root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled"
@@ -73,13 +74,14 @@ if __name__ == "__main__":
         for job in range(n_jobs):
             current_outpath = outpath + "/" + str(job)
             if job == n_jobs-1:
-                args = [os.path.join(os.getcwd(),'valid_files.csv'), current_outpath, job*files_per_job, n_pieces,outfiletype,with_background, rename_only]
+                args = [os.path.join(os.getcwd(),'valid_files.csv'), current_outpath, job*files_per_job, n_pieces,outfiletype,with_background,rotate]
             else:
-                args = [os.path.join(os.getcwd(),'valid_files.csv'), current_outpath, job*files_per_job, (job*files_per_job+files_per_job)-1,outfiletype,with_background,rename_only]
+                args = [os.path.join(os.getcwd(),'valid_files.csv'), current_outpath, job*files_per_job, (job*files_per_job+files_per_job)-1,outfiletype,with_background,rotate]
             if mode == "grid":
                 submit_script(os.getcwd()+"/perform_preprocessing.py",args)
             elif mode == "pseudogrid":
                 p = Preprocessor()
+                print(len(args))
                 p.perform_preprocessing(*args)
 
         """
