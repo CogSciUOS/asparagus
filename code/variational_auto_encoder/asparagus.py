@@ -48,7 +48,7 @@ class Asparagus:
                 np.random.seed(seed)
                 np.random.shuffle(files)
 
-        train_batches = (self.train_test_split * len(files))//self.batch_size #e.g. 1
+        train_batches = int((self.train_test_split * len(files))//self.batch_size) #e.g. 1
         start_test = train_batches * self.batch_size+1 #e.g. 11
         self.x_train = files[:start_test]
         self.x_test = files[start_test:]
