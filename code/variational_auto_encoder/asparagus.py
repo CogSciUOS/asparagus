@@ -5,19 +5,18 @@ import pickle
 
 
 class Asparagus:
-    def __init__(self, path='/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_pngs/', batch_size=10, train_test_split=0.8, reload_filenames=False):
+    def __init__(self, path='/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_pngs/', batch_size=10, train_test_split=0.8, reload_filenames=False, random_seed = 42):
         self.batch_size = batch_size
-        self.max_idx = 0
-        self.files = []
         self.train_test_split = train_test_split
-
+        self.x_train = []
+        self.x_test = []
         self.return_validation = False
         self.return_training = True
-        self.current_training_batch = 0
+        self.idx = 0
 
-        self.init_filenames(path, reload_filenames)
+        self.init_filenames(path, reload_filenames, random_seed)
 
-    def init_filenames(self, root, reload_filenames):
+    def init_filenames(self, root, reload_filenames, random_seed):
         """ Inits filenames. Reads all files contained in subfolders of path.
         params:
             path : directory of folder with subfolders
@@ -46,40 +45,40 @@ class Asparagus:
                 with open("image_filepaths.pkl", "wb") as outfile:
                     pickle.dump(files, outfile)
 
-        np.random.shuffle(files)
-        self.max_idx = len(files)
-        self.files = files
+                np.random.seed(seed)
+                np.random.shuffle(files)
+
+        train_batches = (self.train_test_split * len(files))//self.batch_size #e.g. 1
+        start_test = train_batches * self.batch_size+1 #e.g. 11
+        self.x_train = files[:start_test]
+        self.x_test = files[start_test:]
 
     def get_training_batches(self):
         self.return_validation = False
         self.return_training = True
-        self.current_training_batch = 0
+        self.idx = 0
         return iter(self)
 
     def get_validation_batches(self):
         self.return_validation = True
         self.return_training = False
-        self.current_validation_batch = int(len(self.files)*self.train_test_split/self.batch_size)
+        self.idx = 0
         return iter(self)
-
 
     def __iter__(self):
         return self
 
     def __next__(self):
+        files = []
         if self.return_training:
-            if self.current_training_batch >= self.max_idx * self.train_test_split:
-                self.current_training_batch = 0
-            start_idx = (self.current_training_batch+1) * self.batch_size
-            stop_idx = start_idx + self.batch_size
-            self.current_training_batch += self.batch_size
-            return [np.array(Image.open(f)) for f in self.files[start_idx:stop_idx]]
-        elif self.return_validation:
-            if self.current_validation_batch >= len(self.files):
-                self.current_validation_batch = int(len(self.files)*self.train_test_split)
-            start_idx = (self.current_validation_batch+1) * self.batch_size
-            stop_idx = start_idx + self.batch_size
-            self.current_validation_batch += self.batch_size
+            files = self.x_train
+        else:
+            files = self.x_test
 
-            #print(self.files[int(len(self.files)*0.8):int(len(self.files)*0.8)+10])
-            return [np.array(Image.open(f)) for f in self.files[start_idx:stop_idx]]
+        start_idx = self.idx
+        stop_idx = self.idx + self.batch_size
+        if stop_idx >= len(files):
+            raise StopIteration
+
+        self.idx += self.batch_size
+        return [np.array(Image.open(f)) for f in self.files[start_idx:stop_idx]]
