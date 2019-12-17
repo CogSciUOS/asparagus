@@ -9,6 +9,8 @@ if __name__ == "__main__":
         environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/mgerstenberg/asparagus/code/grid_framework/test_environments/virtualenv/bin/activate'
         path = "/net/projects/scratch/winter/valid_until_31_July_2020/mgerstenberg/asparagus/code/variational_auto_encoder/variational_autoencoder_local.py"
         if args.mode == "local":
+            print("Make sure you did not forget to activate your environment:")
+            print(environment)
             from variational_autoencoder_local import main
             main()
         else:
