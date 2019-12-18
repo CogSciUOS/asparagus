@@ -130,18 +130,18 @@ def main():
 
     log.info('Loading data')
     data = pd.read_csv(args.dataset)
-    #data_Anna = load_annotation("data/1A_Anna.csv", drop_columns_starting_with=None, set_label="1A_Anna")
-    #data_Bona = load_annotation("data/1A_Bona.csv", drop_columns_starting_with=None, set_label="1A_Bona")
-    #data = pd.concat([data_Anna, data_Bona])
-    #data = dummy_labels(data)
+    data_Anna = load_annotation("data/1A_Anna.csv", drop_columns_starting_with=None, set_label="1A_Anna")
+    data_Bona = load_annotation("data/1A_Bona.csv", drop_columns_starting_with=None, set_label="1A_Bona")
+    data = pd.concat([data_Anna, data_Bona])
+    data = dummy_labels(data)
     log.info(data.head())
 
     log.info('Performing train/test-split')
     # ignore index and label
     x = data.iloc[:, 1:-1].values
     # set Label as y
-    # y = data['Label_1A_Anna'].values
-    y = data['Label'].values
+    y = data['Label_1A_Anna'].values
+    #y = data['Label'].values
     # make a train and test split
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)
 
