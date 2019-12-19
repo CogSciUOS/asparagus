@@ -5,28 +5,36 @@ import seaborn as sns
 import cv2
 import numpy as np
 import matplotlib.gridspec as grid
+import wx #package wx
+from PIL import Image
+ #PIL package
 
 
 img = cv2.imread('C:/Users/schmuri/github/asparagus/images/test_pca/G01-190520-162409-065_F00.bmp')
+print(type(img)) #<class 'numpy.ndarray'>
+#img =  wx.Bitmap.ConvertToImage(img)
 img_shape = img.shape[:2]
-print('image size = ',img_shape)
+print('image size = ',img_shape)    #image size =  (1376, 1040)
 
 # specify no of bands in the image
-n_bands = 3
+n_bands = 7
 
 # 3 dimensional dummy array with zeros
-MB_img = np.zeros((img_shape[0],img_shape[1],n_bands))
+MB_img = np.zeros((img_shape[0],img_shape[1],n_bands))  #(1376, 1040, 7)
 
 # stacking up images into the array
-for i in range(n_bands):
-    MB_img[:,:,i] = cv2.imread('band'+str(i+1)+'.jpg', cv2.IMREAD_GRAYSCALE)
+#for i in range(n_bands):
+    #MB_img[:,:,i] = cv2.imread('band'+str(i+1)+'.jpg', cv2.IMREAD_GRAYSCALE)
+
+#    MB_img[:,:,i] = cv2.imread('band'+str(i+1)+'.jpg', cv2.IMREAD_GRAYSCALE)
+print(MB_img) # hier sind alle nur NAN....
 
 # take a look at the asparagus
 print('\n\nDispalying colour image of the scene')
 plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
 plt.imshow(img, vmin=0, vmax=255)
 plt.axis('off')
-plt.show()
+#plt.show()     # das nervt
 
 fig,axes = plt.subplots(2,4,figsize=(50,23),sharex='all', sharey='all')
 fig.subplots_adjust(wspace=0.1, hspace=0.15)
@@ -37,9 +45,28 @@ for i in range(n_bands):
     #axes[i].set_title('band '+str(i+1),fontsize=25)
     #axes[i].axis('off')
 fig.delaxes(axes[-1])
-plt.show(axes.all())
+#plt.show(axes.all()) #das funktioniert nicht und nervt...
 
-#
+#####this is Standardization
+# Convert 2d band array in 1-d to make them as feature vectors and Standardization
+MB_matrix = np.zeros((MB_img[:,:,0].size,n_bands))
+for i in range(n_bands):
+    MB_array = MB_img[:,:,i].flatten()  # covert 2d to 1d array
+    MB_arrayStd = (MB_array - MB_array.mean())/MB_array.std()
+    MB_matrix[:,i] = MB_arrayStd
+MB_matrix.shape;
+
+print(MB_matrix)
+
+###Compute eigenvectors and values
+# Covariance
+np.set_printoptions(precision=3)
+cov = np.cov(MB_matrix.transpose())
+# Eigen Values
+EigVal,EigVec = np.linalg.eig(cov)
+print("Eigenvalues:\n\n", EigVal,"\n")
+
+
 # # put 3 images of one asparagus piece into one list
 # def preprocess(triple,outpath,file_id):
 #     fpath1,fpath2,fpath3 = triple
