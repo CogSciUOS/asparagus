@@ -55,8 +55,9 @@ def read_arguments():
 
 
 def load_model(model_module, input_shape=None):
-    importlib.invalidate_caches()
+    # load model from file
     model_util = importlib.import_module('.' + model_module, 'models')
+    # call create_model function of the model_util
     return model_util.create_model(input_shape)
 
 
@@ -70,14 +71,17 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
         y_test {[type]} -- [description]
         y_pred {[type]} -- [description]
     """
+    # PCA
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
     xy_train = pca.transform(x_train)
     xy_test = pca.transform(x_test)
 
+    # color depends on Label
     c_test = y_test[:, 1] + 2 * y_test[:, 0]
     c_train = y_train[:, 1] + 2 * y_train[:, 0]
     c_pred = y_pred[:, 1].round() + 2 * y_pred[:, 0].round()
 
+    # subplots
     fig, ax = plt.subplots(1, 3)
     if model_name is not None:
         fig.suptitle(f'For {model_name}')
@@ -155,18 +159,23 @@ def main():
     print(data.describe())
 
     log.info('Performing train/test-split')
-    x = data.values
+    x = data.iloc[:, :-2].values
     # set Label as y
     y = data[['Label_1A_Anna', 'Label_1A_Bona']].values
 
     # make a train and test split
+    # 75% train; 25% test
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)
 
     log.info('Loading model')
     model = load_model(args.model, input_shape=x_train.shape[1:])
 
     log.info('Fitting model')
-    model.fit(x_train, y_train)
+    try:
+        # if keras model, make several epochs
+        model.fit(x_train, y_train, epochs=20)
+    except TypeError:
+        model.fit(x_train, y_train)
 
     if hasattr(model, 'score'):
         score = model.score(x_test, y_test)
