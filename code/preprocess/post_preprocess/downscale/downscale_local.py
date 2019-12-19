@@ -9,9 +9,6 @@ def main():
     root = '/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/with_background_rotated1/'
     outroot = '/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_downscaled/'
 
-    idx_to_files = {}
-    files = []
-
     for gridjob_folder in os.listdir(root):
         if os.path.isfile(gridjob_folder):
             continue
