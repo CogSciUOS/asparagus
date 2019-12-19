@@ -50,8 +50,7 @@ def read_arguments():
     and either the score (scikit-learn) or evaluate (keras) methods.'''
 
     parser.add_argument('model', help=textwrap.dedent(models_help))
-    parser.add_argument('dataset', help='File path to the dataset, e.g. data/random_data.csv')
-    
+
     return parser.parse_args()
 
 
@@ -61,9 +60,9 @@ def load_model(model_module, input_shape=None):
     return model_util.create_model(input_shape)
 
 
-def visualize(x_train, x_test, y_train, y_test, y_pred):
+def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
     """Using a PCA to visualize the result
-    
+
     Arguments:
         x_train {[type]} -- [description]
         x_test {[type]} -- [description]
@@ -72,22 +71,37 @@ def visualize(x_train, x_test, y_train, y_test, y_pred):
         y_pred {[type]} -- [description]
     """
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
-    xy_plot = pca.transform(x_test)
+    xy_train = pca.transform(x_train)
+    xy_test = pca.transform(x_test)
+
+    c_test = y_test[:, 1] + 2 * y_test[:, 0]
+    c_train = y_train[:, 1] + 2 * y_train[:, 0]
+    c_pred = y_pred[:, 1].round() + 2 * y_pred[:, 0].round()
+
+    fig, ax = plt.subplots(1, 3)
+    if model_name is not None:
+        fig.suptitle(f'For {model_name}')
+
+    # Train data
+    ax[0].set_title('Train data')
+    sc_train = ax[0].scatter(*zip(*xy_train), c=c_train,
+                             vmin=1, vmax=2, cmap='RdYlGn', alpha=0.2)
+    fig.colorbar(sc_train, ax=ax[0])
 
     # Test data
-    fig, ax = plt.subplots(1, 2)
-    ax[0].set_title('Test data')
-    sc_test = ax[0].scatter(*zip(*xy_plot), c=y_test, vmin=0, vmax=1, cmap='RdYlGn')
-    ax[0].set_aspect('equal')
-    fig.colorbar(sc_test, ax=ax[0])
+    ax[1].set_title('Test data')
+    sc_test = ax[1].scatter(*zip(*xy_test), c=c_test,
+                            vmin=1, vmax=2, cmap='RdYlGn', alpha=0.2)
+    fig.colorbar(sc_test, ax=ax[1])
 
     # Predicted data
-    ax[1].set_title('Predicted data')
-    sc_pred = ax[1].scatter(*zip(*xy_plot), c=y_pred, vmin=0, vmax=1, cmap='RdYlGn')
-    ax[1].set_aspect('equal')
-    fig.colorbar(sc_pred, ax=ax[1])
+    ax[2].set_title('Predicted data')
+    sc_pred = ax[2].scatter(*zip(*xy_test), c=c_pred,
+                            vmin=1, vmax=2, cmap='RdYlGn', alpha=0.2)
+    fig.colorbar(sc_pred, ax=ax[2])
 
     plt.waitforbuttonpress()
+
 
 def load_annotation(filename_1, drop_columns_starting_with=None, set_label=None):
     """This functions loads the annotation label csv file
@@ -116,32 +130,35 @@ def load_annotation(filename_1, drop_columns_starting_with=None, set_label=None)
         annotations = annotations.loc[:, ~mask]
 
     # add category to df
-    annotations["Label"]= set_label
+    annotations["Label"] = set_label
 
     return annotations
 
-def dummy_labels(df):
-    return pd.get_dummies(df,prefix=['Label'])
+
+def load_data():
+    log.info('Loading data')
+    data_Anna = load_annotation(
+        "data/1A_Anna.csv", drop_columns_starting_with=None, set_label="1A_Anna")
+    data_Bona = load_annotation(
+        "data/1A_Bona.csv", drop_columns_starting_with=None, set_label="1A_Bona")
+    data = pd.concat([data_Anna, data_Bona])
+    data = pd.get_dummies(data, prefix=['Label'])
+    log.info(data.head())
+    return data
 
 
 def main():
     # read arguments from command line
     args = read_arguments()
 
-    log.info('Loading data')
-    data = pd.read_csv(args.dataset)
-    data_Anna = load_annotation("data/1A_Anna.csv", drop_columns_starting_with=None, set_label="1A_Anna")
-    data_Bona = load_annotation("data/1A_Bona.csv", drop_columns_starting_with=None, set_label="1A_Bona")
-    data = pd.concat([data_Anna, data_Bona])
-    data = dummy_labels(data)
-    log.info(data.head())
+    data = load_data()
+    print(data.describe())
 
     log.info('Performing train/test-split')
-    # ignore index and label
-    x = data.iloc[:, 1:-1].values
+    x = data.values
     # set Label as y
-    y = data['Label_1A_Anna'].values
-    #y = data['Label'].values
+    y = data[['Label_1A_Anna', 'Label_1A_Bona']].values
+
     # make a train and test split
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)
 
@@ -151,20 +168,19 @@ def main():
     log.info('Fitting model')
     model.fit(x_train, y_train)
 
-
     if hasattr(model, 'score'):
         score = model.score(x_test, y_test)
         log.info('Score is %.4f', score)
-    
+
     if hasattr(model, 'evaluate'):
         evaluation = model.evaluate(x_test, y_test)
         log.info('Evaluation is %s', evaluation)
 
     # get the predictions
-    y_pred = model.predict(x_test).flatten()
+    y_pred = model.predict(x_test)
 
     # Visualize using PCA
-    visualize(x_train, x_test, y_train, y_test, y_pred)
+    visualize(x_train, x_test, y_train, y_test, y_pred, args.model)
 
 
 if __name__ == '__main__':
