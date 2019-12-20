@@ -14,4 +14,4 @@ if __name__ == "__main__":
             from variational_autoencoder_local import train_and_eval
             train_and_eval()
         else:
-            submit_script(path,[],environment)
+            submit_script(path,[],environment,cuda_cores=3000)

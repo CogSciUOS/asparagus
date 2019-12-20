@@ -7,7 +7,7 @@ import copy
 
 
 class Asparagus:
-    def __init__(self, path='/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/', batch_size=10, train_test_split=0.8, reload_filenames=False, flatten = False, random_seed = 42):
+    def __init__(self, path='/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_downscaled/', batch_size=10, train_test_split=0.8, reload_filenames=False, flatten = False, random_seed = 42):
         self.batch_size = batch_size
         self.train_test_split = train_test_split
         self.x_train = []
@@ -49,7 +49,7 @@ class Asparagus:
                 with open("image_filepaths.pkl", "wb") as outfile:
                     pickle.dump(files, outfile)
 
-                np.random.seed(seed)
+                np.random.seed(random_seed)
                 np.random.shuffle(files)
 
         train_batches = int((self.train_test_split * len(files))//self.batch_size) #e.g. 1

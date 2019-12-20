@@ -30,6 +30,7 @@ import argparse
 import os
 import sys
 from asparagus import *
+from PIL import Image
 
 # reparameterization trick
 # instead of sampling from Q(z|X), sample epsilon = N(0,I)
@@ -52,7 +53,7 @@ def sampling(args):
     return z_mean + K.exp(0.5 * z_log_var) * epsilon
 
 
-def plot_results(models, data, batch_size=128, model_name="vae_mnist"):
+def plot_results(models, batch_size=128, model_name="vae_mnist"):
     """Plots labels and MNIST digits as a function of the 2D latent vector
 
     # Arguments
@@ -63,26 +64,15 @@ def plot_results(models, data, batch_size=128, model_name="vae_mnist"):
     """
 
     encoder, decoder = models
-    x_test, y_test = data
+    #x_test, y_test = data
     os.makedirs(model_name, exist_ok=True)
 
-    filename = os.path.join(model_name, "vae_mean.png")
-    # display a 2D plot of the digit classes in the latent space
-    z_mean, _, _ = encoder.predict(x_test,
-                                   batch_size=batch_size)
-    plt.figure(figsize=(12, 10))
-    plt.scatter(z_mean[:, 0], z_mean[:, 1], c=y_test)
-    plt.colorbar()
-    plt.xlabel("z[0]")
-    plt.ylabel("z[1]")
-    plt.savefig(filename)
-    plt.show()
-
-    filename = os.path.join(model_name, "digits_over_latent.png")
+    filename = os.path.join(model_name, "latent_asparagus.png")
     # display a 30x30 2D manifold of digits
     n = 30
+
     digit_size = 28
-    figure = np.zeros((digit_size * n, digit_size * n))
+    figure = np.zeros((134 * n, 36 * n))
     # linearly spaced coordinates corresponding to the 2D plot
     # of digit classes in the latent space
     grid_x = np.linspace(-4, 4, n)
@@ -92,23 +82,28 @@ def plot_results(models, data, batch_size=128, model_name="vae_mnist"):
         for j, xi in enumerate(grid_x):
             z_sample = np.array([[xi, yi]])
             x_decoded = decoder.predict(z_sample)
-            digit = x_decoded[0].reshape(digit_size, digit_size)
-            figure[i * digit_size: (i + 1) * digit_size,
-                   j * digit_size: (j + 1) * digit_size] = digit
+            digit = x_decoded[0].reshape(134, 36)
+            figure[i * 134: (i + 1) * 134,
+                   j * 36: (j + 1) * 36] = digit
 
-    plt.figure(figsize=(10, 10))
+    plt.figure(figsize=(10, 10),dpi=200)
+    plt.axis('off')
     start_range = digit_size // 2
     end_range = (n - 1) * digit_size + start_range + 1
     pixel_range = np.arange(start_range, end_range, digit_size)
     sample_range_x = np.round(grid_x, 1)
     sample_range_y = np.round(grid_y, 1)
-    plt.xticks(pixel_range, sample_range_x)
-    plt.yticks(pixel_range, sample_range_y)
-    plt.xlabel("z[0]")
-    plt.ylabel("z[1]")
-    plt.imshow(figure, cmap='Greys_r')
+    plt.imshow(figure, cmap='gray', aspect=0.8)
     plt.savefig(filename)
-    plt.show()
+
+    figure -= np.min(figure)
+    figure /= np.max(figure)
+    figure = np.array(figure*255, dtype=np.uint8)
+
+    im = Image.fromarray(figure)
+    im.save("latent_space_raw.png")
+    print(im.size)
+    #plt.show()
 
 
 original_dim = 134*36
@@ -118,7 +113,7 @@ input_shape = (original_dim, )
 intermediate_dim = 512
 batch_size = 10
 latent_dim = 2
-epochs = 50
+epochs = 2
 
 # VAE model = encoder + decoder
 # build encoder model
@@ -182,7 +177,7 @@ def train_and_eval(reconstruction_loss="mse", weights=None):
             vae.fit_generator(generator = train, steps_per_epoch = len(train.x_train)//batch_size, verbose = 1)#TODO: change to verbose = 2
         vae.save_weights('vae_mlp.h5')
 
-    #plot_results(models,data,batch_size=batch_size,model_name="vae_mlp")
+    plot_results(models,batch_size=batch_size,model_name="vae_mlp")
 
 
 if __name__ == '__main__':
