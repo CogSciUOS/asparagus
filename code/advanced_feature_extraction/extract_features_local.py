@@ -26,7 +26,9 @@ class AdvancedFeatureExtractor():
         try:#Try loading pickled dict
             with open("idx_to_files.pkl", "rb") as f:
                 idx_to_files = pickle.load(f)
-        except FileNotFoundError:#Generate dict
+            print("Loaded pkl")
+        except:#Generate dict
+            print("Generating dict")
             for gridjob_folder in os.listdir(root):
                 if os.path.isfile(gridjob_folder):
                     continue
@@ -42,8 +44,11 @@ class AdvancedFeatureExtractor():
                             idx_to_files[idx] = {}
                         idx_to_files[idx][perspective] = os.path.join(
                             full_folder, file)
-            with open("idx_to_files.pkl", "wb") as f:
-                pickle.dump(idx_to_files, f)
+            try:
+                with open("idx_to_files.pkl", "wb") as f:
+                    pickle.dump(idx_to_files, f)
+            except:
+                print("No writing possible")
 
         self.n_triples = max(list(idx_to_files.keys())) + 1
         self.idx_to_files = idx_to_files
@@ -168,6 +173,9 @@ class AdvancedFeatureExtractor():
         purple = self.check_purple(img)#List with historam at pos 2 and score at pos 0
 
         combined_results = [length,width,purple[0],curvature_score, s_shape]#length;width;purple_score
+        combined_results.extend(angles)
+        combined_results.extend(purple[2])#Histogram
+
         combined_results.extend(angles)
         combined_results.extend(purple[2])#Histogram
 
