@@ -17,8 +17,10 @@ print(img)
 #print(type(img)) #<class 'numpy.ndarray'>
 #print(img)
 #print(img.shape) #(1376, 1040, 3)
-#img =  wx.Bitmap.ConvertToImage(img)
+
+
 img_shape = img.shape[:2]
+
 #print('image size = ',img_shape)    #image size =  (1376, 1040)
 
 # specify no of bands in the image
