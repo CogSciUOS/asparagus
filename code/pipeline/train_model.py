@@ -17,6 +17,8 @@ log.addHandler(StreamHandler())
 
 
 def read_arguments():
+    """defines and parses command line arguments
+    """
     parser = argparse.ArgumentParser()
     models_help = '''
     Model name which refers to the python file. E.g. random_forest refers to
@@ -58,6 +60,8 @@ def read_arguments():
 
 
 def load_model(model_module, input_shape=None):
+    """loads model from file in models folder
+    """
     # load model from file
     model_util = importlib.import_module('.' + model_module, 'models')
     # call create_model function of the model_util
@@ -153,7 +157,7 @@ def load_data(filename_cat_1, filename_cat_2):
         filename_cat_2(string): filename of annotationfile in annotationfolder
 
     Returns:
-        data(pandas dataframe)
+        data(dataframe)
     """
     log.info('Loading data')
     data_category_1 = load_annotation(
