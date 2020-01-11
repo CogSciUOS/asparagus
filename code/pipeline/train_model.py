@@ -68,11 +68,11 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
     """Using a PCA to visualize the result
 
     Arguments:
-        x_train(list): x data values training
-        x_test(list): x data values test
-        y_train(list): y data values training
-        y_test(list): y data values test
-        y_pred(list): data values that were predicted
+        x_train(array-like): x data values training
+        x_test(array-like): x data values test
+        y_train(array-like): y data values training
+        y_test(array-like): y data values test
+        y_pred(array-like): data values that were predicted
     """
     # PCA
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
@@ -147,11 +147,11 @@ def load_annotation(filename_1, drop_columns_starting_with=None, set_label=None)
 def load_data(filename_cat_1, filename_cat_2):
     """loading annotationfiles from annotationfolder based on filename.
        Path to annotationfolder can be overwritten by specifying the ANNOTATION_PATH variable.
-    
+
     Arguments:
         filename_cat_1(string): filename of annotationfile in annotationfolder
         filename_cat_2(string): filename of annotationfile in annotationfolder
-    
+
     Returns:
         data(pandas dataframe)
     """
