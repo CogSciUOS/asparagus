@@ -1,5 +1,6 @@
 import argparse
 import importlib
+import os
 import textwrap
 from logging import getLogger, StreamHandler, INFO
 
@@ -50,6 +51,8 @@ def read_arguments():
     and either the score (scikit-learn) or evaluate (keras) methods.'''
 
     parser.add_argument('model', help=textwrap.dedent(models_help))
+    parser.add_argument('filename_category_1')
+    parser.add_argument('filename_category_2')
 
     return parser.parse_args()
 
@@ -65,11 +68,11 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
     """Using a PCA to visualize the result
 
     Arguments:
-        x_train {[type]} -- [description]
-        x_test {[type]} -- [description]
-        y_train {[type]} -- [description]
-        y_test {[type]} -- [description]
-        y_pred {[type]} -- [description]
+        x_train(list): x data values training
+        x_test(list): x data values test
+        y_train(list): y data values training
+        y_test(list): y data values test
+        y_pred(list): data values that were predicted
     """
     # PCA
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
@@ -125,7 +128,9 @@ def load_annotation(filename_1, drop_columns_starting_with=None, set_label=None)
     annotations = pd.read_csv(filename_1, delimiter=";", index_col=0)
 
     if drop_columns_starting_with is None:
-        drop_columns_starting_with = ['auto', 'is_bruch', 'very_thick',
+        # all columns except auto_width and auto_bended
+        drop_columns_starting_with = ['auto_violet', 'auto_blooming', 'auto_length', 'auto_rust_head',
+                                      'auto_rust_body', 'is_bruch', 'very_thick',
                                       'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified']
 
     # drop the columns
@@ -139,13 +144,23 @@ def load_annotation(filename_1, drop_columns_starting_with=None, set_label=None)
     return annotations
 
 
-def load_data():
+def load_data(filename_cat_1, filename_cat_2):
+    """loading annotationfiles from annotationfolder based on filename.
+       Path to annotationfolder can be overwritten by specifying the ANNOTATION_PATH variable.
+    
+    Arguments:
+        filename_cat_1(string): filename of annotationfile in annotationfolder
+        filename_cat_2(string): filename of annotationfile in annotationfolder
+    
+    Returns:
+        data(pandas dataframe)
+    """
     log.info('Loading data')
-    data_Anna = load_annotation(
-        "data/1A_Anna.csv", drop_columns_starting_with=None, set_label="1A_Anna")
-    data_Bona = load_annotation(
-        "data/1A_Bona.csv", drop_columns_starting_with=None, set_label="1A_Bona")
-    data = pd.concat([data_Anna, data_Bona])
+    data_category_1 = load_annotation(
+        os.environ.get("ANNOTATION_PATH", "../../annotations/") + filename_cat_1, drop_columns_starting_with=None, set_label="Category_1")
+    data_category_2 = load_annotation(
+        os.environ.get("ANNOTATION_PATH", "../../annotations/") + filename_cat_2, drop_columns_starting_with=None, set_label="Category_2")
+    data = pd.concat([data_category_1, data_category_2])
     data = pd.get_dummies(data, prefix=['Label'])
     log.info(data.head())
     return data
@@ -155,13 +170,13 @@ def main():
     # read arguments from command line
     args = read_arguments()
 
-    data = load_data()
+    data = load_data(args.filename_category_1, args.filename_category_2)
     print(data.describe())
 
     log.info('Performing train/test-split')
     x = data.iloc[:, :-2].values
     # set Label as y
-    y = data[['Label_1A_Anna', 'Label_1A_Bona']].values
+    y = data[['Label_Category_1', 'Label_Category_2']].values
 
     # make a train and test split
     # 75% train; 25% test
