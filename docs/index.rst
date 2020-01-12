@@ -11,7 +11,11 @@ Welcome to asparagus's documentation!
    :caption: Contents:
 
    protocols.rst
+   workschedules.rst
+   manual_how_to_label.md
+   run_label_app_externally.md
    api_docs.rst
+
 
 
 
