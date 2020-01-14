@@ -1,0 +1,7 @@
+import nupy as np
+import matplotlib.pyplot as plt
+from skimage import io,transform
+
+
+imnames = ['0_a.png', '0_b.png','0_c.png','1_a.png', '1_b.png','1_c.png']
+imlist = (io.imread_collection('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/1A_Anna',imnames))

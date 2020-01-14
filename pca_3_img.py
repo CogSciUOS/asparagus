@@ -87,10 +87,6 @@ imlist = (io.imread_collection('Z:/net/projects/scratch/winter/valid_until_31_Ju
 # plt.imshow(img)
 #
 #
-# import numpy as np
-# import matplotlib.pyplot as plt
-# from skimage import io,transform
-# %matplotlib inline
 #
 # def data_aug(img = img):
 #  mu = 0
