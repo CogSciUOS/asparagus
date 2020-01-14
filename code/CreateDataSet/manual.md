@@ -29,14 +29,14 @@ To use the shared installation you have to tell linux where it is.
     ```
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('//net/projects/scratch/summer/valid_until_31_January_2020/asparagus/condaInstallation/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "//net/projects/scratch/summer/valid_until_31_January_2020/asparagus/condaInstallation/etc/profile.d/conda.sh" ]; then
-            . "//net/projects/scratch/summer/valid_until_31_January_2020/asparagus/condaInstallation/etc/profile.d/conda.sh"
+        if [ -f "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/etc/profile.d/conda.sh" ]; then
+            . "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/etc/profile.d/conda.sh"
         else
-            export PATH="//net/projects/scratch/summer/valid_until_31_January_2020/asparagus/condaInstallation/bin:$PATH"
+            export PATH="/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin:$PATH"
         fi
     fi
     unset __conda_setup
