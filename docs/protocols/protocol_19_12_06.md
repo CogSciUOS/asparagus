@@ -1,4 +1,4 @@
-# Meeting 06.12.19  
+# Friday, December 6th, 2019 (ANNs, PCA, image transfer)
 Anwesend: Axel, Ulf, Malin, Maren, Josefine  
 
 ## Neural Networks
