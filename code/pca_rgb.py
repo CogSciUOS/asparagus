@@ -7,7 +7,7 @@ from numpy import linalg as LA
 
 #Using 6 sample images for the first try
 #['0_a.png', '0_b.png','0_c.png','1_a.png', '1_b.png','1_c.png']
-imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/*.png'))
+imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
 # this is our image size (1376, 1040)
 
 plt.imshow(imlist[1])
