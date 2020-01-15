@@ -93,7 +93,7 @@ gedit [filename].csv
 - this is less strict for rust. If a piece is only very slightly rusty, it doesnt matter
 - a piece counts as "bended" always if it changes the growing direction (s-shape), and also if it is strongly curved, but not if it is only slightly round
 
-# TASK FOR NOW - for the Kappa agreement
+## TASK FOR NOW - for the Kappa agreement
 To start with, our aim is to double-lable some of our already "labeled" folders, and then to use the kappa agreement for judgement our intra personal differences
 (we still have to decide on how we handle intra personal differences in labeling (how much difference we accept as "good"/"similar enough"))
 
