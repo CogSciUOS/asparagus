@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from skimage import io,transform
 from skimage.transform import resize
 from numpy import linalg as LA
+import csv
 
 
 # function for data augmentation
@@ -25,7 +26,18 @@ def data_aug(img):
             for k in range(img.shape[2]):
                 img[i,j,k] = float(img[i,j,k]) + float(val[k])
 
+# function to save our calculated pc's in, not runnig yet - so far mor like a test
+def write_to_file(filename, input):
+    """takes filename and writes them into a csv_file
 
+    Arguments:
+        filename (str): how you want to name the output file with the agreement scores
+        kappa_dict (dict): dictionary with kappa score for each column
+    """
+    with open(filename, 'a') as csvfile:
+        writer = csv.writer(csvfile)
+
+        writer.writerow([str(input)])
 
 #Using 6 sample images for the first try
 
@@ -50,6 +62,7 @@ for i in range(len(imlist)):
     arr = m.reshape((1340*364),3)
  # concatenate the vectors for every image with the existing list.
     res = np.concatenate((res,arr),axis=0)
+    write_to_file("image.csv", i)
 
 
 # delete initial zeros' row
@@ -97,3 +110,6 @@ img = imlist[1]/255.0
 plt.imshow(img)
 plt.show()
 #data_aug(img)
+
+
+write_to_file("test.csv", "test")
