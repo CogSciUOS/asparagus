@@ -5,11 +5,36 @@ from skimage.transform import resize
 from numpy import linalg as LA
 
 
+# function for data augmentation
+def data_aug(img):
+    mu = 0
+    sigma = 0.1
+    feature_vec=np.matrix(evecs_mat)
+	# 3 x 1 scaled eigenvalue matrix
+    se = np.zeros((3, 1))
+    se[0][0] = np.random.normal(mu, sigma)*evals[0]
+    se[1][0] = np.random.normal(mu, sigma)*evals[1]
+    se[2][0] = np.random.normal(mu, sigma)*evals[2]
+    se = np.matrix(se)
+    val = feature_vec*se
+
+	# Parse through every pixel value.
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            # Parse through every dimension.fail
+            for k in range(img.shape[2]):
+                img[i,j,k] = float(img[i,j,k]) + float(val[k])
+
+
+
 #Using 6 sample images for the first try
+
 #['0_a.png', '0_b.png','0_c.png','1_a.png', '1_b.png','1_c.png']
-imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
+#imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
+imlist = (io.imread_collection('ex_images/*.png'))
 # this is our image size (1376, 1040)
 
+# katha try out
 plt.imshow(imlist[1])
 plt.show()
 
@@ -65,28 +90,10 @@ m = np.dot(evecs.T, res.T).T
 
 #img = imlist[0]/255.0
 
-def data_aug(img):
-    mu = 0
-    sigma = 0.1
-    feature_vec=np.matrix(evecs_mat)
-	# 3 x 1 scaled eigenvalue matrix
-    se = np.zeros((3, 1))
-    se[0][0] = np.random.normal(mu, sigma)*evals[0]
-    se[1][0] = np.random.normal(mu, sigma)*evals[1]
-    se[2][0] = np.random.normal(mu, sigma)*evals[2]
-    se = np.matrix(se)
-    val = feature_vec*se
-
-	# Parse through every pixel value.
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            # Parse through every dimension.fail
-            for k in range(img.shape[2]):
-                img[i,j,k] = float(img[i,j,k]) + float(val[k])
 
 # Calling function for first image.
 # Re-scaling from 0-255 to 0-1.
 img = imlist[1]/255.0
-data_aug(img)
 plt.imshow(img)
 plt.show()
+#data_aug(img)
