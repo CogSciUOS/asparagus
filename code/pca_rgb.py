@@ -7,19 +7,11 @@ from numpy import linalg as LA
 
 #Using 6 sample images for the first try
 #['0_a.png', '0_b.png','0_c.png','1_a.png', '1_b.png','1_c.png']
-imlist = (io.imread_collection('ex_images/*.png'))
+imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/*.png'))
 # this is our image size (1376, 1040)
 
 plt.imshow(imlist[1])
 plt.show()
-
-#mb = transform.resize(imlist, (1340, 364,3))
-# transform images to have all the same size
-#for index in range(len(imlist)):
-    # Using the skimage.transform function-- resize image (m x n x dim).
-#    m = transform.resize(imlist[index],(1340, 364,3))
-#    plt.imshow(m)
-#    plt.show()
 
 
 #turn the image matrix of m x n x 3 to lists of rgb values i.e. (m*n) x 3.
@@ -37,14 +29,18 @@ for i in range(len(imlist)):
 
 # delete initial zeros' row
 res = np.delete(res, (0), axis=0)
+print(res)
 
-#Subtract the mean. For PCA to work properly, you must subtract the mean from each of the dimensions
+#Subtract the mean
 # print list of vectors - 3 columns (rgb)
 m = res.mean(axis = 0)
-#print(m) [0.14694415 0.12558748 0.11998542]
+#print(m) [0.14694415 0.12558748 0.11998542] - means of 3 columns
 
 res = res - m
+print(res)
 
+#Calculate the covariance matrix.
+#data is 3 dimensional,the cov matrix will be 3x3
 R = np.cov(res, rowvar=False) #[[0.09184436 0.07866244 0.07482539]
                               #[0.07866244 0.06747891 0.06427313]
                               #[0.07482539 0.06427313 0.06147922]]
