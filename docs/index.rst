@@ -13,9 +13,6 @@ Welcome to asparagus's documentation!
    protocols.rst
    workschedules.rst
    manuals.rst
-   manual_how_to_label.md
-   run_label_app_externally.md
-   manual_latex.md
    api_docs.rst
 
 
