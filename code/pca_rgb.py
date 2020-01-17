@@ -30,8 +30,8 @@ def data_aug(img):
 #Using 6 sample images for the first try
 
 #['0_a.png', '0_b.png','0_c.png','1_a.png', '1_b.png','1_c.png']
-#imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
-imlist = (io.imread_collection('ex_images/*.png'))
+imlist = (io.imread_collection('/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
+#imlist = (io.imread_collection('ex_images/*.png'))
 # this is our image size (1376, 1040)
 
 
@@ -107,6 +107,6 @@ np.savetxt('evals.txt', evals)
 # Calling function for first image.
 # Re-scaling from 0-255 to 0-1.
 img = imlist[1]/255.0
-# plt.imshow(img)
-# plt.show()
+plt.imshow(img)
+plt.show()
 data_aug(img)
