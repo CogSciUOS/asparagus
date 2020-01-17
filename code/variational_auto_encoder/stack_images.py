@@ -65,7 +65,7 @@ if __name__ == '__main__':
     args = typecast(sys.argv[1:])
     #path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs'
     #path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images/'
-    path_in = args[0]
-    path_out = args[1]
+    path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/' + args[0]
+    path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/' + args[1]
     file_paths, file_names = get_files(path_in)
     stack_images(file_paths, file_names, path_out)
