@@ -39,7 +39,7 @@ def stack_images(file_paths, file_names, path_out):
     print(n)
     # this counter is only to see whether the grid job is running
     count = 0
-    for i in range(0, len(images), 3):
+    for i in range(0, len(file_paths), 3):
         # load the three corresponding images and make them a numpy array
         img_a = imread(file_paths[i])
         df_a = np.array(img_a)
