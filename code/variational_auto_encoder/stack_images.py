@@ -1,6 +1,6 @@
 # load packages
-import matplotlib.pyplot as plt
-import pandas as pd
+#import matplotlib.pyplot as plt
+#import pandas as pd
 import numpy as np
 import os
 
@@ -8,7 +8,7 @@ def get_files(PATH):
     '''
     Get all file names in directories and subdirectories.
     Args: PATH to files
-    Out: List of all file names
+    Out: List of all file names and the corresponding directories
     '''
     all_files = []
     file_names = []
