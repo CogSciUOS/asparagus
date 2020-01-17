@@ -66,7 +66,8 @@ R = np.cov(res, rowvar=False) #[[0.09184436 0.07866244 0.07482539]
                               #[0.07866244 0.06747891 0.06427313]
                               #[0.07482539 0.06427313 0.06147922]]
 
-evals, evecs = LA.eigh(R) #return eigenvalues and eigenvectors
+#return eigenvalues and eigenvectors of covariance matrix: eigenvector with the highest value is also the principal component of the dataset
+evals, evecs = LA.eigh(R)
 idx = np.argsort(evals)[::-1]
 evecs = evecs[:,idx]
 
@@ -77,7 +78,7 @@ evals = evals[idx]
 # of rescaled data array)
 evecs = evecs[:, :3]
 
-# evecs30 = evecs[:, :30]
+#evecs30 = evecs[:, :30]
 #
 # # save best 30 evecs as binary data, so that we can check the size of all eigenvectors
 # np.save('evecs_all.npy', evecs30)
@@ -89,18 +90,21 @@ evecs_mat = np.column_stack((evecs))
 
 # carry out the transformation on the data using eigenvectors
 # and return the re-scaled data, eigenvalues, and eigenvectors
+#give us the original data solely in terms of the components we chose.
 m = np.dot(evecs.T, res.T).T
+
+print(m.shape)
 
 
 # save evecs_mat as binary data
-np.save('evecs_mat.npy', evecs_mat)
+np.save('evecs_mata.npy', evecs_mat)
 # human readable
-np.savetxt('evecs_mat.txt', evecs_mat)
+np.savetxt('evecs_mata.txt', evecs_mat)
 
 # save evals as binary data
-np.save('evals.npy', evals)
+np.save('evalsa.npy', evals)
 # human readable
-np.savetxt('evals.txt', evals)
+np.savetxt('evalsa.txt', evals)
 
 
 
