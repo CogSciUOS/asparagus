@@ -1,5 +1,5 @@
 # load packages
-#import matplotlib.pyplot as plt
+from matplotlib.pyplot import imread
 #import pandas as pd
 import numpy as np
 import os
@@ -31,7 +31,7 @@ def stack_images(file_paths, file_names, path_out):
     Out: None
     '''
     # load the images
-    images = [plt.imread(f) for f in file_paths]
+    images = [imread(f) for f in file_paths]
     # number of asparagus pieces
     n = int(len(images)/3)
     print(n)
