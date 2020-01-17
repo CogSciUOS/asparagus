@@ -59,6 +59,7 @@ def stack_images(file_paths, file_names, path_out):
     print(n)
     # use a counter to save the images in subfolders
     count = 0
+    idx = 0
     for i in range(0, len(file_paths), 3):
         # load the three corresponding images and make them a numpy array
         img_a = imread(file_paths[i])
@@ -72,15 +73,17 @@ def stack_images(file_paths, file_names, path_out):
         filename = file_names[i]
         # remove _a.png and add _stacked instead
         new_name = filename[:-6] + '_stacked'
-        folder = str(path_out + str(count) + '/')
+        folder = str(path_out + str(idx) + '/')
         # create the folder if it doesn't exist
         _mkdir(folder)
         save_to = folder + new_name
         #save_to = str(path_out + count + '/' + new_name + '_stacked')
         # save the stacked images
         np.save(save_to, df_concat)
+        count += 1
         if count%1000 == 0:
-            count += 1
+            idx += 1
+        
 
 if __name__ == '__main__':
     #path_in = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/images'
