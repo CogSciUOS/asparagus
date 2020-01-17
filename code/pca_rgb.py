@@ -94,6 +94,9 @@ evecs_mat = np.column_stack((evecs))
 m = np.dot(evecs.T, res.T).T
 
 print(m.shape)
+np.save('evecs_final.npy', evecs_mat)
+# human readable
+np.savetxt('evecs_final.txt', evecs_mat)
 
 
 # save evecs_mat as binary data
