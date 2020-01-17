@@ -6,6 +6,26 @@ import os
 from grid import*
 import sys
 
+
+def _mkdir(newdir):
+    """works the way a good mkdir should :)
+        - already exists, silently complete
+        - regular file in the way, raise an exception
+        - parent directory(ies) does not exist, make them as well
+    """
+    if os.path.isdir(newdir):
+        pass
+    elif os.path.isfile(newdir):
+        raise OSError("a file with the same name as the desired " \
+                      "dir, '%s', already exists." % newdir)
+    else:
+        head, tail = os.path.split(newdir)
+        if head and not os.path.isdir(head):
+            _mkdir(head)
+        #print "_mkdir %s" % repr(newdir)
+        if tail:
+            os.mkdir(newdir)
+
 def get_files(PATH):
     '''
     Get all file names in directories and subdirectories.
@@ -37,7 +57,7 @@ def stack_images(file_paths, file_names, path_out):
     # number of asparagus pieces
     n = int(len(file_paths)/3)
     print(n)
-    # this counter is only to see whether the grid job is running
+    # use a counter to save the images in subfolders
     count = 0
     for i in range(0, len(file_paths), 3):
         # load the three corresponding images and make them a numpy array
@@ -50,14 +70,17 @@ def stack_images(file_paths, file_names, path_out):
         df_concat = np.concatenate((df_a, df_b, df_c), axis = 2)
         # get the filename of the image to save the stacked image with the same number
         filename = file_names[i]
-        # remove _a.png
-        new_name = filename[:-6]
-        save_to = str(path_out + new_name + '_stacked')
+        # remove _a.png and add _stacked instead
+        new_name = filename[:-6] + '_stacked'
+        folder = str(path_out + count + '/')
+        # create the folder if it doesn't exist
+        _mkdir(folder)
+        save_to = folder + new_name
+        #save_to = str(path_out + count + '/' + new_name + '_stacked')
         # save the stacked images
         np.save(save_to, df_concat)
         if count%1000 == 0:
-            print(save_to)
-        count += 1
+            count += 1
 
 if __name__ == '__main__':
     #path_in = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/images'
