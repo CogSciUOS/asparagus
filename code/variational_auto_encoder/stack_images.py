@@ -3,6 +3,8 @@ from matplotlib.pyplot import imread
 #import pandas as pd
 import numpy as np
 import os
+from grid import*
+import sys
 
 def get_files(PATH):
     '''
@@ -60,7 +62,10 @@ def stack_images(file_paths, file_names, path_out):
 if __name__ == '__main__':
     #path_in = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/images'
     #path_out = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/images/out/'
-    path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs'
-    path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images/'
+    args = typecast(sys.argv[1:])
+    #path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs'
+    #path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images/'
+    path_in = args[0]
+    path_out = args[1]
     file_paths, file_names = get_files(path_in)
     stack_images(file_paths, file_names, path_out)
