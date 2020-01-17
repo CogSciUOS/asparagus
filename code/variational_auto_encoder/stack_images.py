@@ -32,20 +32,20 @@ def stack_images(file_paths, file_names, path_out):
           the original file names 
     Out: None
     '''
-    # load the images
-    images = [imread(f) for f in file_paths]
+    # load the images - this exceeds the memory, they have to be loaded one by one
+    #images = [imread(f) for f in file_paths]
     # number of asparagus pieces
-    n = int(len(images)/3)
+    n = int(len(file_paths)/3)
     print(n)
     # this counter is only to see whether the grid job is running
     count = 0
     for i in range(0, len(images), 3):
         # load the three corresponding images and make them a numpy array
-        img_a = images[i]
+        img_a = imread(file_paths[i])
         df_a = np.array(img_a)
-        img_b = images[i+1]
+        img_b = imread(file_paths[i+1])
         df_b = np.array(img_b)
-        img_c = images[i+2]
+        img_c = imread(file_paths[i+2])
         df_c = np.array(img_c)
         df_concat = np.concatenate((df_a, df_b, df_c), axis = 2)
         # get the filename of the image to save the stacked image with the same number
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     args = typecast(sys.argv[1:])
     #path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs'
     #path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images/'
-    path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/' + args[0]
-    path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/' + args[1]
+    path_in = args[0]
+    path_out = args[1]
     file_paths, file_names = get_files(path_in)
     stack_images(file_paths, file_names, path_out)
