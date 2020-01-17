@@ -30,8 +30,8 @@ def data_aug(img):
 #Using 6 sample images for the first try
 
 #['0_a.png', '0_b.png','0_c.png','1_a.png', '1_b.png','1_c.png']
-imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
-#imlist = (io.imread_collection('ex_images/*.png'))
+#imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
+imlist = (io.imread_collection('ex_images/*.png'))
 # this is our image size (1376, 1040)
 
 
@@ -40,6 +40,7 @@ imlist = (io.imread_collection('/net/projects/scratch/winter/valid_until_31_July
 res = np.zeros(shape=(1,3))
 
 for i in range(len(imlist)):
+    print(i)
     # Using the skimage.transform function-- resize image (m x n x dim)
     m = transform.resize(imlist[i],(1340, 364,3))
  # Reshape the matrix to a list of rgb values.
