@@ -72,7 +72,7 @@ def stack_images(file_paths, file_names, path_out):
         filename = file_names[i]
         # remove _a.png and add _stacked instead
         new_name = filename[:-6] + '_stacked'
-        folder = str(path_out + count + '/')
+        folder = str(path_out + str(count) + '/')
         # create the folder if it doesn't exist
         _mkdir(folder)
         save_to = folder + new_name
