@@ -81,6 +81,7 @@ def stack_images(file_paths, file_names, path_out):
         # save the stacked images
         np.save(save_to, df_concat)
         count += 1
+        # create a new folder after 1000 images so the folders don't get to big
         if count%1000 == 0:
             idx += 1
         
