@@ -91,12 +91,12 @@ evecs_mat = np.column_stack((evecs))
 # carry out the transformation on the data using eigenvectors
 # and return the re-scaled data, eigenvalues, and eigenvectors
 #give us the original data solely in terms of the components we chose.
-m = np.dot(evecs.T, res.T).T
+m_1a_anna = np.dot(evecs.T, res.T).T
 
-print(m.shape)
-np.save('evecs_final.npy', evecs_mat)
+print(m_1a_anna.shape)
+np.save('1a_anna_final.npy', m_1a_anna)
 # human readable
-np.savetxt('evecs_final.txt', evecs_mat)
+np.savetxt('1a_anna_final.txt', m_1a_anna)
 
 
 # save evecs_mat as binary data
