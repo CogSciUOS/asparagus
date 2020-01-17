@@ -1,5 +1,5 @@
 Protocol from 15.11.2019  
-# Kappa Agreement, Image labeling, First WS Meeting   
+# Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)   
 Attendants: Ulf, Axel, Sophia, Richard, Michael, Malin, Josefine
 
 ## Intro

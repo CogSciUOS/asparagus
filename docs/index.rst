@@ -11,7 +11,10 @@ Welcome to asparagus's documentation!
    :caption: Contents:
 
    protocols.rst
+   workschedules.rst
+   manuals.rst
    api_docs.rst
+
 
 
 
