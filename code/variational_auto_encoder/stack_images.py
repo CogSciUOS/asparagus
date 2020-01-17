@@ -34,6 +34,9 @@ def stack_images(file_paths, file_names, path_out):
     images = [plt.imread(f) for f in file_paths]
     # number of asparagus pieces
     n = int(len(images)/3)
+    print(n)
+    # this counter is only to see whether the grid job is running
+    count = 0
     for i in range(0, len(images), 3):
         # load the three corresponding images and make them a numpy array
         img_a = images[i]
@@ -50,7 +53,9 @@ def stack_images(file_paths, file_names, path_out):
         save_to = str(path_out + new_name + '_stacked')
         # save the stacked images
         np.save(save_to, df_concat)
-  
+        if count%1000 == 0:
+            print(save_to)
+        count += 1
 
 if __name__ == '__main__':
     #path_in = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/images'
