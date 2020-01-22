@@ -51,7 +51,8 @@ if __name__ == '__main__':
     index_list = []
     for item in ids:
         item_index = np.where(files==item)
-        shutil.copy(file_paths[item_index], path_to_save)
+        for idx in item_index:
+            shutil.copy(file_paths[idx], path_to_save)
         # to check whether all were found count the number of found indices
         index_list.append(item_index)
     print('#indices found: ' + str(len(index_list)))
