@@ -1,5 +1,5 @@
 from grid import*
-from stack_images import*
+from move_files import*
 
 if __name__ == '__main__':
     path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/variational_auto_encoder/move_files.py'
