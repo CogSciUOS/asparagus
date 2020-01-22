@@ -3,6 +3,7 @@ import numpy as np
 import os
 from grid import*
 import sys
+import shutil
 
 def get_asparagus_ids(PATH):
     '''
@@ -37,13 +38,9 @@ def get_files(PATH):
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
     
-    #path_to_imgs = 'Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs/'
-    #path_to_csv = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/LabelFiles/combined.csv'
-    #possible_folders = ['0/0','0/1','0/2','0/3','0/4','0/5','0/6', '2/0','2/1','2/2','2/3','2/4','2/5','2/6','4/0','4/1','4/2','4/3','4/4','4/5','4/6']
-    
     path_to_imgs = args[0]
     path_to_csv = args[1]
-    
+    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background'
     # read ids from combined.csv
     ids = get_asparagus_ids(path_to_csv)
     print('#ids: ' + str(len(ids)))
@@ -54,5 +51,7 @@ if __name__ == '__main__':
     index_list = []
     for item in ids:
         item_index = np.where(files==item)
+        shutil.copy(file_paths[item_index], path_to_save)
+        # to check whether all were found count the number of found indices
         index_list.append(item_index)
     print('#indices found: ' + str(len(index_list)))
