@@ -46,13 +46,13 @@ if __name__ == '__main__':
     
     # read ids from combined.csv
     ids = get_asparagus_ids(path_to_csv)
-    print('#ids: ' + len(ids))
+    print('#ids: ' + str(len(ids)))
     # get all images file names and corresponding paths
     file_paths, file_names = get_files(path_to_imgs)
-    print('#files found: ' + len(file_names))
+    print('#files found: ' + str(len(file_names)))
     files = np.array(file_names)
     index_list = []
     for item in ids:
         item_index = np.where(files==item)
         index_list.append(item_index)
-    print('#indices found: ' + len(index_list))
+    print('#indices found: ' + str(len(index_list)))
