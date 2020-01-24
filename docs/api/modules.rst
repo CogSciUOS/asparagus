@@ -9,4 +9,3 @@ code
    label_app
    measure_agreement
    pipeline
-   preprocessor
