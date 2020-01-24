@@ -82,13 +82,12 @@ def stack_images(file_paths, file_names, path_out):
         np.save(save_to, df_concat)
         count += 1
         # create a new folder after 1000 images so the folders don't get to big
-        if count%1000 == 0:
-            idx += 1
+        #if count%1000 == 0:
+        #    idx += 1
         
 
 if __name__ == '__main__':
-    #path_in = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/images'
-    #path_out = 'C:/Users/Sophia/Documents/asparagus/code/variational_auto_encoder/images/out/'
+
     args = typecast(sys.argv[1:])
     #path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs'
     #path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images/'
