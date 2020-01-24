@@ -15,8 +15,8 @@ def get_asparagus_ids(PATH):
     csvs = pd.read_csv(PATH, sep = ';')
     # the column corresponding to the ids
     ids = csvs['id']
-    # make it a numpy array for better parsing and save as int 
-    ids = np.array(int(ids))
+    # make it a numpy array for better parsing 
+    ids = np.array(ids)
     return ids
 
 def get_files(PATH):
