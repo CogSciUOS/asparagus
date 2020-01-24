@@ -48,10 +48,12 @@ if __name__ == '__main__':
     file_paths, file_names = get_files(path_to_imgs)
     print('#files found: ' + str(len(file_names)))
     files = np.array(file_names)
+    print(files[0:10])
     index_list = []
     for item in ids:
+        print(item)
+
         item_index = np.where(files==item)
-        print(item_index[0])
         for idx in item_index[0]:
             shutil.copy(file_paths[int(idx)], path_to_save)
         # to check whether all were found count the number of found indices
