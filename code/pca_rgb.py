@@ -30,7 +30,7 @@ def data_aug(img):
 #Using 6 sample images for the first try
 
 #['0_a.png', '0_b.png','0_c.png','1_a.png', '1_b.png','1_c.png']
-imlist = (io.imread_collection('/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/1A_Anna/*.png'))
+imlist = (io.imread_collection('/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/2B/*.png'))
 #imlist = (io.imread_collection('ex_images/*.png'))
 # this is our image size (1376, 1040)
 
@@ -94,9 +94,9 @@ evecs_mat = np.column_stack((evecs))
 m_1a_anna = np.dot(evecs.T, res.T).T
 
 print(m_1a_anna.shape)
-np.save('1a_anna_final.npy', m_1a_anna)
+np.save('2B_final.npy', m_1a_anna)
 # human readable
-np.savetxt('1a_anna_final.txt', m_1a_anna)
+np.savetxt('2B_final.txt', m_1a_anna)
 
 
 # save evecs_mat as binary data
