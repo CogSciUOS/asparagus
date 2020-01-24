@@ -15,8 +15,8 @@ def get_asparagus_ids(PATH):
     csvs = pd.read_csv(PATH, sep = ';')
     # the column corresponding to the ids
     ids = csvs['id']
-    # make it a numpy array for better parsing
-    ids = np.array(ids)
+    # make it a numpy array for better parsing and save as int 
+    ids = np.array(int(ids))
     return ids
 
 def get_files(PATH):
@@ -32,7 +32,7 @@ def get_files(PATH):
             filepath = subdir + '/' + file
             if filepath.endswith(".png"):
                 all_files.append(filepath)
-                file_names.append(file[:-6]) #modified to not save without _a.png
+                file_names.append(int(file[:-6])) #modified to not save without _a.png and save as int for later comparison
     return all_files, file_names
 
 if __name__ == '__main__':
@@ -51,8 +51,6 @@ if __name__ == '__main__':
     print(files[0:10])
     index_list = []
     for item in ids:
-        print(item)
-
         item_index = np.where(files==item)
         for idx in item_index[0]:
             shutil.copy(file_paths[int(idx)], path_to_save)
