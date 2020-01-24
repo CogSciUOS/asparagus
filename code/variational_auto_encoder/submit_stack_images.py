@@ -3,7 +3,9 @@ from stack_images import*
 
 if __name__ == '__main__':
     path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/variational_auto_encoder/stack_images.py'
-    args = ['/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs/0', '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images/']
+    path_to_imgs = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background'
+    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_labeled_with_background/'
+    args = [path_to_imgs, path_to_save]
    # env = 'source stack/bin/activate'
 
     submit_script(path, args)
