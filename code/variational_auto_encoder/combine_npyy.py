@@ -8,7 +8,7 @@ def combine(PATH):
     n = len(all_files)
     first = np.load(PATH + all_files[0])[::6,::6]
     dtype = first.dtype
-    l, w, d = fist.shape
+    l, w, d = first.shape
     data = np.empty((n, l, w, d), dtype=dtype)
     for i,file in enumerate(all_files):
         data[i,:,:,:] = np.load(PATH + file)[::6,::6]
