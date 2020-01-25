@@ -6,7 +6,9 @@ import sys
 def combine(PATH):
     all_files = os.listdir(PATH)
     n = len(all_files)
-    data = np.empty(n, 1340, 364, 9)
+    first = np.load(all_files[0])
+    dtype = first.dtype
+    data = np.empty((n, 1340, 364, 9), dtype=dtype)
     for i,file in enumerate(all_files):
         data[i,:,:,:] = np.load(file)[::6,::6]
         if i%500==0:
