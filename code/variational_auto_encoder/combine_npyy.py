@@ -9,6 +9,8 @@ def combine(PATH):
     data = np.empty(n, 1340, 364, 9)
     for i,file in enumerate(all_files):
         data[i,:,:,:] = np.load(file)[::6,::6]
+        if i%500==0:
+            print(i)
     path_out = PATH + "data.npy"
     np.save(path_out, data)
 
