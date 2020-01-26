@@ -7,8 +7,10 @@
    Example: python kappa_agreement.py ../annotations/annotator_1.csv ../annotations/annotator_2.csv agreement_annotator_1_annotator_2.csv
 """
 import argparse
-import sys
 import csv
+import itertools
+import sys
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
@@ -31,6 +33,14 @@ def load_annotations(filename_1, filename_2, drop_columns_starting_with=None):
     """
     annotations_1 = pd.read_csv(filename_1, delimiter=";", index_col=0)
     annotations_2 = pd.read_csv(filename_2, delimiter=";", index_col=0)
+
+    # if unclassifiable, fill with value 2
+    unclassified1 = annotations_1["unclassified"] == 1
+    annotations_1[unclassified1] = annotations_1[unclassified1].fillna(2)
+
+    print(annotations_2.head(15))
+    unclassified2 = annotations_2["unclassified"] == 1
+    annotations_2[unclassified2] = annotations_2[unclassified2].fillna(2)
 
     if drop_columns_starting_with is None:
         drop_columns_starting_with = ['auto', 'is_bruch', 'very_thick',
@@ -118,13 +128,7 @@ def write_to_file(filename, kappa_dict, accuracy_dict, f1_dict):
             writer.writerow([column, f1])
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('infile_1', help='the first annotator csv file')
-    parser.add_argument('infile_2', help='the second annotator csv file')
-    parser.add_argument('outfile', help='the outputfile name')
-    args = parser.parse_args()
-
+def main(args):
     annotations_1, annotations_2 = load_annotations(
         args.infile_1, args.infile_2)
 
@@ -156,3 +160,30 @@ if __name__ == "__main__":
 
     # Write to file
     write_to_file(args.outfile, kappa_dict, accuracy_dict, f1_dict)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('infile_1', help='the first annotator csv file')
+    parser.add_argument('infile_2', help='the second annotator csv file')
+    parser.add_argument('outfile', help='the outputfile name')
+
+    args = parser.parse_args()
+    main(args)
+
+    """
+    # if you want to have all combinations of files in a folder
+    path = Path("../annotations/evaluation_agreement_2")
+    files = list(f for f in path.iterdir() if not f.name.startswith('agree'))
+    for if1, if2 in itertools.combinations(files, 2):
+        print(if1, if2)
+        annotator1 = if1.name[:if1.name.index("_")]
+        annotator2 = if2.name[:if2.name.index("_")]
+        image_range = if1.name[if1.name.index("_")+1:]
+        outname = path / \
+            f"agreement_{annotator1}_{annotator2}_{image_range}"
+        print(outname)
+
+        args = parser.parse_args([str(if1), str(if2), str(outname)])
+        main(args)
+    """
