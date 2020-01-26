@@ -11,9 +11,16 @@ def sample_head(img, width=150,height=150, output_height=64,output_width=64):
     asparagus = img>0
     y_mean = np.any(img,axis=1)
     y = np.argmax(y_mean>0)
-    x = np.mean(np.where(img[y]>0))
-    left = int(max(x-width//2,0))
-    top = int(min(y,img.shape[0]-width))
+    x = np.nanmean(np.where(img[y]>0))
+    try:
+    	left = int(max(x-width//2,0))
+    	top = int(min(y,img.shape[0]-width))
+    except:
+        print("sample_head failed. For x position " + str(x)+" the row in the image is:")
+        print(img[y])
+        top = 0
+        left = 0#Just assume some value
+    
     head = Image.fromarray(raw_img[ top  : top+height,
                                 left : left+width]).resize((output_height,output_width))
     return head
