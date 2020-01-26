@@ -168,7 +168,11 @@ if __name__ == "__main__":
     parser.add_argument('infile_2', help='the second annotator csv file')
     parser.add_argument('outfile', help='the outputfile name')
 
-    # combination of files
+    args = parser.parse_args()
+    main(args)
+
+    """
+    # if you want to have all combinations of files in a folder
     path = Path("../annotations/evaluation_agreement_2")
     files = list(f for f in path.iterdir() if not f.name.startswith('agree'))
     for if1, if2 in itertools.combinations(files, 2):
@@ -182,3 +186,4 @@ if __name__ == "__main__":
 
         args = parser.parse_args([str(if1), str(if2), str(outname)])
         main(args)
+    """
