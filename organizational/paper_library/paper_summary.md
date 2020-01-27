@@ -105,3 +105,13 @@
 | feature algorithms | >bag of features< for SVM trained through >bagOfFeatures< function from Matlab
 | classifiers    | best performance by: Support vector machines (SVM), CNN suffered from overfitting due to the small amount of pictures and the squashing.
 | performance    | SVM: 94.8%, CNN: 83%
+
+
+## Paper for Kappa agreement
+
+| title          | Interrater reliability: the kappa statistic       |
+|----------------|-----------------------------------------------------------------------------------------|
+| helpful        | 4/5                                                                                     |
+| authors        | @PMC3900052                                                                            |
+| year           | 2012                                                                                    |
+| summary        | This paper includes information about the kappa agreement. The kappa can range from −1 to +1. Cohen suggests the Kappa result to be interpreted as follows: values ≤ 0 as indicating no agreement and 0.01–0.20 as none to slight, 0.21–0.40 as fair, 0.41– 0.60 as moderate, 0.61–0.80 as substantial, and 0.81–1.00 as almost perfect agreement.  |
