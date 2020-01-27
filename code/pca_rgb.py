@@ -30,7 +30,7 @@ for i in range(len(imlist)):
 # delete initial zeros' row
 res = np.delete(res, (0), axis=0)
 print(res)
-
+    
 #Subtract the mean
 # print list of vectors - 3 columns (rgb)
 m = res.mean(axis = 0)
