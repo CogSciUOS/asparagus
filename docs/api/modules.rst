@@ -6,6 +6,6 @@ code
 
    feature_extraction
    good_style
-   kappa_agreement
    label_app
-   preprocessor
+   measure_agreement
+   pipeline
