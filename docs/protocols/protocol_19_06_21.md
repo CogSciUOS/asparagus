@@ -1,4 +1,4 @@
-# Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation, Single Image Super-Super Resolution)
+# Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)
 
 Attendants: Axel, Richard, Malin, Luana, Maren, Josefine, Katharina
 

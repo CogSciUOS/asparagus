@@ -1,4 +1,4 @@
-
+main.pdf
 # Created by https://www.gitignore.io/api/latex,macos,python,jupyternotebook,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=latex,macos,python,jupyternotebook,visualstudiocode
 
@@ -9,6 +9,10 @@
 # Remove previous ipynb_checkpoints
 #   git rm -r .ipynb_checkpoints/
 #
+
+Pipfile
+Pipfile.lock
+
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
