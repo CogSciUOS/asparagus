@@ -80,7 +80,7 @@ def best_match(img, db, eigenvecs):
     mean_asparagus = db.mean(axis=0)
     centered = img - mean_asparagus
     #project it into the eigenface space
-    projected = eigenvecs @ centered
+    projected = np.dot(eigenvecs,centered)
 
     # Now compute the similarity to all known asparagus
     distances = cdist(db, projected[None, :])
