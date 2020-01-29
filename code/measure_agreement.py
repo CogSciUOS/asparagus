@@ -38,13 +38,12 @@ def load_annotations(filename_1, filename_2, drop_columns_starting_with=None):
     unclassified1 = annotations_1["unclassified"] == 1
     annotations_1[unclassified1] = annotations_1[unclassified1].fillna(2)
 
-    print(annotations_2.head(15))
     unclassified2 = annotations_2["unclassified"] == 1
     annotations_2[unclassified2] = annotations_2[unclassified2].fillna(2)
 
     if drop_columns_starting_with is None:
         drop_columns_starting_with = ['auto', 'is_bruch', 'very_thick',
-                                      'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified']
+                                      'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified', 'filenames']
 
     for column in drop_columns_starting_with:
         mask = annotations_1.columns.str.startswith(column)
@@ -115,17 +114,25 @@ def write_to_file(filename, kappa_dict, accuracy_dict, f1_dict):
     with open("../annotations/"+filename, 'w') as csvfile:
         writer = csv.writer(csvfile)
 
-        writer.writerow(["Kappa:"])
+        # write header to file
+        header = ["feature", "evaluation_measure", "score", "annotators"]
+        writer.writerow(header)
+
+        # TODO
+        # I have to adjust this
+        annotator_names = filename[filename.index("_")+22:-18]
+
+        # write dict values to file
         for column, kappa in kappa_dict.items():
-            writer.writerow([column, kappa])
+            writer.writerow(
+                [column, "kappa score", kappa, str(annotator_names)])
 
-        writer.writerow(["Accuracy:"])
         for column, acc in accuracy_dict.items():
-            writer.writerow([column, acc])
+            writer.writerow([column, "accuracy score",
+                             acc, str(annotator_names)])
 
-        writer.writerow(["F1:"])
         for column, f1 in f1_dict.items():
-            writer.writerow([column, f1])
+            writer.writerow([column, "f1 score", f1, str(annotator_names)])
 
 
 def main(args):
@@ -168,10 +175,9 @@ if __name__ == "__main__":
     parser.add_argument('infile_2', help='the second annotator csv file')
     parser.add_argument('outfile', help='the outputfile name')
 
-    args = parser.parse_args()
-    main(args)
+    #args = parser.parse_args()
+    # main(args)
 
-    """
     # if you want to have all combinations of files in a folder
     path = Path("../annotations/evaluation_agreement_2")
     files = list(f for f in path.iterdir() if not f.name.startswith('agree'))
@@ -186,4 +192,3 @@ if __name__ == "__main__":
 
         args = parser.parse_args([str(if1), str(if2), str(outname)])
         main(args)
-    """
