@@ -17,7 +17,7 @@ def get_files(PATH):
         dsize = (int(img.shape[0]*0.5), int(img.shape[1]*0.5))
         img_rescaled = cv2.resize(img, dsize = dsize)
         imgs.append(img_rescaled)
-    return imgs
+    return np.array(imgs)
 
 def rescale_imgs(imgs):
     '''
