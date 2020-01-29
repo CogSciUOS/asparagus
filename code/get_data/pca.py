@@ -102,5 +102,7 @@ if __name__ == '__main__':
     eigenvecs_used = eigenvecs[:num_eigenvecs]
     print(eigenvecs_used.shape)
     asparagus_db = create_eigenspace(data, eigenvecs_used)
-    best_match = best_match(img, asparagus_db, eigenvecs_used, data)
-    print(best_match)
+    #best_match = best_match(img, asparagus_db, eigenvecs_used, data)
+    #print(best_match)
+    plt.imshow(pc[0].reshape(1340,364,3))
+    plt.show()
