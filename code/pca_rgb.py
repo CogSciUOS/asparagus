@@ -52,12 +52,8 @@ for i in range(len(imlist)):
 
 # delete initial zeros' row
 res = np.delete(res, (0), axis=0)
-<<<<<<< HEAD
 print(res)
-    
-=======
 
->>>>>>> e19252f6448f53d415c57f30e2a3369e9f412d6d
 #Subtract the mean
 # print list of vectors - 3 columns (rgb)
 m = res.mean(axis = 0)
