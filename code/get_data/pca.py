@@ -47,14 +47,15 @@ def pca(data):
         eigenvals (ndarray): k-vector holding the corresponding variances, in descending order.
     """
     data_centered = data - data.mean(axis=0)
-    cov_matrix = np.cov(data_centered, rowvar=False)
+    cov_matrix = np.cov(data_centered.T, rowvar=False)
     eigenvals, eigenvecs = np.linalg.eig(cov_matrix)
     # sort eigenvalues and vectors
     idx = np.argsort(eigenvals)[::-1]
     eigenvecs = eigenvecs[:,idx]
     eigenvals = eigenvals[idx]
     # compute principal components
-    return eigenvecs, eigenvals
+    pc = eigenvecs.T @ centered_data
+    return eigenvecs, eigenvals, pc
 
 def create_eigenspace(data, eigenvecs):
     '''
@@ -96,10 +97,10 @@ if __name__ == '__main__':
     data = rescale_imgs(imgs)
     img = data[0]
     print(img.shape)
-    eigenvecs, eigenvals = pca(data)
+    eigenvecs, eigenvals, pc = pca(data)
     print(eigenvals[:3])
-    # eigenvecs_used = eigenvecs[:num_eigenvecs]
-    # print(eigenvecs_used.shape)
-    # asparagus_db = create_eigenspace(data, eigenvecs_used)
-    # best_match = best_match(img, asparagus_db, eigenvecs_used)
-    # print(best_match)
+    eigenvecs_used = eigenvecs[:num_eigenvecs]
+    print(eigenvecs_used.shape)
+    asparagus_db = create_eigenspace(data, eigenvecs_used)
+    best_match = best_match(img, asparagus_db, eigenvecs_used)
+    print(best_match)
