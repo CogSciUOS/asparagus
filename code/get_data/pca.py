@@ -3,7 +3,7 @@ import os
 from grid import*
 import sys
 import cv2
-from skimage import transform.rescale
+#from skimage.transform import rescale
 
 def get_files(PATH):
     # get all file paths from directory
@@ -13,7 +13,8 @@ def get_files(PATH):
     imgs = []
     for file in all_files:
         img = plt.imread(file_name)
-        img_rescaled = transform.rescale(img, 0.25, anti_aliasing=True)
+        dsize = (img.shape[0]*0.75, img.shape[1]*0.75)
+        img_rescaled = cv2.resize(img, dsize = dsize)
         imgs.append(img_rescaled)
     return imgs
 
