@@ -1,24 +1,19 @@
-Kappa:
-is_hollow,0.5717344753747323
-has_blume,0.6296296296296295
-has_rost_head,0.7747747747747749
-has_rost_body,0.23518164435946465
-is_bended,0.5260663507109005
-is_violet,0.6365524402907581
-filenames,0.0
-Accuracy:
-is_hollow,0.92
-has_blume,0.86
-has_rost_head,0.9
-has_rost_body,0.52
-is_bended,0.72
-is_violet,0.86
-filenames,0.0
-F1:
-is_hollow,0.9496507936507936
-has_blume,0.8662012987012986
-has_rost_head,0.9029522590085971
-has_rost_body,0.44912554112554104
-is_bended,0.7043153638814016
-is_violet,0.8775649350649349
-filenames,0.0
+feature,evaluation_measure,score,annotators
+is_hollow,kappa score,0.5717344753747323,_sophia_katha
+has_blume,kappa score,0.6296296296296295,_sophia_katha
+has_rost_head,kappa score,0.7747747747747749,_sophia_katha
+has_rost_body,kappa score,0.23518164435946465,_sophia_katha
+is_bended,kappa score,0.5260663507109005,_sophia_katha
+is_violet,kappa score,0.6365524402907581,_sophia_katha
+is_hollow,accuracy score,0.92,_sophia_katha
+has_blume,accuracy score,0.86,_sophia_katha
+has_rost_head,accuracy score,0.9,_sophia_katha
+has_rost_body,accuracy score,0.52,_sophia_katha
+is_bended,accuracy score,0.72,_sophia_katha
+is_violet,accuracy score,0.86,_sophia_katha
+is_hollow,f1 score,0.9496507936507936,_sophia_katha
+has_blume,f1 score,0.8662012987012986,_sophia_katha
+has_rost_head,f1 score,0.9029522590085971,_sophia_katha
+has_rost_body,f1 score,0.44912554112554104,_sophia_katha
+is_bended,f1 score,0.7043153638814016,_sophia_katha
+is_violet,f1 score,0.8775649350649349,_sophia_katha
