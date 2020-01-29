@@ -14,7 +14,7 @@ def get_files(PATH):
     imgs = []
     for file_name in all_files:
         img = plt.imread(PATH + file_name)
-        dsize = (img.shape[0]*0.75, img.shape[1]*0.75)
+        dsize = (int(img.shape[0]*0.5), int(img.shape[1]*0.5))
         img_rescaled = cv2.resize(img, dsize = dsize)
         imgs.append(img_rescaled)
     return imgs
