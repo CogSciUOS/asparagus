@@ -3,6 +3,7 @@ import os
 from grid import*
 import sys
 import cv2
+import matplotlib.pyplot as plt
 #from skimage.transform import rescale
 
 def get_files(PATH):
@@ -79,8 +80,10 @@ if __name__ == '__main__':
     imgs = get_files(path)
     data = imgs.reshape((-1, np.prod(imgs[0].shape)))
     img = data[10]
+    print(img.shape)
     eigenvecs, eigenvals = pca(data)
     eigenvecs_used = eigenvecs[:num_eigenvecs]
+    print(eigenvecs_used.shape)
     asparagus_db = create_eigenspace(data, eigenvecs_used)
     best_match = best_match(img, asparagus_db, eigenvecs_used)
     print(best_match)
