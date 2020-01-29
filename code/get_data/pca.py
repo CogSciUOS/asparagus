@@ -94,7 +94,7 @@ if __name__ == '__main__':
     num_eigenvecs = args[1]
     imgs = get_files(path)
     data = rescale_imgs(imgs)
-    img = data[10]
+    img = data[0]
     print(img.shape)
     eigenvecs, eigenvals = pca(data)
     eigenvecs_used = eigenvecs[:num_eigenvecs]
