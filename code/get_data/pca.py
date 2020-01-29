@@ -17,6 +17,7 @@ def get_files(PATH):
     imgs = []
     for file_name in all_files[:3]:
         img = rgb2gray(plt.imread(PATH + file_name))
+        print(img.shape)
         #dsize = (int(img.shape[0]*0.2), int(img.shape[1]*0.2))
         #img_rescaled = cv2.resize(img, dsize = dsize)
         imgs.append(img)
@@ -104,5 +105,5 @@ if __name__ == '__main__':
     asparagus_db = create_eigenspace(data, eigenvecs_used)
     #best_match = best_match(img, asparagus_db, eigenvecs_used, data)
     #print(best_match)
-    plt.imshow(pc[0].reshape(1340,364,3))
+    plt.imshow(pc[0].reshape(1340,364))
     plt.show()
