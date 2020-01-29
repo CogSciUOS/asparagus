@@ -1,0 +1,84 @@
+import numpy as np
+import os
+from grid import*
+import sys
+from skimage.transform import rescale, resize, downscale_local_mean
+
+def get_files(PATH):
+    # get all file paths from directory
+    all_files = os.listdir(PATH)
+    n = len(all_files)
+    # save images in a list
+    imgs = []
+    for file in all_files:
+        img = plt.imread(file_name)
+        img_rescaled = rescale(img, 0.25, anti_aliasing=True)
+        imgs.append(img_rescaled)
+    return imgs
+
+def pca(data):
+    """
+    Perform principal component analysis.
+    
+    Args:
+        data (ndarray): an array of shape (n,k),
+        meaning n entries with k dimensions
+        
+    Returns: two arrays
+        eigenvecs (ndarray): array of shape (k,k) holding the principal components in its columns.
+        eigenvals (ndarray): k-vector holding the corresponding variances, in descending order.
+    """
+    data_centered = data - data.mean(axis=0)
+    cov_matrix = np.cov(data_centered, rowvar=False)
+    eigenvals, eigenvecs = np.linalg.eig(cov_matrix)
+    # sort eigenvalues and vectors
+    idx = np.argsort(eigenvals)[::-1]
+    eigenvecs = eigenvecs[:,idx]
+    eigenvals = eigenvals[idx]
+    # compute principal components
+    return eigenvecs, eigenvals
+
+def create_eigenspace(data, eigenvecs):
+    '''
+    Create eigenspace with the sample images and the given eigenvectors.
+    Args: data contains the flattend images (n,k) n = number of images, k = image dimension
+          eigenvecs contains the eigenvectors (l,k) l = number of iegenvectors chosen to use, k = image dimension
+    Out:  asparagus_db = database with the projected asparagus
+    '''
+    data = data - data.mean(axis=0)
+    asparagus_db = data @ eigenvecs.T
+    return asparagus_db
+
+def best_match(img, db, eigenvecs):
+    ''' 
+    Project new asparagus to asparagus_db and find best match. 
+    TODO: Try out different distance measures
+    Args: img to be projected/classified
+          db = asparagus_db = eigenspace
+          eigenvecs to project the asparagus img
+    Out:  best match found in the db by index, hopefully of the same class
+    '''
+    index = -1
+    mean_asparagus = db.mean(axis=0)
+    centered = img - mean_asparagus
+    #project it into the eigenface space
+    projected = eigenvecs @ centered
+
+    # Now compute the similarity to all known asparagus
+    distances = cdist(db, projected[None, :])
+    index = distances.argmin()
+
+    return index
+
+if __name__ == '__main__':
+    args = typecast(sys.argv[1:])
+    path = args[0]
+    num_eigenvecs = args[1]
+    imgs = get_files(path)
+    data = imgs.reshape((-1, np.prod(imgs[0].shape)))
+    img = data[10]
+    eigenvecs, eigenvals = pca(data)
+    eigenvecs_used = eigenvecs[:num_eigenvecs]
+    asparagus_db = create_eigenspace(data, eigenvecs_used)
+    best_match = best_match(img, asparagus_db, eigenvecs_used)
+    print(best_match)
