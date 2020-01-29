@@ -19,6 +19,18 @@ def get_files(PATH):
         imgs.append(img_rescaled)
     return imgs
 
+def rescale_imgs(imgs):
+    '''
+    Take a list of images and rescale (flatten) them.
+    Args: list of images
+    Out:  list of rescaled images
+    '''
+    data = []
+    for img in imgs:
+        new = img.reshape((np.prod(img.shape)))
+        data.append(new)
+    return data
+
 def pca(data):
     """
     Perform principal component analysis.
@@ -78,7 +90,7 @@ if __name__ == '__main__':
     path = args[0]
     num_eigenvecs = args[1]
     imgs = get_files(path)
-    data = imgs.reshape((-1, np.prod(imgs[0].shape)))
+    data = rescale_imgs(imgs)
     img = data[10]
     print(img.shape)
     eigenvecs, eigenvals = pca(data)
