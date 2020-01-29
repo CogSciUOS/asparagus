@@ -64,7 +64,7 @@ def create_eigenspace(data, eigenvecs):
     Out:  asparagus_db = database with the projected asparagus
     '''
     data = data - data.mean(axis=0)
-    asparagus_db = data @ eigenvecs.T
+    asparagus_db = np.dot(data, eigenvecs.T)
     return asparagus_db
 
 def best_match(img, db, eigenvecs):
