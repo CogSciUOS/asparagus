@@ -1,5 +1,5 @@
 from grid import*
-from stack_images import*
+from pca import*
 
 if __name__ == '__main__':
     path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/pca.py'

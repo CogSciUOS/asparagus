@@ -6,6 +6,9 @@ import cv2
 import matplotlib.pyplot as plt
 #from skimage.transform import rescale
 
+def rgb2gray(rgb):
+    return np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
+
 def get_files(PATH):
     # get all file paths from directory
     all_files = os.listdir(PATH)
@@ -13,7 +16,7 @@ def get_files(PATH):
     # save images in a list
     imgs = []
     for file_name in all_files:
-        img = plt.imread(PATH + file_name)
+        img = rgb2gray(plt.imread(PATH + file_name))
         dsize = (int(img.shape[0]*0.2), int(img.shape[1]*0.2))
         img_rescaled = cv2.resize(img, dsize = dsize)
         imgs.append(img_rescaled)
