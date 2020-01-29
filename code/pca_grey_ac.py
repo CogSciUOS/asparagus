@@ -16,13 +16,13 @@ import matplotlib.image as mpimg
 
 #get the files (files contai 10 images of each class)
 
-img = cv2.imread('C:/Users/schmuri/github/asparagus/images/test_pca/109278_00.png')
+img = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/0_b.png')
 
-img_shape = img.shape[:2] #(1376, 1040, 3)
+img_shape = img.shape #(1376, 1040, 3)
 
 n_bands = 130 #weil ich 130 bilder habe
 
-MB_img = np.zeros((img_shape[0],img_shape[1],n_bands))  #(1376, 1040, 7)
+MB_img = np.zeros((img_shape[0],img_shape[1]*img_shape[2],n_bands))  #(1376, 1040, 7)
 s = 0
 # stacking up images into the array
 
@@ -30,8 +30,12 @@ for i in range(n_bands):
     #MB_img[:,:,i] = cv2.imread('band'+str(i+1)+'.jpg', cv2.IMREAD_GRAYSCALE)
     #das hier bedeutet, dass er jeweils drei bilder hat, in unterschiedlichen farbdingern
     #reading in all 3 images of one asparagus (unprocessed)
-    #wie komme ich jetzt auf diesen path...'C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/*.png'
-    MB_img[:,:,i] = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/'+str(s+i)+'_b.png', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/'+str(s+i)+'_b.png')
+#wie komme ich jetzt auf diesen path...'C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/*.png'
+    flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
+
+    MB_img[:,:,i] = flat
+    #cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/'+str(s+i)+'_b.png', cv2.IMREAD_GRAYSCALE)
 
 #mal checken
 #plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
@@ -53,7 +57,7 @@ print(MB_matrix)
 #Compute eigenvectors and values
 # Covariance
 np.set_printoptions(precision=3)
-cov = np.cov(MB_matrix.transpose())
+cov = np.cov(MB_matrix.T)
 # Eigen Values
 EigVal,EigVec = np.linalg.eig(cov)
 print("Eigenvalues:\n\n", EigVal,"\n")
@@ -61,9 +65,15 @@ print("Eigenvalues:\n\n", EigVal,"\n")
 order = EigVal.argsort()[::-1]
 EigVal = EigVal[order]
 EigVec = EigVec[:,order]
+print(EigVec.shape)
+
 #Projecting data on Eigen vector directions resulting to Principal Components
 PC = np.matmul(MB_matrix,EigVec)   #cross product
-print(PC)
+print(PC.shape)
+for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
+    test = PC[:,i].reshape(img_shape)
+    plt.imshow(test)
+    plt.show()
 
 x = range(10)#np.linspace(0,130, 1)
 plt.plot(x,EigVal[:10])

@@ -79,6 +79,7 @@ print("Eigenvalues:\n\n", EigVal,"\n")
 order = EigVal.argsort()[::-1]
 EigVal = EigVal[order]
 EigVec = EigVec[:,order]
+print(EigVec.shape)
 #Projecting data on Eigen vector directions resulting to Principal Components
 PC = np.matmul(MB_matrix,EigVec)   #cross product
 print(PC)
