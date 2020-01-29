@@ -97,8 +97,9 @@ if __name__ == '__main__':
     img = data[0]
     print(img.shape)
     eigenvecs, eigenvals = pca(data)
-    eigenvecs_used = eigenvecs[:num_eigenvecs]
-    print(eigenvecs_used.shape)
-    asparagus_db = create_eigenspace(data, eigenvecs_used)
-    best_match = best_match(img, asparagus_db, eigenvecs_used)
-    print(best_match)
+    print(eigenvals[:3])
+    # eigenvecs_used = eigenvecs[:num_eigenvecs]
+    # print(eigenvecs_used.shape)
+    # asparagus_db = create_eigenspace(data, eigenvecs_used)
+    # best_match = best_match(img, asparagus_db, eigenvecs_used)
+    # print(best_match)
