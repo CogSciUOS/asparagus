@@ -68,7 +68,7 @@ def create_eigenspace(data, eigenvecs):
     asparagus_db = np.dot(data.T, eigenvecs)
     return asparagus_db
 
-def best_match(img, db, eigenvecs):
+def best_match(img, db, eigenvecs, data):
     ''' 
     Project new asparagus to asparagus_db and find best match. 
     TODO: Try out different distance measures
@@ -78,7 +78,7 @@ def best_match(img, db, eigenvecs):
     Out:  best match found in the db by index, hopefully of the same class
     '''
     index = -1
-    mean_asparagus = db.mean(axis=0)
+    mean_asparagus = data.mean(axis=0)
     centered = img - mean_asparagus
     #project it into the eigenface space
     projected = np.dot(eigenvecs,centered)
@@ -102,5 +102,5 @@ if __name__ == '__main__':
     eigenvecs_used = eigenvecs[:num_eigenvecs]
     print(eigenvecs_used.shape)
     asparagus_db = create_eigenspace(data, eigenvecs_used)
-    best_match = best_match(img, asparagus_db, eigenvecs_used)
+    best_match = best_match(img, asparagus_db, eigenvecs_used, data)
     print(best_match)
