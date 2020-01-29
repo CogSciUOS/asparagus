@@ -54,7 +54,7 @@ def pca(data):
     eigenvecs = eigenvecs[:,idx]
     eigenvals = eigenvals[idx]
     # compute principal components
-    pc = np.dot(eigenvecs.T,centered_data)
+    pc = np.dot(eigenvecs.T, data_centered)
     return eigenvecs, eigenvals, pc
 
 def create_eigenspace(data, eigenvecs):
