@@ -29,7 +29,7 @@ def rescale_imgs(imgs):
     for img in imgs:
         new = img.reshape((np.prod(img.shape)))
         data.append(new)
-    return data
+    return np.array(data)
 
 def pca(data):
     """
