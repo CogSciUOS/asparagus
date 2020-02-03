@@ -1,24 +1,19 @@
-Kappa:
-is_hollow,0.5717344753747323
-has_blume,0.6296296296296295
-has_rost_head,0.7747747747747749
-has_rost_body,0.23518164435946465
-is_bended,0.5260663507109005
-is_violet,0.6365524402907581
-filenames,0.0
-Accuracy:
-is_hollow,0.92
-has_blume,0.86
-has_rost_head,0.9
-has_rost_body,0.52
-is_bended,0.72
-is_violet,0.86
-filenames,0.0
-F1:
-is_hollow,0.9496507936507936
-has_blume,0.8662012987012986
-has_rost_head,0.9029522590085971
-has_rost_body,0.44912554112554104
-is_bended,0.7043153638814016
-is_violet,0.8775649350649349
-filenames,0.0
+feature,evaluation_measure,score,annotators
+is_hollow,kappa,0.5717344753747323,Sophia Katha
+has_blume,kappa,0.6296296296296295,Sophia Katha
+has_rost_head,kappa,0.7747747747747749,Sophia Katha
+has_rost_body,kappa,0.23518164435946465,Sophia Katha
+is_bended,kappa,0.5260663507109005,Sophia Katha
+is_violet,kappa,0.6365524402907581,Sophia Katha
+is_hollow,accuracy,0.92,Sophia Katha
+has_blume,accuracy,0.86,Sophia Katha
+has_rost_head,accuracy,0.9,Sophia Katha
+has_rost_body,accuracy,0.52,Sophia Katha
+is_bended,accuracy,0.72,Sophia Katha
+is_violet,accuracy,0.86,Sophia Katha
+is_hollow,f1,0.9496507936507936,Sophia Katha
+has_blume,f1,0.8662012987012986,Sophia Katha
+has_rost_head,f1,0.9029522590085971,Sophia Katha
+has_rost_body,f1,0.44912554112554104,Sophia Katha
+is_bended,f1,0.7043153638814016,Sophia Katha
+is_violet,f1,0.8775649350649349,Sophia Katha

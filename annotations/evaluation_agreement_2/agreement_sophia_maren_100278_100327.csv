@@ -1,24 +1,19 @@
-Kappa:
-is_hollow,1.0
-has_blume,0.8711340206185567
-has_rost_head,0.6130030959752322
-has_rost_body,0.17721518987341778
-is_bended,0.6508379888268156
-is_violet,0.8711340206185567
-filenames,1.0
-Accuracy:
-is_hollow,1.0
-has_blume,0.96
-has_rost_head,0.8
-has_rost_body,0.48
-is_bended,0.8
-is_violet,0.96
-filenames,1.0
-F1:
-is_hollow,1.0
-has_blume,0.9571544715447154
-has_rost_head,0.8177083333333333
-has_rost_body,0.3602916666666667
-is_bended,0.7972727272727272
-is_violet,0.9628455284552845
-filenames,1.0
+feature,evaluation_measure,score,annotators
+is_hollow,kappa,1.0,Sophia Maren
+has_blume,kappa,0.8711340206185567,Sophia Maren
+has_rost_head,kappa,0.6130030959752322,Sophia Maren
+has_rost_body,kappa,0.17721518987341778,Sophia Maren
+is_bended,kappa,0.6508379888268156,Sophia Maren
+is_violet,kappa,0.8711340206185567,Sophia Maren
+is_hollow,accuracy,1.0,Sophia Maren
+has_blume,accuracy,0.96,Sophia Maren
+has_rost_head,accuracy,0.8,Sophia Maren
+has_rost_body,accuracy,0.48,Sophia Maren
+is_bended,accuracy,0.8,Sophia Maren
+is_violet,accuracy,0.96,Sophia Maren
+is_hollow,f1,1.0,Sophia Maren
+has_blume,f1,0.9571544715447154,Sophia Maren
+has_rost_head,f1,0.8177083333333333,Sophia Maren
+has_rost_body,f1,0.3602916666666667,Sophia Maren
+is_bended,f1,0.7972727272727272,Sophia Maren
+is_violet,f1,0.9628455284552845,Sophia Maren
