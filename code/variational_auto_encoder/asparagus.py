@@ -7,7 +7,7 @@ import copy
 
 
 class Asparagus:
-    def __init__(self, path='/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/preprocessed_images/without_background_downscaled/', batch_size=10, train_test_split=0.8, reload_filenames=False, flatten = False, random_seed = 42):
+    def __init__(self, path='/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/without_background_downscaled/', batch_size=10, train_test_split=0.8, reload_filenames=False, flatten = False, random_seed = 42):
         self.batch_size = batch_size
         self.train_test_split = train_test_split
         self.x_train = []
@@ -23,10 +23,12 @@ class Asparagus:
     def init_filenames(self, root, reload_filenames, random_seed):
         """ Inits filenames. Reads all files contained in subfolders of path.
         params:
-            path : directory of folder with subfolders
+            root : directory of folder with subfolders
+            reload_filenames: Defines wheather filenames should be parsed from files contained in directory or loaded from initfile
+            random_seed: Random seed
         """
         files = []
-        if not reload_filenames:
+        if not reload_filenames:#If not reload filenames: Load them from init file
             try:
                 with open("image_filepaths.pkl", "rb") as infile:
                      files = pickle.load(infile)
