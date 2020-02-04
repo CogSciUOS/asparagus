@@ -3,6 +3,7 @@ from __future__ import print_function
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import tensorflow as tf
 #import cv2
 
 from keras.models import Sequential
