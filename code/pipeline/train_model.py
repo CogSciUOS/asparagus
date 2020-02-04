@@ -216,7 +216,8 @@ def load_data(folder):
 
     header_written = False
     with Path("concatenated_annotations_with_class.csv").open('w') as outf:
-        for infile in Path(folder).iterdir():
+        for infile in sorted(Path(folder).iterdir()):
+
             if not infile.is_file():
                 continue
             infile_name = infile.name[infile.name.index("_"):]
@@ -238,6 +239,7 @@ def load_data(folder):
 
     data = load_annotation("concatenated_annotations_with_class.csv")
     data = pd.get_dummies(data, columns=["Class"], prefix=['Class'])
+    data = data.reset_index(drop=True)
 
     return data
 
@@ -246,7 +248,7 @@ def main():
     # read arguments from command line
     args = read_arguments()
 
-    # data = load_data(args.filename_category_1, args.filename_category_2)
+    # load the data from the folder
     data = load_data(args.foldername)
     print(data.info())
 
