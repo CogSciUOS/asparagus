@@ -250,7 +250,6 @@ def main():
 
     # load the data from the folder
     data = load_data(args.foldername)
-    print(data.info())
 
     # Labels
     labels = [col for col in data if col.startswith('Class')]
