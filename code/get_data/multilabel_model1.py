@@ -3,7 +3,7 @@ from __future__ import print_function
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import tensorflow as tf
+#import tensorflow as tf
 #import cv2
 
 from keras.models import Sequential
@@ -134,3 +134,4 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_model1.png')
