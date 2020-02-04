@@ -10,8 +10,8 @@ def create_model(input_shape):
     for i in range(6):
         layer = tf.keras.layers.Dense(20, activation='relu')(layer)
 
-    # 2 outputs expected
-    outputs = tf.keras.layers.Dense(2, activation='softmax')(layer)
+    # 13 outputs expected
+    outputs = tf.keras.layers.Dense(13, activation='softmax')(layer)
 
     # build model
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
