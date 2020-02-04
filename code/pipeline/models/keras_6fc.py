@@ -8,7 +8,7 @@ def create_model(input_shape):
 
     # 6 layers
     for i in range(6):
-        layer = tf.keras.layers.Dense(20, activation='relu')(layer)
+        layer = tf.keras.layers.Dense(32, activation='relu')(layer)
 
     # 13 outputs expected
     outputs = tf.keras.layers.Dense(13, activation='softmax')(layer)
