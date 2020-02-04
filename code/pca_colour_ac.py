@@ -137,7 +137,7 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
     # BEGIN SOLUTION
     # center the face
     face = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
-    face_img = np.zeros((img_shape[0],img.shape[1]*img.shape[2]))  #(1376, 1040)
+    face_img = face #np.zeros((img_shape[0],img.shape[1]*img.shape[2]))  #(1376, 1040)
     face_img = face_img.flatten()
     print(face_img.shape)
 
@@ -155,13 +155,66 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
-    print(face_db.shape) #(1463280, 4)(130, 4)
+    #projected = projected.T #diese beiden operationen brauchte ich, wenn ich
+    #face_db = face_db.T    #die funktion auf nur ein bild angewand habe, jetzt mit der großen funktion scheint es überflüssig
+    print('jetzt mit großem input face_db: \n',face_db.shape) #(1463280, 4)(130, 4)
+    print('jetzt mit großem input projected: \n',projected.shape) #(1463280, 4)(130, 4)
+
     distances = cdist(face_db, projected[None, :])#[None, :] das war direkt an projected
     index = distances.argmin()
 
     # END SOLUTION
 
     return index
-#
 
-recognize_face(img, PC, MB_matrix_mean, asparagus_space)
+#recognize_face(img, PC, MB_matrix_mean, asparagus_space)
+
+
+# ... and now check your function on the training set ...
+# BEGIN SOLUTION
+def show_recognition_results(imgs, labels, train_imgs, train_labels,
+                             num_eigenfaces, eigenfaces, mean_face, face_db):
+    """Iterate over all face images and compute the best matching face in face_db.
+
+    Args:
+        imgs (list): List of test faces.
+        train_imgs (list): List of training faces.
+        train_labels (list): List of training labels.
+        num_eigenfaces (uint): Number of eigenfaces.
+        eigenfaces (list): List of the eigenfaces.
+        mean_face (ndarray): Average face.
+        face_db (ndarray): Database of faces projectected into Eigenface space.
+
+    Returns:
+
+    """
+
+    img_shape = imgs[0].shape
+    plt.figure(figsize=(36, 12))
+    plt.suptitle(
+        'Face recognition based on {} principal components'.format(num_eigenfaces))
+    for j, img in enumerate(imgs):
+
+        # find the best match in the eigenface database
+        winner = recognize_face(img.reshape(np.prod(img_shape)), eigenfaces, mean_face, face_db)
+        name_label = labels[j][0:4]
+        name_winner = train_labels[winner][0:4]
+
+        plt.subplot(5, 8, 2 * j + 1)
+        plt.axis('off')
+        plt.imshow(img)
+        plt.title(labels[j][5:7])
+
+        plt.subplot(5, 8, 2 * j + 2)
+        plt.axis('off')
+        plt.imshow(train_imgs[winner])
+        plt.title(('*' if name_label != name_winner else '') + name_winner)
+    plt.show()
+
+#taking every tenth picture of MB_Matrix, to test our recognition
+train_imgs = np.zeros((img_shape[0],img_shape[1]*img_shape[2],13))
+train_imgs = MB_matrix[:,0:130:10]
+print(train_imgs.shape)
+train_names = ['Köpfe', 'Bona','Clara','Krumme','violet','2a','2b', 'Blume','dicke', 'hohle', 'rost', 'suppe', 'anna']
+
+show_recognition_results(train_imgs, train_names, train_imgs, train_names, num_eigenvectors, eig_asparagus_used, MB_matrix_mean, asparagus_space)
