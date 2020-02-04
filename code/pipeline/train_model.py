@@ -9,6 +9,9 @@ from logging import getLogger, StreamHandler, INFO
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 
@@ -55,9 +58,8 @@ def read_arguments():
     and either the score (scikit-learn) or evaluate (keras) methods.'''
 
     parser.add_argument('model', help=textwrap.dedent(models_help))
-    parser.add_argument('foldername')
-    # parser.add_argument('filename_category_1')
-    # parser.add_argument('filename_category_2')
+    parser.add_argument(
+        'foldername', help='foldername in which the annotation csv files with class lie')
 
     return parser.parse_args()
 
@@ -81,6 +83,45 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
         y_test(array-like): y data values test
         y_pred(array-like): data values that were predicted
     """
+
+    """
+    print()
+    print("Classification report (one hot encoding):")
+    print(classification_report(y_test, y_pred))
+    """
+
+    print("Classification report (encoding with labels):")
+    print(classification_report(y_test.argmax(axis=1), y_pred.argmax(axis=1)))
+
+    # confusion matrix
+    # The matrix output by sklearn's confusion_matrix() is such that
+    # C_{i, j} is equal to the number of observations known to be in group i but predicted to be in group j
+    conf_mat = confusion_matrix(
+        y_test.argmax(axis=1), y_pred.argmax(axis=1))
+
+    seaborn.heatmap(conf_mat)
+    plt.show()
+
+    """
+    from confusion_matrix import plot_confusion_matrix_from_data
+    columns = []
+    annot = True
+    cmap = 'Oranges'
+    fmt = '.2f'
+    lw = 0.5
+    cbar = False
+    show_null_values = 2
+    pred_val_axis = 'y'
+    # size::
+    fz = 2
+    figsize = [5, 5]
+    if(len(y_test) > 10):
+        fz = 2
+        figsize = [5, 5]
+    plot_confusion_matrix_from_data(y_test.argmax(axis=1), y_pred.argmax(axis=1), columns,
+                                    annot, cmap, fmt, fz, lw, cbar, figsize, show_null_values, pred_val_axis)
+    """
+
     # PCA
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
     xy_train = pca.transform(x_train)
@@ -99,19 +140,17 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
     # Train data
     ax[0].set_title('Train data')
     sc_train = ax[0].scatter(*zip(*xy_train), c=c_train,
-                             vmin=1, vmax=2, cmap='RdYlGn', alpha=0.2)
+                             cmap='RdYlGn', alpha=0.2)
     fig.colorbar(sc_train, ax=ax[0])
 
     # Test data
     ax[1].set_title('Test data')
-    sc_test = ax[1].scatter(*zip(*xy_test), c=c_test,
-                            vmin=1, vmax=2, cmap='RdYlGn', alpha=0.2)
+    sc_test = ax[1].scatter(*zip(*xy_test), c=c_test, cmap='RdYlGn', alpha=0.2)
     fig.colorbar(sc_test, ax=ax[1])
 
     # Predicted data
     ax[2].set_title('Predicted data')
-    sc_pred = ax[2].scatter(*zip(*xy_test), c=c_pred,
-                            vmin=1, vmax=2, cmap='RdYlGn', alpha=0.2)
+    sc_pred = ax[2].scatter(*zip(*xy_test), c=c_pred, cmap='RdYlGn', alpha=0.2)
     fig.colorbar(sc_pred, ax=ax[2])
 
     plt.waitforbuttonpress()
@@ -205,6 +244,9 @@ def main():
 
     # Labels
     labels = [col for col in data if col.startswith('Class')]
+    # log.info(labels)
+    log.info("Number of labels:")
+    log.info(len(labels))
 
     log.info('Performing train/test-split')
     x = data.iloc[:, :-len(labels)].values
@@ -214,6 +256,11 @@ def main():
     # make a train and test split
     # 75% train; 25% test
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)
+
+    log.info("Number of samples in train:")
+    log.info(len(x_train))
+    log.info("Number of samples in test:")
+    log.info(len(x_test))
 
     log.info('Loading model')
     model = load_model(args.model, input_shape=x_train.shape[1:])
@@ -236,7 +283,19 @@ def main():
     # get the predictions
     y_pred = model.predict(x_test)
 
-    # Visualize using PCA
+    log.info("Number of samples in predictions:")
+    log.info(len(y_pred))
+
+    print("feature vector", y_test[0])
+    print("has prediction")
+    print("feature vector", y_pred[0].round(3))
+
+    print("Use argmax to get labels")
+    print("sample label", y_test.argmax(axis=1)[0])
+    print("has prediction")
+    print("sample label", y_pred.argmax(axis=1)[0])
+
+    # Visualize using confusion matrix ands PCA
     visualize(x_train, x_test, y_train, y_test, y_pred, args.model)
 
 
