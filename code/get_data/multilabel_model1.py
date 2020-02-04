@@ -33,18 +33,31 @@ if __name__ == '__main__':
     ################################################################################
     label_files = pd.read_csv(path_to_labels, sep=";")
     RELEVANT_COLUMNS = ['is_hollow', 'has_blume', 'has_rost_head', 'has_rost_body', 'is_bended', 'is_violet']
-    labels = label_files[RELEVANT_COLUMNS]
+    labels = label_files[RELEVANT_COLUMNS].fillna(value = int(2))
+    labels = labels.astype('int32')
     labels_train = labels.iloc[:10000]
     labels_test = labels.iloc[10000:11000]
     # hopefully this will create a column 'label' with all the other columns in a list
     labels_train['label'] = labels_train.values.tolist()
     print(labels_train.head())
 
-    # make it a np array
-    temp1_lbl = (np.array(labels_train['label']))
-    temp2_lbl = temp1_lbl[:, np.newaxis]
-    train_lbl = [np.fromstring(temp2_lbl[i, 1:-1], dtype=int, sep=',') for i in range(len(temp1_lbl))]
-    print(" >>> train_lbl.shape = ", len(train_lbl))
+    # desired datatype is a list with arrays containing the 6 labels seperated by a comme
+    # desired datatype is a list with arrays containing the 6 labels seperated by a comma
+    temp1 = (np.array(labels_train['label']))
+    train_lbl = []
+    for i in range(temp1.shape[0]):
+        temp2 = str(temp1[i])
+        temp3 = np.fromstring(temp2[1:-1], dtype = int, sep=',')
+        train_lbl.append(temp3)
+    
+    train_lbl = np.array(train_lbl)
+    # temp1 = (np.array(labels_train['label']))
+    # for i in range(len(temp1)):
+    #     temp2 = temp1[i]
+    
+    # temp2_lbl = temp1_lbl[:, np.newaxis]
+    # train_lbl = [np.fromstring(temp2_lbl[i, 1:-1], dtype=int, sep=',') for i in range(len(temp1_lbl))]
+    print(" >>> train_lbl.shape = ", train_lbl.shape)
     print(" >>> train_lbl at one pos = ", train_lbl[0])
 
     imgs = np.load(path_to_data)
