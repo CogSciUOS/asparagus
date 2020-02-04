@@ -169,7 +169,7 @@ def load_data(folder):
     log.info('Loading data')
 
     header_written = False
-    with Path("outfile.csv").open('w') as outf:
+    with Path("concatenated_label_class_with_dummies.csv").open('w') as outf:
         for infile in Path(folder).iterdir():
             if not infile.is_file():
                 continue
@@ -190,7 +190,7 @@ def load_data(folder):
 
             outf.write('\n'.join(lines) + '\n')
 
-    data = load_annotation("outfile.csv")
+    data = load_annotation("concatenated_label_class_with_dummies.csv")
     data = pd.get_dummies(data, columns=["Class"], prefix=['Class'])
 
     return data
