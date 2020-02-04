@@ -117,6 +117,7 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
     ax[1].set_xlabel('True label')
     ax[1].set_ylabel('Predicted label')
 
+    #fig.savefig('confusion_recall.png', dpi=300)
     plt.show()
 
     # PCA
@@ -247,6 +248,7 @@ def main():
 
     # data = load_data(args.filename_category_1, args.filename_category_2)
     data = load_data(args.foldername)
+    print(data.info())
 
     # Labels
     labels = [col for col in data if col.startswith('Class')]
