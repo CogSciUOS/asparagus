@@ -117,7 +117,7 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
     ax[1].set_xlabel('True label')
     ax[1].set_ylabel('Predicted label')
 
-    #fig.savefig('confusion_recall.png', dpi=300)
+    # fig.savefig('confusion_recall.png', dpi=600)
     plt.show()
 
     # PCA
