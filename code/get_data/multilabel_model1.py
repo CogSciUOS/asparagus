@@ -35,8 +35,8 @@ if __name__ == '__main__':
     RELEVANT_COLUMNS = ['is_hollow', 'has_blume', 'has_rost_head', 'has_rost_body', 'is_bended', 'is_violet']
     labels = label_files[RELEVANT_COLUMNS].fillna(value = int(2))
     labels = labels.astype('int32')
-    labels_train = labels.iloc[:10000]
-    labels_test = labels.iloc[10000:11000]
+    labels_train = labels.iloc[:12000]
+    labels_test = labels.iloc[12000]
     # hopefully this will create a column 'label' with all the other columns in a list
     labels_train['label'] = labels_train.values.tolist()
     print(labels_train.head())
