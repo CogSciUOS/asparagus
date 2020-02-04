@@ -41,8 +41,8 @@ if __name__ == '__main__':
     print(labels_train.head())
 
     # make it a np array
-    train_lbl = np.array(labels_train['label'])
-    train_lbl = [np.fromstring(train_lbl[i, 1:-1], dtype=int, sep=',') for i range(len(train_lbl))]
+    train_lbl = np.newaxis(np.array(labels_train['label']))
+    train_lbl = [np.fromstring(train_lbl[i, 1:-1], dtype=int, sep=',') for i in range(len(train_lbl))]
     print(" >>> train_lbl.shape = ", train_lbl.shape)
     print(" >>> train_lbl at one pos = ", train_lbl[0])
 
