@@ -73,7 +73,7 @@ def load_model(model_module, input_shape=None):
     return model_util.create_model(input_shape)
 
 
-def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
+def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
     """Using a PCA to visualize the result
 
     Arguments:
@@ -91,36 +91,33 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
     """
 
     print("Classification report (encoding with labels):")
-    print(classification_report(y_test.argmax(axis=1), y_pred.argmax(axis=1)))
+    print(classification_report(y_test.argmax(
+        axis=1), y_pred.argmax(axis=1), target_names=labels))
 
     # confusion matrix
     # The matrix output by sklearn's confusion_matrix() is such that
     # C_{i, j} is equal to the number of observations known to be in group i but predicted to be in group j
-    conf_mat = confusion_matrix(
-        y_test.argmax(axis=1), y_pred.argmax(axis=1))
+    conf_mat = confusion_matrix(y_test.argmax(axis=1), y_pred.argmax(axis=1))
+    norm_conf_mat = confusion_matrix(y_test.argmax(
+        axis=1), y_pred.argmax(axis=1), normalize='true')
 
-    seaborn.heatmap(conf_mat)
+    nclass_labels = [l[l.find('_'):].replace('_', ' ') for l in labels]
+    fig, ax = plt.subplots(1, 2, figsize=(16, 9))
+    fig.suptitle(f'Recall {model_name}')
+
+    ax[0].set_title('Absolute recall')
+    seaborn.heatmap(conf_mat, xticklabels=nclass_labels,
+                    yticklabels=nclass_labels, annot=True, square=True, ax=ax[0])
+    ax[0].set_xlabel('True label')
+    ax[0].set_ylabel('Predicted label')
+
+    ax[1].set_title('Relative recall')
+    seaborn.heatmap(norm_conf_mat, xticklabels=nclass_labels,
+                    yticklabels=nclass_labels, annot=True, square=True, fmt='.1g', ax=ax[1])
+    ax[1].set_xlabel('True label')
+    ax[1].set_ylabel('Predicted label')
+
     plt.show()
-
-    """
-    from confusion_matrix import plot_confusion_matrix_from_data
-    columns = []
-    annot = True
-    cmap = 'Oranges'
-    fmt = '.2f'
-    lw = 0.5
-    cbar = False
-    show_null_values = 2
-    pred_val_axis = 'y'
-    # size::
-    fz = 2
-    figsize = [5, 5]
-    if(len(y_test) > 10):
-        fz = 2
-        figsize = [5, 5]
-    plot_confusion_matrix_from_data(y_test.argmax(axis=1), y_pred.argmax(axis=1), columns,
-                                    annot, cmap, fmt, fz, lw, cbar, figsize, show_null_values, pred_val_axis)
-    """
 
     # PCA
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
@@ -305,7 +302,7 @@ def main():
     print("sample label", y_pred.argmax(axis=1)[0])
 
     # Visualize using confusion matrix ands PCA
-    visualize(x_train, x_test, y_train, y_test, y_pred, args.model)
+    visualize(x_train, x_test, y_train, y_test, y_pred, labels, args.model)
 
 
 if __name__ == '__main__':
