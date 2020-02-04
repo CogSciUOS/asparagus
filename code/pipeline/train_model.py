@@ -128,32 +128,44 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
     xy_test = pca.transform(x_test)
 
     # color depends on Label
-    c_test = y_test[:, 1] + 2 * y_test[:, 0]
-    c_train = y_train[:, 1] + 2 * y_train[:, 0]
-    c_pred = y_pred[:, 1].round() + 2 * y_pred[:, 0].round()
+    binary_code = 2 ** np.arange(y_train.shape[1])
+    c_test = np.log2(y_test @ binary_code + 1)
+    c_train = np.log2(y_train @ binary_code + 1)
+    c_pred = np.log2(y_pred.round() @ binary_code + 1)
+    # c_test = y_test[:, 1] + 2 * y_test[:, 0]
+    # c_train = y_train[:, 1] + 2 * y_train[:, 0]
+    # c_pred = y_pred[:, 1].round() + 2 * y_pred[:, 0].round()
 
     # subplots
-    fig, ax = plt.subplots(1, 3)
+    params = dict(cmap='gist_ncar', alpha=0.6)
+    fig, ax = plt.subplots(2, 2, figsize=(20, 10))
+    ax = ax.flatten()
+    fig.delaxes(ax[3])
     if model_name is not None:
         fig.suptitle(f'For {model_name}')
 
     # Train data
     ax[0].set_title('Train data')
-    sc_train = ax[0].scatter(*zip(*xy_train), c=c_train,
-                             cmap='RdYlGn', alpha=0.2)
+    sc_train = ax[0].scatter(*zip(*xy_train), c=c_train, **params)
+    ax[0].set_ylim([-.5, 5])
+    ax[0].set_xlim([-.5, 5])
     fig.colorbar(sc_train, ax=ax[0])
 
     # Test data
     ax[1].set_title('Test data')
-    sc_test = ax[1].scatter(*zip(*xy_test), c=c_test, cmap='RdYlGn', alpha=0.2)
+    sc_test = ax[1].scatter(*zip(*xy_test), c=c_test, **params)
+    ax[1].set_ylim([-.5, 5])
+    ax[1].set_xlim([-.5, 5])
     fig.colorbar(sc_test, ax=ax[1])
 
     # Predicted data
     ax[2].set_title('Predicted data')
-    sc_pred = ax[2].scatter(*zip(*xy_test), c=c_pred, cmap='RdYlGn', alpha=0.2)
+    sc_pred = ax[2].scatter(*zip(*xy_test), c=c_pred, **params)
+    ax[2].set_ylim([-.5, 5])
+    ax[2].set_xlim([-.5, 5])
     fig.colorbar(sc_pred, ax=ax[2])
 
-    plt.waitforbuttonpress()
+    plt.show()
 
 
 def load_annotation(filename, drop_columns_starting_with=None):
