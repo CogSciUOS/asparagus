@@ -150,13 +150,13 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
     print(eigenfaces.shape) #(1463280, 130)
 
     # and project it into the eigenface space
-    projected = np.matmul(eigenfaces,centered.T)
+    projected = np.matmul(centered, eigenfaces)
     print(projected.shape) #(130,)
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
-    print(face_db.shape) #(1463280, 4)
-    distances = cdist(face_db.T, projected[:,None])#[None, :] das war direkt an projected
+    print(face_db.shape) #(1463280, 4)(130, 4)
+    distances = cdist(face_db, projected[None, :])#[None, :] das war direkt an projected
     index = distances.argmin()
 
     # END SOLUTION
