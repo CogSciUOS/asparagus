@@ -39,9 +39,12 @@ if __name__ == '__main__':
     # hopefully this will create a column 'label' with all the other columns in a list
     labels_train['label'] = labels_train.values.tolist()
     print(labels_train.head())
+
     # make it a np array
     train_lbl = np.array(labels_train['label'])
+    train_lbl = [np.fromstring(train_lbl[i, 1:-1], dtype=int, sep=',') for i range(len(train_lbl))]
     print(" >>> train_lbl.shape = ", train_lbl.shape)
+    print(" >>> train_lbl at one pos = ", train_lbl[0])
 
     imgs = np.load(path_to_data)
     train_img = imgs[:10000]
@@ -55,7 +58,7 @@ if __name__ == '__main__':
     ################################################################################
     # Build the model
     ################################################################################
-    input_shape_img = (train_img.shape[1], train_img.shape[2], 9)
+    input_shape_img = (train_img.shape[1], train_img.shape[2], train_img.shape[3])
     batch_size = 32
     num_epochs = 2
     num_classes = 6
