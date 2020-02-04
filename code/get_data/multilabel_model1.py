@@ -44,7 +44,7 @@ if __name__ == '__main__':
     temp1_lbl = (np.array(labels_train['label']))
     temp2_lbl = temp1_lbl[:, np.newaxis]
     train_lbl = [np.fromstring(temp2_lbl[i, 1:-1], dtype=int, sep=',') for i in range(len(temp1_lbl))]
-    print(" >>> train_lbl.shape = ", train_lbl.shape)
+    print(" >>> train_lbl.shape = ", len(train_lbl))
     print(" >>> train_lbl at one pos = ", train_lbl[0])
 
     imgs = np.load(path_to_data)
