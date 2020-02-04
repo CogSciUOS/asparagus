@@ -221,8 +221,7 @@ def main():
     log.info('Fitting model')
     try:
         # if keras model, make several epochs
-        model.fit(x_train, y_train)
-        #model.fit(x_train, y_train, epochs=20)
+        model.fit(x_train, y_train, epochs=20)
     except TypeError:
         model.fit(x_train, y_train)
 
