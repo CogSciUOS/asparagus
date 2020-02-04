@@ -132,9 +132,6 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, model_name=None):
     c_test = np.log2(y_test @ binary_code + 1)
     c_train = np.log2(y_train @ binary_code + 1)
     c_pred = np.log2(y_pred.round() @ binary_code + 1)
-    # c_test = y_test[:, 1] + 2 * y_test[:, 0]
-    # c_train = y_train[:, 1] + 2 * y_train[:, 0]
-    # c_pred = y_pred[:, 1].round() + 2 * y_pred[:, 0].round()
 
     # subplots
     params = dict(cmap='gist_ncar', alpha=0.6)
