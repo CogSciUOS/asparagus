@@ -5,8 +5,9 @@ from sklearn.ensemble import RandomForestClassifier
 class OneHotRandomForestClassifier(RandomForestClassifier):
 
     def fit(self, x, y):
+        """convert one-hot encoding to numeric class labels
+        """
         self.number_of_classes = y.shape[1]
-        # convert one hot encoding to numeric class labels
         y = np.argmax(y, axis=1)
         return super().fit(x, y)
 
