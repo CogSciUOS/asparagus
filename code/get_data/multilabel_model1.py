@@ -61,8 +61,8 @@ if __name__ == '__main__':
     print(" >>> train_lbl at one pos = ", train_lbl[0])
 
     imgs = np.load(path_to_data)
-    train_img = imgs[:10000]
-    test_img = imgs[10000:11000]
+    train_img = imgs[:12000]
+    test_img = imgs[12000:]
     print(" >>> train_img.shape = ", train_img.shape)
 
     # muss ich auch noch normalisieren?
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     ################################################################################
     input_shape_img = (train_img.shape[1], train_img.shape[2], train_img.shape[3])
     batch_size = 32
-    num_epochs = 2
+    num_epochs = 100
     num_classes = 6
     conv_size = 32
 
