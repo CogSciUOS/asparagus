@@ -28,12 +28,12 @@ MB_img = np.zeros((img_shape[0],img_shape[1]*img_shape[2],n_bands))  #(1376, 104
 s = 0
 # stacking up images into the array
 
+raw_ims = np.zeros((n_bands,img_shape[0],img_shape[1],img_shape[2]))
+
 for i in range(n_bands):
-    #MB_img[:,:,i] = cv2.imread('band'+str(i+1)+'.jpg', cv2.IMREAD_GRAYSCALE)
-    #das hier bedeutet, dass er jeweils drei bilder hat, in unterschiedlichen farbdingern
-    #reading in all 3 images of one asparagus (unprocessed)
     img = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/'+str(s+i)+'_b.png')
-#wie komme ich jetzt auf diesen path...'C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/*.png'
+    raw_ims[i,:,:,:] = img
+    #print(raw_ims.shape)
     flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
 
     MB_img[:,:,i] = flat
@@ -151,21 +151,52 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
 
     # and project it into the eigenface space
     projected = np.matmul(centered, eigenfaces)
-    print(projected.shape) #(130,)
+    #print(projected.shape) #(130,)
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
     #projected = projected.T #diese beiden operationen brauchte ich, wenn ich
     #face_db = face_db.T    #die funktion auf nur ein bild angewand habe, jetzt mit der großen funktion scheint es überflüssig
-    print('jetzt mit großem input face_db: \n',face_db.shape) #(1463280, 4)(130, 4)
-    print('jetzt mit großem input projected: \n',projected.shape) #(1463280, 4)(130, 4)
+    #print('jetzt mit großem input face_db: \n',face_db.shape) #(1463280, 4)(130, 4)
+    #print('jetzt mit großem input projected: \n',projected.shape) #(1463280, 4)(130, 4)
 
     distances = cdist(face_db, projected[None, :])#[None, :] das war direkt an projected
     index = distances.argmin()
+    if index <= 9:
+        index == 0
+    elif index <= 19:
+        index == 1
+    elif index <= 29:
+        index == 2
+    elif index <= 39:
+        index == 3
+    elif index <= 49:
+        index == 4
+    elif index <= 59:
+        index == 5
+    elif index <= 69:
+        index == 6
+    elif index <= 79:
+        index == 7
+    elif index <= 89:
+        index == 8
+    elif index <= 99:
+        index == 9
+    elif index <= 109:
+        index == 10
+    elif index <= 119:
+        index == 11
+    elif index <= 129:
+        index == 12
+    return index
 
+    #return index
+#    index = int(round(index /10))
+    #intex = int(index)
+    print('index: \n',index)
     # END SOLUTION
 
-    return index
+    return new_index
 
 #recognize_face(img, PC, MB_matrix_mean, asparagus_space)
 
@@ -190,31 +221,34 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     """
 
     img_shape = imgs[0].shape
-    plt.figure(figsize=(36, 12))
+    print('neue Image_shape: \n', img_shape)
+    plt.figure(figsize=(45, 25))
     plt.suptitle(
         'Face recognition based on {} principal components'.format(num_eigenfaces))
     for j, img in enumerate(imgs):
 
         # find the best match in the eigenface database
         winner = recognize_face(img.reshape(np.prod(img_shape)), eigenfaces, mean_face, face_db)
-        name_label = labels[j][0:4]
-        name_winner = train_labels[winner][0:4]
+        name_label = labels[j]
+        name_winner = train_labels[winner]
 
         plt.subplot(5, 8, 2 * j + 1)
         plt.axis('off')
+        #img = train_imgs[j].reshape(img_shape)
         plt.imshow(img)
-        plt.title(labels[j][5:7])
+        plt.title(labels[j])
 
         plt.subplot(5, 8, 2 * j + 2)
         plt.axis('off')
+
         plt.imshow(train_imgs[winner])
         plt.title(('*' if name_label != name_winner else '') + name_winner)
     plt.show()
 
-#taking every tenth picture of MB_Matrix, to test our recognition
-train_imgs = np.zeros((img_shape[0],img_shape[1]*img_shape[2],13))
-train_imgs = MB_matrix[:,0:130:10]
+#taking every tenth picture of MB_Matrix, to test our recognition  14196
+train_imgs = np.zeros((13,img_shape[0],img_shape[1],img_shape[2]))
+train_imgs = raw_ims[0:130:10,:,:,:]
 print(train_imgs.shape)
-train_names = ['Köpfe', 'Bona','Clara','Krumme','violet','2a','2b', 'Blume','dicke', 'hohle', 'rost', 'suppe', 'anna']
-
+train_names = ['Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe', 'Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','violet','violet','violet','violet','violet','violet','violet','violet','violet','violet','2a','2a','2a','2a','2a','2a','2a','2a','2a','2a','2b','2b','2b','2b','2b','2b','2b','2b','2b','2b', 'Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke', 'hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle', 'rost','rost','rost','rost','rost','rost','rost','rost','rost','rost', 'suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe', 'anna','anna','anna','anna','anna','anna','anna','anna','anna','anna']
+#train_names = ['Köpfe','Bona','Clara','Krumme','violet','2a','2b','Blume','dicke''hohle', 'rost','suppe', 'anna']
 show_recognition_results(train_imgs, train_names, train_imgs, train_names, num_eigenvectors, eig_asparagus_used, MB_matrix_mean, asparagus_space)
