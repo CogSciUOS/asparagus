@@ -208,7 +208,7 @@ def load_data(folder):
     log.info('Loading data')
 
     header_written = False
-    with Path("concatenated_label_class_with_dummies.csv").open('w') as outf:
+    with Path("concatenated_annotations_with_class.csv").open('w') as outf:
         for infile in Path(folder).iterdir():
             if not infile.is_file():
                 continue
@@ -229,7 +229,7 @@ def load_data(folder):
 
             outf.write('\n'.join(lines) + '\n')
 
-    data = load_annotation("concatenated_label_class_with_dummies.csv")
+    data = load_annotation("concatenated_annotations_with_class.csv")
     data = pd.get_dummies(data, columns=["Class"], prefix=['Class'])
 
     return data
@@ -244,7 +244,7 @@ def main():
 
     # Labels
     labels = [col for col in data if col.startswith('Class')]
-    # log.info(labels)
+    log.info(labels)
     log.info("Number of labels:")
     log.info(len(labels))
 
