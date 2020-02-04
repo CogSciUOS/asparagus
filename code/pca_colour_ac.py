@@ -13,6 +13,8 @@ import matplotlib.gridspec as grid
 import wx #package wx
 from PIL import Image
 import matplotlib.image as mpimg
+from scipy.spatial.distance import cdist
+
 
 #get the files (files contai 10 images of each class)
 
@@ -66,9 +68,11 @@ order = EigVal.argsort()[::-1]
 EigVal = EigVal[order]
 EigVec = EigVec[:,order]
 
+PC = np.matmul(MB_matrix,EigVec) # calculating principle components
 num_eigenvectors = 4
-eig_asparagus_used = EigVec[:num_eigenvectors] #Eigenvektoren, die wir benutzen
 
+eig_asparagus_used = PC[:,:num_eigenvectors] #Eigenvektoren, die wir benutzen
+print("Eig_aspa_used: \n", eig_asparagus_used.shape)
 #Eigen_used = EigVec[:num_eigenvectors]
 #print(Eigen_used.shape) #(130,4)
 #Eig_mean = EigVec.mean(axis=0)
@@ -77,31 +81,30 @@ eig_asparagus_used = EigVec[:num_eigenvectors] #Eigenvektoren, die wir benutzen
 #print(asparagus_db.shape)
 
 #Projecting data on Eigen vector directions resulting to Principal Components
-PC = np.matmul(MB_matrix,EigVec)   #cross product (1463280, 130)
 
-MB_matrix_mean = np.mean(MB_matrix, axis = 0)
-asparagus_space = (MB_matrix - MB_matrix_mean) @ eig_asparagus_used.T
+
+MB_matrix_mean = np.mean(MB_matrix, axis = 1)
+print(MB_matrix_mean.shape)
+print(MB_matrix.shape)
+asparagus_space = (MB_matrix.T - MB_matrix_mean) @ eig_asparagus_used
+print("dim aspa_space: \n" , asparagus_space.shape)
+
 
 print(PC.shape)
-for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
-     test = PC[:,i].reshape(img_shape)
-     plt.imshow(test)
-     plt.show()
-#PC = PC[:,4]
-#asparagus_vecs = MB_matrix.reshape((-1, np.prod(img_shape)))
-#print(asparagus_vecs.shape)
-#asparagus_mean = asparagus_vecs.mean()
-#print("asparagus_mean:\n", asparagus_mean)
-#asparagus_db = np.matmul((asparagus_vecs - asparagus_mean).T,Eigen_used)
-#print("asparagus_db: \n", asparagus_db.shape)
+#teil eins vom plotten der PCs
+# for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
+#      test = PC[:,i].reshape(img_shape)
+#      plt.imshow(test)
+#      plt.show()
+
 
 
 #print(test.shape)#(1340, 364, 3)
-
-x = range(10)
-# np.linspace(0,130, 1)
-plt.plot(x,EigVal[:10])
-plt.show()
+#teil 2 vom plotten der PCs
+# x = range(10)
+# # np.linspace(0,130, 1)
+# plt.plot(x,EigVal[:10])
+# plt.show()
 
 #save eigenvalues
 #np.save('EigVal.npy', EigVal)
@@ -135,22 +138,25 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
     # center the face
     face = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
     face_img = np.zeros((img_shape[0],img.shape[1]*img.shape[2]))  #(1376, 1040)
-    face_img = face
+    face_img = face_img.flatten()
     print(face_img.shape)
 
     #face_array = face_img.flatten()
 #    print(face_array.shape)
 
-    centered = face - face_img
-    print(centered.shape)
-    print(eigenfaces.shape)
+    centered = face_img - MB_matrix_mean
+    #centered = centered.flatten()
+    print(centered.shape)#(1340, 1092),durch flatten (1463280,)
+    print(eigenfaces.shape) #(1463280, 130)
 
     # and project it into the eigenface space
     projected = np.matmul(eigenfaces,centered.T)
+    print(projected.shape) #(130,)
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
-    distances = cdist(face_db, projected[None, :])
+    print(face_db.shape) #(1463280, 4)
+    distances = cdist(face_db.T, projected[:,None])#[None, :] das war direkt an projected
     index = distances.argmin()
 
     # END SOLUTION
