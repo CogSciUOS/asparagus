@@ -72,7 +72,7 @@ if __name__ == '__main__':
     ################################################################################
     # Build the model
     ################################################################################
-    input_shape_img = (train_img.shape[1], train_img.shape[2], train_img.shape[3])
+    input_shape_img = (train_img.shape[1], train_img.shape[2], train_img.shape[3], None)
     batch_size = 32
     num_epochs = 100
     num_classes = 6
