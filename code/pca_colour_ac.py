@@ -136,15 +136,15 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
 
     # BEGIN SOLUTION
     # center the face
-    face = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
-    face_img = face #np.zeros((img_shape[0],img.shape[1]*img.shape[2]))  #(1376, 1040)
-    face_img = face_img.flatten()
-    print(face_img.shape)
+    #face = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
+    #face_img = face #np.zeros((img_shape[0],img.shape[1]*img.shape[2]))  #(1376, 1040)
+    #face_img = face_img.flatten()
+    #print(face_img.shape)
 
-    #face_array = face_img.flatten()
-#    print(face_array.shape)
 
-    centered = face_img - MB_matrix_mean
+    #centered = face_img - MB_matrix_mean
+    centered = face - MB_matrix_mean
+
     #centered = centered.flatten()
     print(centered.shape)#(1340, 1092),durch flatten (1463280,)
     print(eigenfaces.shape) #(1463280, 130)
@@ -161,44 +161,49 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
     #print('jetzt mit großem input projected: \n',projected.shape) #(1463280, 4)(130, 4)
 
     distances = cdist(face_db, projected[None, :])#[None, :] das war direkt an projected
-    index = distances.argmin()
-    if index <= 9:
-        index == 0
-    elif index <= 19:
-        index == 1
-    elif index <= 29:
-        index == 2
-    elif index <= 39:
-        index == 3
-    elif index <= 49:
-        index == 4
-    elif index <= 59:
-        index == 5
-    elif index <= 69:
-        index == 6
-    elif index <= 79:
-        index == 7
-    elif index <= 89:
-        index == 8
-    elif index <= 99:
-        index == 9
-    elif index <= 109:
-        index == 10
-    elif index <= 119:
-        index == 11
-    elif index <= 129:
-        index == 12
-    return index
-
+    index = np.argmin(distances)
     #return index
 #    index = int(round(index /10))
     #intex = int(index)
     print('index: \n',index)
     # END SOLUTION
 
-    return new_index
+    return index
 
 #recognize_face(img, PC, MB_matrix_mean, asparagus_space)
+
+
+
+def find_integer(index):
+    n_index = 130
+    if index <= 9:
+        n_index = 0
+    elif index <= 19:
+        n_index = 1
+    elif index <= 29:
+        n_index = 2
+    elif index <= 39:
+        n_index = 3
+    elif index <= 49:
+        n_index = 4
+    elif index <= 59:
+        n_index = 5
+    elif index <= 69:
+        n_index = 6
+    elif index <= 79:
+        n_index = 7
+    elif index <= 89:
+        n_index = 8
+    elif index <= 99:
+        n_index = 9
+    elif index <= 109:
+        n_index = 10
+    elif index <= 119:
+        n_index = 11
+    else:
+        n_index  = 12
+    print('n_index: \n', n_index)
+    return n_index
 
 
 # ... and now check your function on the training set ...
@@ -224,31 +229,50 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     print('neue Image_shape: \n', img_shape)
     plt.figure(figsize=(45, 25))
     plt.suptitle(
-        'Face recognition based on {} principal components'.format(num_eigenfaces))
+        'Asparagus recognition based on {} principal components'.format(num_eigenfaces))
     for j, img in enumerate(imgs):
 
         # find the best match in the eigenface database
         winner = recognize_face(img.reshape(np.prod(img_shape)), eigenfaces, mean_face, face_db)
+        #winner = find_integer(winner) # hier wird der index gereshapet und das funktioniert
+
+        #das original
+        #name_label = labels[j]
+        #name_winner = train_labels[winner] # hier wird der index aus train_labels (dem großen) rausgesucht.
         name_label = labels[j]
         name_winner = train_labels[winner]
+
 
         plt.subplot(5, 8, 2 * j + 1)
         plt.axis('off')
         #img = train_imgs[j].reshape(img_shape)
         plt.imshow(img)
-        plt.title(labels[j])
+        print(labels[j])
+        plt.title(labels[j], fontsize = 8)
 
         plt.subplot(5, 8, 2 * j + 2)
         plt.axis('off')
 
         plt.imshow(train_imgs[winner])
-        plt.title(('*' if name_label != name_winner else '') + name_winner)
+        plt.title(('*' if name_label != name_winner else '') + name_winner, fontsize = 8)
     plt.show()
 
 #taking every tenth picture of MB_Matrix, to test our recognition  14196
 train_imgs = np.zeros((13,img_shape[0],img_shape[1],img_shape[2]))
 train_imgs = raw_ims[0:130:10,:,:,:]
 print(train_imgs.shape)
-train_names = ['Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe', 'Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','violet','violet','violet','violet','violet','violet','violet','violet','violet','violet','2a','2a','2a','2a','2a','2a','2a','2a','2a','2a','2b','2b','2b','2b','2b','2b','2b','2b','2b','2b', 'Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke', 'hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle', 'rost','rost','rost','rost','rost','rost','rost','rost','rost','rost', 'suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe', 'anna','anna','anna','anna','anna','anna','anna','anna','anna','anna']
-#train_names = ['Köpfe','Bona','Clara','Krumme','violet','2a','2b','Blume','dicke''hohle', 'rost','suppe', 'anna']
-show_recognition_results(train_imgs, train_names, train_imgs, train_names, num_eigenvectors, eig_asparagus_used, MB_matrix_mean, asparagus_space)
+train_names = ['Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe','Köpfe',
+'Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona','Bona',
+'Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara','Clara',
+'Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme','Krumme',
+'violet','violet','violet','violet','violet','violet','violet','violet','violet','violet',
+'2a','2a','2a','2a','2a','2a','2a','2a','2a','2a',
+'2b','2b','2b','2b','2b','2b','2b','2b','2b','2b',
+'Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume','Blume', 'Blume',
+'dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke','dicke',
+'hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle','hohle',
+'rost','rost','rost','rost','rost','rost','rost','rost','rost','rost',
+'suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe','suppe',
+'anna','anna','anna','anna','anna','anna','anna','anna','anna','anna']
+train_names1 = ['Köpfe','Bona','Clara','Krumme','violet','2a','2b','Blume','dicke','hohle', 'rost','suppe', 'anna']
+show_recognition_results(train_imgs, train_names1, raw_ims, train_names, num_eigenvectors, eig_asparagus_used, MB_matrix_mean, asparagus_space)
