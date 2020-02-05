@@ -80,18 +80,18 @@ if __name__ == '__main__':
 
     model = Sequential()
 
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img)) 
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same')) 
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same')) 
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same', input_shape=input_shape_img)) 
+    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
+    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same'))
+    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
+    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same'))
+    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
+    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same')) 
+    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
+    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same')) 
+    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
 
-    model.add(GlobalAveragePooling2D())
+    model.add(GlobalAveragePooling3D())
     model.add(Dense(num_classes, activation='sigmoid'))
 
     model.compile(loss='binary_crossentropy',
