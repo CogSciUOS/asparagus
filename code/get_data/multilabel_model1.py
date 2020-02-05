@@ -8,7 +8,7 @@ import numpy as np
 
 from keras.models import Sequential
 
-from keras.layers import Conv3D, MaxPooling3D, GlobalAveragePooling3D
+from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
 from keras.layers import Dense
 
 from keras.utils import plot_model
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     ################################################################################
     # Build the model
     ################################################################################
-    input_shape_img = (train_img.shape[0], train_img.shape[1], train_img.shape[2], train_img.shape[3], 1)
+    input_shape_img = (train_img.shape[1], train_img.shape[2], train_img.shape[3])
     batch_size = 32
     num_epochs = 100
     num_classes = 6
@@ -80,18 +80,18 @@ if __name__ == '__main__':
 
     model = Sequential()
 
-    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same', input_shape=input_shape_img)) 
-    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
-    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same'))
-    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
-    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same'))
-    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
-    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same')) 
-    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
-    model.add(Conv3D(32, (3, 3, 9), activation='relu', padding='same')) 
-    model.add(MaxPooling3D(pool_size=(2, 2, 2)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img)) 
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same')) 
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same')) 
+    model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(GlobalAveragePooling3D())
+    model.add(GlobalAveragePooling2D())
     model.add(Dense(num_classes, activation='sigmoid'))
 
     model.compile(loss='binary_crossentropy',
