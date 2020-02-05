@@ -8,7 +8,7 @@ import numpy as np
 
 from keras.models import Sequential
 
-from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
+from keras.layers import Conv3D, MaxPooling3D, GlobalAveragePooling3D
 from keras.layers import Dense
 
 from keras.utils import plot_model
