@@ -7,15 +7,26 @@ from __future__ import division
 from __future__ import print_function
 
 import numpy as np
+import os
+import cv2
 
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-from tf.keras.preprocessing.image import ImageDataGenerator
-# import tensorflow_datasets as tfds
-
-# print(tf.__version__)
 
 image_folder = ''
 
+def read_in_data(path):
+    '''
+    '''
+    images = []
+    for filename in os.listdir(path):
+        if filename[0] == '.':
+            continue
+        img = cv2.imread(os.path.join(path, filename))
+        if img is not None:
+            images.append(img)
+    
+    return np.array(images)
 
 
 # training data configuration. Images will be sheared, zoomed, rescaled, flipped etc to 
@@ -32,55 +43,3 @@ test_generator = ImageDataGenerator(rescale=1. / 255)
 # read in images and corresponding labels from directory
 
 train_generator.flow_from_dictionary()
-
-
-
-
-
-########################################################################
-
-# https://www.tensorflow.org/guide/eager
-# tf.compat.v1.enable_eager_execution() 
-
-
-# List the available datasets
-
-# Each dataset is implemented as a tfds.core.DatasetBuilder 
-# and you can list all available builders with tfds.list_builders().
-#tfds.list_builders()
-
-
-# tfds.load: A dataset in one line
-# tfds.load is a convenience method that's the simplest way to build and load a tf.data.Dataset.
-# tf.data.Dataset is the standard TensorFlow API to build input pipelines. 
-# Below, we load the MNIST training data. It downloads and prepares the data, unless you specify download=False.
-# Note that once data has been prepared, subsequent calls of load will reuse the prepared data.
-# You can customize where the data is saved/loaded by specifying data_dir= ( defaults to ~/tensorflow_datasets/).
-
-# mnist_train = tfds.load(name="mnist", split="train")
-# assert isinstance(mnist_train, tf.data.Dataset)
-
-# print returns
-# <_OptionsDataset shapes: {image: (28, 28, 1), label: ()}, types: {image: tf.uint8, label: tf.int64}> 
-#print(mnist_train)
-
-
-
-# When loading a dataset, the canonical default version is used. 
-# It is however recommended to specify the major version of the dataset to use, 
-# and to advertise which version of the dataset was used in your results. 
-
-# OUTPUT IS A DICT
-# mnist = tfds.load("mnist:1.*.*")
-
-# accesses all entrys of the loaded dataset (aka dict)
-# for MNIST, this returns 'train' and 'test'
-# for element in mnist:
-#    print(element)
-
-
-# on the other hand, mnist.items()  returns:
-# test <_OptionsDataset shapes: {image: (28, 28, 1), label: ()}, types: {image: tf.uint8, label: tf.int64}>
-# train <_OptionsDataset shapes: {image: (28, 28, 1), label: ()}, types: {image: tf.uint8, label: tf.int64}>
-# for key, value in mnist.items(): 
-#     print (key, value)
