@@ -34,6 +34,9 @@ import os
 import sys
 import shutil
 import itertools
+import cv2
+
+ids_hollow = []
 
 def get_asparagus_ids(PATH):
     '''
@@ -45,7 +48,6 @@ def get_asparagus_ids(PATH):
     csvs = pd.read_csv(PATH, sep = ';')
 
     '''get hollow and unhollow ids'''
-    ids_hollow = []
     ids_hollow = csvs.loc[csvs['is_hollow']== 1.0, 'id']
     print(ids_hollow) # die nummerierung ist ids[1] also die richtige column
     # wir haben 439 hollow
@@ -135,18 +137,94 @@ def get_asparagus_ids(PATH):
     ids_auto_width_small = ids_auto_width_small[:4399]
     print(ids_auto_width_small)
 
+# #zum testen jetzt hier rein
+#     img_shape = (1340, 364, 3)
+#     M_hollow = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))
+#     ids_hollow = ids_hollow[:200]
+#
+# #store all pictures, that hollow and not hollow in a M_hollow
+#     for i in ids_hollow:
+#         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+#         flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
+#         M_hollow[:,:,i] = flat
+#         print(M_hollow)
+#         return MB_img
+
+
     return ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
 #    print(len(ids_hollow))
 
-get_asparagus_ids("combined_new.csv")
+# get image_size:
+#img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
+#print(img.shape) (1340, 364, 3)
 
 
-# def get_files(PATH):
-#     '''
-#     Get all file names in directories and subdirectories.
-#     Args: PATH to files
-#     Out: List of all file names and the corresponding directories
-#     '''
+
+def get_images(ids_hollow):
+    #, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
+     '''
+     Get all images in the directories,
+     referring to our feature_ids
+     Args: PATH to files
+     Out: matrices that store pictures of certain features
+     M_hollow
+     M_blume
+     M_rost_head
+     M_rost_body
+     M_bended
+     M_violet
+     M_length
+     M_width
+     '''
+     #initialize all goal matrices
+     # image shape is (1340, 364, 3)
+     img_shape = (1340, 364, 3)
+     m_hollow = np.zeros((400, img_shape[0],img_shape[1]*img_shape[2]))
+     M_hollow = np.zeros((200, img_shape[0],img_shape[1]*img_shape[2]))
+     M_unhollow = np.zeros((200, img_shape[0],img_shape[1]*img_shape[2]))
+#     M_blume = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400)) # 3448 ist leider zu groß...
+#     M_rost_head = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#3910
+#     M_rost_body = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#12158
+#     M_bended = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#10674
+#     M_violet = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))
+#     M_length = np.zeros((img_shape[0],img_shape[1]*img_shape[2],200))
+#     M_width = np.zeros((img_shape[0],img_shape[1]*img_shape[2],200))#8798
+     #store all pictures, that hollow and not hollow in a M_hollow
+     ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small = get_asparagus_ids("combined_new.csv")
+     print(ids_hollow)
+     ids_hollow = ids_hollow[:200]
+     ids_unhollow = ids_unhollow[:200]
+     print(ids_hollow)
+     print(ids_unhollow)
+
+
+     #store all pictures, that hollow and not hollow in a M_hollow
+     for i in ids_hollow:
+         print(ids_hollow[i])
+         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
+         M_hollow[i,:,:] = flat #Error index 207 is out of bounds for axis 0 with size 200: er geht hier komischerweise bis bild mit dem namen 190 und dann würde bild 207 kommen...
+         print(M_hollow)
+#         return M_hollow
+
+     for i in ids_unhollow:
+         img = img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
+         M_unhollow[i,:,:] = flat
+#         return M_unhollow
+#put hollow and unhollow together:
+     m_hollow = np.concatenate(M_hollow,M_unhollow)
+     print(M_hollow.shape)
+
+
+    #     for c in M_hollow[2]:
+#             if cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png' == ids_hollow[1]:
+#                 img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png'
+#                 flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
+#                 MB_img[:,:,i] = flat
+#                 return MB_img
+get_images(ids_hollow)
+#       return M_hollow, M_blume, M_rost_head, M_rost_body, M_bended, M_violet, M_length
 #     all_files = []
 #     file_names = []
 #     for subdir, dirs, files in os.walk(PATH):
@@ -156,3 +234,5 @@ get_asparagus_ids("combined_new.csv")
 #                 all_files.append(filepath)
 #                 file_names.append(int(file[:-6])) #modified to not save without _a.png and save as int for later comparison
 #     return all_files, file_names
+#get_images(ids_hollow)
+#get_images(PATH, ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small)
