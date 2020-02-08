@@ -213,7 +213,7 @@ def get_images(ids_hollow):
              M_hollow[j,:,:] = flat
 
          #M_hollow[i,:,:] = flat #Error index 207 is out of bounds for axis 0 with size 200: er geht hier komischerweise bis bild mit dem namen 190 und dann würde bild 207 kommen...
-         print(M_hollow)
+         print(M_hollow) # hier sieht man, dass die ganze matrix immer dann einfach mit dem iten bild komplett gefüllt wird und nicht nur an der einen stelle
          print('M_hollow 199 eintrag: \n', M_hollow[199]) # wenn ich das hier printe, kommen jede mal irgendwie andere zahlen raus....
 #         return M_hollow
 
