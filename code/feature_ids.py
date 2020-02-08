@@ -178,10 +178,11 @@ def get_images(ids_hollow):
      '''
      #initialize all goal matrices
      # image shape is (1340, 364, 3)
+     n_bands = 200
      img_shape = (1340, 364, 3)
      m_hollow = np.zeros((400, img_shape[0],img_shape[1]*img_shape[2]))
-     M_hollow = np.zeros((200, img_shape[0],img_shape[1]*img_shape[2]))
-     M_unhollow = np.zeros((200, img_shape[0],img_shape[1]*img_shape[2]))
+     M_hollow = np.zeros((n_bands, img_shape[0],img_shape[1]*img_shape[2]))
+     M_unhollow = np.zeros((n_bands, img_shape[0],img_shape[1]*img_shape[2]))
 #     M_blume = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400)) # 3448 ist leider zu groß...
 #     M_rost_head = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#3910
 #     M_rost_body = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#12158
@@ -191,26 +192,37 @@ def get_images(ids_hollow):
 #     M_width = np.zeros((img_shape[0],img_shape[1]*img_shape[2],200))#8798
      #store all pictures, that hollow and not hollow in a M_hollow
      ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small = get_asparagus_ids("combined_new.csv")
-     print(ids_hollow)
      ids_hollow = ids_hollow[:200]
      ids_unhollow = ids_unhollow[:200]
      print(ids_hollow)
      print(ids_unhollow)
+     holy = ids_hollow.get(ids_hollow)
+     print(holy)
 
 
      #store all pictures, that hollow and not hollow in a M_hollow
      for i in ids_hollow:
-         print(ids_hollow[i])
-         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-         flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
-         M_hollow[i,:,:] = flat #Error index 207 is out of bounds for axis 0 with size 200: er geht hier komischerweise bis bild mit dem namen 190 und dann würde bild 207 kommen...
+         print(ids_hollow[i]) #das funktioniert soweit...
+         #print(ids_hollow[i].type)
+         s = np.array2string(ids_hollow[i])
+         print(s)
+         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+s+'_b.png')
+         print(img.shape)
+         flat = np.reshape(img,newshape = (img_shape[0],img_shape[1]*img_shape[2]))
+         for j in range(n_bands):
+             M_hollow[j,:,:] = flat
+
+         #M_hollow[i,:,:] = flat #Error index 207 is out of bounds for axis 0 with size 200: er geht hier komischerweise bis bild mit dem namen 190 und dann würde bild 207 kommen...
          print(M_hollow)
+         print('M_hollow 199 eintrag: \n', M_hollow[199]) # wenn ich das hier printe, kommen jede mal irgendwie andere zahlen raus....
 #         return M_hollow
 
      for i in ids_unhollow:
          img = img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
          flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
-         M_unhollow[i,:,:] = flat
+         for j in range(n_bands):
+             M_unhollow[j,:,:] = flat
+             return M_unhollow
 #         return M_unhollow
 #put hollow and unhollow together:
      m_hollow = np.concatenate(M_hollow,M_unhollow)
