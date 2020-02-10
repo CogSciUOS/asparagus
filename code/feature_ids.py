@@ -49,12 +49,16 @@ def get_asparagus_ids(PATH):
 
     '''get hollow and unhollow ids'''
     ids_hollow = csvs.loc[csvs['is_hollow']== 1.0, 'id']
-    print(ids_hollow) # die nummerierung ist ids[1] also die richtige column
+    ids_hollow = ids_hollow[:200]
+    ids_hollow = np.array(ids_hollow)
+    print(ids_hollow)
+ # die nummerierung ist ids[1] also die richtige column
     # wir haben 439 hollow
 
     ids_unhollow = []
     ids_unhollow = csvs.loc[csvs['is_hollow']== 0.0, 'id']
-    ids_unhollow = ids_unhollow[:439]
+    ids_unhollow = ids_unhollow[:200]
+    ids_unhollow = np.array(ids_unhollow)
     print(ids_unhollow)
 
     '''get is_bruch ids
@@ -69,72 +73,92 @@ def get_asparagus_ids(PATH):
     '''get has_blume and not_blume'''
     ids_blume = []
     ids_blume = csvs.loc[csvs['has_blume']== 1.0, 'id']
+    ids_blume = ids_blume[:200]
+    ids_blume = np.array(ids_blume)
     print(ids_blume)
 
     ids_notblume = []
     ids_notblume = csvs.loc[csvs['has_blume']== 0.0, 'id']
-    ids_notblume = ids_notblume[:1724]
+    ids_notblume = ids_notblume[:200]
+    ids_notblume = np.array(ids_notblume)
     print(ids_notblume)
 
     '''get has_rost_head and not_has_rost_head'''
     ids_has_rost_head = []
     ids_has_rost_head = csvs.loc[csvs['has_rost_head']== 1.0, 'id']
+    ids_has_rost_head = ids_has_rost_head[:200]
+    ids_has_rost_head = np.array(ids_has_rost_head)
     print(ids_has_rost_head)
 
     ids_not_has_rost_head = []
     ids_not_has_rost_head = csvs.loc[csvs['has_blume']== 0.0, 'id']
-    ids_not_has_rost_head = ids_not_has_rost_head[:1955]
+    ids_not_has_rost_head = ids_not_has_rost_head[:200]
+    ids_not_has_rost_head = np.array(ids_not_has_rost_head)
     print(ids_not_has_rost_head)
 
     '''get has_rost_body and not_has_rost_body'''
     ids_has_rost_body = []
     ids_has_rost_body = csvs.loc[csvs['has_rost_body']== 1.0, 'id']
+    ids_has_rost_body = ids_has_rost_body[:200]
+    ids_has_rost_body = np.array(ids_has_rost_body)
     print(ids_has_rost_body)
 
     ids_not_has_rost_body = []
     ids_not_has_rost_body = csvs.loc[csvs['has_rost_body']== 0.0, 'id']
-    ids_not_has_rost_body = ids_not_has_rost_body[:6079]
+    ids_not_has_rost_body = ids_not_has_rost_body[:200]
+    ids_not_has_rost_body = np.array(ids_not_has_rost_body)
     print(ids_not_has_rost_body)
 
     '''get is_bended and not_is_bended'''
     ids_is_bended = []
     ids_is_bended = csvs.loc[csvs['is_bended']== 1.0, 'id']
+    ids_is_bended = ids_is_bended[:200]
+    ids_is_bended = np.array(ids_is_bended)
     print(ids_is_bended)
 
     ids_not_is_bended = []
     ids_not_is_bended = csvs.loc[csvs['is_bended']== 0.0, 'id']
-    ids_not_is_bended = ids_not_is_bended[:5337]
+    ids_not_is_bended = ids_not_is_bended[:200]
+    ids_not_is_bended = np.array(ids_not_is_bended)
     print(ids_not_is_bended)
 
     '''get is_violet and not_is_violet'''
     ids_is_violet = []
     ids_is_violet = csvs.loc[csvs['is_violet']== 1.0, 'id']
+    ids_is_violet = ids_is_violet[:200]
+    ids_is_violet = np.array(ids_is_violet)
     print(ids_is_violet)
 
     ids_not_is_violet = []
     ids_not_is_violet = csvs.loc[csvs['is_violet']== 0.0, 'id']
-    ids_not_is_violet = ids_not_is_violet[:1047]
+    ids_not_is_violet = ids_not_is_violet[:200]
+    ids_not_is_violet = np.array(ids_not_is_violet)
     print(ids_not_is_violet)
 
     '''auto_length > 210 mm and < 210 mm'''
     ids_auto_length_big = []
     ids_auto_length_big = csvs.loc[csvs['auto_length']> 210, 'id']
-    ids_auto_length_big = ids_auto_length_big[:455]
+    ids_auto_length_big = ids_auto_length_big[:200]
+    ids_auto_length_big = np.array(ids_auto_length_big)
     print(ids_auto_length_big)
 
     ids_auto_length_small = []
     ids_auto_length_small = csvs.loc[csvs['auto_length'] <= 210, 'id']
+    ids_auto_length_small = ids_auto_length_small[:200]
+    ids_auto_length_small = np.array(ids_auto_length_small)
     print(ids_auto_length_small)
 
     '''auto_width > 20 mm and < 20 mm'''
     ids_auto_width_big = []
     ids_auto_width_big = csvs.loc[csvs['auto_width']> 20, 'id']
-#    ids_auto_width_big = ids_auto_width_big[:455]
+    ids_auto_width_big = ids_auto_width_big[:200]
+    ids_auto_width_big = np.array(ids_auto_width_big)
     print(ids_auto_width_big)
 
     ids_auto_width_small = []
     ids_auto_width_small = csvs.loc[csvs['auto_width'] <= 20, 'id']
-    ids_auto_width_small = ids_auto_width_small[:4399]
+    ids_auto_width_small = ids_auto_width_small[:200]
+    ids_auto_width_small = np.array(ids_auto_width_small)
     print(ids_auto_width_small)
 
 # #zum testen jetzt hier rein
@@ -176,75 +200,80 @@ def get_images(ids_hollow):
      M_length
      M_width
      '''
-     #initialize all goal matrices
-     # image shape is (1340, 364, 3)
-     n_bands = 200
-     img_shape = (1340, 364, 3)
-     m_hollow = np.zeros((400, img_shape[0],img_shape[1]*img_shape[2]))
-     M_hollow = np.zeros((n_bands, img_shape[0],img_shape[1]*img_shape[2]))
-     M_unhollow = np.zeros((n_bands, img_shape[0],img_shape[1]*img_shape[2]))
-#     M_blume = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400)) # 3448 ist leider zu groß...
-#     M_rost_head = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#3910
-#     M_rost_body = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#12158
-#     M_bended = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))#10674
-#     M_violet = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))
-#     M_length = np.zeros((img_shape[0],img_shape[1]*img_shape[2],200))
-#     M_width = np.zeros((img_shape[0],img_shape[1]*img_shape[2],200))#8798
-     #store all pictures, that hollow and not hollow in a M_hollow
+     #get all ids
      ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small = get_asparagus_ids("combined_new.csv")
-     ids_hollow = ids_hollow[:200]
-     ids_unhollow = ids_unhollow[:200]
-     print(ids_hollow)
-     print(ids_unhollow)
-     holy = ids_hollow.get(ids_hollow)
-     print(holy)
+    #initialize all goal matrices
+     # image shape is (1340, 364, 3)
+     img_shape = (1340, 364, 3)
 
 
+     #initialize
+     all_ids_hollow = np.concatenate((ids_hollow, ids_unhollow))
+     m_hollow = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #M_hollow = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+     #M_unhollow = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+     #print(all_ids_hollow)
+
+     all_ids_blume = np.concatenate((ids_blume, ids_notblume))
+     m_blume = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #M_blume = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+     #M_not_blume = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+
+     all_ids_rost_head = np.concatenate((ids_has_rost_head,ids_not_has_rost_head))
+     m_rost_head = ((400,img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_rost_head = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_not_rost_head = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+
+     all_ids_rost_body = np.concatenate((ids_has_rost_body, ids_not_has_rost_body))
+     m_rost_body = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_rost_body = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_not_rost_body = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+
+     all_ids_bended = np.concatenate((ids_is_bended, ids_not_is_bended))
+     m_bended = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #M_bended = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))#10674
+     #M_not_bended = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+
+     all_ids_violet = np.concatenate((ids_is_violet, ids_not_is_violet))
+     m_violet = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_not_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
+
+     all_ids_length = np.concatenate((ids_auto_length_big, ids_auto_length_small))
+#     m_length = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2])) #hier geht schon der speicher aus
+#     M_length_big = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_length_small = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+
+     all_ids_width = np.concatenate((ids_auto_width_big, ids_auto_width_small))
+#     m_width = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_width_big = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
+#     M_width_small = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))#8798
      #store all pictures, that hollow and not hollow in a M_hollow
-     for i in ids_hollow:
-         print(ids_hollow[i]) #das funktioniert soweit...
-         #print(ids_hollow[i].type)
-         s = np.array2string(ids_hollow[i])
-         print(s)
-         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+s+'_b.png')
-         print(img.shape)
-         flat = np.reshape(img,newshape = (img_shape[0],img_shape[1]*img_shape[2]))
-         for j in range(n_bands):
-             M_hollow[j,:,:] = flat
 
-         #M_hollow[i,:,:] = flat #Error index 207 is out of bounds for axis 0 with size 200: er geht hier komischerweise bis bild mit dem namen 190 und dann würde bild 207 kommen...
-         print(M_hollow) # hier sieht man, dass die ganze matrix immer dann einfach mit dem iten bild komplett gefüllt wird und nicht nur an der einen stelle
-         print('M_hollow 199 eintrag: \n', M_hollow[199]) # wenn ich das hier printe, kommen jede mal irgendwie andere zahlen raus....
-#         return M_hollow
+     #fill matries with pictures
+     s = 0
 
-     for i in ids_unhollow:
-         img = img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-         flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
-         for j in range(n_bands):
-             M_unhollow[j,:,:] = flat
-             return M_unhollow
-#         return M_unhollow
-#put hollow and unhollow together:
-     m_hollow = np.concatenate(M_hollow,M_unhollow)
-     print(M_hollow.shape)
+     for i in all_ids_hollow:
+        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+        #print(img.shape)
+        flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+        m_hollow[s,:] = flat
+        s += 1
+    #np.save irgenwas-------
 
+     # s = 0
+     # for i in ids_unhollow:
+     #     img = img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+     #     flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+     #     M_unhollow[s,:] = flat
+     #     s += 1
 
-    #     for c in M_hollow[2]:
-#             if cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png' == ids_hollow[1]:
-#                 img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png'
-#                 flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
-#                 MB_img[:,:,i] = flat
-#                 return MB_img
+         #put hollow and unhollow together:
+
+     print(m_hollow)
+     print(m_hollow.shape)
+     np.save('m_hollow',m_hollow)
+
+     return m_hollow, m_blume, m_rost_head, m_rost_body, m_bended, m_violet
+
 get_images(ids_hollow)
-#       return M_hollow, M_blume, M_rost_head, M_rost_body, M_bended, M_violet, M_length
-#     all_files = []
-#     file_names = []
-#     for subdir, dirs, files in os.walk(PATH):
-#         for file in files:
-#             filepath = subdir + '/' + file
-#             if filepath.endswith(".png"):
-#                 all_files.append(filepath)
-#                 file_names.append(int(file[:-6])) #modified to not save without _a.png and save as int for later comparison
-#     return all_files, file_names
-#get_images(ids_hollow)
-#get_images(PATH, ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small)

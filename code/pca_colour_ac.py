@@ -40,10 +40,16 @@ for i in range(n_bands):
     #cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/'+str(s+i)+'_b.png', cv2.IMREAD_GRAYSCALE)
 
 #mal checken
-#plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
-#plt.imshow(MB_img[:,:,1], vmin=0, vmax=255, cmap = 'grey')
-#plt.axis('off')
-#plt.show()
+plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
+plt.imshow(MB_img[:,:,1], vmin=0, vmax=255)# cmap = 'grey')
+plt.axis('off')
+plt.show()
+
+
+plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
+plt.imshow(MB_img[:,:,2], vmin=0, vmax=255)# cmap = 'grey')
+plt.axis('off')
+plt.show()
 
 # #####this is Standardization
 # # Convert 2d band array in 1-d to make them as feature vectors and Standardization
