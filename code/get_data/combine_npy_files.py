@@ -15,14 +15,14 @@ def combine(PATH):
     all_files = os.listdir(PATH)
     n = len(all_files)
     # load first image to get dimensionality and dtype dynamically
-    first = np.load(PATH + all_files[0])[::3,::3] #change here to downscale differently
+    first = np.load(PATH + all_files[0])[::6,::6] #change here to downscale differently
     dtype = first.dtype
     l, w, d = first.shape
     # make some space for the dataset
     data = np.empty((n, l, w, d), dtype=dtype)
     # load all files and save them in the corresponding position in the data array
     for i,file in enumerate(all_files):
-        data[i,:,:,:] = np.load(PATH + file)[::3,::3] #change here to downscale differently
+        data[i,:,:,:] = np.load(PATH + file)[::6,::6] #change here to downscale differently
         # print how far along we are
         if i%500==0:
             print(i)
