@@ -241,7 +241,7 @@ def get_images(ids_hollow):
         m_hollow[s,:] = flat
         s += 1
 
-     np.save('m_hollow',m_hollow)
+     np.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_hollow',m_hollow)
 
      #fill M_blume
     #  s = 0
