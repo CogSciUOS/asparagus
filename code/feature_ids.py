@@ -201,37 +201,37 @@ def get_images(ids_hollow):
      #M_unhollow = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
      #print(all_ids_hollow)
 
-     all_ids_blume = np.concatenate((ids_blume, ids_notblume))
-     m_blume = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #all_ids_blume = np.concatenate((ids_blume, ids_notblume))
+     #m_blume = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
      #M_blume = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
      #M_not_blume = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_rost_head = np.concatenate((ids_has_rost_head,ids_not_has_rost_head))
-     m_rost_head = ((400,img_shape[0]*img_shape[1]*img_shape[2]))
+     #all_ids_rost_head = np.concatenate((ids_has_rost_head,ids_not_has_rost_head))
+     #m_rost_head = ((400,img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_rost_head = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_not_rost_head = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_rost_body = np.concatenate((ids_has_rost_body, ids_not_has_rost_body))
-     m_rost_body = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #all_ids_rost_body = np.concatenate((ids_has_rost_body, ids_not_has_rost_body))
+     #m_rost_body = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_rost_body = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_not_rost_body = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_bended = np.concatenate((ids_is_bended, ids_not_is_bended))
-     m_bended = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #all_ids_bended = np.concatenate((ids_is_bended, ids_not_is_bended))
+     #m_bended = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
      #M_bended = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))#10674
      #M_not_bended = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_violet = np.concatenate((ids_is_violet, ids_not_is_violet))
-     m_violet = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #all_ids_violet = np.concatenate((ids_is_violet, ids_not_is_violet))
+     #m_violet = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_not_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_length = np.concatenate((ids_auto_length_big, ids_auto_length_small))
+     #all_ids_length = np.concatenate((ids_auto_length_big, ids_auto_length_small))
 #     m_length = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2])) #hier geht schon der speicher aus
 #     M_length_big = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_length_small = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_width = np.concatenate((ids_auto_width_big, ids_auto_width_small))
+     #all_ids_width = np.concatenate((ids_auto_width_big, ids_auto_width_small))
 #     m_width = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_width_big = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_width_small = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))#8798
@@ -251,57 +251,57 @@ def get_images(ids_hollow):
      np.save('m_hollow',m_hollow)
 
      #fill M_blume
-     s = 0
-     for i in all_ids_blume:
-        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-        #print(img.shape)
-        flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-        m_blume[s,:] = flat
-        s += 1
-
-     np.save('m_blume',m_blume)
-
-     #fill m_rost_head
-     s = 0
-     for i in all_ids_rost_head:
-        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-        #print(img.shape)
-        flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-        m_rost_head[s,:] = flat
-        s += 1
-
-     np.save('m_rost_head',m_rost_head)
-
-     #fill m_rost_body
-     s = 0
-     for i in all_ids_rost_body:
-        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-        #print(img.shape)
-        flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-        m_rost_body[s,:] = flat
-        s += 1
-
-     np.save('m_rost_body',m_rost_body)
-
-     #fill all_ids M_bended
-     s = 0
-     for i in all_ids_bended:
-         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-         m_bended[s,:] = flat
-         s += 1
-
-         np.save('m_bended',m_bended)
-
-    #fill all_ids_violet
-     s = 0
-     for i in all_ids_violet:
-         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-         m_violet[s,:] = flat
-         s += 1
-
-         np.save('m_violet', m_violet)
+    #  s = 0
+    #  for i in all_ids_blume:
+    #     img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #     #print(img.shape)
+    #     flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #     m_blume[s,:] = flat
+    #     s += 1
+    #
+    #  np.save('m_blume',m_blume)
+    #
+    #  #fill m_rost_head
+    #  s = 0
+    #  for i in all_ids_rost_head:
+    #     img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #     #print(img.shape)
+    #     flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #     m_rost_head[s,:] = flat
+    #     s += 1
+    #
+    #  np.save('m_rost_head',m_rost_head)
+    #
+    #  #fill m_rost_body
+    #  s = 0
+    #  for i in all_ids_rost_body:
+    #     img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #     #print(img.shape)
+    #     flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #     m_rost_body[s,:] = flat
+    #     s += 1
+    #
+    #  np.save('m_rost_body',m_rost_body)
+    #
+    #  #fill all_ids M_bended
+    #  s = 0
+    #  for i in all_ids_bended:
+    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #      m_bended[s,:] = flat
+    #      s += 1
+    #
+    #      np.save('m_bended',m_bended)
+    #
+    # #fill all_ids_violet
+    #  s = 0
+    #  for i in all_ids_violet:
+    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #      m_violet[s,:] = flat
+    #      s += 1
+    #
+    #      np.save('m_violet', m_violet)
     #fill auto_length
     #  s = 0
     #  for i in all_ids_length:
@@ -323,6 +323,6 @@ def get_images(ids_hollow):
     #      np.save('m_width', m_width)
     #
 
-     return m_hollow, m_blume, m_rost_head, m_rost_body, m_bended, m_violet #,m_length, m_width
+     return m_hollow#, m_blume, m_rost_head, m_rost_body, m_bended, m_violet #,m_length, m_width
 
 get_images(ids_hollow)
