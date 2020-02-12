@@ -128,19 +128,19 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
  % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
-\thesistitle{A new eye tracking test battery: Evaluation of Pupil Labs glasses against EyeLink~1000}
+\thesistitle{Computer Vision Based Asparagus Classification}
 %An analysis of gaze data quality of two simultaneously recorded eye trackers using a new extensive eye movement test battery}
-\supervisor{Prof.\ Dr.\ med.\ Peter König} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
-\examiner{Dr.\ Benedikt Ehinger} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
-\degree{Bachelor of Science} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
-\author{Katharina Groß} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\supervisor{Dr.\ Ulf Krumnack} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{M.Sc.\ Axel Schaffland} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\degree{Master of Science} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Maren~Born, Michael~Gerstenberger, Katharina~Groß, Richard~Ruppel, Sophia~Schulze-Weddige, Malin~Spaniol, Josefine~Zerbe} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
 \subject{Cognitive Science} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
-\keywords{Eye Tracking} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\keywords{Computer Vision, ANN, Supervised Learning, Semi-supervised Learning, Unsupervised Learning} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
 \university{\href{https://www.uni-osnabrueck.de/en/home.html}{Osnabrück University}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \department{\href{https://www.ikw.uni-osnabrueck.de/en/home.html}{Institute of Cognitive Science}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
-\group{\href{https://www.ikw.uni-osnabrueck.de/en/research_groups/neurobiopsychology.html}{Research Group Neurobiopsychology}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\group{\href{https://www.ikw.uni-osnabrueck.de/en/research_groups/computer_vision.html}{Research Group Computer Vision}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
 \faculty{\href{https://www.uni-osnabrueck.de/universitaet/fachbereiche/fachbereich_humanwissenschaften.html}{School of Human Sciences}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 
@@ -203,29 +203,29 @@ headsepline, % Uncomment to get a line under the header
 		
 		\vspace*{.06\textheight}
 		{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
-		\textsc{\Large Bachelor's Thesis}\\[0.5cm] % Thesis type
+		\textsc{\Large Study Project}\\[0.5cm] % Thesis type
 		
 		\HRule \\[0.4cm] % Horizontal line
 		{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
 		\HRule \\[1.5cm] % Horizontal line
 		 
-		\begin{minipage}[t]{0.4\textwidth}
+		\begin{minipage}[t]{0.35\textwidth}
 			\begin{flushleft} \large
-				\emph{Author:}\\
-				\href{https://www.ikw.uni-osnabrueck.de/en/research_groups/neurobiopsychology/people.html}{\authorname} % Author name - remove the \href bracket to remove the link
+				\emph{Authors:}\\
+				\href{}{\authorname} % Author name - remove the \href bracket to remove the link
 			\end{flushleft}
 		\end{minipage}
 		\begin{minipage}[t]{0.4\textwidth}
 			\begin{flushright} \large
 				\emph{Supervisors:} \\
-				\href{https://www.ikw.uni-osnabrueck.de/en/research_groups/neurobiopsychology/people.html}{\supname} \\% Supervisor name - remove the \href bracket to remove the link 
-                \href{https://www.ikw.uni-osnabrueck.de/en/research_groups/neurobiopsychology/people.html}{\examname}
+				\href{https://www.ikw.uni-osnabrueck.de/en/research_groups/computer_vision/people/krumnack_ulf.html}{\supname} \\% Supervisor name - remove the \href bracket to remove the link 
+                \href{https://www.ikw.uni-osnabrueck.de/en/research_groups/computer_vision/people/schaffland_axel.html}{\examname}
 			\end{flushright}
 		\end{minipage}\\[3cm]
 		 
 		\vfill
 		
-		\large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+		\large \textit{The study report is submitted in partial fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
 		\textit{in the}\\[0.4cm]
 		\groupname\\\deptname\\[2cm] % Research group name and department name
 		 
@@ -244,11 +244,10 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \begin{abstract}
-	%\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-	
+	% \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
     % add content of Abstract tex file here
 	\input{Chapters/Abstract}
-
+	
 \end{abstract}
 
 
@@ -280,6 +279,10 @@ headsepline, % Uncomment to get a line under the header
 % Include the chapters of the thesis as separate files from the Chapters folder
 
 \include{Chapters/Introduction}
+\include{Chapters/Preparations}
+\include{Chapters/Dataset}
+\include{Chapters/Classification}
+\include{Chapters/Discussion}
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
