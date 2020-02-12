@@ -75,91 +75,78 @@ def get_asparagus_ids(PATH):
     ids_blume = csvs.loc[csvs['has_blume']== 1.0, 'id']
     ids_blume = ids_blume[:200]
     ids_blume = np.array(ids_blume)
-    print(ids_blume)
 
     ids_notblume = []
     ids_notblume = csvs.loc[csvs['has_blume']== 0.0, 'id']
     ids_notblume = ids_notblume[:200]
     ids_notblume = np.array(ids_notblume)
-    print(ids_notblume)
 
     '''get has_rost_head and not_has_rost_head'''
     ids_has_rost_head = []
     ids_has_rost_head = csvs.loc[csvs['has_rost_head']== 1.0, 'id']
     ids_has_rost_head = ids_has_rost_head[:200]
     ids_has_rost_head = np.array(ids_has_rost_head)
-    print(ids_has_rost_head)
 
     ids_not_has_rost_head = []
     ids_not_has_rost_head = csvs.loc[csvs['has_blume']== 0.0, 'id']
     ids_not_has_rost_head = ids_not_has_rost_head[:200]
     ids_not_has_rost_head = np.array(ids_not_has_rost_head)
-    print(ids_not_has_rost_head)
 
     '''get has_rost_body and not_has_rost_body'''
     ids_has_rost_body = []
     ids_has_rost_body = csvs.loc[csvs['has_rost_body']== 1.0, 'id']
     ids_has_rost_body = ids_has_rost_body[:200]
     ids_has_rost_body = np.array(ids_has_rost_body)
-    print(ids_has_rost_body)
 
     ids_not_has_rost_body = []
     ids_not_has_rost_body = csvs.loc[csvs['has_rost_body']== 0.0, 'id']
     ids_not_has_rost_body = ids_not_has_rost_body[:200]
     ids_not_has_rost_body = np.array(ids_not_has_rost_body)
-    print(ids_not_has_rost_body)
 
     '''get is_bended and not_is_bended'''
     ids_is_bended = []
     ids_is_bended = csvs.loc[csvs['is_bended']== 1.0, 'id']
     ids_is_bended = ids_is_bended[:200]
     ids_is_bended = np.array(ids_is_bended)
-    print(ids_is_bended)
 
     ids_not_is_bended = []
     ids_not_is_bended = csvs.loc[csvs['is_bended']== 0.0, 'id']
     ids_not_is_bended = ids_not_is_bended[:200]
     ids_not_is_bended = np.array(ids_not_is_bended)
-    print(ids_not_is_bended)
 
     '''get is_violet and not_is_violet'''
     ids_is_violet = []
     ids_is_violet = csvs.loc[csvs['is_violet']== 1.0, 'id']
     ids_is_violet = ids_is_violet[:200]
     ids_is_violet = np.array(ids_is_violet)
-    print(ids_is_violet)
 
     ids_not_is_violet = []
     ids_not_is_violet = csvs.loc[csvs['is_violet']== 0.0, 'id']
     ids_not_is_violet = ids_not_is_violet[:200]
     ids_not_is_violet = np.array(ids_not_is_violet)
-    print(ids_not_is_violet)
 
     '''auto_length > 210 mm and < 210 mm'''
     ids_auto_length_big = []
     ids_auto_length_big = csvs.loc[csvs['auto_length']> 210, 'id']
     ids_auto_length_big = ids_auto_length_big[:200]
     ids_auto_length_big = np.array(ids_auto_length_big)
-    print(ids_auto_length_big)
 
     ids_auto_length_small = []
     ids_auto_length_small = csvs.loc[csvs['auto_length'] <= 210, 'id']
     ids_auto_length_small = ids_auto_length_small[:200]
     ids_auto_length_small = np.array(ids_auto_length_small)
-    print(ids_auto_length_small)
 
     '''auto_width > 20 mm and < 20 mm'''
     ids_auto_width_big = []
     ids_auto_width_big = csvs.loc[csvs['auto_width']> 20, 'id']
     ids_auto_width_big = ids_auto_width_big[:200]
     ids_auto_width_big = np.array(ids_auto_width_big)
-    print(ids_auto_width_big)
 
     ids_auto_width_small = []
     ids_auto_width_small = csvs.loc[csvs['auto_width'] <= 20, 'id']
     ids_auto_width_small = ids_auto_width_small[:200]
     ids_auto_width_small = np.array(ids_auto_width_small)
-    print(ids_auto_width_small)
+
 
 # #zum testen jetzt hier rein
 #     img_shape = (1340, 364, 3)
@@ -251,29 +238,91 @@ def get_images(ids_hollow):
      #store all pictures, that hollow and not hollow in a M_hollow
 
      #fill matries with pictures
-     s = 0
 
+     #fill m_hollow
+     s = 0
      for i in all_ids_hollow:
         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
         #print(img.shape)
         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
         m_hollow[s,:] = flat
         s += 1
-    #np.save irgenwas-------
 
-     # s = 0
-     # for i in ids_unhollow:
-     #     img = img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-     #     flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-     #     M_unhollow[s,:] = flat
-     #     s += 1
-
-         #put hollow and unhollow together:
-
-     print(m_hollow)
-     print(m_hollow.shape)
      np.save('m_hollow',m_hollow)
 
-     return m_hollow, m_blume, m_rost_head, m_rost_body, m_bended, m_violet
+     #fill M_blume
+     s = 0
+     for i in all_ids_blume:
+        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+        #print(img.shape)
+        flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+        m_blume[s,:] = flat
+        s += 1
+
+     np.save('m_blume',m_blume)
+
+     #fill m_rost_head
+     s = 0
+     for i in all_ids_rost_head:
+        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+        #print(img.shape)
+        flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+        m_rost_head[s,:] = flat
+        s += 1
+
+     np.save('m_rost_head',m_rost_head)
+
+     #fill m_rost_body
+     s = 0
+     for i in all_ids_rost_body:
+        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+        #print(img.shape)
+        flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+        m_rost_body[s,:] = flat
+        s += 1
+
+     np.save('m_rost_body',m_rost_body)
+
+     #fill all_ids M_bended
+     s = 0
+     for i in all_ids_bended:
+         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+         m_bended[s,:] = flat
+         s += 1
+
+         np.save('m_bended',m_bended)
+
+    #fill all_ids_violet
+     s = 0
+     for i in all_ids_violet:
+         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+         m_violet[s,:] = flat
+         s += 1
+
+         np.save('m_violet', m_violet)
+    #fill auto_length
+    #  s = 0
+    #  for i in all_ids_length:
+    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #      m_length[s,:] = flat
+    #      s += 1
+    #
+    #      np.save('m_length', m_length)
+    #
+    # #fill width
+    #  s = 0
+    #  for i in all_ids_width:
+    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #      m_width[s,:] = flat
+    #      s += 1
+    #
+    #      np.save('m_width', m_width)
+    #
+
+     return m_hollow, m_blume, m_rost_head, m_rost_body, m_bended, m_violet #,m_length, m_width
 
 get_images(ids_hollow)
