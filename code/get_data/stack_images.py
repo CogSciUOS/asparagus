@@ -57,7 +57,7 @@ def stack_images(file_paths, file_names, path_out):
     # number of asparagus pieces
     n = int(len(file_paths)/3)
     print(n)
-    # use a counter to save the images in subfolders
+    # use a counter to save the images in subfolders - only for large amount of images
     count = 0
     idx = 0
     for i in range(0, len(file_paths), 3):
@@ -68,7 +68,7 @@ def stack_images(file_paths, file_names, path_out):
         df_b = np.array(img_b)
         img_c = imread(file_paths[i+2])
         df_c = np.array(img_c)
-        df_concat = np.concatenate((df_a, df_b, df_c), axis = 2)
+        df_concat = np.concatenate((df_a, df_b, df_c), axis = 1)
         # get the filename of the image to save the stacked image with the same number
         filename = file_names[i]
         # remove _a.png and add _stacked instead
@@ -81,6 +81,7 @@ def stack_images(file_paths, file_names, path_out):
         # save the stacked images
         np.save(save_to, df_concat)
         count += 1
+        print(count)
         # create a new folder after 1000 images so the folders don't get to big
         #if count%1000 == 0:
         #    idx += 1
@@ -90,7 +91,7 @@ if __name__ == '__main__':
 
     args = typecast(sys.argv[1:])
     #path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs'
-    #path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images/'
+    #path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images_horizontal/'
     path_in = args[0]
     path_out = args[1]
     file_paths, file_names = get_files(path_in)
