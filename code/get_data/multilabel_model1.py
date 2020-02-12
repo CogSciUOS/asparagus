@@ -36,7 +36,7 @@ if __name__ == '__main__':
     labels = label_files[RELEVANT_COLUMNS].fillna(value = int(2))
     labels = labels.astype('int32')
     labels_train = labels.iloc[:12000]
-    labels_test = labels.iloc[12000]
+    labels_test = labels.iloc[12000:]
     # hopefully this will create a column 'label' with all the other columns in a list
     labels_train['label'] = labels_train.values.tolist()
     print(labels_train.head())
@@ -151,4 +151,4 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_model1.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_model2.png')
