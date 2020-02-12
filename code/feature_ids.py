@@ -30,13 +30,12 @@ the asparagus a class'''
 import pandas as pd
 import numpy as np
 import os
-#from grid import*
+from grid import*
+from submit_pca import*
 import sys
 import shutil
 import itertools
 import cv2
-
-ids_hollow = []
 
 def get_asparagus_ids(PATH):
     '''
@@ -165,12 +164,6 @@ def get_asparagus_ids(PATH):
     return ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
 #    print(len(ids_hollow))
 
-# get image_size:
-#img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
-#print(img.shape) (1340, 364, 3)
-
-
-
 def get_images(ids_hollow):
     #, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
      '''
@@ -188,7 +181,7 @@ def get_images(ids_hollow):
      M_width
      '''
      #get all ids
-     ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small = get_asparagus_ids("combined_new.csv")
+     ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small = get_asparagus_ids(path_features)
     #initialize all goal matrices
      # image shape is (1340, 364, 3)
      img_shape = (1340, 364, 3)
@@ -242,7 +235,7 @@ def get_images(ids_hollow):
      #fill m_hollow
      s = 0
      for i in all_ids_hollow:
-        img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+        img = cv2.imread(path_to_imgs+str(i)+'_b.png')
         #print(img.shape)
         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
         m_hollow[s,:] = flat
@@ -325,4 +318,16 @@ def get_images(ids_hollow):
 
      return m_hollow#, m_blume, m_rost_head, m_rost_body, m_bended, m_violet #,m_length, m_width
 
-get_images(ids_hollow)
+
+if __name__ == '__main__':
+    args = typecast(sys.argv[1:])
+    path_to_imgs = args[0]
+    path_features = args[1]
+
+    ids_hollow = []
+
+    # get image_size:
+    #img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
+    #print(img.shape) (1340, 364, 3)
+
+    get_images(ids_hollow)

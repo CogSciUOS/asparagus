@@ -3,16 +3,16 @@ this is a new method for greyscale rgb, combinig the first method with the last 
 that did not work for rgb images
 '''
 
-from IPython.display import Image, display
+#from IPython.display import Image, display
 import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
+#import pandas as pd
+#import seaborn as sns
 import cv2
 import numpy as np
-import matplotlib.gridspec as grid
-import wx #package wx
-from PIL import Image
-import matplotlib.image as mpimg
+#import matplotlib.gridspec as grid
+#import wx #package wx
+#from PIL import Image
+#import matplotlib.image as mpimg
 from scipy.spatial.distance import cdist
 
 
