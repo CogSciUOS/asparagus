@@ -40,7 +40,7 @@ if __name__ == '__main__':
     
     path_to_imgs = args[0]
     path_to_csv = args[1]
-    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background'
+    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_no_background'
     # read ids from combined.csv
     ids = get_asparagus_ids(path_to_csv)
     print('#ids: ' + str(len(ids)))
