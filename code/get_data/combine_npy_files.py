@@ -27,7 +27,7 @@ def combine(PATH):
         if i%500==0:
             print(i)
     # save dataset
-    path_out = PATH + "data_horizontal.npy"
+    path_out = PATH + "data_horizontal_noB.npy"
     np.save(path_out, data)
 
 if __name__ == '__main__':
