@@ -151,4 +151,4 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_model3.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_model2.png')
