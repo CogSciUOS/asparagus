@@ -74,7 +74,7 @@ if __name__ == '__main__':
     ################################################################################
     input_shape_img = (train_img.shape[1], train_img.shape[2], train_img.shape[3])
     batch_size = 32
-    num_epochs = 100
+    num_epochs = 50
     num_classes = 6
     conv_size = 32
 
@@ -103,14 +103,14 @@ if __name__ == '__main__':
     ################################################################################
     # Train the model
     ################################################################################
-    early_stop = EarlyStopping(monitor='loss', patience=5, verbose=1)
+    #early_stop = EarlyStopping(monitor='loss', patience=5, verbose=1)
                                                 
     history = model.fit(train_img, train_lbl,
                             batch_size=batch_size,
                             epochs=num_epochs,
                             verbose=1,
-                            validation_split=0.1,
-                            callbacks=[early_stop])
+                            validation_split=0.1)
+                            #callbacks=[early_stop])
 
     ################################################################################
     # Check the history
