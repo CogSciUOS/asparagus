@@ -19,25 +19,18 @@ def get_files(PATH):
     '''
     all_files = []
     for subdir, dirs, files in os.walk(PATH):
-        for file in files[:2]:
+        for file in files[:1]: # take 1 image from each folder aka each category --> change this to 100 (or more) later
             filepath = subdir + '/' + file
             if filepath.endswith(".JPEG"):
                 all_files.append(filepath)
     return all_files
 
-# def load_images(PATH):
-#     files = os.listdir()
-
-        
-#         img = plt.imread(PATH + )
-#     return data
-
-# def preprocess_img(img):
-#     '''
-#     resize, convert to Lab
-#     '''
-    
-#     return processed_img
+def preprocess(filepath):
+    rgb = cv2.imread(filepath)
+    print(rgb.shape)
+    rgb_crop = cv2.resize(rgb, dsize = (224,224,3), interpolation = cv2.INTER_AREA)
+    lab = cv2.cvtColor(rgb_crop, code = CV_RGB2Lab)
+    return lab
 
 
 if __name__ == '__main__':
@@ -45,6 +38,9 @@ if __name__ == '__main__':
 
     PATH = '/net/projects/data/ImageNet/ILSVRC2012/train/'
     files = get_files(PATH)
-    print(files)
     print(len(files))
+    labs = []
+    for file in files:
+        labs.append(preprocess(file))
+    print(len(labs))
 
