@@ -43,7 +43,7 @@ def get_files(PATH):
 if __name__ == '__main__':
     #args = typecast(sys.argv[1:])
 
-    PATH = 'Z:/net/projects/data/ImageNet/ILSVRC2012/train'
+    PATH = '/net/projects/data/ImageNet/ILSVRC2012/train'
     files = get_files(PATH)
     print(files)
 
