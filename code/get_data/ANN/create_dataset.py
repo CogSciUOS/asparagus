@@ -21,7 +21,7 @@ def get_files(PATH):
     for subdir, dirs, files in os.walk(PATH):
         for file in files[:1]:
             filepath = subdir + '/' + file
-            if filepath.endswith(".jpeg"):
+            if filepath.endswith(".JPEG"):
                 all_files.append(filepath)
     return all_files
 
@@ -43,7 +43,8 @@ def get_files(PATH):
 if __name__ == '__main__':
     #args = typecast(sys.argv[1:])
 
-    PATH = '/net/projects/data/ImageNet/ILSVRC2012/train'
+    PATH = '/net/projects/data/ImageNet/ILSVRC2012/train/'
     files = get_files(PATH)
     print(files)
+    print(len(files))
 
