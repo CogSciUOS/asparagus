@@ -19,7 +19,7 @@ def get_files(PATH):
     '''
     all_files = []
     for subdir, dirs, files in os.walk(PATH):
-        for file in files[:1]:
+        for file in files[:2]:
             filepath = subdir + '/' + file
             if filepath.endswith(".JPEG"):
                 all_files.append(filepath)
