@@ -206,8 +206,7 @@ def load_data(folder):
        Path to annotationfolder can be overwritten by specifying the ANNOTATION_PATH variable.
 
     Arguments:
-        filename_cat_1(string): filename of annotationfile in annotationfolder
-        filename_cat_2(string): filename of annotationfile in annotationfolder
+        folder: name of annotationfolder
 
     Returns:
         data(dataframe)
@@ -237,11 +236,11 @@ def load_data(folder):
 
             outf.write('\n'.join(lines) + '\n')
 
-    data = load_annotation("concatenated_annotations_with_class.csv")
-    data = pd.get_dummies(data, columns=["Class"], prefix=['Class'])
-    data = data.reset_index(drop=True)
+    raw_data = load_annotation("concatenated_annotations_with_class.csv")
+    dummy_data = pd.get_dummies(raw_data, columns=["Class"], prefix=['Class'])
+    dummy_data = dummy_data.reset_index(drop=True)
 
-    return data
+    return raw_data, dummy_data
 
 
 def main():
@@ -249,7 +248,7 @@ def main():
     args = read_arguments()
 
     # load the data from the folder
-    data = load_data(args.foldername)
+    raw_data, data = load_data(args.foldername)
 
     # Labels
     labels = [col for col in data if col.startswith('Class')]
