@@ -14,7 +14,7 @@ img_shape = (1340, 364, 3)
 def calculate_PC(m_hollow):
 
     #load data
-    m_hollow = np.load('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_hollow.npy')
+    m_hollow = np.load('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_hollow.npy')
     print(m_hollow.shape) # das passt soweit
     #show 2 images of the data
     #plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
@@ -80,8 +80,8 @@ def calculate_PC(m_hollow):
 
     return hollow_space, m_hollow_std, eig_hollow_used
 
-bla = []
-calculate_PC(bla)
+#bla = []
+#calculate_PC(bla)
 
 
     # def recognize_face(face, eigenfaces, mean_face, face_db):
@@ -139,3 +139,19 @@ calculate_PC(bla)
     #     # END SOLUTION
     #
     #     return index
+
+if __name__ == '__main__':
+
+    bla = []
+    calculate_PC(bla)
+    # args = typecast(sys.argv[1:])
+    # path_to_imgs = args[0]
+    # path_features = args[1]
+    # 
+    # ids_hollow = []
+    #
+    # # get image_size:
+    # #img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
+    # #print(img.shape) (1340, 364, 3)
+    #
+    # get_images(ids_hollow)
