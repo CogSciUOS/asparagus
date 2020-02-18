@@ -51,8 +51,8 @@ def calculate_PC(m_hollow):
     EigVec = EigVec[:,order]
 
     #calculate principle components
-    PC = EigVec.T @ m_hollow_std
-    print(PC.shape)
+    PC_hollow = EigVec.T @ m_hollow_std
+    print(PC_hollow.shape)
 
     #plot the first 10 eigenvalues to get an overview
     x = range(10)
@@ -69,7 +69,7 @@ def calculate_PC(m_hollow):
     num_eigenvectors = 4 #lets see how many good ones we have
 
     #das meinte sophia, wäre dann quasi doe überbleibenden PCs, aber man kann das auch anders berechenen, vielleicht liegt es daran
-    eig_hollow_used = PC[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
+    eig_hollow_used = PC_hollow[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
 
     print("Eig_hollow_used: \n", eig_hollow_used.shape) #(4, 1463280)
 
@@ -79,8 +79,9 @@ def calculate_PC(m_hollow):
     np.save('hollow_space',hollow_space)
     np.save('m_hollow_std', m_hollow_std)
     np.save('eig_hollow_used', eig_hollow_used)
+    np.save('PC_hollow', PC_hollow)
 
-    return hollow_space, m_hollow_std, eig_hollow_used
+    return hollow_space, m_hollow_std, eig_hollow_used, PC_hollow
 
 #bla = []
 #calculate_PC(bla)
