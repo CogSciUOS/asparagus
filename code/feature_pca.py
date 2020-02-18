@@ -71,9 +71,9 @@ def calculate_PC(m_hollow):
     #das meinte sophia, wäre dann quasi doe überbleibenden PCs, aber man kann das auch anders berechenen, vielleicht liegt es daran
     eig_hollow_used = PC[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
 
-    print("Eig_hollow_used: \n", eig_hollow_used.shape)
+    print("Eig_hollow_used: \n", eig_hollow_used.shape) #(4, 1463280)
 
-    hollow_space = (m_hollow - m_hollow_std) @ eig_hollow_used.T
+    hollow_space = (m_hollow - m_hollow_std) @ eig_hollow_used.T #(400, 4)
     print("dim aspa_space: \n" , hollow_space.shape)
 
     np.save('hollow_space',hollow_space)
