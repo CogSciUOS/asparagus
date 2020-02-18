@@ -68,7 +68,9 @@ def calculate_PC(m_hollow):
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
-    eig_hollow_used = PC[:,:num_eigenvectors] #Eigenvektoren, die wir benutzen
+    #das meinte sophia, wäre dann quasi doe überbleibenden PCs, aber man kann das auch anders berechenen, vielleicht liegt es daran
+    eig_hollow_used = PC[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
+
     print("Eig_hollow_used: \n", eig_hollow_used.shape)
 
     hollow_space = (m_hollow - m_hollow_std) @ eig_hollow_used.T
@@ -147,7 +149,7 @@ if __name__ == '__main__':
     # args = typecast(sys.argv[1:])
     # path_to_imgs = args[0]
     # path_features = args[1]
-    # 
+    #
     # ids_hollow = []
     #
     # # get image_size:
