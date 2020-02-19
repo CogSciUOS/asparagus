@@ -7,4 +7,4 @@ if __name__ == '__main__':
     environment = 'source activate dataSet'
     #env = 'source stack/bin/activate'
 
-    submit_script(path, args)
+    submit_script(path, args, environment)
