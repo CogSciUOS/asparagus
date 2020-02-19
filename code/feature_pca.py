@@ -88,7 +88,7 @@ np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/aspa
 np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used'), eig_hollow_used)
 np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow'), PC_hollow)
 
-    return hollow_space, m_hollow_std, eig_hollow_used, PC_hollow
+    #return hollow_space, m_hollow_std, eig_hollow_used, PC_hollow
 
 #bla = []
 #calculate_PC(bla)
