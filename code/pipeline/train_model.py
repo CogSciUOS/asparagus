@@ -73,28 +73,7 @@ def load_model(model_module, input_shape=None):
     return model_util.create_model(input_shape)
 
 
-def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
-    """Using a PCA to visualize the result
-
-    Arguments:
-        x_train(array-like): x data values training
-        x_test(array-like): x data values test
-        y_train(array-like): y data values training
-        y_test(array-like): y data values test
-        y_pred(array-like): data values that were predicted
-    """
-
-    """
-    print()
-    print("Classification report (one hot encoding):")
-    print(classification_report(y_test, y_pred))
-    """
-
-    print("Classification report (encoding with labels):")
-    print(classification_report(y_test.argmax(
-        axis=1), y_pred.argmax(axis=1), target_names=labels))
-
-    # confusion matrix
+def conf_matrix(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
     # The matrix output by sklearn's confusion_matrix() is such that
     # C_{i, j} is equal to the number of observations known to be in group i but predicted to be in group j
     conf_mat = confusion_matrix(y_test.argmax(axis=1), y_pred.argmax(axis=1))
@@ -102,7 +81,7 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
         axis=1), y_pred.argmax(axis=1), normalize='true')
 
     nclass_labels = [l[l.find('_'):].replace('_', ' ') for l in labels]
-    fig, ax = plt.subplots(1, 2, figsize=(16, 9))
+    fig, ax = plt.subplots(2, 1, figsize=(20, 30))
     fig.suptitle(f'Recall {model_name}')
 
     ax[0].set_title('Absolute recall')
@@ -117,10 +96,38 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
     ax[1].set_xlabel('True label')
     ax[1].set_ylabel('Predicted label')
 
+    return fig, ax
+
+
+def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
+    """Using a PCA to visualize the result
+
+    Arguments:
+        x_train(array-like): x data values training
+        x_test(array-like): x data values test
+        y_train(array-like): y data values training
+        y_test(array-like): y data values test
+        y_pred(array-like): data values that were predicted
+    """
+
+    # Classification report
+    """
+    print()
+    print("Classification report (one hot encoding):")
+    print(classification_report(y_test, y_pred))
+    """
+    print("Classification report (encoding with labels):")
+    print(classification_report(y_test.argmax(
+        axis=1), y_pred.argmax(axis=1), target_names=labels))
+
+    # Confusion Matrix
+    fig, ax = conf_matrix(x_train, x_test, y_train, y_test,
+                          y_pred, labels, model_name)
     # fig.savefig('confusion_recall.png', dpi=600)
     plt.show()
 
     # PCA
+    # TODO: put this into another function
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
     xy_train = pca.transform(x_train)
     xy_test = pca.transform(x_test)
@@ -220,7 +227,7 @@ def load_data(folder):
             if not infile.is_file():
                 continue
             infile_name = infile.name[infile.name.index("_"):]
-            infile_cat = infile_name[7:-4]
+            infile_cat = infile_name[7: -4]
             lines = infile.read_text().splitlines()
 
             if header_written:
@@ -257,7 +264,7 @@ def main():
     log.info(len(labels))
 
     log.info('Performing train/test-split')
-    x = data.iloc[:, :-len(labels)].values
+    x = data.iloc[:, : -len(labels)].values
     # set Label as y
     y = data[labels].values
 
