@@ -21,6 +21,7 @@ def submit_script(scriptpath, args,  mem = "16G", cuda_cores = 0, jobname = "job
         args_string += " "
     args_string = args_string[:-1]
 
+# qsub -V übernimmt aktiviertes environment
     os.system('qsub -l mem='+ mem +' -l cuda_cores='+ str(cuda_cores)+" <<'toggle_here_document'\n"#use heredocument instead of loading a shell script from file
                 + "#!/bin/bash \n"
                 + "#$ -N " + jobname +"\n"
@@ -29,7 +30,7 @@ def submit_script(scriptpath, args,  mem = "16G", cuda_cores = 0, jobname = "job
                 + "date \n"
                 + "echo 'Host' \n"
                 + "hostname \n"
-            #    + environment + " \n"
+                + environment + " \n"
                 + 'python3 ' + scriptpath + " " + args_string + "\n"
                 + "echo 'End-time'\n"
                 + "date \n"
