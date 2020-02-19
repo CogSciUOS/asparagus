@@ -60,6 +60,8 @@ def calculate_PC(m_hollow):
     plt.plot(x,EigVal[:10])
     plt.show()
 
+
+#  wir müssen rgb gbr umrechnung bedenken! - hint [,,::-1]
     #look at the first 10 principle components
     #for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
     #    test = PC[i,:].reshape(img_shape)
