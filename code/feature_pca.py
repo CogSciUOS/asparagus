@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import cv2
 import numpy as np
 from scipy.spatial.distance import cdist
-
+import os
 
 '''start with the m_hollow'''
 
@@ -78,10 +78,10 @@ def calculate_PC(m_hollow):
     hollow_space = (m_hollow - m_hollow_std) @ eig_hollow_used.T #(400, 4)
     print("dim aspa_space: \n" , hollow_space.shape)
 
-    np.save('hollow_space',hollow_space)
-    np.save('m_hollow_std', m_hollow_std)
-    np.save('eig_hollow_used', eig_hollow_used)
-    np.save('PC_hollow', PC_hollow)
+    np.save('net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_hollow_space.npy',hollow_space)
+    np.save('net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_hollow_std', m_hollow_std)
+    np.save('net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/eig_hollow_used', eig_hollow_used)
+    np.save('net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/PC_hollow', PC_hollow)
 
     return hollow_space, m_hollow_std, eig_hollow_used, PC_hollow
 
