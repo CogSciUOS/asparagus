@@ -51,8 +51,8 @@ def calculate_PC(m_hollow):
     EigVec = EigVec[:,order]
 
     #calculate principle components
-    PC = EigVec.T @ m_hollow_std
-    print(PC.shape)
+    PC_hollow = EigVec.T @ m_hollow_std
+    print(PC_hollow.shape)
 
     #plot the first 10 eigenvalues to get an overview
     x = range(10)
@@ -68,17 +68,20 @@ def calculate_PC(m_hollow):
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
-    eig_hollow_used = PC[:,:num_eigenvectors] #Eigenvektoren, die wir benutzen
-    print("Eig_hollow_used: \n", eig_hollow_used.shape)
+    #das meinte sophia, wäre dann quasi doe überbleibenden PCs, aber man kann das auch anders berechenen, vielleicht liegt es daran
+    eig_hollow_used = PC_hollow[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
 
-    hollow_space = (m_hollow - m_hollow_std) @ eig_hollow_used.T
+    print("Eig_hollow_used: \n", eig_hollow_used.shape) #(4, 1463280)
+
+    hollow_space = (m_hollow - m_hollow_std) @ eig_hollow_used.T #(400, 4)
     print("dim aspa_space: \n" , hollow_space.shape)
 
     np.save('hollow_space',hollow_space)
     np.save('m_hollow_std', m_hollow_std)
     np.save('eig_hollow_used', eig_hollow_used)
+    np.save('PC_hollow', PC_hollow)
 
-    return hollow_space, m_hollow_std, eig_hollow_used
+    return hollow_space, m_hollow_std, eig_hollow_used, PC_hollow
 
 #bla = []
 #calculate_PC(bla)
@@ -147,7 +150,7 @@ if __name__ == '__main__':
     # args = typecast(sys.argv[1:])
     # path_to_imgs = args[0]
     # path_features = args[1]
-    # 
+    #
     # ids_hollow = []
     #
     # # get image_size:
