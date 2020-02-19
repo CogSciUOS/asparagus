@@ -9,8 +9,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
 
+from io import StringIO
+from pathlib import Path
+from skimage.io import imread
+
 from os import listdir
 from os.path import isfile, join
+
 
 """
 # Visualizing the results of multiple models
@@ -29,12 +34,11 @@ labels = [col for col in dummy_data if col.startswith('Class')]
 if st.checkbox('Show training dataframe'):
     dummy_data
 
-"We want to learn the following labels: ", labels
 "There are", len(labels), "labels."
-
+"We want to learn the following labels: "
 # draw histogram to see how classes are distributed
-# TODO, move this to multple models
 st.bar_chart(raw_data['Class'].value_counts())
+
 
 x = dummy_data.iloc[:, :-len(labels)].values
 # set Label as y
@@ -51,7 +55,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)
 
 
 """
-# Choose the model that you want to train
+## Choose the model that you want to train
 Right now there is a random forest model and a multilayer preceptron.
 """
 
@@ -70,7 +74,7 @@ model_option = st.selectbox(
 model = tm.load_model(model_option, input_shape=x_train.shape[1:])
 
 
-'## Fitting model'
+'## Fitting the model'
 
 try:
     # if keras model, make several epochs
@@ -99,20 +103,75 @@ st.write(pd.DataFrame(classification_report(y_test.argmax(axis=1),
                                             y_pred.argmax(axis=1), target_names=labels, output_dict=True)).transpose())
 
 
-"""### Examples
-Looking at the first prediction"""
+kappa_img_folder = "kappa_images"
+class_folders = [class_folder for class_folder in listdir(
+    kappa_img_folder)]
+class_folders.sort()
 
-st.write("feature vector", str(y_test[0]),
-         " has prediction ", str(y_pred[0].round(3)))
+
+"### Confusion Matrix"
+if st.checkbox('Show confusion matrix'):
+    conf_matrix, ax = tm.conf_matrix(
+        x_train, x_test, y_train, y_test, y_pred, labels, model_option)
+    st.pyplot()
+
+
+""" ## Inspecting specific asparagus pieces
+### Which image folder do you want to have a look at?"""
+
+img_option = st.selectbox(
+    '',
+    class_folders)
+
+
+number_img_folder = len(
+    [image for image in listdir(kappa_img_folder+"/"+img_option+"/")])
+st.write("number of images in ", img_option, "folder is:", number_img_folder)
+
+
+"### Select data"
+
+# image_dir = Path(st.text_input('Image directory', 'images'))
+# if not image_dir.is_dir():
+#    st.error('Please select a valid image directory.')
+
+
+def load_sample(row):
+    "#### Selected sample"
+    st.dataframe(pd.DataFrame(row).transpose())
+
+    st.write('#### Images (a, b, c)')
+
+    path = kappa_img_folder+"/"+img_option+"/"
+    st.write(path)
+    images = [img for img in listdir(path)]
+    images.sort()
+
+    # this is cheated but there are no filename infos from the label app
+    # so always take pairs of three
+    images_3 = images[sample_idx*3:sample_idx*3+3].copy()
+    st.write(images_3)
+    images_3_imread = [imread(path+img) for img in images_3]
+
+    # stack and display 3 images
+    st.image(np.hstack([np.squeeze(i)
+                        for i in images_3_imread]), use_column_width=True)
+
+
+# I am missing the filenames here
+# so this is not totally correct and only for visualization
+df = dummy_data
+
+sample_idx = st.slider('Sample', 0, int(number_img_folder / 3.0), value=0)
+
+load_sample(df.iloc[sample_idx])
+
+
+"### Examples"
+"Looking at the", sample_idx, "th prediction"
+
+st.write("feature vector", str(y_test[sample_idx]),
+         " has prediction ", str(y_pred[sample_idx].round(3)))
 
 st.write("Use argmax to get labels: sample label", y_test.argmax(axis=1)[
-         0], " has prediction sample label", y_pred.argmax(axis=1)[0])
-
-
-# visualize predictions with images
-
-
-# show corresponding annotations to image
-
-
-# show corresponding prediction to image if it is in test split
+         sample_idx], " has prediction sample label", y_pred.argmax(axis=1)[sample_idx])
