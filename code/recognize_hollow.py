@@ -60,7 +60,7 @@ def find_integer(index):
     n_index = 400
     if index <= 199:
         n_index = 0
-    elif:
+    else:
         n_index = 1
     print('n_index: \n', n_index)
     return n_index
