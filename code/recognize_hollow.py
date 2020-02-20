@@ -3,6 +3,11 @@ first done for hollow
 '''
 
 from scipy.spatial.distance import cdist
+import cv2
+from grid import*
+from submit_recognize import*
+import glob
+import numpy as np
 
 img_shape = (1376, 1040, 3)
 
@@ -82,14 +87,13 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
 
     img_shape = imgs[0].shape
     plt.figure(figsize=(12, 12))
-    plt.suptitle(
-        'Face recognition based on {} principal components'.format(num_eigenfaces))
+    plt.suptitle('Asparagus recognition based on {} principal components'.format(num_eigenfaces))
     plt.gray()
     for j, img in enumerate(imgs):
 
         # find the best match in the eigenface database
-        winner = recognize_face(
-            img.reshape(np.prod(img_shape)), eigenfaces, mean_face, face_db)
+        winner = recognize_face(img.reshape(np.prod(img_shape)), path_to_PC, path_to_m_std, path_to_space)
+        winner = find_integer(winner)
         name_label = labels[j][5:7]
         name_winner = train_labels[winner][5:7]
 
@@ -104,8 +108,27 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.title(('*' if name_label != name_winner else '') + name_winner)
     plt.show()
 
-#train_names = [200*hollow and 200* not_hollow]
-labels = ['hollow', 'not_hollow']
 
-regocnize(test_img, PC_hollow, m_hollow_std, hollow_space)
-show_recognition_results(train_imgs, labels, raw_ims, train_names, num_eigenvectors, eig_asparagus_used, MB_matrix_mean, asparagus_space)
+if __name__ == '__main__':
+    args = typecast(sys.argv[1:])
+    path_to_input = args[0]
+    path_to_PC = args[1]
+    path_to_m_std = args[2]
+    path_to_space = args[3]
+    path_to_eigenasparagus = args[4]
+    path_to_m = args[5]
+
+    #train_names = [200*hollow and 200* not_hollow]
+    labels = ['hollow', 'not_hollow']
+    num_eigenvectors = 4
+    #read in some test data
+    test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
+    test_img = [cv2.imread(file) for file in glob.glob("path_to_input*.png")]
+
+    train_names_1 = Array(200).fill('hollow')
+    train_names_2 = Array(200).fill('unhollow')
+    train_names = np.concatenate((train_names1,train_names_2), axis = 0)
+    print(train_names.shape)
+
+
+    show_recognition_results(test_img, labels, path_to_m, train_names, num_eigenvectors, path_to_eigenasparagus, path_to_m_std, path_to_space)
