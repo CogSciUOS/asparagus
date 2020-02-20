@@ -34,6 +34,7 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
 
     # center the face
     print('input_shapr \n', input.shape)
+    print('mean asps \n', mean_asparagus.shape)
     centered = input - mean_asparagus
 
     # and project it into the eigenface space
