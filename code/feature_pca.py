@@ -148,7 +148,6 @@ def calculate_PC(m_hollow):
     #     # END SOLUTION
     #
     #     return index
-
 if __name__ == '__main__':
 
     bla = []
