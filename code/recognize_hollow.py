@@ -32,8 +32,6 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     """
     index = -1
 
-    input = input.reshape()
-
     # center the face
     print('input_shapr \n', input.shape)
     centered = input - mean_asparagus
