@@ -14,4 +14,4 @@ if __name__ == '__main__':
     environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
     #env = 'source stack/bin/activate'
 
-    submit_script(path, path_to_PC, path_to_input, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m, args, environment)
+    submit_script(path, args, environment)
