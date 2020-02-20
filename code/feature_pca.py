@@ -83,10 +83,10 @@ def calculate_PC(m_hollow):
     # np.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/eig_hollow_used.npy', eig_hollow_used)
     # np.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/PC_hollow.npy', PC_hollow)
 
-np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_space'),hollow_space)
-np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_std'), m_hollow_std)
-np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used'), eig_hollow_used)
-np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow'), PC_hollow)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_space'),hollow_space)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_std'), m_hollow_std)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used'), eig_hollow_used)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow'), PC_hollow)
 
     #return hollow_space, m_hollow_std, eig_hollow_used, PC_hollow
 
