@@ -122,8 +122,12 @@ if __name__ == '__main__':
     labels = ['hollow', 'not_hollow']
     num_eigenvectors = 4
     #read in some test data
-    test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
-    test_img = [cv2.imread(file) for file in glob.glob("path_to_input*.png")]
+    #test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
+    test_img = np.zeros((10, img_shape[0],img_shape[1],img_shape[2]))
+    for i in range(test_img[0]):
+        img = cv2.imread(path_to_input+str(s+i)+'_b.png')
+        test_img[i,:,:,:] = img
+        #print(raw_ims.shape)
     print(test_img.shape)
 
     train_names_1 = ["hollow" for x in range(200)]
