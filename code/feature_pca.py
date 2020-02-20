@@ -88,7 +88,7 @@ def calculate_PC(m_hollow):
     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used'), eig_hollow_used)
     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow'), PC_hollow)
 
-    # return
+    return
 
 #bla = []
 #calculate_PC(bla)
