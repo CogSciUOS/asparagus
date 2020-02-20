@@ -127,7 +127,7 @@ if __name__ == '__main__':
 
     train_names_1 = ["hollow" for x in range(200)]
     train_names_2 = ["unhollow" for x in range(200)]
-    train_names = np.concatenate((train_names1,train_names_2), axis = 0)
+    train_names = np.concatenate((train_names_1,train_names_2), axis = 0)
     print(train_names.shape)
 
 
