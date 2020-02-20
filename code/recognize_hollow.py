@@ -8,6 +8,7 @@ from grid import*
 from submit_recognize import*
 import glob
 import numpy as np
+import matplotlib.pyplot as plt
 
 img_shape = (1340,364,3)
 
