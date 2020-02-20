@@ -87,6 +87,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     """
 
     img_shape = imgs[0].shape
+    print('neue Image_shape: \n', img_shape)
     plt.figure(figsize=(12, 12))
     plt.suptitle('Asparagus recognition based on {} principal components'.format(num_eigenfaces))
     plt.gray()
