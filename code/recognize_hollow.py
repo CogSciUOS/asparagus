@@ -9,7 +9,7 @@ from submit_recognize import*
 import glob
 import numpy as np
 
-img_shape = (1376, 1040, 3)
+img_shape = (1340,364,3)
 
 def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     """
