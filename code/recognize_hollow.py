@@ -124,7 +124,7 @@ if __name__ == '__main__':
     #read in some test data
     #test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
     test_img = np.zeros((10, img_shape[0],img_shape[1],img_shape[2]))
-    for i in range(test_img[0]):
+    for i in range(10):
         img = cv2.imread(path_to_input+str(s+i)+'_b.png')
         test_img[i,:,:,:] = img
         #print(raw_ims.shape)
