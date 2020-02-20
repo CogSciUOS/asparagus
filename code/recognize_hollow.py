@@ -93,7 +93,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     for j, img in enumerate(imgs):
 
         # find the best match in the eigenface database
-        winner = recognize_face(img.reshape(np.prod(img_shape)), path_to_PC, path_to_m_std, path_to_space)
+        winner = recognize(img.reshape(np.prod(img_shape)), path_to_PC, path_to_m_std, path_to_space)
         winner = find_integer(winner)
         name_label = labels[j][5:7]
         name_winner = train_labels[winner][5:7]
