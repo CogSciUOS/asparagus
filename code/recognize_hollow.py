@@ -32,7 +32,8 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     """
     index = -1
 
-    # BEGIN SOLUTION
+    input = input.reshape()
+
     # center the face
     print('input_shapr \n', input.shape)
     centered = input - mean_asparagus
@@ -97,7 +98,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
 
         # find the best match in the eigenface database
         #das reshhapen funktioniert hier leider nicht!!
-        winner = recognize(img.reshape(np.prod(img_shape)), path_to_PC, path_to_m_std, path_to_space)
+        winner = recognize(np.reshape(img,newshape = (img_shape[0],img_shape[1]*img_shape[2])), path_to_PC, path_to_m_std, path_to_space)
         winner = find_integer(winner)
         name_label = labels[j][5:7]
         name_winner = train_labels[winner][5:7]
