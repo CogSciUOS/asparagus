@@ -117,11 +117,11 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
     path_to_input = args[0]
-    path_to_PC = args[1]
-    path_to_m_std = args[2]
-    path_to_space = args[3]
-    path_to_eigenasparagus = args[4]
-    path_to_m = args[5]
+    path_to_PC = np.load(args[1])
+    path_to_m_std = np.load(args[2])
+    path_to_space = np.load(args[3])
+    path_to_eigenasparagus = np.load(args[4])
+    path_to_m = np.load(args[5])
 
     #train_names = [200*hollow and 200* not_hollow]
     labels = ['hollow', 'not_hollow']
