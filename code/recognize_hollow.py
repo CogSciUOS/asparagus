@@ -124,6 +124,7 @@ if __name__ == '__main__':
     #read in some test data
     test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
     test_img = [cv2.imread(file) for file in glob.glob("path_to_input*.png")]
+    print(test_img.shape)
 
     train_names_1 = ["hollow" for x in range(200)]
     train_names_2 = ["unhollow" for x in range(200)]
