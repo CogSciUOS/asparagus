@@ -125,8 +125,8 @@ if __name__ == '__main__':
     test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
     test_img = [cv2.imread(file) for file in glob.glob("path_to_input*.png")]
 
-    train_names_1 = Array(200).fill('hollow')
-    train_names_2 = Array(200).fill('unhollow')
+    train_names_1 = ["hollow" for x in range(200)]
+    train_names_2 = ["unhollow" for x in range(200)]
     train_names = np.concatenate((train_names1,train_names_2), axis = 0)
     print(train_names.shape)
 
