@@ -38,13 +38,13 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     centered = input - mean_asparagus
 
     # and project it into the eigenface space
-    projected = eigenasparagus.T @ centered
+    projected = eigenasparagus @ centered.T
     print(projected.shape) #(400, 400)
     print(asparagus_space.shape)
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
-    distances = cdist(asparagus_space, projected[:, None])
+    distances = cdist(asparagus_space, projected)
     index = distances.argmin()
 
     # END SOLUTION
