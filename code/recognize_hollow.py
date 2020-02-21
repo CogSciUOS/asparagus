@@ -38,8 +38,9 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     centered = input - mean_asparagus
 
     # and project it into the eigenface space
-    projected = eigenasparagus @ centered.T
-    print(projected.shape)
+    projected = eigenasparagus.T @ centered
+    print(projected.shape) #(400, 400)
+    print(asparagus_space.shape)
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
