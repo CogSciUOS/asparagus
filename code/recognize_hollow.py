@@ -40,7 +40,7 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     print('eigenasparagus \n', eigenasparagus.shape)
 
     # and project it into the eigenface space
-    projected = np.matmul(centered, eigenasparagus)#eigenasparagus @ centered.T
+    projected = np.matmul(centered, eigenasparagus.T)#eigenasparagus @ centered.T
     print(projected.shape) #(400, 400)
     print(asparagus_space.shape)
 
