@@ -46,7 +46,7 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
-    distances = cdist(asparagus_space, projected[None, :])
+    distances = cdist(asparagus_space, projected)
     index = distances.argmin()
 
     # END SOLUTION

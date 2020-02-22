@@ -152,7 +152,7 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
     centered = face - MB_matrix_mean
 
     #centered = centered.flatten()
-    print(centered.shape)#(1340, 1092),durch flatten (1463280,)
+    print('centered shape: \n',centered.shape)#(1340, 1092),durch flatten (1463280,)
     print(eigenfaces.shape) #(1463280, 130)
 
     # and project it into the eigenface space
