@@ -31,7 +31,7 @@ import pandas as pd
 import numpy as np
 import os
 from grid import*
-from submit_pca import*
+from submit_feature_ids import*
 import sys
 import shutil
 import itertools
