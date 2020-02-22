@@ -165,6 +165,7 @@ def get_asparagus_ids(PATH):
 #    print(len(ids_hollow))
 
 def get_images(ids_hollow):
+
     #, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
      '''
      Get all images in the directories,
@@ -255,15 +256,15 @@ def get_images(ids_hollow):
     # np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_blume'),m_blume)
     #
     #  #fill m_rost_head
-    s = 0
-    for i in all_ids_rost_head:
+     s = 0
+     for i in all_ids_rost_head:
          img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
          #print(img.shape)
          flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
          m_rost_head[s,:] = flat
          s += 1
     #
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_rost_head'),m_rost_head)
+     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_rost_head'),m_rost_head)
     #
     #  #fill m_rost_body
     #  s = 0
