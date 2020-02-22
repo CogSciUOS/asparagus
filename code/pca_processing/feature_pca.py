@@ -63,7 +63,7 @@ def calculate_PC(matrix):
     np.linspace(0,130, 1)
     plt.plot(x,EigVal[:10])
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/eigenvalues.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/eigenvalues.png')
 
 
     #  wir müssen rgb gbr umrechnung bedenken! - hint [,,::-1]
@@ -72,7 +72,7 @@ def calculate_PC(matrix):
         test = PC[i,:].reshape(img_shape)
         plt.imshow(test)
         plt.show()
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/pca_'+str(i)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/pca_'+str(i)+'.png')
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
@@ -85,10 +85,10 @@ def calculate_PC(matrix):
     print("dim aspa_space: \n" , space.shape)
 
     #save the data
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','m_rost_head_space'),space)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','m_rost_head_std'), matrix_std)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','eig_rost_head_used'), eig_used)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','PC_rost_head'), PC)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body','m_rost_body_space'),space)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body','m_rost_body_std'), matrix_std)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body','eig_rost_body_used'), eig_used)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body','PC_rost_body'), PC)
 
 
 #matrix = np.load('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy')
@@ -96,9 +96,7 @@ def calculate_PC(matrix):
 
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
-    print(args[0])
     matrix = np.load(args[0])
-    print(matrix.shape)
     calculate_PC(matrix)
     # args = typecast(sys.argv[1:])
     # path_to_imgs = args[0]
