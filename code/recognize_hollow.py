@@ -35,6 +35,7 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     # center the face
     print('input_shapr \n', input.shape) #(1463280,)
     print('mean asps \n', mean_asparagus.shape)
+    mean_asparagus = mean_asparagus.mean(axis = 0)
     centered = input - mean_asparagus
     print(centered.shape) #(400, 1463280)
     print('eigenasparagus \n', eigenasparagus.shape) #(4, 1463280)

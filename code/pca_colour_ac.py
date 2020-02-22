@@ -88,9 +88,9 @@ print("Eig_aspa_used: \n", eig_asparagus_used.shape)
 
 #Projecting data on Eigen vector directions resulting to Principal Components
 
-
+print('MB_matrix_mean vor mean machen: \n',MB_matrix.shape)
 MB_matrix_mean = np.mean(MB_matrix, axis = 1)
-print(MB_matrix_mean.shape)
+print('Matrix mean bei axis = 1: \n',MB_matrix_mean.shape)
 print(MB_matrix.shape)
 asparagus_space = (MB_matrix.T - MB_matrix_mean) @ eig_asparagus_used
 print("dim aspa_space: \n" , asparagus_space.shape)
@@ -150,6 +150,7 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
 
     #centered = face_img - MB_matrix_mean
     centered = face - MB_matrix_mean
+    print(MB_matrix_mean.shape)
 
     #centered = centered.flatten()
     print('centered shape: \n',centered.shape)#(1340, 1092),durch flatten (1463280,)
