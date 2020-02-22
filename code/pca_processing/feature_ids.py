@@ -316,7 +316,7 @@ def get_images(ids_hollow):
     #      np.save('m_width', m_width)
     #
 
-     return m_hollow#, m_blume, m_rost_head, m_rost_body, m_bended, m_violet #,m_length, m_width
+     return m_blume#, m_rost_head, m_rost_body, m_bended, m_violet #,m_length, m_width
 
 
 if __name__ == '__main__':
