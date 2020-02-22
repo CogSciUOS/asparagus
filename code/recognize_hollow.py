@@ -40,9 +40,9 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     print('eigenasparagus \n', eigenasparagus.shape)
 
     # and project it into the eigenface space
-    projected = np.matmul(centered, eigenasparagus.T)#eigenasparagus @ centered.T
+    projected = np.matmul(centered, asparagus_space.T)#eigenasparagus @ centered.T
     print(projected.shape) #(400, 400)
-    print(asparagus_space.shape)
+    print(asparagus_space.shape)# (400,4)
 
     # Now compute the similarity to all known faces
     # (comparison is performed in the eigenface space)
