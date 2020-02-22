@@ -220,13 +220,13 @@ def get_images(ids_hollow):
 #     M_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_not_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_length = np.concatenate((ids_auto_length_big, ids_auto_length_small))
-     m_length = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2])) #hier geht schon der speicher aus
+     #all_ids_length = np.concatenate((ids_auto_length_big, ids_auto_length_small))
+     #m_length = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2])) #hier geht schon der speicher aus
 #     M_length_big = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_length_small = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     #all_ids_width = np.concatenate((ids_auto_width_big, ids_auto_width_small))
-#     m_width = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2]))
+     all_ids_width = np.concatenate((ids_auto_width_big, ids_auto_width_small))
+     m_width = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_width_big = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_width_small = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))#8798
      #store all pictures, that hollow and not hollow in a M_hollow
@@ -297,27 +297,27 @@ def get_images(ids_hollow):
     #
      #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_violet'),m_violet)
     #fill auto_length
-     s = 0
-     for i in all_ids_length:
-         img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-         m_length[s,:] = flat
-         s += 1
+     #s = 0
+     #for i in all_ids_length:
+    #     img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #     flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #     m_length[s,:] = flat
+    #     s += 1
     #
-     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_length'),m_length)
+    # np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_length'),m_length)
     #
     # #fill width
     #  s = 0
-    #  for i in all_ids_width:
-    #      img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-    #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-    #      m_width[s,:] = flat
-    #      s += 1
+     for i in all_ids_width:
+         img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+         m_width[s,:] = flat
+         s += 1
     #
-    #      np.save('m_width', m_width)
+     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_width'),m_width)
     #
 
-     return m_length#, m_width
+     return m_width
 
 
 if __name__ == '__main__':
@@ -325,10 +325,10 @@ if __name__ == '__main__':
     path_to_imgs = args[0]
     path_features = args[1]
 
-    ids_length = []
+    ids_width = []
 
     # get image_size:
     #img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
     #print(img.shape) (1340, 364, 3)
 
-    get_images(ids_length)
+    get_images(ids_width)
