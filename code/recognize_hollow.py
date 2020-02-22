@@ -115,8 +115,8 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.axis('off')
         plt.imshow(train_imgs[winner].reshape(img_shape))
         plt.title(('*' if name_label != name_winner else '') + name_winner)
-    plt.grid()
-    plt.show()
+        plt.grid()
+        plt.show()
     plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize1.png')
 
 
