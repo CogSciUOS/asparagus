@@ -100,7 +100,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     for j, img in enumerate(imgs):
 
         # find the best match in the eigenface database
-        winner = recognize(img.reshape(np.prod(img_shape)), path_to_PC, path_to_m_std, path_to_space)
+        winner = recognize(img.reshape(np.prod(img_shape)), path_to_eigenasparagus, path_to_m_std, path_to_space)
         winner = find_integer(winner)
         name_label = labels[j][5:7]
         name_winner = train_labels[winner][5:7]
@@ -143,7 +143,7 @@ if __name__ == '__main__':
     train_names_2 = ["unhollow" for x in range(200)]
     train_names = np.concatenate((train_names_1,train_names_2), axis = 0)
     print(train_names.shape)
-    path_to_eigenasparagus = path_to_eigenasparagus[:4,:]
+#    path_to_eigenasparagus = path_to_eigenasparagus[:4,:]
 
 
-    show_recognition_results(test_img, labels, path_to_m, train_names, num_eigenvectors, path_to_eigenasparagus, path_to_m_std, path_to_space)
+    show_recognition_results(test_img, labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
