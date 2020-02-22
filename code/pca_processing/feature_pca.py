@@ -63,7 +63,7 @@ def calculate_PC(matrix):
     np.linspace(0,130, 1)
     plt.plot(x,EigVal[:10])
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/rost_head/eigenvalues.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/eigenvalues.png')
 
 
     #  wir müssen rgb gbr umrechnung bedenken! - hint [,,::-1]
@@ -72,7 +72,7 @@ def calculate_PC(matrix):
         test = PC[i,:].reshape(img_shape)
         plt.imshow(test)
         plt.show()
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/rost_head/pca_'+str(i)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/pca_'+str(i)+'.png')
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
