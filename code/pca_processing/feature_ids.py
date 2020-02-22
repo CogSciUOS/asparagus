@@ -331,4 +331,4 @@ if __name__ == '__main__':
     #img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
     #print(img.shape) (1340, 364, 3)
 
-    get_images(m_rost_head)
+    get_images(ids_m_rost_head)
