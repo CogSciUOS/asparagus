@@ -11,36 +11,36 @@ import os
 
 img_shape = (1340, 364, 3)
 
-def calculate_PC(m_hollow):
+def calculate_PC(matrix):
 
     #load data
-    m_hollow = np.load('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_hollow.npy')
-    print(m_hollow.shape) # das passt soweit
+    #m_hollow = np.load('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_hollow.npy')
+    print(matrix.shape) # das passt soweit
     #show 2 images of the data
     #plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
-    plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100))
-    testbild = m_hollow[1,:]
-    testbild_trans = np.reshape(testbild, newshape = (img_shape[0],img_shape[1],img_shape[2]))
-    plt.imshow(testbild_trans)# cmap = 'grey') das funzt nicht
-    plt.axis('off')
-    plt.show()
+    #plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100))
+    #testbild = m_hollow[1,:]
+    #testbild_trans = np.reshape(testbild, newshape = (img_shape[0],img_shape[1],img_shape[2]))
+    #plt.imshow(testbild_trans)# cmap = 'grey') das funzt nicht
+    #plt.axis('off')
+    #plt.show()
 
     #plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100)) #image size =  (1376, 1040)
-    plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100))
-    testbild2 = m_hollow[202,:]
-    testbild2_trans = np.reshape(testbild2, newshape = (img_shape[0], img_shape[1], img_shape[2]))
-    plt.imshow(testbild2_trans)# vmin=0, vmax=255 cmap = 'grey')
-    plt.axis('off')
-    plt.show()
+    #plt.figure(figsize=(img_shape[0]/100,img_shape[1]/100))
+    #testbild2 = m_hollow[202,:]
+    #testbild2_trans = np.reshape(testbild2, newshape = (img_shape[0], img_shape[1], img_shape[2]))
+    #plt.imshow(testbild2_trans)# vmin=0, vmax=255 cmap = 'grey')
+    #plt.axis('off')
+    #plt.show()
 
     #standardization of the matrix
-    m_hollow_std = (m_hollow - m_hollow.mean(axis = 0))/m_hollow.std()
+    matrix_std = (matrix - matrix.mean(axis = 0))/matrix.std()
 
 
     #Compute eigenvectors and values
     # Covariance
     np.set_printoptions(precision=3)
-    cov = np.cov(m_hollow_std)
+    cov = np.cov(matrix_std)
     # Eigen Values
     EigVal,EigVec = np.linalg.eig(cov)
     print("Eigenvalues:\n\n", EigVal,"\n")
@@ -51,44 +51,49 @@ def calculate_PC(m_hollow):
     EigVec = EigVec[:,order]
 
     #calculate principle components
-    PC_hollow = EigVec.T @ m_hollow_std
-    print(PC_hollow.shape)
+    PC = EigVec.T @ matrix_std
+    print(PC.shape)
 
     #plot the first 10 eigenvalues to get an overview
     x = range(10)
     np.linspace(0,130, 1)
     plt.plot(x,EigVal[:10])
     plt.show()
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/eigenvalues.png')
 
 
     #  wir müssen rgb gbr umrechnung bedenken! - hint [,,::-1]
     #look at the first 10 principle components
-    #for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
-    #    test = PC[i,:].reshape(img_shape)
-    #    plt.imshow(test)
-    #    plt.show()
+    for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
+        test = PC[i,:].reshape(img_shape)
+        plt.imshow(test)
+        plt.show()
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/pca_'+str(j)+'.png')
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
     #das meinte sophia, wäre dann quasi doe überbleibenden PCs, aber man kann das auch anders berechenen, vielleicht liegt es daran
-    eig_hollow_used = PC_hollow[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
+    eig_used = PC[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
 
-    print("Eig_hollow_used: \n", eig_hollow_used.shape) #(4, 1463280)
+    print("Eig_used: \n", eig_used.shape) #(4, 1463280)
 
-    hollow_space = (m_hollow - m_hollow_std) @ eig_hollow_used.T #(400, 4)
-    print("dim aspa_space: \n" , hollow_space.shape)
+    space = (matrix - matrix_std) @ eig_used.T #(400, 4)
+    print("dim aspa_space: \n" , space.shape)
 
     #save the data
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_space_1'),hollow_space)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_std_1'), m_hollow_std)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used_1'), eig_hollow_used)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow_1'), PC_hollow)
+    #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_space_1'),space)
+    #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_std_1'), matrix_std)
+    #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used_1'), eig_used)
+    #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow_1'), PC)
 
 
+#matrix = np.load('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy')
+#calculate_PC(matrix)
 
 if __name__ == '__main__':
-    bla = []
-    calculate_PC(bla)
+    args = typecast(sys.argv[1:])
+    matrix = np.load(args[0])
+    calculate_PC(matrix)
     # args = typecast(sys.argv[1:])
     # path_to_imgs = args[0]
     # path_features = args[1]
