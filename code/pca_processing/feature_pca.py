@@ -63,7 +63,7 @@ def calculate_PC(matrix):
     np.linspace(0,130, 1)
     plt.plot(x,EigVal[:10])
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended/eigenvalues.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/eigenvalues.png')
 
 
     #  wir müssen rgb gbr umrechnung bedenken! - hint [,,::-1]
@@ -72,7 +72,7 @@ def calculate_PC(matrix):
         test = PC[i,:].reshape(img_shape)
         plt.imshow(test)
         plt.show()
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended/pca_'+str(i)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/pca_'+str(i)+'.png')
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
@@ -85,10 +85,10 @@ def calculate_PC(matrix):
     print("dim aspa_space: \n" , space.shape)
 
     #save the data
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended','m_bended_space'),space)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended','m_bended_std'), matrix_std)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended','eig_bended_used'), eig_used)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended','PC_bended'), PC)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet','m_violet_space'),space)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet','m_violet_std'), matrix_std)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet','eig_violet_used'), eig_used)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet','PC_violet'), PC)
 
 
 #matrix = np.load('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy')
