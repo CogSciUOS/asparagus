@@ -96,7 +96,9 @@ def calculate_PC(matrix):
 
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
+    print(arg[0])
     matrix = np.load(args[0])
+    print(matrix.shape)
     calculate_PC(matrix)
     # args = typecast(sys.argv[1:])
     # path_to_imgs = args[0]
