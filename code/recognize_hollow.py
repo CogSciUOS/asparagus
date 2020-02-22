@@ -34,15 +34,15 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
 
     # center the face
     print('input_shapr \n', input.shape) #(1463280,)
-    print('mean asps \n', mean_asparagus.shape)
     mean_asparagus = mean_asparagus.mean(axis = 0)
+    print('mean asps \n', mean_asparagus.shape)
     centered = input - mean_asparagus
     print('centered shape: \n', centered.shape) #(1463280,)
     print('eigenasparagus \n', eigenasparagus.shape) #(4, 1463280)
 
     # and project it into the eigenface space
     projected = eigenasparagus @ centered
-    print(projected.shape) #(4, 400)
+    print(projected.shape) #(4,)
     print(asparagus_space.shape)# (400,4)
 
     # Now compute the similarity to all known faces
@@ -104,7 +104,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         winner = recognize(img.reshape(np.prod(img_shape)), path_to_eigenasparagus, path_to_m_std, path_to_space)
         winner1 = find_integer(winner)
         name_label = labels[j][5:7]
-        name_winner = train_labels[winner1][5:7]
+        name_winner = train_labels[winner][5:7]
 
         plt.subplot(5, 8, 2 * j + 1)
         plt.axis('off')
@@ -115,7 +115,9 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.axis('off')
         plt.imshow(train_imgs[winner].reshape(img_shape))
         plt.title(('*' if name_label != name_winner else '') + name_winner)
+    plt.grid()
     plt.show()
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize1.png')
 
 
 if __name__ == '__main__':
@@ -145,6 +147,6 @@ if __name__ == '__main__':
     train_names = np.concatenate((train_names_1,train_names_2), axis = 0)
     print(train_names.shape)
 #    path_to_eigenasparagus = path_to_eigenasparagus[:4,:]
+    train_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'hollow']
 
-
-    show_recognition_results(test_img, labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
+    show_recognition_results(test_img, train_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
