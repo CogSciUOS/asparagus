@@ -269,7 +269,7 @@ def get_images(ids_hollow):
     #  #fill m_rost_body
      s = 0
      for i in all_ids_rost_body:
-         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
     #     #print(img.shape)
          flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
          m_rost_body[s,:] = flat
@@ -280,7 +280,7 @@ def get_images(ids_hollow):
     #  #fill all_ids M_bended
     #  s = 0
     #  for i in all_ids_bended:
-    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
     #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
     #      m_bended[s,:] = flat
     #      s += 1
@@ -290,7 +290,7 @@ def get_images(ids_hollow):
     # #fill all_ids_violet
     #  s = 0
     #  for i in all_ids_violet:
-    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
     #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
     #      m_violet[s,:] = flat
     #      s += 1
@@ -299,7 +299,7 @@ def get_images(ids_hollow):
     #fill auto_length
     #  s = 0
     #  for i in all_ids_length:
-    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
     #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
     #      m_length[s,:] = flat
     #      s += 1
@@ -309,7 +309,7 @@ def get_images(ids_hollow):
     # #fill width
     #  s = 0
     #  for i in all_ids_width:
-    #      img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    #      img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
     #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
     #      m_width[s,:] = flat
     #      s += 1
