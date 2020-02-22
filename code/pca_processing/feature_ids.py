@@ -267,15 +267,15 @@ def get_images(ids_hollow):
      #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_rost_head'),m_rost_head)
     #
     #  #fill m_rost_body
-     s = 0
-     for i in all_ids_rost_body:
-         img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-    #     #print(img.shape)
-         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-         m_rost_body[s,:] = flat
-         s += 1
+     #s = 0
+     #for i in all_ids_rost_body:
+    #     img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+    ##     #print(img.shape)
+    #     flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+    #     m_rost_body[s,:] = flat
+    #     s += 1
     #
-     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_rost_body'),m_rost_body)
+     #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_rost_body'),m_rost_body)
     #
     #  #fill all_ids M_bended
      s = 0
