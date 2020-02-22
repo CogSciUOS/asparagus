@@ -91,7 +91,6 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     Returns:
 
     """
-
     img_shape = imgs[0].shape
     print('imgs[0] \n', imgs[0])
     print('neue Image_shape: \n', img_shape)
@@ -114,6 +113,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
 
         plt.subplot(5, 4, 2 * j + 2)
         plt.axis('off')
+        #ich glaube train_imgs müssen noch wieder gereshaped werden...
         plt.imshow(train_imgs[winner].reshape(img_shape))
         plt.title(('*' if name_label != name_winner else '') + name_winner)
         plt.show()
