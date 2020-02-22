@@ -307,7 +307,7 @@ def get_images(ids_hollow):
     # np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_length'),m_length)
     #
     # #fill width
-    #  s = 0
+     s = 0
      for i in all_ids_width:
          img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
          flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
