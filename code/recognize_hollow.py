@@ -143,6 +143,7 @@ if __name__ == '__main__':
     train_names_2 = ["unhollow" for x in range(200)]
     train_names = np.concatenate((train_names_1,train_names_2), axis = 0)
     print(train_names.shape)
+    path_to_eigenasparagus = path_to_eigenasparagus[:4,:]
 
 
     show_recognition_results(test_img, labels, path_to_m, train_names, num_eigenvectors, path_to_eigenasparagus, path_to_m_std, path_to_space)
