@@ -143,7 +143,7 @@ if __name__ == '__main__':
     print(test_img.shape)
 
     train_names_1 = ["hollow" for x in range(200)]
-    train_names_2 = ["not_unhollow" for x in range(200)]
+    train_names_2 = ["not_hollow" for x in range(200)]
     train_names = train_names_1 + train_names_2
     test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'hollow']
 
