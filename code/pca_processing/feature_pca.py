@@ -70,8 +70,8 @@ def calculate_PC(matrix):
     #look at the first 10 principle components
     for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
         test = PC[i,:].reshape(img_shape)
-        plt.imshow(test)
-        plt.show()
+        #plt.imshow(test)
+        plt.show(test)
         plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/pca_'+str(i)+'.png')
 
     num_eigenvectors = 4 #lets see how many good ones we have
