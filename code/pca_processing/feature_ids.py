@@ -201,7 +201,7 @@ def get_images(ids_hollow):
      #M_not_blume = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
      all_ids_rost_head = np.concatenate((ids_has_rost_head,ids_not_has_rost_head))
-     m_rost_head = ((400,img_shape[0]*img_shape[1]*img_shape[2]))
+     m_rost_head = np.zeros((400,img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_rost_head = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_not_rost_head = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
