@@ -113,7 +113,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
 
         plt.subplot(5, 8, 2 * j + 2)
         plt.axis('off')
-        plt.imshow(train_imgs[winner])
+        plt.imshow(train_imgs[winner].reshape(img_shape))
         plt.title(('*' if name_label != name_winner else '') + name_winner)
     plt.show()
 
