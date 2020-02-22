@@ -95,7 +95,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     img_shape = imgs[0].shape
     print('imgs[0] \n', imgs[0])
     print('neue Image_shape: \n', img_shape)
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=(15, 15))
     plt.suptitle('Asparagus recognition based on {} principal components'.format(num_eigenfaces))
     #plt.gray()
     for j, img in enumerate(imgs):
@@ -106,13 +106,13 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         name_label = labels[j]#[5:7]
         name_winner = train_labels[winner]#[5:7]
 
-        plt.subplot(5, 8, 2 * j + 1)
+        plt.subplot(5, 5, 2 * j + 1)
         plt.axis('off')
         plt.imshow(img)
         plt.title(labels[j][5:7])
         #plt.show()
 
-        plt.subplot(5, 8, 2 * j + 2)
+        plt.subplot(5, 5, 2 * j + 2)
         plt.axis('off')
         plt.imshow(train_imgs[winner].reshape(img_shape))
         plt.title(('*' if name_label != name_winner else '') + name_winner)
