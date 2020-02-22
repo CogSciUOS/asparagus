@@ -72,7 +72,7 @@ def calculate_PC(matrix):
         test = PC[i,:].reshape(img_shape)
         plt.imshow(test)
         plt.show()
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/pca_'+str(j)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/pca_'+str(i)+'.png')
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
