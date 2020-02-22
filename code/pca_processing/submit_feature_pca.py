@@ -3,7 +3,7 @@ from grid import*
 
 if __name__ == '__main__':
     path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/maren/asparagus/code/pca_processing/feature_pca.py'
-    path_to_matrix = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy'
+    path_to_matrix = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/m_rost_head.npy'
 
     args = [path_to_matrix]
     #environment = 'source activate dataSet'
