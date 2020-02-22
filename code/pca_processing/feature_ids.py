@@ -258,7 +258,7 @@ def get_images(ids_hollow):
     #  #fill m_rost_head
      s = 0
      for i in all_ids_rost_head:
-         img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
          #print(img.shape)
          flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
          m_rost_head[s,:] = flat
