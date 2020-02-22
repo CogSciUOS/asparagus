@@ -37,11 +37,11 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     print('mean asps \n', mean_asparagus.shape)
     mean_asparagus = mean_asparagus.mean(axis = 0)
     centered = input - mean_asparagus
-    print('centered shape: \n', centered.shape) #(400, 1463280)
+    print('centered shape: \n', centered.shape) #(1463280,)
     print('eigenasparagus \n', eigenasparagus.shape) #(4, 1463280)
 
     # and project it into the eigenface space
-    projected = eigenasparagus @ centered.T
+    projected = eigenasparagus @ centered
     print(projected.shape) #(4, 400)
     print(asparagus_space.shape)# (400,4)
 
