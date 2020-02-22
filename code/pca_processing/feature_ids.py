@@ -252,7 +252,7 @@ def get_images(ids_hollow):
          m_blume[s,:] = flat
          s += 1
     #
-    np.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/m_blume',m_blume)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_blume'),m_blume)
     #
     #  #fill m_rost_head
     #  s = 0
