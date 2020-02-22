@@ -210,13 +210,13 @@ def get_images(ids_hollow):
 #     M_rost_body = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_not_rost_body = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     all_ids_bended = np.concatenate((ids_is_bended, ids_not_is_bended))
-     m_bended = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     #all_ids_bended = np.concatenate((ids_is_bended, ids_not_is_bended))
+     #m_bended = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
      #M_bended = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))#10674
      #M_not_bended = np.zeros((n_bands, img_shape[0]*img_shape[1]*img_shape[2]))
 
-     #all_ids_violet = np.concatenate((ids_is_violet, ids_not_is_violet))
-     #m_violet = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
+     all_ids_violet = np.concatenate((ids_is_violet, ids_not_is_violet))
+     m_violet = np.zeros((400, img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
 #     M_not_violet = np.zeros((n_bands,img_shape[0]*img_shape[1]*img_shape[2]))
 
@@ -278,24 +278,24 @@ def get_images(ids_hollow):
      #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_rost_body'),m_rost_body)
     #
     #  #fill all_ids M_bended
-     s = 0
-     for i in all_ids_bended:
-          img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
-          flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-          m_bended[s,:] = flat
-          s += 1
-    #
-     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_bended'),m_bended)
-    #
-    # #fill all_ids_violet
-    #  s = 0
-    #  for i in all_ids_violet:
+    # s = 0
+     #for i in all_ids_bended:
     #      img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
     #      flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
-    #      m_violet[s,:] = flat
+    #      m_bended[s,:] = flat
     #      s += 1
     #
-    #      np.save('m_violet', m_violet)
+     #np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_bended'),m_bended)
+    #
+    # #fill all_ids_violet
+     s = 0
+     for i in all_ids_violet:
+         img = cv2.imread('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'+str(i)+'_b.png')
+         flat = np.reshape(img,newshape = (img_shape[0]*img_shape[1]*img_shape[2]))
+         m_violet[s,:] = flat
+         s += 1
+    #
+     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_violet'),m_violet)
     #fill auto_length
     #  s = 0
     #  for i in all_ids_length:
@@ -317,7 +317,7 @@ def get_images(ids_hollow):
     #      np.save('m_width', m_width)
     #
 
-     return m_bended#, m_violet #,m_length, m_width
+     return m_violet #,m_length, m_width
 
 
 if __name__ == '__main__':
@@ -325,10 +325,10 @@ if __name__ == '__main__':
     path_to_imgs = args[0]
     path_features = args[1]
 
-    ids_bended = []
+    ids_violet = []
 
     # get image_size:
     #img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
     #print(img.shape) (1340, 364, 3)
 
-    get_images(ids_bended)
+    get_images(ids_violet)
