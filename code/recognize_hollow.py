@@ -110,6 +110,8 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.axis('off')
         plt.imshow(img)
         plt.title(labels[j][5:7])
+        plt.grid()
+        plt.show()
 
         plt.subplot(5, 8, 2 * j + 2)
         plt.axis('off')
