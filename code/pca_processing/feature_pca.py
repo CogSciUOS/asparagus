@@ -85,10 +85,10 @@ def calculate_PC(matrix):
     print("dim aspa_space: \n" , space.shape)
 
     #save the data
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/blume_data','m_blume_space'),space)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/blume_data','m_bllume_std'), matrix_std)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/blume_data','eig_blume_used_'), eig_used)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/blume_data','PC_blume'), PC)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume','m_blume_space'),space)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume','m_bllume_std'), matrix_std)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume','eig_blume_used_'), eig_used)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume','PC_blume'), PC)
 
 
 #matrix = np.load('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy')
