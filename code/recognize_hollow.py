@@ -143,10 +143,8 @@ if __name__ == '__main__':
     print(test_img.shape)
 
     train_names_1 = ["hollow" for x in range(200)]
-    train_names_2 = ["unhollow" for x in range(200)]
-    train_names = np.concatenate((train_names_1,train_names_2), axis = 0)
-    print(train_names.shape)
-#    path_to_eigenasparagus = path_to_eigenasparagus[:4,:]
+    train_names_2 = ["not_unhollow" for x in range(200)]
+    train_names = train_names_1 + train_names_2
     train_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'hollow']
 
     show_recognition_results(test_img, train_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
