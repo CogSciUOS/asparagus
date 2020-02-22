@@ -97,7 +97,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     print('neue Image_shape: \n', img_shape)
     plt.figure(figsize=(12, 12))
     plt.suptitle('Asparagus recognition based on {} principal components'.format(num_eigenfaces))
-    plt.gray()
+    #plt.gray()
     for j, img in enumerate(imgs):
 
         # find the best match in the eigenface database
@@ -119,7 +119,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.title(('*' if name_label != name_winner else '') + name_winner)
         plt.grid()
         plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize1.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize1.png')
 
 
 if __name__ == '__main__':
