@@ -34,7 +34,7 @@ def calculate_PC(m_hollow):
     plt.show()
 
     #standardization of the matrix
-    m_hollow_std = (m_hollow - m_hollow.mean())/m_hollow.std()
+    m_hollow_std = (m_hollow - m_hollow.mean(axis = 0))/m_hollow.std()
 
 
     #Compute eigenvectors and values
@@ -79,10 +79,10 @@ def calculate_PC(m_hollow):
     print("dim aspa_space: \n" , hollow_space.shape)
 
     #save the data
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_space'),hollow_space)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_std'), m_hollow_std)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used'), eig_hollow_used)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow'), PC_hollow)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_space_1'),hollow_space)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','m_hollow_std_1'), m_hollow_std)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','eig_hollow_used_1'), eig_hollow_used)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images','PC_hollow_1'), PC_hollow)
 
 
 
