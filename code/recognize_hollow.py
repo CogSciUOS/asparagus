@@ -103,8 +103,8 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         # find the best match in the eigenface database
         winner = recognize(img.reshape(np.prod(img_shape)), path_to_eigenasparagus, path_to_m_std, path_to_space)
         #winner1 = find_integer(winner)
-        name_label = labels[j][5:7]
-        name_winner = train_labels[winner][5:7]
+        name_label = labels[j]#[5:7]
+        name_winner = train_labels[winner]#[5:7]
 
         plt.subplot(5, 8, 2 * j + 1)
         plt.axis('off')
@@ -145,6 +145,6 @@ if __name__ == '__main__':
     train_names_1 = ["hollow" for x in range(200)]
     train_names_2 = ["not_unhollow" for x in range(200)]
     train_names = train_names_1 + train_names_2
-    train_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'hollow']
+    test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'hollow']
 
-    show_recognition_results(test_img, train_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
+    show_recognition_results(test_img, test_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
