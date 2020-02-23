@@ -14,6 +14,7 @@ if __name__ == '__main__':
     #print(matrix[399,:])
     print(matrix.shape)
     #print(matrix[0,:])
+    print(np.isrealobj(matrix))
     for i in matrix:
         if np.any(np.iscomplex(matrix)) == True:
             print('complex an der stelle: \n', matrix[i,:])
