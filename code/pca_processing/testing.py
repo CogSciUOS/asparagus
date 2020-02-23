@@ -15,7 +15,7 @@ if __name__ == '__main__':
     print(matrix.shape)
     print(matrix[0,:])
     for i in matrix:
-        if np.iscomplex(matrix) == True:
+        if np.any(np.iscomplex(matrix)) == True:
             print('complex an der stelle: \n', matrix[i,:])
     np.iscomplex(matrix)
     print(np.iscomplex(matrix))
