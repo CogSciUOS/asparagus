@@ -63,7 +63,7 @@ def calculate_PC(matrix):
     np.linspace(0,130, 1)
     plt.plot(x,EigVal[:10])
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width/eigenvalues.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/eigenvalues.png')
 
 
     #  wir müssen rgb gbr umrechnung bedenken! - hint [,,::-1]
@@ -72,7 +72,7 @@ def calculate_PC(matrix):
         test = PC[i,:].reshape(img_shape)
         plt.imshow(test)
         plt.show()
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width/pca_'+str(i)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/pca_'+str(i)+'.png')
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
@@ -85,10 +85,10 @@ def calculate_PC(matrix):
     print("dim aspa_space: \n" , space.shape)
 
     #save the data
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width','m_width_space'),space)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width','m_width_std'), matrix_std)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width','eig_width_used'), eig_used)
-    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width','PC_width'), PC)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','m_rost_head_space'),space)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','m_rost_head_std'), matrix_std)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','eig_rost_head_used'), eig_used)
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head','PC_rost_head'), PC)
 
 
 #matrix = np.load('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy')
