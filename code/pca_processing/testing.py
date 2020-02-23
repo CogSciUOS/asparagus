@@ -16,7 +16,7 @@ if __name__ == '__main__':
     #print(matrix[0,:])
     print(np.isrealobj(matrix))
     for i in matrix:
-        if any(np.iscomplex(x) for x in matrix) == True:
+        if any(np.iscomplex(x) for x in matrix) == True.any():
             print(matrix[i,:])
     print((all(isinstance(x, float) for x in matrix)))
     #np.iscomplex(matrix)
