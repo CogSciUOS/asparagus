@@ -14,5 +14,8 @@ if __name__ == '__main__':
     print(matrix[399,:])
     print(matrix.shape)
     print(matrix[0,:])
+    for i in matrix:
+        if iscomplex(matrix) == True:
+            print matrix[i,:]
     np.iscomplex(matrix)
     print(np.iscomplex(matrix))
