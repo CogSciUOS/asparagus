@@ -39,7 +39,7 @@ def calculate_PC(matrix):
 
     #standardization of the matrix
     matrix_std = (matrix - matrix.mean(axis = 0))/matrix.std()
-
+    print('ist matrix_std complex? \n', np.iscomplex(matrix_std))
 
     #Compute eigenvectors and values
     # Covariance
@@ -48,6 +48,10 @@ def calculate_PC(matrix):
     # Eigen Values
     EigVal,EigVec = np.linalg.eig(cov)
     print("Eigenvalues:\n\n", EigVal,"\n")
+    print('ist Eigval complex? \n', np.iscomplex(EigVal))
+    print('ist Eigvec complex? \n', np.iscomplex(EigVec))
+
+
 
     # Ordering Eigen values and vectors
     order = EigVal.argsort()[::-1]
@@ -57,6 +61,8 @@ def calculate_PC(matrix):
     #calculate principle components
     PC = EigVec.T @ matrix_std
     print(PC.shape)
+    print('ist PC complex? \n', np.iscomplex(PC))
+
 
     #plot the first 10 eigenvalues to get an overview
     x = range(10)
