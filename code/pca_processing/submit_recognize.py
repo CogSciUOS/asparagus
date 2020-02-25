@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 
     #bended
-    path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/maren/asparagus/code/pca_processing/recognize_hollow.py'
+    path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
     path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended/PC_bended.npy'
     path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended/m_bended_std.npy'
