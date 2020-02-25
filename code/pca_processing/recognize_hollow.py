@@ -120,7 +120,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.title(('*' if name_label != name_winner else '') + name_winner)
         plt.show()
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize'+str(j)+'.png')
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended'+str(j)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
 
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
