@@ -22,7 +22,7 @@ log.addHandler(StreamHandler())
 
 
 def read_arguments():
-    """defines and parses command line arguments
+    """ defines and parses command line arguments
     """
     parser = argparse.ArgumentParser()
     models_help = '''
@@ -73,8 +73,8 @@ def load_model(model_module, input_shape=None):
     return model_util.create_model(input_shape)
 
 
-def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
-    """Using a PCA to visualize the result
+def classif_report(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
+    """ look at the classification report to understand your results
 
     Arguments:
         x_train(array-like): x data values training
@@ -83,26 +83,33 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
         y_test(array-like): y data values test
         y_pred(array-like): data values that were predicted
     """
+    # log.info("Classification report (one hot encoding):")
+    # log.info(classification_report(y_test, y_pred))
 
-    """
-    print()
-    print("Classification report (one hot encoding):")
-    print(classification_report(y_test, y_pred))
-    """
-
-    print("Classification report (encoding with labels):")
-    print(classification_report(y_test.argmax(
+    log.info("Classification report (encoding with labels):")
+    log.info(classification_report(y_test.argmax(
         axis=1), y_pred.argmax(axis=1), target_names=labels))
 
-    # confusion matrix
+
+def conf_matrix(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
+    """ look at the classification report to understand your results
+
+    Arguments:
+        x_train(array-like): x data values training
+        x_test(array-like): x data values test
+        y_train(array-like): y data values training
+        y_test(array-like): y data values test
+        y_pred(array-like): data values that were predicted
+    """
     # The matrix output by sklearn's confusion_matrix() is such that
-    # C_{i, j} is equal to the number of observations known to be in group i but predicted to be in group j
+    # C_{i, j} is equal to the number of observations
+    # known to be in group i but predicted to be in group j
     conf_mat = confusion_matrix(y_test.argmax(axis=1), y_pred.argmax(axis=1))
     norm_conf_mat = confusion_matrix(y_test.argmax(
         axis=1), y_pred.argmax(axis=1), normalize='true')
 
     nclass_labels = [l[l.find('_'):].replace('_', ' ') for l in labels]
-    fig, ax = plt.subplots(1, 2, figsize=(16, 9))
+    fig, ax = plt.subplots(2, 1, figsize=(20, 30))
     fig.suptitle(f'Recall {model_name}')
 
     ax[0].set_title('Absolute recall')
@@ -117,10 +124,19 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
     ax[1].set_xlabel('True label')
     ax[1].set_ylabel('Predicted label')
 
-    # fig.savefig('confusion_recall.png', dpi=600)
-    plt.show()
+    return fig, ax
 
-    # PCA
+
+def visualize_by_pca(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=None):
+    """Using a PCA to visualize the result
+
+    Arguments:
+        x_train(array-like): x data values training
+        x_test(array-like): x data values test
+        y_train(array-like): y data values training
+        y_test(array-like): y data values test
+        y_pred(array-like): data values that were predicted
+    """
     pca = PCA(2, whiten=True).fit(np.vstack((x_train, x_test)))
     xy_train = pca.transform(x_train)
     xy_test = pca.transform(x_test)
@@ -139,21 +155,21 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
     if model_name is not None:
         fig.suptitle(f'For {model_name}')
 
-    # Train data
+    # train data
     ax[0].set_title('Train data')
     sc_train = ax[0].scatter(*zip(*xy_train), c=c_train, **params)
     ax[0].set_ylim([-.5, 5])
     ax[0].set_xlim([-.5, 5])
     fig.colorbar(sc_train, ax=ax[0])
 
-    # Test data
+    # test data
     ax[1].set_title('Test data')
     sc_test = ax[1].scatter(*zip(*xy_test), c=c_test, **params)
     ax[1].set_ylim([-.5, 5])
     ax[1].set_xlim([-.5, 5])
     fig.colorbar(sc_test, ax=ax[1])
 
-    # Predicted data
+    # predicted data
     ax[2].set_title('Predicted data')
     sc_pred = ax[2].scatter(*zip(*xy_test), c=c_pred, **params)
     ax[2].set_ylim([-.5, 5])
@@ -164,33 +180,34 @@ def visualize(x_train, x_test, y_train, y_test, y_pred, labels=None, model_name=
 
 
 def load_annotation(filename, drop_columns_starting_with=None):
-    """This functions loads the annotation label csv file
-    And sets category if specified.
-
-    The first columns are used as index columns.
+    """ This functions loads the annotation label csv file, 
+        drops (unnecessary) columns,
+        drops rows with NaN
 
     Args:
-        drop_columns_starting_with(list): Columns starting with these strings will be dropped.
-                                          If it is `None`, it defaults to
-                                          ['auto', 'is_bruch', 'very_thick', 'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified'].
-        set_category(str):                Add a category if possible
+        filename(str):                      specify the filename of the data you want to load
+        drop_columns_starting_with(list):   Columns starting with these strings will be dropped.
+                                            If it is `None`, it defaults to
+                                            ['auto', 'is_bruch', 'very_thick', 'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified'].
 
     Returns:
-        The dataframe
+        dataframe with the label data
     """
+
     annotations = pd.read_csv(filename, delimiter=";", index_col=0)
 
     # remove unclassified it was only 2 rows for the labeled folders
     unclassifiable = annotations[annotations['unclassified'] == 1].index
     annotations.drop(unclassifiable, inplace=True)
 
+    # these columns will be dropped by default
     if drop_columns_starting_with is None:
         # all autogenerated columns except auto_width, auto_bended, auto_violet, auto_length
         drop_columns_starting_with = ['auto_blooming', 'auto_rust_head',
                                       'auto_rust_body', 'is_bruch', 'very_thick',
                                       'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified']
 
-    # drop the columns
+    # drop the specified columns
     for column in drop_columns_starting_with:
         mask = annotations.columns.str.startswith(column)
         annotations = annotations.loc[:, ~mask]
@@ -206,42 +223,51 @@ def load_data(folder):
        Path to annotationfolder can be overwritten by specifying the ANNOTATION_PATH variable.
 
     Arguments:
-        filename_cat_1(string): filename of annotationfile in annotationfolder
-        filename_cat_2(string): filename of annotationfile in annotationfolder
+        folder(string): the name of the folder
 
     Returns:
-        data(dataframe)
+        data(dataframe): a dataframe with the data and dummy encoding for the classes
     """
     log.info('Loading data')
 
+    # only write the header of the first csv file
     header_written = False
     with Path("concatenated_annotations_with_class.csv").open('w') as outf:
         for infile in sorted(Path(folder).iterdir()):
 
             if not infile.is_file():
                 continue
+            # extract the class/category name
             infile_name = infile.name[infile.name.index("_"):]
             infile_cat = infile_name[7:-4]
+            # read all line from the infile
             lines = infile.read_text().splitlines()
 
             if header_written:
+                # append the category to each line
                 cat_added = [line + ";" + infile_cat for line in lines]
+                # exclude the header
                 lines = cat_added[1:]
 
             else:
+                # make the header
                 lines[0] = lines[0].replace(",,", "")
                 lines[0] = lines[0] + ";Class"
+                # add the category
                 for i in range(1, len(lines)):
                     lines[i] = lines[i] + ";" + infile_cat
                 header_written = True
 
             outf.write('\n'.join(lines) + '\n')
 
-    data = load_annotation("concatenated_annotations_with_class.csv")
-    data = pd.get_dummies(data, columns=["Class"], prefix=['Class'])
-    data = data.reset_index(drop=True)
+    # drop unnecessary columns, remove rows with NaNs
+    raw_data = load_annotation("concatenated_annotations_with_class.csv")
+    # get dummies for the classes
+    dummy_data = pd.get_dummies(
+        raw_data, columns=["Class"], prefix=['Class'])
+    dummy_data = dummy_data.reset_index(drop=True)
 
-    return data
+    return raw_data, dummy_data
 
 
 def main():
@@ -249,17 +275,18 @@ def main():
     args = read_arguments()
 
     # load the data from the folder
-    data = load_data(args.foldername)
+    raw_data, data = load_data(args.foldername)
 
-    # Labels
+    # get the used labels/classes
     labels = [col for col in data if col.startswith('Class')]
     log.info(labels)
     log.info("Number of labels:")
     log.info(len(labels))
 
     log.info('Performing train/test-split')
+    # take all columns that are not the class columns as x
     x = data.iloc[:, :-len(labels)].values
-    # set Label as y
+    # set label as y
     y = data[labels].values
 
     # make a train and test split
@@ -279,6 +306,7 @@ def main():
         # if keras model, make several epochs
         model.fit(x_train, y_train, epochs=500)
     except TypeError:
+        # else just fit the model
         model.fit(x_train, y_train)
 
     if hasattr(model, 'score'):
@@ -292,20 +320,25 @@ def main():
     # get the predictions
     y_pred = model.predict(x_test)
 
+    # print logging information
     log.info("Number of samples in predictions:")
     log.info(len(y_pred))
 
-    print("feature vector", y_test[0])
-    print("has prediction")
-    print("feature vector", y_pred[0].round(3))
+    log.info("feature vector", y_test[0])
+    log.info("has prediction")
+    log.info("feature vector", y_pred[0].round(3))
 
-    print("Use argmax to get labels")
-    print("sample label", y_test.argmax(axis=1)[0])
-    print("has prediction")
-    print("sample label", y_pred.argmax(axis=1)[0])
+    log.info("Use argmax to get labels")
+    log.info("sample label", y_test.argmax(axis=1)[0])
+    log.info("has prediction")
+    log.info("sample label", y_pred.argmax(axis=1)[0])
 
-    # Visualize using confusion matrix ands PCA
-    visualize(x_train, x_test, y_train, y_test, y_pred, labels, args.model)
+    # looking at the results using classif report, confusion matrix and PCA
+    classif_report(x_train, x_test, y_train,
+                   y_test, y_pred, labels, args.model)
+    conf_matrix(x_train, x_test, y_train, y_test, y_pred, labels, args.model)
+    visualize_by_pca(x_train, x_test, y_train, y_test,
+                     y_pred, labels, args.model)
 
 
 if __name__ == '__main__':
