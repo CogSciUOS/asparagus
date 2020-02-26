@@ -6,6 +6,12 @@ first done for hollow
 
 ''' then blume'''
 
+''' then rust head'''
+
+''' then rust body'''
+
+''' then violet'''
+
 from scipy.spatial.distance import cdist
 import cv2
 from grid import*
@@ -125,7 +131,15 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize'+str(j)+'.png')
         #bended
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
+        #blume
         plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_blume/recognize'+str(j)+'.png')
+        #rust head
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_head/recognize'+str(j)+'.png')
+        #rust body
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_body/recognize'+str(j)+'.png')
+        #violet
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_violet/recognize'+str(j)+'.png')
+
 
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
@@ -137,7 +151,15 @@ if __name__ == '__main__':
     path_to_m = np.load(args[5])
 
     #train_names = [200*hollow and 200* not_hollow]
-    labels = ['hollow', 'not_hollow']
+    #labels = ['hollow', 'not_hollow']
+
+    # labels = ['bended', 'not_bended']
+    labels = ['blume', 'not_blume']
+    # labels = ['rust_head', 'not_rust_head']
+    # labels = ['rust_body', 'not_rust_body']
+    # labels = ['violet', 'not_violet']
+
+
     num_eigenvectors = 4
     #read in some test data
     #test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
@@ -153,18 +175,37 @@ if __name__ == '__main__':
     # train_names_1 = ["hollow" for x in range(200)]
     # train_names_2 = ["not_hollow" for x in range(200)]
     # train_names = train_names_1 + train_names_2
-    # test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'hollow', 'hollow']
+    # test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow']
 
     # # for bended
     # train_names_1 = ["bended" for x in range(200)]
     # train_names_2 = ["not_bended" for x in range(200)]
     # train_names = train_names_1 + train_names_2
-    # test_labels = ['not_bended', 'not_bended', 'not_bended', 'not_bended', 'bended', 'not_bended', 'not_bended', 'not_bended', 'bended', 'bended']
+    # test_labels = ['not_bended', 'bended', 'not_bended', 'bended', 'bended', 'bended', 'not_bended', 'bended', 'bended', 'not_bended']
 
     # for blume
     train_names_1 = ["blume" for x in range(200)]
     train_names_2 = ["not_blume" for x in range(200)]
     train_names = train_names_1 + train_names_2
-    test_labels = ['not_blume', 'not_blume', 'not_blume', 'not_blume', 'blume', 'not_blume', 'not_blume', 'not_blume', 'blume', 'blume']
+    test_labels = ['not_blume', 'not_blume', 'blume', 'not_blume', 'not_blume', 'not_blume', 'not_blume','blume', 'not_blume', 'not_blume']
+
+    # rost head
+    # train_names_1 = ["rust_head" for x in range(200)]
+    # train_names_2 = ["not_rust_head" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head','not_rust_head', 'not_rust_head', 'rust_head']
+
+    # rust body
+    # train_names_1 = ["rust_body" for x in range(200)]
+    # train_names_2 = ["not_rust_body" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body','not_rust_body', 'not_rust_body', 'rust_body']
+
+    #violet
+    # train_names_1 = ["violet" for x in range(200)]
+    # train_names_2 = ["not_violet" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['not_violet', 'not_violet', 'not_violet', 'violet', 'not_violet', 'not_violet', 'not_violet','not_violet', 'not_violet', 'not_violet']
+    #
 
     show_recognition_results(test_img, test_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
