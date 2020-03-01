@@ -324,14 +324,14 @@ def main():
     log.info("Number of samples in predictions:")
     log.info(len(y_pred))
 
-    log.info("feature vector", y_test[0])
+    log.info("feature vector %s", y_test[0])
     log.info("has prediction")
-    log.info("feature vector", y_pred[0].round(3))
+    log.info("feature vector %s", y_pred[0].round(3))
 
     log.info("Use argmax to get labels")
-    log.info("sample label", y_test.argmax(axis=1)[0])
+    log.info("sample label %s", y_test.argmax(axis=1)[0])
     log.info("has prediction")
-    log.info("sample label", y_pred.argmax(axis=1)[0])
+    log.info("sample label %s", y_pred.argmax(axis=1)[0])
 
     # looking at the results using classif report, confusion matrix and PCA
     classif_report(x_train, x_test, y_train,
