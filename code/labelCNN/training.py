@@ -3,13 +3,13 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from logging import getLogger, StreamHandler, INFO
+from logging import getLogger, StreamHandler, WARNING
 
 import tensorflow.keras as keras
 
 
 log = getLogger(__file__)
-log.setLevel(INFO)
+log.setLevel(WARNING)
 log.addHandler(StreamHandler())
 
 
