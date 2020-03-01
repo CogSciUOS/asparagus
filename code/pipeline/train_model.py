@@ -176,7 +176,7 @@ def visualize_by_pca(x_train, x_test, y_train, y_test, y_pred, labels=None, mode
     ax[2].set_xlim([-.5, 5])
     fig.colorbar(sc_pred, ax=ax[2])
 
-    plt.show()
+    return fig
 
 
 def load_annotation(filename, drop_columns_starting_with=None):
