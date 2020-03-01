@@ -116,7 +116,7 @@ def load_df(labels_csv, imagedir):
 
 def main(labels, imagedir):
     df = load_df(labels, imagedir)
-    df.head()
+    print(df.head())
 
 
 if __name__ == "__main__":
