@@ -3,7 +3,14 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from logging import getLogger, StreamHandler, INFO
+
 import tensorflow.keras as keras
+
+
+log = getLogger(__file__)
+log.setLevel(INFO)
+log.addHandler(StreamHandler())
 
 
 def parse_args():
@@ -67,20 +74,42 @@ def load_df(labels_csv, imagedir):
     # remove unclassified rows
     unclassifiable = df[df['unclassified'] == 1].index
     df.drop(unclassifiable, inplace=True)
+    df.drop(columns=['unclassified'], inplace=True)
+    log.info(df.head())
+
+    # drop rows with NaN values
+    df.dropna(inplace=True)
 
     def relative_path(path):
-        """ convert path stated in df to corresponding path of image dir folder"""
-        return Path(imagedir) / Path(path).relative_to(Path(path).parents[2])
+        """ convert path stated in df to corresponding path of image dir folder
+            if erroneous, put NaN and delete"""
+        log.info(path)
+        # to prevent false paths
+        if path is None:
+            log.warning("Missing path")
+            return None
+
+        ready_path = Path(imagedir) / \
+            Path(path).relative_to(Path(path).parents[2])
+
+        if ready_path.is_file():
+            return ready_path
+        else:
+            log.warning("Invalid path: %s", ready_path)
+            return None
 
     # process the filenames for the images
-    split = df['filenames'].str.split(', ', expand=True)
+    splitted_into_3_series = df['filenames'].str.split(', ', expand=True)
+
     # make a separate column for each of the three pictures for one asparagus piece (named: image_a, image_b, image_c)
     for i, col in enumerate('abc'):
-        df[f'image_{col}'] = split[i].transform(relative_path)
+        df[f'image_{col}'] = splitted_into_3_series[i].transform(relative_path)
 
     # drop original filenames column and NaN rows
     df = df.drop(columns='filenames')
-    df = df.dropna()
+
+    # drop rows with NaN values
+    df.dropna(inplace=True)
 
     return df
 
