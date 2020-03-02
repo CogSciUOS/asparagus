@@ -10,6 +10,7 @@ import tensorflow as tf
 
 from tensorflow.keras.preprocessing.image import load_img
 
+import matplotlib.pyplot as plt
 
 log = getLogger(__file__)
 log.setLevel(WARNING)
@@ -133,36 +134,15 @@ def load_image(inputs, targets):
     Returns:
         tf dataset with images
     """
-    print("inputs")
-    print(inputs)
-    print()
-    print("input tensor at image_a")
-    print(inputs['image_a'])
-    print()
-
     # load the raw data from the file as a string
     img = tf.io.read_file(inputs['image_a'])
-    # print(type(img))
 
     # convert the compressed string to a 3D uint8 tensor
     img = tf.image.decode_png(img, channels=3)
-    # img = tf.image.decode_png(img)
     # Use `convert_image_dtype` to convert to floats in the [0,1] range.
     img = tf.image.convert_image_dtype(img, tf.float32)
     # resize the image to the desired size.
     tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
-
-    # for elem in img:
-    #    print(elem)
-
-    # print(img)
-    # should be sth like (x, y, 3) but is shape=(None, None, 3)
-
-    for image in img:
-        print("Image shape: ", image.shape)
-    print()
-    print()
-    print()
 
     return img, targets
 
@@ -227,17 +207,64 @@ def create_dataset(df):
     return dataset
 
 
+BATCH_SIZE = 32
+AUTOTUNE = tf.data.experimental.AUTOTUNE
+
+
+def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
+    # This is a small dataset, only load it once, and keep it in memory.
+    # use `.cache(filename)` to cache preprocessing work for datasets that don't
+    # fit in memory.
+    if cache:
+        if isinstance(cache, str):
+            ds = ds.cache(cache)
+        else:
+            ds = ds.cache()
+
+    ds = ds.shuffle(buffer_size=shuffle_buffer_size)
+
+    # Repeat forever
+    ds = ds.repeat()
+
+    ds = ds.batch(BATCH_SIZE)
+
+    # `prefetch` lets the dataset fetch batches in the background while the model
+    # is training.
+    ds = ds.prefetch(buffer_size=AUTOTUNE)
+
+    return ds
+
+
+def show_batch(image_batch, target_batch):
+    fig = plt.figure(figsize=(10, 10))
+    for n in range(9):
+        ax = plt.subplot(3, 3, n+1)
+        plt.imshow(image_batch[n])
+        plt.title(f"{target_batch[n]}")
+        plt.axis('off')
+    fig.savefig('plot.png')
+    return fig
+
+
 def main(labels, imagedir):
-    # get preprocessed pd dataframe from csv file
+        # get preprocessed pd dataframe from csv file
     df = load_df(labels, imagedir)
 
     # create tensorflow dataset including images
     dataset = create_dataset(df)
 
     # look at the first entries
-    for feat, targ in dataset.take(1):
+    for feat, targ in dataset.take(5):
         print("Feat shape: ", feat.numpy().shape)
-        print("target shape: ", targ.numpy().shape)
+        print("target shape: ", targ.numpy())
+
+    train_ds = prepare_for_training(dataset)
+
+    image_batch, label_batch = next(iter(train_ds))
+    fig = show_batch(image_batch.numpy(), label_batch.numpy())
+    print(type(fig))
+
+    plt.show()
 
 
 if __name__ == "__main__":
