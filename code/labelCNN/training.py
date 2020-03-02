@@ -117,6 +117,19 @@ def load_df(labels_csv, imagedir):
 
 
 def load_image(inputs, targets):
+    """loads images based on path and adds them to the dataset
+
+    Args:
+        inputs ([type]): [description]
+        targets ([type]): [description]
+
+    Returns:
+        tf dataset with images
+    """
+    img = tf.io.read_file(file_path)
+    img = tf.image.decode_png(img, channels=3)
+    img = tf.image.convert_image_dtype(img, tf.float32)
+
     return inputs, targets
 
 
@@ -180,14 +193,12 @@ def create_dataset(df):
 def main(labels, imagedir):
     # get preprocessed pd dataframe from csv file
     df = load_df(labels, imagedir)
-    print("df", df)
 
     # create tensorflow dataset including images
     dataset = create_dataset(df)
-    print("dataset", dataset)
 
     # look at the 5 first entries
-    for feat, targ in dataset.take(5):
+    for feat, targ in dataset.take(1):
         print('Features: {}, Target: {}'.format(feat, targ))
 
 
