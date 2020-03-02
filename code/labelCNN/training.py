@@ -87,7 +87,7 @@ def load_df(labels_csv, imagedir):
         log.info(path)
         # to prevent false paths
         if path is None:
-            log.warning("Missing path")
+            log.info("Missing path")
             return None
 
         ready_path = Path(imagedir) / \
