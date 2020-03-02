@@ -96,7 +96,7 @@ def load_df(labels_csv, imagedir):
         if ready_path.is_file():
             return ready_path
         else:
-            log.warning("Invalid path: %s", ready_path)
+            log.info("Invalid path: %s", ready_path)
             return None
 
     # process the filenames for the three images
@@ -129,9 +129,13 @@ def load_image(inputs, targets):
     """
     print("inputs")
     print(inputs)
+    print()
+    print("input tensor at image_a")
+    print(inputs['image_a'])
+    print()
 
     # load the raw data from the file as a string
-    img = tf.io.read_file(inputs["image_a"])
+    img = tf.io.read_file(inputs['image_a'])
 
     # convert the compressed string to a 3D uint8 tensor
     img = tf.image.decode_png(img, channels=3)
@@ -139,6 +143,10 @@ def load_image(inputs, targets):
     img = tf.image.convert_image_dtype(img, tf.float32)
     # resize the image to the desired size.
     # tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
+
+    print(img)
+    # should be sth like (x, y, 3) but is shape=(None, None, 3)
+    print(img.shape)
 
     return inputs, targets
 
@@ -185,9 +193,12 @@ def create_dataset(df):
 
     # define inputs
     inputs = {
-        "auto": df[auto_cols].values,
-        "images": df[image_cols].values
+        'auto': df[auto_cols].values,
+        'image_a': df[image_cols[0]].values,
+        'image_b': df[image_cols[1]].values,
+        'image_c': df[image_cols[2]].values,
     }
+
     # define outputs
     outputs = df[target_cols].values
 
@@ -208,8 +219,8 @@ def main(labels, imagedir):
     dataset = create_dataset(df)
 
     # look at the 5 first entries
-    for feat, targ in dataset.take(1):
-        print('Features: {}, Target: {}'.format(feat, targ))
+    # for feat, targ in dataset.take(1):
+    #    print('Features: {}, Target: {}'.format(feat, targ))
 
 
 if __name__ == "__main__":
