@@ -118,17 +118,27 @@ def load_df(labels_csv, imagedir):
 
 def load_image(inputs, targets):
     """loads images based on path and adds them to the dataset
+       see: https://www.tensorflow.org/tutorials/load_data/images
 
     Args:
-        inputs ([type]): [description]
-        targets ([type]): [description]
+        inputs  : input of dataset
+        targets : target of dataset
 
     Returns:
         tf dataset with images
     """
-    img = tf.io.read_file(file_path)
+    print("inputs")
+    print(inputs)
+
+    # load the raw data from the file as a string
+    img = tf.io.read_file(inputs["image_a"])
+
+    # convert the compressed string to a 3D uint8 tensor
     img = tf.image.decode_png(img, channels=3)
+    # Use `convert_image_dtype` to convert to floats in the [0,1] range.
     img = tf.image.convert_image_dtype(img, tf.float32)
+    # resize the image to the desired size.
+    # tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
 
     return inputs, targets
 
