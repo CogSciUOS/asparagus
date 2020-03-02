@@ -119,10 +119,6 @@ def load_df(labels_csv, imagedir):
     return df
 
 
-IMG_HEIGHT = 224
-IMG_WIDTH = 224
-
-
 def load_image(inputs, targets):
     """loads images based on path and adds them to the dataset
        see: https://www.tensorflow.org/tutorials/load_data/images
@@ -207,10 +203,6 @@ def create_dataset(df):
     return dataset
 
 
-BATCH_SIZE = 32
-AUTOTUNE = tf.data.experimental.AUTOTUNE
-
-
 def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
     # This is a small dataset, only load it once, and keep it in memory.
     # use `.cache(filename)` to cache preprocessing work for datasets that don't
@@ -246,8 +238,14 @@ def show_batch(image_batch, target_batch):
     return fig
 
 
+IMG_HEIGHT = 224
+IMG_WIDTH = 224
+BATCH_SIZE = 32
+AUTOTUNE = tf.data.experimental.AUTOTUNE
+
+
 def main(labels, imagedir):
-        # get preprocessed pd dataframe from csv file
+    # get preprocessed pd dataframe from csv file
     df = load_df(labels, imagedir)
 
     # create tensorflow dataset including images
@@ -258,12 +256,10 @@ def main(labels, imagedir):
         print("Feat shape: ", feat.numpy().shape)
         print("target shape: ", targ.numpy())
 
+    # copied part from tutorial
     train_ds = prepare_for_training(dataset)
-
     image_batch, label_batch = next(iter(train_ds))
     fig = show_batch(image_batch.numpy(), label_batch.numpy())
-    print(type(fig))
-
     plt.show()
 
 
