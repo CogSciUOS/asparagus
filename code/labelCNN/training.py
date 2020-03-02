@@ -72,7 +72,7 @@ def load_df(labels_csv, imagedir):
     df = pd.read_csv(labels_csv, sep=';', usecols=usecols,
                      converters=converters)
 
-    # remove unclassified rows
+    # remove unclassified rows and the column itself
     unclassifiable = df[df['unclassified'] == 1].index
     df.drop(unclassifiable, inplace=True)
     df.drop(columns=['unclassified'], inplace=True)
@@ -82,7 +82,7 @@ def load_df(labels_csv, imagedir):
     df.dropna(inplace=True)
 
     def relative_path(path):
-        """ convert path stated in df to corresponding path of image dir folder
+        """ convert path stated in label csv file to corresponding path of image dir folder
             if erroneous, put NaN and delete"""
         log.info(path)
         # to prevent false paths
@@ -94,16 +94,17 @@ def load_df(labels_csv, imagedir):
             Path(path).relative_to(Path(path).parents[2])
 
         if ready_path.is_file():
-            return str(ready_path)
+            return ready_path
         else:
             log.warning("Invalid path: %s", ready_path)
             return None
 
-    # process the filenames for the images
+    # process the filenames for the three images
     splitted_into_3_series = df['filenames'].str.split(', ', expand=True)
 
     # make a separate column for each of the three pictures for one asparagus piece (named: image_a, image_b, image_c)
     for i, col in enumerate('abc'):
+        # apply the relative path function to each entry
         df[f'image_{col}'] = splitted_into_3_series[i].transform(relative_path)
 
     # drop original filenames column and NaN rows
@@ -120,6 +121,16 @@ def load_image(inputs, targets):
 
 
 def create_dataset(df):
+    """creates a tf dataset from the pandas df
+    - defines input and target columns
+
+    Args:
+        df (pd dataframe): dataframe with features and and path to images
+
+    Returns:
+        tf dataset: tensorflow dataset with features and images of all available asparagus pieces
+    """
+    # these columns are generated
     auto_cols = [
         'auto_width',
         'auto_bended',
@@ -127,12 +138,15 @@ def create_dataset(df):
         'auto_violet',
     ]
 
+    # these are the images
     image_cols = [
         'image_a',
         'image_b',
         'image_c'
     ]
 
+    # these are the columns we want to predict
+    # they were hand labeled by humans
     target_cols = [
         'is_hollow',
         'has_blume',
@@ -142,30 +156,38 @@ def create_dataset(df):
         'is_violet'
     ]
 
+    # make strings out of the path objects
     for img_col in image_cols:
         df[img_col] = df[img_col].apply(str)
 
+    # define inputs
     inputs = {
         "auto": df[auto_cols].values,
         "images": df[image_cols].values
     }
+    # define outputs
     outputs = df[target_cols].values
 
+    # https://www.tensorflow.org/api_docs/python/tf/data/Dataset#from_tensor_slices
     dataset = tf.data.Dataset.from_tensor_slices((inputs, outputs))
+    # This transformation applies the function load_image to each element of this dataset,
+    # and returns a new dataset containing the transformed elements
     dataset = dataset.map(load_image)
 
     return dataset
 
 
 def main(labels, imagedir):
-
+    # get preprocessed pd dataframe from csv file
     df = load_df(labels, imagedir)
     print("df", df)
 
+    # create tensorflow dataset including images
     dataset = create_dataset(df)
     print("dataset", dataset)
 
-    for feat, targ in dataset.take(1):
+    # look at the 5 first entries
+    for feat, targ in dataset.take(5):
         print('Features: {}, Target: {}'.format(feat, targ))
 
 
