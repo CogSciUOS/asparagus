@@ -8,6 +8,8 @@ from logging import getLogger, StreamHandler, WARNING
 import tensorflow.keras as keras
 import tensorflow as tf
 
+from tensorflow.keras.preprocessing.image import load_img
+
 
 log = getLogger(__file__)
 log.setLevel(WARNING)
@@ -116,6 +118,10 @@ def load_df(labels_csv, imagedir):
     return df
 
 
+IMG_HEIGHT = 224
+IMG_WIDTH = 224
+
+
 def load_image(inputs, targets):
     """loads images based on path and adds them to the dataset
        see: https://www.tensorflow.org/tutorials/load_data/images
@@ -136,19 +142,29 @@ def load_image(inputs, targets):
 
     # load the raw data from the file as a string
     img = tf.io.read_file(inputs['image_a'])
+    # print(type(img))
 
     # convert the compressed string to a 3D uint8 tensor
     img = tf.image.decode_png(img, channels=3)
+    # img = tf.image.decode_png(img)
     # Use `convert_image_dtype` to convert to floats in the [0,1] range.
     img = tf.image.convert_image_dtype(img, tf.float32)
     # resize the image to the desired size.
-    # tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
+    tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
 
-    print(img)
+    # for elem in img:
+    #    print(elem)
+
+    # print(img)
     # should be sth like (x, y, 3) but is shape=(None, None, 3)
-    print(img.shape)
 
-    return inputs, targets
+    for image in img:
+        print("Image shape: ", image.shape)
+    print()
+    print()
+    print()
+
+    return img, targets
 
 
 def create_dataset(df):
@@ -218,9 +234,10 @@ def main(labels, imagedir):
     # create tensorflow dataset including images
     dataset = create_dataset(df)
 
-    # look at the 5 first entries
-    # for feat, targ in dataset.take(1):
-    #    print('Features: {}, Target: {}'.format(feat, targ))
+    # look at the first entries
+    for feat, targ in dataset.take(1):
+        print("Feat shape: ", feat.numpy().shape)
+        print("target shape: ", targ.numpy().shape)
 
 
 if __name__ == "__main__":
