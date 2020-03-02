@@ -50,7 +50,6 @@ def load_df(labels_csv, imagedir):
     ]
 
     # convert to float
-
     def map_label(x):
         try:
             return float(x)
@@ -103,7 +102,7 @@ def load_df(labels_csv, imagedir):
     # process the filenames for the images
     splitted_into_3_series = df['filenames'].str.split(', ', expand=True)
 
-    # make a separate column for each of the three pichttps://pandas.pydata.org/pandas-docs/stable/user_guide/text.htmltures for one asparagus piece (named: image_a, image_b, image_c)
+    # make a separate column for each of the three pictures for one asparagus piece (named: image_a, image_b, image_c)
     for i, col in enumerate('abc'):
         df[f'image_{col}'] = splitted_into_3_series[i].transform(relative_path)
 
@@ -113,14 +112,22 @@ def load_df(labels_csv, imagedir):
     # drop rows with NaN values
     df.dropna(inplace=True)
 
-    input_cols = [
+    return df
+
+
+def load_image(inputs, targets):
+    return inputs, targets
+
+
+def create_dataset(df):
+    auto_cols = [
         'auto_width',
         'auto_bended',
         'auto_length',
         'auto_violet',
     ]
 
-    images_cols = [
+    image_cols = [
         'image_a',
         'image_b',
         'image_c'
@@ -135,30 +142,30 @@ def load_df(labels_csv, imagedir):
         'is_violet'
     ]
 
-    for col in input_cols + target_cols:
-        df[col] = df[col].astype("float32")
+    for img_col in image_cols:
+        df[img_col] = df[img_col].apply(str)
 
-    for img_col in images_cols:
-        df[img_col] = df[img_col].astype("string")
+    inputs = {
+        "auto": df[auto_cols].values,
+        "images": df[image_cols].values
+    }
+    outputs = df[target_cols].values
 
-    return df[input_cols + images_cols], df[target_cols]
+    dataset = tf.data.Dataset.from_tensor_slices((inputs, outputs))
+    dataset = dataset.map(load_image)
+
+    return dataset
 
 
 def main(labels, imagedir):
-    input_df, target_df = load_df(labels, imagedir)
-    print(input_df.head())
-    print(target_df.head())
 
-    print(type(input_df))
-    print(type(target_df))
+    df = load_df(labels, imagedir)
+    print("df", df)
 
-    print(input_df.dtypes)
-    print(target_df.dtypes)
+    dataset = create_dataset(df)
+    print("dataset", dataset)
 
-    dataset = tf.data.Dataset.from_tensor_slices(
-        (input_df.values, target_df.values))
-
-    for feat, targ in dataset.take(5):
+    for feat, targ in dataset.take(1):
         print('Features: {}, Target: {}'.format(feat, targ))
 
 
