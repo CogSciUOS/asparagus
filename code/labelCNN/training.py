@@ -267,32 +267,9 @@ def get_compiled_model():
 
     return auto_model
 
-
-def save_images(image_batch, target_batch):
-    """ visualizes the asparagus pieces and shows target vector to be learned """
-    # look at first batch
-    batch = 0
-
-    fig = plt.figure(figsize=(10, 10))
-    for letter in "abc":
-        plt.imshow(image_batch[f'image_{letter}_input'][batch][0])
-        fig.savefig(f'test{letter}.png')
-
-    # put 3 x 3 on the figure
-    for n in range(9):
-        ax = plt.subplot(3, 3, n+1)
-        # TODO only seeing image_a !!!
-        plt.imshow(image_batch['image_a_input'][batch][0])
-        plt.title(
-            f"batch: {n} \n targ: {target_batch[batch][0]} \n auto: {image_batch['auto_input'][batch][0]}")
-        plt.axis('off')
-    fig.tight_layout()
-    fig.savefig('plot.png')
-
-    return fig
-
-
 # TODO use this script as a grid job
+
+
 class EarlyStoppingAfterMinutes(keras.callbacks.Callback):
     def __init__(self, minutes):
         self.timeout = minutes * 60
@@ -351,10 +328,6 @@ def main(labels, imagedir):
     model = get_compiled_model()
     # fit the model to the data and validate
     model.fit(train_dataset, epochs=1, validation_data=val_dataset)
-
-    # saving some images with target vectors
-    image_batch, label_batch = next(iter(train_dataset))
-    save_images(image_batch, label_batch.numpy())
 
 
 if __name__ == "__main__":
