@@ -268,31 +268,7 @@ def get_compiled_model():
     return auto_model
 
 
-def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
-    # This is a small dataset, only load it once, and keep it in memory.
-    # use `.cache(filename)` to cache preprocessing work for datasets that don't
-    # fit in memory.
-    if cache:
-        if isinstance(cache, str):
-            ds = ds.cache(cache)
-        else:
-            ds = ds.cache()
-
-    # ds = ds.shuffle(buffer_size=shuffle_buffer_size)
-
-    # Repeat forever
-    # ds = ds.repeat(3)
-
-    ds = ds.batch(BATCH_SIZE)
-
-    # `prefetch` lets the dataset fetch batches in the background while the model
-    # is training.
-    ds = ds.prefetch(buffer_size=AUTOTUNE)
-
-    return ds
-
-
-def show_batch(image_batch, target_batch):
+def save_images(image_batch, target_batch):
     """ visualizes the asparagus pieces and shows target vector to be learned """
     # look at first batch
     batch = 0
@@ -376,12 +352,9 @@ def main(labels, imagedir):
     # fit the model to the data and validate
     model.fit(train_dataset, epochs=1, validation_data=val_dataset)
 
-    # makes this fancy shit like caching
-    ds = prepare_for_training(dataset)
-    image_batch, label_batch = next(iter(ds))
-    # showing some images with target vectors
-    fig = show_batch(image_batch, label_batch.numpy())
-    plt.show()
+    # saving some images with target vectors
+    image_batch, label_batch = next(iter(train_dataset))
+    save_images(image_batch, label_batch.numpy())
 
 
 if __name__ == "__main__":
