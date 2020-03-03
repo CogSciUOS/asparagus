@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 import os
+import time
 
 import numpy as np
 import pandas as pd
@@ -247,25 +248,24 @@ def get_compiled_model():
             filters=96, kernel_size=(11, 11), padding='valid'),
         tf.keras.layers.Dropout(0.5),
         tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(100),
+        tf.keras.layers.Dense(50),
         tf.keras.layers.Dropout(0.2),
-        tf.keras.layers.Dense(50, activation='relu'),
         tf.keras.layers.Dense(6)  # , activation='softmax'),
     ])
 
-    image_model.compile(optimizer='adam',
-                        loss=tf.keras.losses.BinaryCrossentropy(),
-                        metrics=['accuracy',
+    auto_model.compile(optimizer='adam',
+                       loss=tf.keras.losses.BinaryCrossentropy(),
+                       metrics=['accuracy',
                                  'mse',
                                  # keras.metrics.TruePositives(),
                                  # keras.metrics.TrueNegatives(),
                                  # keras.metrics.FalsePositives(),
                                  # keras.metrics.FalseNegatives(),
-                                 ])
+                                ])
 
-    image_model.summary()
+    auto_model.summary()
 
-    return image_model
+    return auto_model
 
 
 def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
@@ -294,19 +294,21 @@ def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
 
 def show_batch(image_batch, target_batch):
     """ visualizes the asparagus pieces and shows target vector to be learned """
-
-    for val in image_batch:
-        # print(val)
-        pass
+    # look at first batch
+    batch = 0
 
     fig = plt.figure(figsize=(10, 10))
+    for letter in "abc":
+        plt.imshow(image_batch[f'image_{letter}_input'][batch][0])
+        fig.savefig(f'test{letter}.png')
+
     # put 3 x 3 on the figure
     for n in range(9):
         ax = plt.subplot(3, 3, n+1)
         # TODO only seeing image_a !!!
-        plt.imshow(image_batch['image_a_input'][n][0])
+        plt.imshow(image_batch['image_a_input'][batch][0])
         plt.title(
-            f"batch: {n} \n targ: {target_batch[n][0]} \n auto: {image_batch['auto_input'][n][0]}")
+            f"batch: {n} \n targ: {target_batch[batch][0]} \n auto: {image_batch['auto_input'][batch][0]}")
         plt.axis('off')
     fig.tight_layout()
     fig.savefig('plot.png')
@@ -314,8 +316,8 @@ def show_batch(image_batch, target_batch):
     return fig
 
 
-# TODO write this to use this script as a grid job
-class EarlyStoppingAfterMinutes(k.callbacks.Callback):
+# TODO use this script as a grid job
+class EarlyStoppingAfterMinutes(keras.callbacks.Callback):
     def __init__(self, minutes):
         self.timeout = minutes * 60
         self.start = None
@@ -331,8 +333,8 @@ class EarlyStoppingAfterMinutes(k.callbacks.Callback):
 
     def on_epoch_end(self, epoch, logs=None):
         now = time.time()
-        approx_total = self.mean_time * self.epochs +
-        (now - self.last_epoch_start)
+        approx_total = self.mean_time * \
+            self.epochs + (now - self.last_epoch_start)
         self.epochs += 1
         self.mean_time = approx_total / self.epochs
         if now - self.start + 1.5 * self.mean_time > self.timeout:
@@ -348,7 +350,6 @@ IMG_WIDTH = 224
 
 # take 10 samples in parallel to update model
 BATCH_SIZE = 10
-# TODO
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
 
@@ -357,33 +358,24 @@ def main(labels, imagedir):
     df = load_df(labels, imagedir)
 
     # create tensorflow dataset including images
-    dataset = create_dataset(df).batch(3)
+    dataset = create_dataset(df).batch(5)
     print()
     print("The dataset:", dataset)
     print()
 
-    # look at the first entries
-    for feat, targ in dataset.take(1):
-        # print("Feature shape: ", feat)
-        print("Target shape: ", targ.numpy().shape)
-    print()
-    print()
+    # shuffle
+    dataset = dataset.shuffle(buffer_size=10, seed=2)
 
-    # validation_split
-    # save this somewhere (8 % of the shuffled dataset?)
-    # TODO
-
-    # train test split
-    # TODO
+    # split into validation und training
+    val_dataset = dataset.take(100)
+    train_dataset = dataset.skip(100)
+    train_dataset = train_dataset.shuffle(3, reshuffle_each_iteration=True)
 
     # define and compile the model to be trained
     model = get_compiled_model()
-    # fit the model to the data
-    model.fit(dataset, epochs=3)
+    # fit the model to the data and validate
+    model.fit(train_dataset, epochs=1, validation_data=val_dataset)
 
-    # TODO
-    # shuffle
-    dataset = dataset.shuffle(buffer_size=10)
     # makes this fancy shit like caching
     ds = prepare_for_training(dataset)
     image_batch, label_batch = next(iter(ds))
