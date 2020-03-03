@@ -108,7 +108,8 @@ def load_df(labels_csv, imagedir):
     # make a separate column for each of the three pictures for one asparagus piece (named: image_a, image_b, image_c)
     for i, col in enumerate('abc'):
         # apply the relative path function to each entry
-        df[f'image_{col}'] = splitted_into_3_series[i].transform(relative_path)
+        df[f'image_{col}'] = splitted_into_3_series[i].transform(
+            relative_path)
 
     # drop original filenames column and NaN rows
     df = df.drop(columns='filenames')
@@ -130,17 +131,19 @@ def load_image(inputs, targets):
     Returns:
         tf dataset with images
     """
-    # load the raw data from the file as a string
-    img = tf.io.read_file(inputs['image_a'])
+    for img in 'abc':
+        key = f'image_{img}_input'
+        # load the raw data from the file as a string
+        img = tf.io.read_file(inputs[key])
+        # convert the compressed string to a 3D uint8 tensor
+        img = tf.image.decode_png(img, channels=3)
+        # Use `convert_image_dtype` to convert to floats in the [0,1] range.
+        img = tf.image.convert_image_dtype(img, tf.float32)
+        # resize the image to the desired size.
+        # img = tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
+        inputs[key] = img
 
-    # convert the compressed string to a 3D uint8 tensor
-    img = tf.image.decode_png(img, channels=3)
-    # Use `convert_image_dtype` to convert to floats in the [0,1] range.
-    img = tf.image.convert_image_dtype(img, tf.float32)
-    # resize the image to the desired size.
-    tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
-
-    return img, targets
+    return inputs, targets
 
 
 def create_dataset(df):
@@ -185,10 +188,10 @@ def create_dataset(df):
 
     # define inputs
     inputs = {
-        'auto': df[auto_cols].values,
-        'image_a': df[image_cols[0]].values,
-        'image_b': df[image_cols[1]].values,
-        'image_c': df[image_cols[2]].values,
+        'auto_input': df[auto_cols].values,
+        'image_a_input': df[image_cols[0]].values,
+        'image_b_input': df[image_cols[1]].values,
+        'image_c_input': df[image_cols[2]].values,
     }
 
     # define outputs
@@ -216,7 +219,8 @@ def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
     ds = ds.shuffle(buffer_size=shuffle_buffer_size)
 
     # Repeat forever
-    ds = ds.repeat()
+    #ds = ds.repeat()
+    ds = ds.repeat(3)
 
     ds = ds.batch(BATCH_SIZE)
 
@@ -238,10 +242,38 @@ def show_batch(image_batch, target_batch):
     return fig
 
 
+def get_compiled_model():
+    model = tf.keras.Sequential([
+        tf.keras.layers.Input(shape=(4, ), name='auto_input'),
+        tf.keras.layers.Dense(8, activation='relu'),
+        tf.keras.layers.Dense(6)
+    ])
+
+    model.compile(optimizer='adam',
+                  loss=tf.keras.losses.BinaryCrossentropy(),
+                  metrics=['accuracy'])
+
+    model.summary()
+
+    return model
+
+
+def plot_batch_sizes(ds):
+    fig = plt.figure()
+    # i changed this to stupid
+    batch_sizes = [len(batch) for batch in ds]
+    plt.bar(range(len(batch_sizes)), batch_sizes)
+    plt.xlabel('Batch number')
+    plt.ylabel('Batch size')
+    fig.savefig('batch_size.png')
+
+
 IMG_HEIGHT = 224
 IMG_WIDTH = 224
 BATCH_SIZE = 32
 AUTOTUNE = tf.data.experimental.AUTOTUNE
+
+IMAGE_SHAPE = (1340, 364, 3)
 
 
 def main(labels, imagedir):
@@ -249,18 +281,29 @@ def main(labels, imagedir):
     df = load_df(labels, imagedir)
 
     # create tensorflow dataset including images
-    dataset = create_dataset(df)
+    dataset = create_dataset(df).batch(10)
 
     # look at the first entries
-    for feat, targ in dataset.take(5):
-        print("Feat shape: ", feat.numpy().shape)
-        print("target shape: ", targ.numpy())
+    for feat, targ in dataset.take(1):
+        print("Feature shape: ", feat)
+        print("Target shape: ", targ.numpy())
+    print()
+    print()
+
+    print(dataset)
 
     # copied part from tutorial
-    train_ds = prepare_for_training(dataset)
-    image_batch, label_batch = next(iter(train_ds))
-    fig = show_batch(image_batch.numpy(), label_batch.numpy())
-    plt.show()
+    # train_ds = prepare_for_training(dataset)
+    # image_batch, label_batch = next(iter(train_ds))
+    # fig = show_batch(image_batch.numpy(), label_batch.numpy())
+    # plt.show()
+
+    # train_dataset = train_ds.shuffle(len(df)).batch(1)
+    # plot_batch_sizes(train_dataset)
+
+    model = get_compiled_model()
+
+    model.fit(dataset, epochs=100)
 
 
 if __name__ == "__main__":
