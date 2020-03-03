@@ -156,7 +156,7 @@ def load_image(inputs, targets):
     return inputs, targets
 
 
-def create_dataset(df, batch_size=32):
+def create_dataset(df, batch_size=5):
     """creates a tf dataset from the pandas df
     - defines input and target columns
 
@@ -213,16 +213,16 @@ def create_dataset(df, batch_size=32):
     # and returns a new dataset containing the transformed elements
     dataset = dataset.map(load_image)
 
-    # determine batch size
-    dataset = dataset.batch(batch_size)
-
     # shuffle
     dataset = dataset.shuffle(buffer_size=10, seed=2)
 
-    # split into validation und training
+    # split into validation und training and batch
     val_dataset = dataset.take(100)
+    val_dataset = dataset.batch(batch_size)
+
     train_dataset = dataset.skip(100)
     train_dataset = train_dataset.shuffle(3, reshuffle_each_iteration=True)
+    train_dataset = dataset.batch(batch_size)
 
     return train_dataset, val_dataset
 
@@ -319,7 +319,7 @@ def main(labels, imagedir):
 
     # create tensorflow dataset including images separated in train and val set
     train_dataset, val_dataset = create_dataset(
-        df, batch_size=32)
+        df, batch_size=5)
 
     # define and compile the model to be trained
     model = get_compiled_model()
