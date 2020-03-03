@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+import os
 
 import numpy as np
 import pandas as pd
@@ -12,9 +13,17 @@ from tensorflow.keras.preprocessing.image import load_img
 
 import matplotlib.pyplot as plt
 
+
 log = getLogger(__file__)
 log.setLevel(WARNING)
 log.addHandler(StreamHandler())
+
+# Disable warnings
+DISABLE_WARNINGS = True
+if DISABLE_WARNINGS:
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+    import tensorflow as tf  # noqa
+    tf.get_logger().setLevel('ERROR')
 
 
 def parse_args():
@@ -206,46 +215,18 @@ def create_dataset(df):
     return dataset
 
 
-def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
-    # This is a small dataset, only load it once, and keep it in memory.
-    # use `.cache(filename)` to cache preprocessing work for datasets that don't
-    # fit in memory.
-    if cache:
-        if isinstance(cache, str):
-            ds = ds.cache(cache)
-        else:
-            ds = ds.cache()
-
-    ds = ds.shuffle(buffer_size=shuffle_buffer_size)
-
-    # Repeat forever
-    #ds = ds.repeat()
-    ds = ds.repeat(3)
-
-    ds = ds.batch(BATCH_SIZE)
-
-    # `prefetch` lets the dataset fetch batches in the background while the model
-    # is training.
-    ds = ds.prefetch(buffer_size=AUTOTUNE)
-
-    return ds
-
-
-def show_batch(image_batch, target_batch):
-    fig = plt.figure(figsize=(10, 10))
-    for n in range(9):
-        ax = plt.subplot(3, 3, n+1)
-        plt.imshow(image_batch[n])
-        plt.title(f"{target_batch[n]}")
-        plt.axis('off')
-    fig.savefig('plot.png')
-    return fig
-
-
 def get_compiled_model():
+    """ define and compile the model"""
     model = tf.keras.Sequential([
+        # TODO
         tf.keras.layers.Input(shape=(4, ), name='auto_input'),
-        tf.keras.layers.Dense(8, activation='relu'),
+        tf.keras.layers.Dense(512, activation='relu'),
+        tf.keras.layers.Dense(200, activation='relu'),
+        tf.keras.layers.Dense(50, activation='relu'),
+        tf.keras.layers.Dense(100, activation='relu'),
+        tf.keras.layers.Dense(30, activation='relu'),
+        tf.keras.layers.Dense(15, activation='relu'),
+        tf.keras.layers.Dense(8, activation='sigmoid'),
         tf.keras.layers.Dense(6)
     ])
 
@@ -258,22 +239,61 @@ def get_compiled_model():
     return model
 
 
-def plot_batch_sizes(ds):
-    fig = plt.figure()
-    # i changed this to stupid
-    batch_sizes = [len(batch) for batch in ds]
-    plt.bar(range(len(batch_sizes)), batch_sizes)
-    plt.xlabel('Batch number')
-    plt.ylabel('Batch size')
-    fig.savefig('batch_size.png')
+def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
+    # This is a small dataset, only load it once, and keep it in memory.
+    # use `.cache(filename)` to cache preprocessing work for datasets that don't
+    # fit in memory.
+    if cache:
+        if isinstance(cache, str):
+            ds = ds.cache(cache)
+        else:
+            ds = ds.cache()
+
+    #ds = ds.shuffle(buffer_size=shuffle_buffer_size)
+
+    # Repeat forever
+    #ds = ds.repeat(3)
+
+    ds = ds.batch(BATCH_SIZE)
+
+    # `prefetch` lets the dataset fetch batches in the background while the model
+    # is training.
+    ds = ds.prefetch(buffer_size=AUTOTUNE)
+
+    return ds
 
 
-IMG_HEIGHT = 224
-IMG_WIDTH = 224
-BATCH_SIZE = 32
-AUTOTUNE = tf.data.experimental.AUTOTUNE
+def show_batch(image_batch, target_batch):
+    """ visualizes the asparagus pieces and shows target vector to be learned """
+
+    for val in image_batch:
+        # print(val)
+        pass
+
+    fig = plt.figure(figsize=(10, 10))
+    # put 3 x 3 on the figure
+    for n in range(9):
+        ax = plt.subplot(3, 3, n+1)
+        # TODO only seeing image_a !!!
+        plt.imshow(image_batch['image_a_input'][n][0])
+        plt.title(
+            f"batch: {n} \n targ: {target_batch[n][0]} \n auto: {image_batch['auto_input'][n][0]}")
+        plt.axis('off')
+    fig.savefig('plot.png')
+
+    return fig
+
 
 IMAGE_SHAPE = (1340, 364, 3)
+
+# unused right now; can be used to resize the image
+IMG_HEIGHT = 224
+IMG_WIDTH = 224
+
+# take 10 samples in parallel to update model
+BATCH_SIZE = 10
+# TODO
+AUTOTUNE = tf.data.experimental.AUTOTUNE
 
 
 def main(labels, imagedir):
@@ -281,29 +301,30 @@ def main(labels, imagedir):
     df = load_df(labels, imagedir)
 
     # create tensorflow dataset including images
-    dataset = create_dataset(df).batch(10)
+    dataset = create_dataset(df).batch(3)
+    print()
+    print("The dataset:", dataset)
+    print()
 
     # look at the first entries
     for feat, targ in dataset.take(1):
-        print("Feature shape: ", feat)
-        print("Target shape: ", targ.numpy())
+        #print("Feature shape: ", feat)
+        print("Target shape: ", targ.numpy().shape)
     print()
     print()
 
-    print(dataset)
+    # TODO
+    # makes this fancy shit like caching
+    ds = prepare_for_training(dataset)
 
-    # copied part from tutorial
-    # train_ds = prepare_for_training(dataset)
-    # image_batch, label_batch = next(iter(train_ds))
-    # fig = show_batch(image_batch.numpy(), label_batch.numpy())
-    # plt.show()
+    # define and compile the model to be trained
+    # model = get_compiled_model()
+    # fit the model to the data
+    # model.fit(dataset, epochs=5)
 
-    # train_dataset = train_ds.shuffle(len(df)).batch(1)
-    # plot_batch_sizes(train_dataset)
-
-    model = get_compiled_model()
-
-    model.fit(dataset, epochs=100)
+    image_batch, label_batch = next(iter(ds))
+    fig = show_batch(image_batch, label_batch.numpy())
+    plt.show()
 
 
 if __name__ == "__main__":
