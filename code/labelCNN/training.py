@@ -220,19 +220,27 @@ def get_compiled_model():
     model = tf.keras.Sequential([
         # TODO
         tf.keras.layers.Input(shape=(4, ), name='auto_input'),
-        tf.keras.layers.Dense(512, activation='relu'),
+        tf.keras.layers.Dense(1000, activation='relu'),
+        tf.keras.layers.Dense(500, activation='relu'),
+        tf.keras.layers.BatchNormalization(),
         tf.keras.layers.Dense(200, activation='relu'),
-        tf.keras.layers.Dense(50, activation='relu'),
         tf.keras.layers.Dense(100, activation='relu'),
-        tf.keras.layers.Dense(30, activation='relu'),
-        tf.keras.layers.Dense(15, activation='relu'),
-        tf.keras.layers.Dense(8, activation='sigmoid'),
-        tf.keras.layers.Dense(6)
+        tf.keras.layers.LeakyReLU(),
+        tf.keras.layers.Dense(50, activation='relu'),
+        tf.keras.layers.Dense(20, activation='relu'),
+        tf.keras.layers.Dense(10, activation='sigmoid'),
+        tf.keras.layers.Dense(6)  # , activation='softmax'),
     ])
 
     model.compile(optimizer='adam',
                   loss=tf.keras.losses.BinaryCrossentropy(),
-                  metrics=['accuracy'])
+                  metrics=['accuracy',
+                           'mse',
+                           # keras.metrics.TruePositives(),
+                           # keras.metrics.TrueNegatives(),
+                           # keras.metrics.FalsePositives(),
+                           # keras.metrics.FalseNegatives(),
+                           ])
 
     model.summary()
 
@@ -249,10 +257,10 @@ def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
         else:
             ds = ds.cache()
 
-    #ds = ds.shuffle(buffer_size=shuffle_buffer_size)
+    # ds = ds.shuffle(buffer_size=shuffle_buffer_size)
 
     # Repeat forever
-    #ds = ds.repeat(3)
+    # ds = ds.repeat(3)
 
     ds = ds.batch(BATCH_SIZE)
 
@@ -279,9 +287,16 @@ def show_batch(image_batch, target_batch):
         plt.title(
             f"batch: {n} \n targ: {target_batch[n][0]} \n auto: {image_batch['auto_input'][n][0]}")
         plt.axis('off')
+    fig.tight_layout()
     fig.savefig('plot.png')
 
     return fig
+
+# TODO write this to use this script as a grid job
+
+
+class EarlyStoppingAfterMinutes(keras.callbacks.Callback):
+    pass
 
 
 IMAGE_SHAPE = (1340, 364, 3)
@@ -308,21 +323,23 @@ def main(labels, imagedir):
 
     # look at the first entries
     for feat, targ in dataset.take(1):
-        #print("Feature shape: ", feat)
+        # print("Feature shape: ", feat)
         print("Target shape: ", targ.numpy().shape)
     print()
     print()
 
+    # define and compile the model to be trained
+    #model = get_compiled_model()
+    # fit the model to the data
+    #model.fit(dataset, epochs=5)
+
     # TODO
+    # shuffle
+    dataset = dataset.shuffle(buffer_size=10)
     # makes this fancy shit like caching
     ds = prepare_for_training(dataset)
-
-    # define and compile the model to be trained
-    # model = get_compiled_model()
-    # fit the model to the data
-    # model.fit(dataset, epochs=5)
-
     image_batch, label_batch = next(iter(ds))
+    # showing some images with target vectors
     fig = show_batch(image_batch, label_batch.numpy())
     plt.show()
 
