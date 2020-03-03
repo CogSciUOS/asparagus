@@ -156,7 +156,7 @@ def load_image(inputs, targets):
     return inputs, targets
 
 
-def create_dataset(df):
+def create_dataset(df, batch_size=32):
     """creates a tf dataset from the pandas df
     - defines input and target columns
 
@@ -213,7 +213,18 @@ def create_dataset(df):
     # and returns a new dataset containing the transformed elements
     dataset = dataset.map(load_image)
 
-    return dataset
+    # determine batch size
+    dataset = dataset.batch(batch_size)
+
+    # shuffle
+    dataset = dataset.shuffle(buffer_size=10, seed=2)
+
+    # split into validation und training
+    val_dataset = dataset.take(100)
+    train_dataset = dataset.skip(100)
+    train_dataset = train_dataset.shuffle(3, reshuffle_each_iteration=True)
+
+    return train_dataset, val_dataset
 
 
 def get_compiled_model():
@@ -301,28 +312,14 @@ IMAGE_SHAPE = (1340, 364, 3)
 IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
-# take 10 samples in parallel to update model
-BATCH_SIZE = 10
-AUTOTUNE = tf.data.experimental.AUTOTUNE
-
 
 def main(labels, imagedir):
     # get preprocessed pd dataframe from csv file
     df = load_df(labels, imagedir)
 
-    # create tensorflow dataset including images
-    dataset = create_dataset(df).batch(5)
-    print()
-    print("The dataset:", dataset)
-    print()
-
-    # shuffle
-    dataset = dataset.shuffle(buffer_size=10, seed=2)
-
-    # split into validation und training
-    val_dataset = dataset.take(100)
-    train_dataset = dataset.skip(100)
-    train_dataset = train_dataset.shuffle(3, reshuffle_each_iteration=True)
+    # create tensorflow dataset including images separated in train and val set
+    train_dataset, val_dataset = create_dataset(
+        df, batch_size=32)
 
     # define and compile the model to be trained
     model = get_compiled_model()
