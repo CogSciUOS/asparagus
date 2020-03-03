@@ -217,34 +217,55 @@ def create_dataset(df):
 
 def get_compiled_model():
     """ define and compile the model"""
-    model = tf.keras.Sequential([
-        # TODO
+    auto_model = tf.keras.Sequential([
+        # this is the auto input
         tf.keras.layers.Input(shape=(4, ), name='auto_input'),
         tf.keras.layers.Dense(1000, activation='relu'),
         tf.keras.layers.Dense(500, activation='relu'),
         tf.keras.layers.BatchNormalization(),
         tf.keras.layers.Dense(200, activation='relu'),
+        tf.keras.layers.Dropout(0.5),
         tf.keras.layers.Dense(100, activation='relu'),
         tf.keras.layers.LeakyReLU(),
         tf.keras.layers.Dense(50, activation='relu'),
         tf.keras.layers.Dense(20, activation='relu'),
         tf.keras.layers.Dense(10, activation='sigmoid'),
+        tf.keras.layers.Dense(6)
+    ])
+
+    image_model = tf.keras.Sequential([
+        # this is the image input
+        tf.keras.layers.Input(shape=IMAGE_SHAPE, name='image_a_input'),
+        tf.keras.layers.Conv2D(filters=96, kernel_size=(
+            11, 11), strides=(4, 4), padding='valid'),
+        tf.keras.layers.MaxPooling2D(pool_size=(
+            2, 2), strides=(2, 2), padding='valid'),
+        tf.keras.layers.Conv2D(
+            filters=96, kernel_size=(11, 11), padding='valid'),
+        tf.keras.layers.BatchNormalization(),
+        tf.keras.layers.Conv2D(
+            filters=96, kernel_size=(11, 11), padding='valid'),
+        tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(100),
+        tf.keras.layers.Dropout(0.2),
+        tf.keras.layers.Dense(50, activation='relu'),
         tf.keras.layers.Dense(6)  # , activation='softmax'),
     ])
 
-    model.compile(optimizer='adam',
-                  loss=tf.keras.losses.BinaryCrossentropy(),
-                  metrics=['accuracy',
-                           'mse',
-                           # keras.metrics.TruePositives(),
-                           # keras.metrics.TrueNegatives(),
-                           # keras.metrics.FalsePositives(),
-                           # keras.metrics.FalseNegatives(),
-                           ])
+    image_model.compile(optimizer='adam',
+                        loss=tf.keras.losses.BinaryCrossentropy(),
+                        metrics=['accuracy',
+                                 'mse',
+                                 # keras.metrics.TruePositives(),
+                                 # keras.metrics.TrueNegatives(),
+                                 # keras.metrics.FalsePositives(),
+                                 # keras.metrics.FalseNegatives(),
+                                 ])
 
-    model.summary()
+    image_model.summary()
 
-    return model
+    return image_model
 
 
 def prepare_for_training(ds, cache=True, shuffle_buffer_size=1000):
@@ -292,11 +313,31 @@ def show_batch(image_batch, target_batch):
 
     return fig
 
+
 # TODO write this to use this script as a grid job
+class EarlyStoppingAfterMinutes(k.callbacks.Callback):
+    def __init__(self, minutes):
+        self.timeout = minutes * 60
+        self.start = None
+        self.last_epoch_start = 0
+        self.epochs = 0
+        self.mean_time = 0
 
+    def on_train_begin(self, logs=None):
+        self.start = time.time()
 
-class EarlyStoppingAfterMinutes(keras.callbacks.Callback):
-    pass
+    def on_epoch_begin(self, epoch, logs=None):
+        self.last_epoch_start = time.time()
+
+    def on_epoch_end(self, epoch, logs=None):
+        now = time.time()
+        approx_total = self.mean_time * self.epochs +
+        (now - self.last_epoch_start)
+        self.epochs += 1
+        self.mean_time = approx_total / self.epochs
+        if now - self.start + 1.5 * self.mean_time > self.timeout:
+            print('Stopping training, time is up')
+            self.model.stop_training = True
 
 
 IMAGE_SHAPE = (1340, 364, 3)
@@ -328,10 +369,17 @@ def main(labels, imagedir):
     print()
     print()
 
+    # validation_split
+    # save this somewhere (8 % of the shuffled dataset?)
+    # TODO
+
+    # train test split
+    # TODO
+
     # define and compile the model to be trained
-    #model = get_compiled_model()
+    model = get_compiled_model()
     # fit the model to the data
-    #model.fit(dataset, epochs=5)
+    model.fit(dataset, epochs=3)
 
     # TODO
     # shuffle
