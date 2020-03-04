@@ -334,7 +334,7 @@ def main(labels, imagedir):
 
     # fit the model to the data and validate
     callbacks = []
-    model.fit(train_dataset, epochs=1,
+    model.fit(train_dataset, epochs=20,
               validation_data=val_dataset, callbacks=callbacks)
 
     #########################
