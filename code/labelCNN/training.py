@@ -5,12 +5,14 @@ import time
 
 import numpy as np
 import pandas as pd
+import h5py
 from logging import getLogger, StreamHandler, WARNING
 
 import tensorflow.keras as keras
 import tensorflow as tf
 
 from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.models import load_model
 
 import matplotlib.pyplot as plt
 
@@ -239,8 +241,8 @@ def get_compiled_model():
     x = keras.layers.Conv2D(
         filters=40, kernel_size=(8, 8), padding='valid')(concat_images)
     x = keras.layers.Dropout(0.5)(x)
-    x = keras.layers.MaxPooling2D(pool_size=(
-        2, 2), strides=(2, 2), padding='valid')(x)
+    # x = keras.layers.MaxPooling2D(pool_size=(
+    #    2, 2), strides=(2, 2), padding='valid')(x)
     x = keras.layers.Conv2D(
         filters=30, kernel_size=(11, 11), padding='valid')(x)
     x = keras.layers.BatchNormalization()(x)
@@ -248,22 +250,22 @@ def get_compiled_model():
         filters=20, kernel_size=(11, 11), padding='valid')(x)
     x = keras.layers.Dropout(0.5)(x)
     x = keras.layers.Flatten()(x)
-    out = keras.layers.Dense(6, activation='softmax',
+    out = keras.layers.Dense(6, activation='tanh',
                              name='output_images')(x)
 
     images_merged_model = keras.models.Model(
         [image_a_in, image_b_in, image_c_in], out)
 
     auto_in = keras.layers.Input(shape=(4, ), name='auto_input')
-    y = keras.layers.Dense(64, activation="relu")(auto_in)
-    y = keras.layers.Dense(4, activation="relu")(y)
+    y = keras.layers.Dense(64, activation="tanh")(auto_in)
+    y = keras.layers.Dense(4, activation="tanh")(y)
     y_model = keras.models.Model(inputs=auto_in, outputs=y)
 
     combined = keras.layers.Concatenate()(
         [images_merged_model.output, y_model.output])
 
-    z = keras.layers.Dense(10, activation="relu")(combined)
-    z = keras.layers.Dense(6, activation="softmax")(z)
+    z = keras.layers.Dense(10, activation="tanh")(combined)
+    z = keras.layers.Dense(6, activation="tanh")(z)
 
     model = keras.models.Model(
         inputs=[images_merged_model.input, auto_in], outputs=z)
@@ -321,7 +323,7 @@ IMG_WIDTH = 670
 def main(labels, imagedir):
 
     # get preprocessed pd dataframe from csv file
-    df = load_df(labels, imagedir)
+    df = load_df(labels, imagedir)[:150]
 
     # create tensorflow dataset including images separated in train and val set
     train_dataset, val_dataset = create_dataset(
@@ -335,9 +337,37 @@ def main(labels, imagedir):
     model.fit(train_dataset, epochs=1,
               validation_data=val_dataset, callbacks=callbacks)
 
+    #########################
+
     # try to predict
-    print("These are the predictions for the first batch of the validation set")
-    print(model.predict(val_dataset.take(1)))
+    print("These are the predictions for the first one of first batch of the validation set")
+    sample = val_dataset.take(1)
+    for feat, tar in sample:
+        print(tar.numpy())
+    batch = model.predict(sample)
+    for row in batch:
+        print(
+            f"The rounded target prediction: {[int(round(val)) for val in row]}")
+    print()
+    print()
+    for row in batch:
+        print(
+            f"The rounded target prediction: {[round(val, 1) for val in row]}")
+
+    #################save and load again######################
+    # creates a HDF5 file 'my_model.h5'
+    model.save('my_model.h5')
+    # deletes the existing model
+    del model
+
+    # returns a compiled model
+    # identical to the previous one
+    model = load_model('my_model.h5')
+
+    prediction = model.predict(sample)[0]
+    print(prediction)
+    print(
+        f"The rounded target prediction: {[round(val, 1) for val in prediction]}")
 
 
 if __name__ == "__main__":
