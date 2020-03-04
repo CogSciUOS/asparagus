@@ -241,8 +241,8 @@ def get_compiled_model():
     x = keras.layers.Conv2D(
         filters=40, kernel_size=(8, 8), padding='valid')(concat_images)
     x = keras.layers.Dropout(0.5)(x)
-    # x = keras.layers.MaxPooling2D(pool_size=(
-    #    2, 2), strides=(2, 2), padding='valid')(x)
+    x = keras.layers.MaxPooling2D(pool_size=(
+        2, 2), strides=(2, 2), padding='valid')(x)
     x = keras.layers.Conv2D(
         filters=30, kernel_size=(11, 11), padding='valid')(x)
     x = keras.layers.BatchNormalization()(x)
@@ -323,7 +323,7 @@ IMG_WIDTH = 670
 def main(labels, imagedir):
 
     # get preprocessed pd dataframe from csv file
-    df = load_df(labels, imagedir)[:150]
+    df = load_df(labels, imagedir)
 
     # create tensorflow dataset including images separated in train and val set
     train_dataset, val_dataset = create_dataset(
@@ -334,7 +334,7 @@ def main(labels, imagedir):
 
     # fit the model to the data and validate
     callbacks = []
-    model.fit(train_dataset, epochs=20,
+    model.fit(train_dataset, epochs=9,
               validation_data=val_dataset, callbacks=callbacks)
 
     #########################
