@@ -150,7 +150,7 @@ def load_image(inputs, targets):
         # Use `convert_image_dtype` to convert to floats in the [0,1] range.
         img = tf.image.convert_image_dtype(img, tf.float32)
         # resize the image to the desired size.
-        # img = tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
+        img = tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
         inputs[key] = img
 
     return inputs, targets
@@ -162,9 +162,10 @@ def create_dataset(df, batch_size=5):
 
     Args:
         df (pd dataframe): dataframe with features and and path to images
+        batch_size (int): batch size
 
     Returns:
-        tf dataset: tensorflow dataset with features and images of all available asparagus pieces
+        train and validation dataset: tensorflow dataset with features and images of all available asparagus pieces
     """
     # these columns are generated
     auto_cols = [
@@ -226,60 +227,65 @@ def create_dataset(df, batch_size=5):
 
 
 def get_compiled_model():
-    """ define and compile the model"""
-    auto_model = tf.keras.Sequential([
-        # this is the auto input
-        tf.keras.layers.Input(shape=(4, ), name='auto_input'),
-        tf.keras.layers.Dense(1000, activation='relu'),
-        tf.keras.layers.Dense(500, activation='relu'),
-        tf.keras.layers.BatchNormalization(),
-        tf.keras.layers.Dense(200, activation='relu'),
-        tf.keras.layers.Dropout(0.5),
-        tf.keras.layers.Dense(100, activation='relu'),
-        tf.keras.layers.LeakyReLU(),
-        tf.keras.layers.Dense(50, activation='relu'),
-        tf.keras.layers.Dense(20, activation='relu'),
-        tf.keras.layers.Dense(10, activation='sigmoid'),
-        tf.keras.layers.Dense(6)
-    ])
+    """ define and compile the model """
 
-    image_model = tf.keras.Sequential([
-        # this is the image input
-        tf.keras.layers.Input(shape=IMAGE_SHAPE, name='image_a_input'),
-        tf.keras.layers.Conv2D(filters=96, kernel_size=(
-            11, 11), strides=(4, 4), padding='valid'),
-        tf.keras.layers.MaxPooling2D(pool_size=(
-            2, 2), strides=(2, 2), padding='valid'),
-        tf.keras.layers.Conv2D(
-            filters=96, kernel_size=(11, 11), padding='valid'),
-        tf.keras.layers.BatchNormalization(),
-        tf.keras.layers.Conv2D(
-            filters=96, kernel_size=(11, 11), padding='valid'),
-        tf.keras.layers.Dropout(0.5),
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(50),
-        tf.keras.layers.Dropout(0.2),
-        tf.keras.layers.Dense(6)  # , activation='softmax'),
-    ])
+    image_a_in = keras.layers.Input(shape=IMAGE_SHAPE, name='image_a_input')
+    image_b_in = keras.layers.Input(shape=IMAGE_SHAPE, name='image_b_input')
+    image_c_in = keras.layers.Input(shape=IMAGE_SHAPE, name='image_c_input')
 
-    auto_model.compile(optimizer='adam',
-                       loss=tf.keras.losses.BinaryCrossentropy(),
-                       metrics=['accuracy',
-                                 'mse',
-                                 # keras.metrics.TruePositives(),
-                                 # keras.metrics.TrueNegatives(),
-                                 # keras.metrics.FalsePositives(),
-                                 # keras.metrics.FalseNegatives(),
-                                ])
+    concat_images = keras.layers.Concatenate(axis=-1)(
+        [image_a_in, image_b_in, image_c_in])
 
-    auto_model.summary()
+    x = keras.layers.Conv2D(
+        filters=40, kernel_size=(8, 8), padding='valid')(concat_images)
+    x = keras.layers.Dropout(0.5)(x)
+    x = keras.layers.MaxPooling2D(pool_size=(
+        2, 2), strides=(2, 2), padding='valid')(x)
+    x = keras.layers.Conv2D(
+        filters=30, kernel_size=(11, 11), padding='valid')(x)
+    x = keras.layers.BatchNormalization()(x)
+    x = keras.layers.Conv2D(
+        filters=20, kernel_size=(11, 11), padding='valid')(x)
+    x = keras.layers.Dropout(0.5)(x)
+    x = keras.layers.Flatten()(x)
+    out = keras.layers.Dense(6, activation='softmax',
+                             name='output_images')(x)
 
-    return auto_model
+    images_merged_model = keras.models.Model(
+        [image_a_in, image_b_in, image_c_in], out)
 
-# TODO use this script as a grid job
+    auto_in = keras.layers.Input(shape=(4, ), name='auto_input')
+    y = keras.layers.Dense(64, activation="relu")(auto_in)
+    y = keras.layers.Dense(4, activation="relu")(y)
+    y_model = keras.models.Model(inputs=auto_in, outputs=y)
+
+    combined = keras.layers.Concatenate()(
+        [images_merged_model.output, y_model.output])
+
+    z = keras.layers.Dense(10, activation="relu")(combined)
+    z = keras.layers.Dense(6, activation="softmax")(z)
+
+    model = keras.models.Model(
+        inputs=[images_merged_model.input, auto_in], outputs=z)
+
+    model.compile(optimizer='adam',
+                  loss=tf.keras.losses.BinaryCrossentropy(),
+                  metrics=['accuracy',
+                           'mse',
+                           # keras.metrics.TruePositives(),
+                           # keras.metrics.TrueNegatives(),
+                           # keras.metrics.FalsePositives(),
+                           # keras.metrics.FalseNegatives(),
+                           ])
+
+    model.summary()
+
+    return model
 
 
 class EarlyStoppingAfterMinutes(keras.callbacks.Callback):
+    """ to respect wall time of grid jobs"""
+
     def __init__(self, minutes):
         self.timeout = minutes * 60
         self.start = None
@@ -304,14 +310,16 @@ class EarlyStoppingAfterMinutes(keras.callbacks.Callback):
             self.model.stop_training = True
 
 
-IMAGE_SHAPE = (1340, 364, 3)
+# IMAGE_SHAPE = (1340, 364, 3)
+IMAGE_SHAPE = (670, 182, 3)
 
 # unused right now; can be used to resize the image
-IMG_HEIGHT = 224
-IMG_WIDTH = 224
+IMG_HEIGHT = 182
+IMG_WIDTH = 670
 
 
 def main(labels, imagedir):
+
     # get preprocessed pd dataframe from csv file
     df = load_df(labels, imagedir)
 
@@ -321,8 +329,15 @@ def main(labels, imagedir):
 
     # define and compile the model to be trained
     model = get_compiled_model()
+
     # fit the model to the data and validate
-    model.fit(train_dataset, epochs=1, validation_data=val_dataset)
+    callbacks = []
+    model.fit(train_dataset, epochs=1,
+              validation_data=val_dataset, callbacks=callbacks)
+
+    # try to predict
+    print("These are the predictions for the first batch of the validation set")
+    print(model.predict(val_dataset.take(1)))
 
 
 if __name__ == "__main__":
