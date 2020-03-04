@@ -220,7 +220,7 @@ def create_dataset(df, batch_size=5):
     val_dataset = dataset.take(100).batch(batch_size)
     train_dataset = dataset.skip(100)
     train_dataset = train_dataset.shuffle(
-        3, reshuffle_each_iteration=True).batch(batch_size)
+        buffer_size=10, reshuffle_each_iteration=True).batch(batch_size)
 
     return train_dataset, val_dataset
 
