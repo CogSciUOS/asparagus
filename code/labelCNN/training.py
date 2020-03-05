@@ -251,6 +251,9 @@ def get_compiled_model():
     x = keras.layers.BatchNormalization()(x)
     x = keras.layers.Conv2D(
         filters=20, kernel_size=(3, 3), strides=(2, 2), padding='valid')(x)
+    x = keras.layers.Conv2D(
+        filters=5, kernel_size=(3, 3), strides=(2, 2), padding='valid')(x)
+    x = keras.layers.BatchNormalization()(x)
     x = keras.layers.Dropout(0.5)(x)
     x = keras.layers.Flatten()(x)
     out = keras.layers.Dense(64, activation='tanh',
@@ -369,6 +372,7 @@ def main(labels, imagedir):
     # identical to the previous one
     model = load_model('my_model.h5')
 
+    val_dataset = val_dataset.shuffle(buffer_size=100, seed=2)
     sample = val_dataset.take(1)
     feat, tar = next(iter(sample))
     print("auto", feat["auto_input"].numpy())
