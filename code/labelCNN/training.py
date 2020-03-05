@@ -247,10 +247,10 @@ def get_compiled_model():
     x = keras.layers.MaxPooling2D(pool_size=(
         2, 2), strides=(2, 2), padding='valid')(x)
     x = keras.layers.Conv2D(
-        filters=30, kernel_size=(11, 11), padding='valid')(x)
+        filters=30, kernel_size=(3, 3), strides=(2, 2), padding='valid')(x)
     x = keras.layers.BatchNormalization()(x)
     x = keras.layers.Conv2D(
-        filters=20, kernel_size=(11, 11), padding='valid')(x)
+        filters=20, kernel_size=(3, 3), strides=(2, 2), padding='valid')(x)
     x = keras.layers.Dropout(0.5)(x)
     x = keras.layers.Flatten()(x)
     out = keras.layers.Dense(64, activation='tanh',
@@ -280,8 +280,8 @@ def get_compiled_model():
                   metrics=['accuracy',
                            'mse',
                            keras.metrics.TruePositives(),
-                           keras.metrics.TrueNegatives(),
-                           keras.metrics.FalsePositives(),
+                           # keras.metrics.TrueNegatives(),
+                           # keras.metrics.FalsePositives(),
                            keras.metrics.FalseNegatives(),
                            ])
 
