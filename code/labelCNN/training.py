@@ -220,7 +220,7 @@ def create_dataset(df, batch_size=5):
     dataset = dataset.map(load_image)
 
     # shuffle
-    dataset = dataset.shuffle(buffer_size=10, seed=2)
+    dataset = dataset.shuffle(buffer_size=700, seed=2)
 
     # split into validation und training and batch
     val_dataset = dataset.take(100).batch(batch_size)
@@ -364,13 +364,13 @@ def main(labels, imagedir):
 
     #################save and load again######################
     # creates a HDF5 file 'my_model.h5'
-    model.save('my_model.h5')
+    model.save('my_first_model.h5')
     # deletes the existing model
     del model
 
     # returns a compiled model
     # identical to the previous one
-    model = load_model('my_model.h5')
+    model = load_model('my_first_model.h5')
 
     val_dataset = val_dataset.shuffle(buffer_size=100, seed=2)
     sample = val_dataset.take(1)
