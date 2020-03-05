@@ -155,6 +155,9 @@ def load_image(inputs, targets):
         img = tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
         inputs[key] = img
 
+    # rescale auto inputs
+    inputs['auto_input'] = inputs['auto_input'] / 300.0
+
     return inputs, targets
 
 
@@ -250,7 +253,7 @@ def get_compiled_model():
         filters=20, kernel_size=(11, 11), padding='valid')(x)
     x = keras.layers.Dropout(0.5)(x)
     x = keras.layers.Flatten()(x)
-    out = keras.layers.Dense(6, activation='tanh',
+    out = keras.layers.Dense(64, activation='tanh',
                              name='output_images')(x)
 
     images_merged_model = keras.models.Model(
@@ -258,26 +261,28 @@ def get_compiled_model():
 
     auto_in = keras.layers.Input(shape=(4, ), name='auto_input')
     y = keras.layers.Dense(64, activation="tanh")(auto_in)
-    y = keras.layers.Dense(4, activation="tanh")(y)
+    y = keras.layers.Dense(30, activation="tanh")(y)
     y_model = keras.models.Model(inputs=auto_in, outputs=y)
 
     combined = keras.layers.Concatenate()(
         [images_merged_model.output, y_model.output])
 
     z = keras.layers.Dense(10, activation="tanh")(combined)
-    z = keras.layers.Dense(6, activation="tanh")(z)
+    z = keras.layers.Dense(6, activation="sigmoid")(z)
 
     model = keras.models.Model(
         inputs=[images_merged_model.input, auto_in], outputs=z)
 
     model.compile(optimizer='adam',
                   loss=tf.keras.losses.BinaryCrossentropy(),
+                  # loss=tf.keras.losses.Poisson(),
+                  # loss=tf.keras.losses.MeanAbsolutePercentageError(),
                   metrics=['accuracy',
                            'mse',
-                           # keras.metrics.TruePositives(),
-                           # keras.metrics.TrueNegatives(),
-                           # keras.metrics.FalsePositives(),
-                           # keras.metrics.FalseNegatives(),
+                           keras.metrics.TruePositives(),
+                           keras.metrics.TrueNegatives(),
+                           keras.metrics.FalsePositives(),
+                           keras.metrics.FalseNegatives(),
                            ])
 
     model.summary()
@@ -327,14 +332,14 @@ def main(labels, imagedir):
 
     # create tensorflow dataset including images separated in train and val set
     train_dataset, val_dataset = create_dataset(
-        df, batch_size=5)
+        df, batch_size=10)
 
     # define and compile the model to be trained
     model = get_compiled_model()
 
     # fit the model to the data and validate
     callbacks = []
-    model.fit(train_dataset, epochs=9,
+    model.fit(train_dataset, epochs=1,
               validation_data=val_dataset, callbacks=callbacks)
 
     #########################
@@ -364,10 +369,13 @@ def main(labels, imagedir):
     # identical to the previous one
     model = load_model('my_model.h5')
 
-    prediction = model.predict(sample)[0]
-    print(prediction)
-    print(
-        f"The rounded target prediction: {[round(val, 1) for val in prediction]}")
+    sample = val_dataset.take(1)
+    feat, tar = next(iter(sample))
+    print("auto", feat["auto_input"].numpy())
+    print("tar", tar.numpy())
+    prediction = model.predict(sample)
+    print("rounded", np.round(prediction))
+    print("orig", prediction)
 
 
 if __name__ == "__main__":
