@@ -4,6 +4,14 @@ pipeline package
 Submodules
 ----------
 
+pipeline.multiple\_models\_app module
+-------------------------------------
+
+.. automodule:: pipeline.multiple_models_app
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pipeline.train\_model module
 ----------------------------
 
