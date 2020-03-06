@@ -52,8 +52,11 @@ To use the shared installation you have to tell linux where it is.
     set the auto_activate_base parameter to false:</br>
     `$ conda config --set auto_activate_base false`
 5. After Log in hit: </br>
+
     `$ conda activate dataSet`
-6. Test a tensorflow file on the GPU</br>
+    or
+     `$ conda activate /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/envs/dataSet/`
+ 6. Test a tensorflow file on the GPU</br>
     `$ nvidia-smi -l`
 
 
