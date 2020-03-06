@@ -156,6 +156,7 @@ def load_image(inputs, targets):
         inputs[key] = img
 
     # rescale auto inputs
+    # TODO
     inputs['auto_input'] = inputs['auto_input'] / 300.0
 
     return inputs, targets
@@ -263,8 +264,8 @@ def get_compiled_model():
         [image_a_in, image_b_in, image_c_in], out)
 
     auto_in = keras.layers.Input(shape=(4, ), name='auto_input')
-    y = keras.layers.Dense(64, activation="tanh")(auto_in)
-    y = keras.layers.Dense(30, activation="tanh")(y)
+    y = keras.layers.Dense(64, activation="relu")(auto_in)
+    y = keras.layers.Dense(30, activation="relu")(y)
     y_model = keras.models.Model(inputs=auto_in, outputs=y)
 
     combined = keras.layers.Concatenate()(
@@ -276,10 +277,12 @@ def get_compiled_model():
     model = keras.models.Model(
         inputs=[images_merged_model.input, auto_in], outputs=z)
 
-    model.compile(optimizer='adam',
+    model.compile(optimizer='sgd',
+                  # loss=tf.keras.losses.SparseCategoricalCrossentropy(),
                   loss=tf.keras.losses.BinaryCrossentropy(),
                   # loss=tf.keras.losses.Poisson(),
                   # loss=tf.keras.losses.MeanAbsolutePercentageError(),
+                  # loss=tf.keras.losses.MeanAbsoluteError(),
                   metrics=['accuracy',
                            'mse',
                            keras.metrics.TruePositives(),
@@ -364,13 +367,13 @@ def main(labels, imagedir):
 
     #################save and load again######################
     # creates a HDF5 file 'my_model.h5'
-    model.save('my_first_model.h5')
+    model.save('models/CNN_katha.h5')
     # deletes the existing model
     del model
 
     # returns a compiled model
     # identical to the previous one
-    model = load_model('my_first_model.h5')
+    model = load_model('models/CNN_katha.h5')
 
     val_dataset = val_dataset.shuffle(buffer_size=100, seed=2)
     sample = val_dataset.take(1)
