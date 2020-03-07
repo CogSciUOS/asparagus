@@ -27,6 +27,8 @@ from os import listdir
 from io import StringIO
 from os.path import isfile, join
 
+from skimage.io import imread
+
 import labelCNN.training as train
 
 
@@ -51,23 +53,31 @@ def convert2binary(vector):
 def predict_features(model, raw_data, sample_idx):
 
     # convert sample to dataset entry
-    df_sample = raw_data.iloc[sample_idx:sample_idx+1]
-    # .to_frame().drop(labels=["Code"]).transpose()
+    row = raw_data.iloc[sample_idx]
 
     train_dataset, _ = train.create_dataset(
-        df_sample, batch_size=1)
+        raw_data, batch_size=1)
 
-    dataset_sample = train_dataset.take(1)
+    dataset_sample_cheated = train_dataset.take(1)
+    st.write(dataset_sample_cheated)
 
-    return model.predict(dataset_sample)
+    dataset_sample = {'image_a_input': [imread(row['image_a']) / 255],
+                      'image_b_input': [imread(row['image_b']) / 255],
+                      'image_c_input': [imread(row['image_c']) / 255],
+                      'auto_input': [row[AUTO_COLUMNS].values]}
+
+    st.write(dataset_sample)
+
+    return model.predict(dataset_sample_cheated)
 
 
-def highlight_diff(s):
-    '''
-    highlight the maximum in a Series yellow.
-    '''
-    is_max = s > 10
-    return ['background-color: yellow' if v else '' for v in is_max]
+def highlight_diff_vec(data, other, color='pink'):
+    # Define html attribute
+    attr = 'background-color: {}'.format(color)
+
+    # Where data != other set attribute
+    #
+    return pd.DataFrame(np.where((data.ne(other).filter(items=LABEL_COLUMNS)), attr, ''), index=data.index, columns=data.columns)
 
 
 def evaluate(true_labels, predicted_labels):
@@ -147,20 +157,36 @@ def main():
     st.image(np.hstack([np.squeeze(i)
                         for i in images_imread]), use_column_width=True)
 
-    "The model predicts the following target vector:"
-    #pred_feat_vec = predict_features(model, raw_data, sample_idx)
-    st.write(pred_feat_vec)
-    pred_feat_vec = pd.DataFrame([1, 1, 8, 1, 11, 1], index=[
-                                 LABEL_COLUMNS]).transpose().style.apply(highlight_diff)
-    st.table(pred_feat_vec)
+    if st.checkbox('Make prediction for feature vector'):
+        "The model predicts the following target vector:"
+        pred_feat_vec = predict_features(model, raw_data, sample_idx)
 
-    f"The input vector / the true target vector is:"
-    feat_vec = pd.DataFrame(
-        raw_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
-    st.table(feat_vec)
+        pred_feat_vec = pd.DataFrame(
+            pred_feat_vec, columns=[LABEL_COLUMNS])
+        st.table(pred_feat_vec)
 
+        "The input/true target vector was/is:"
+        feat_vec = pd.DataFrame(
+            raw_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
+        st.table(feat_vec)
+
+        # das hier nervt mich hart
+        feat_vec = feat_vec[LABEL_COLUMNS]
+        feat_vec = feat_vec.reset_index()
+        feat_vec = feat_vec.drop(columns=["index"])
+        pred_feat_vec = pred_feat_vec.reset_index()
+        pred_feat_vec = pred_feat_vec.drop(columns=["index"])
+
+        feat_vec = feat_vec.style.apply(
+            highlight_diff_vec, axis=None, other=pred_feat_vec)
+        st.table(feat_vec)
 
     # add connection to multiple_models app
     # predict category based on predicted features
+
+    if st.checkbox('Make category prediction for feature prediction'):
+        "Test"
+
+
 if __name__ == '__main__':
     main()
