@@ -86,8 +86,17 @@ def highlight_diff_vec(data, other, color='pink'):
     # Define html attribute
     attr = 'background-color: {}'.format(color)
 
-    # Where data != other set attribute
-    return pd.DataFrame(np.where((data.ne(other).filter(items=LABEL_COLUMNS)), attr, ''), index=data.index, columns=data.columns)
+    # data = data.reset_index(drop=True)
+    # data.sort_index(inplace=True)
+    other = other.transpose()
+    # other = other.reset_index(drop=True)
+    # other.sort_index(inplace=True)
+
+    # st.write(data, other)
+    # st.write(data.shape, other.shape)
+    diffs = np.abs((data >= 0.5).values - other.values)
+
+    return pd.DataFrame(np.where(diffs, attr, ''), index=data.index, columns=data.columns)
 
 
 def evaluate(true_labels, predicted_labels):
@@ -169,27 +178,20 @@ def main():
                         for i in images_imread]), use_column_width=True)
 
     if st.checkbox('Make prediction for feature vector'):
+
         "The model predicts the following target vector:"
         pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
 
         pred_feat_vec = pd.DataFrame(
             pred_feat_vec, columns=[LABEL_COLUMNS])
-        st.table(pred_feat_vec)
+
+        # highlight differences
+        st.table(pred_feat_vec.style.apply(highlight_diff_vec, axis=None, other=pd.DataFrame(
+            raw_feat_data[LABEL_COLUMNS].iloc[sample_idx])))
 
         "The input/true target vector was/is:"
         feat_vec = pd.DataFrame(
             raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
-        st.table(feat_vec)
-
-        # das hier nervt mich hart
-        feat_vec = feat_vec[LABEL_COLUMNS]
-        feat_vec = feat_vec.reset_index()
-        feat_vec = feat_vec.drop(columns=["index"])
-        pred_feat_vec = pred_feat_vec.reset_index()
-        pred_feat_vec = pred_feat_vec.drop(columns=["index"])
-
-        feat_vec = feat_vec.style.apply(
-            highlight_diff_vec, axis=None, other=pred_feat_vec)
         st.table(feat_vec)
 
     if st.checkbox('Make category prediction for feature prediction'):
@@ -276,7 +278,7 @@ def main():
 
         # doppelt
         # lieber in gecachte function
-        #pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
+        # pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
 
         pred_feat_vec = pd.DataFrame(
             [1, 1, 0, 0, 1, 1, 8, 240, 24, 200]).transpose()
