@@ -20,6 +20,8 @@ import pandas as pd
 import streamlit as st
 import tensorflow.keras as keras
 import tensorflow.keras.models
+from sklearn.model_selection import train_test_split
+
 
 from skimage.io import imread
 
@@ -30,6 +32,9 @@ from os.path import isfile, join
 from skimage.io import imread
 
 import labelCNN.training as train
+import pipeline.train_model as tm
+
+from sklearn.metrics import classification_report
 
 
 IMAGE_COLUMNS = ['image_a', 'image_b', 'image_c']
@@ -39,24 +44,30 @@ LABEL_COLUMNS = ['is_hollow', 'has_blume', 'has_rost_head',
 
 
 @st.cache
-def load_data(labels_csv, imagedir):
-    raw_data = train.load_df(labels_csv, imagedir)
+def load_feat_data(labels_csv, imagedir):
+    raw_feat_data = train.load_df(labels_csv, imagedir)
     # add unique code for combinations of features
-    raw_data["Code"] = raw_data[LABEL_COLUMNS].apply(convert2binary, axis=1)
-    return raw_data
+    raw_feat_data["Code"] = raw_feat_data[LABEL_COLUMNS].apply(
+        convert2binary, axis=1)
+    return raw_feat_data
+
+
+@st.cache
+def load_cat_data():
+    return tm.load_data("../annotations")
 
 
 def convert2binary(vector):
     return vector @ 2 ** np.arange(len(vector))
 
 
-def predict_features(model, raw_data, sample_idx):
+def predict_features(model, raw_feat_data, sample_idx):
 
     # convert sample to dataset entry
-    row = raw_data.iloc[sample_idx]
+    row = raw_feat_data.iloc[sample_idx]
 
     train_dataset, _ = train.create_dataset(
-        raw_data, batch_size=1)
+        raw_feat_data, batch_size=1)
 
     dataset_sample_cheated = train_dataset.take(1)
     st.write(dataset_sample_cheated)
@@ -76,7 +87,6 @@ def highlight_diff_vec(data, other, color='pink'):
     attr = 'background-color: {}'.format(color)
 
     # Where data != other set attribute
-    #
     return pd.DataFrame(np.where((data.ne(other).filter(items=LABEL_COLUMNS)), attr, ''), index=data.index, columns=data.columns)
 
 
@@ -109,11 +119,11 @@ def main():
         csv_files)
 
     '# Generated dataframe'
-    raw_data = load_data(csv_option, imgdir_option)
+    raw_feat_data = load_feat_data(csv_option, imgdir_option)
 
     if st.checkbox('Show training dataframe'):
-        raw_data
-    "The dataframe has the shape", raw_data.shape, "."
+        raw_feat_data
+    "The dataframe has the shape", raw_feat_data.shape, "."
 
     num_feat = len(AUTO_COLUMNS) + len(LABEL_COLUMNS)
     num_constellations = 2**len(LABEL_COLUMNS)
@@ -124,11 +134,11 @@ def main():
     "Which makes", num_constellations, "unique constellations of features that we could predict."
 
     "## How the individual features are distributed"
-    count_feat = [{col: raw_data[col].sum()} for col in LABEL_COLUMNS]
+    count_feat = [{col: raw_feat_data[col].sum()} for col in LABEL_COLUMNS]
     st.bar_chart(count_feat)
 
     "## How the constellations are distributed"
-    st.bar_chart(raw_data['Code'].value_counts())
+    st.bar_chart(raw_feat_data['Code'].value_counts())
 
     "# Choose the model that you want to train"
     model_folder = "labelCNN/models/"
@@ -148,8 +158,8 @@ def main():
 
     "# Inspect the dataset"
     "Select an image"
-    sample_idx = st.slider('Sample', 0, int(raw_data.shape[0]), value=0)
-    img_pathes = raw_data[IMAGE_COLUMNS].iloc[sample_idx]
+    sample_idx = st.slider('Sample', 0, int(raw_feat_data.shape[0]), value=0)
+    img_pathes = raw_feat_data[IMAGE_COLUMNS].iloc[sample_idx]
 
     # display the images
     images_imread = [imread(img_path) for img_path in img_pathes]
@@ -159,7 +169,7 @@ def main():
 
     if st.checkbox('Make prediction for feature vector'):
         "The model predicts the following target vector:"
-        pred_feat_vec = predict_features(model, raw_data, sample_idx)
+        pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
 
         pred_feat_vec = pd.DataFrame(
             pred_feat_vec, columns=[LABEL_COLUMNS])
@@ -167,7 +177,7 @@ def main():
 
         "The input/true target vector was/is:"
         feat_vec = pd.DataFrame(
-            raw_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
+            raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
         st.table(feat_vec)
 
         # das hier nervt mich hart
@@ -181,11 +191,108 @@ def main():
             highlight_diff_vec, axis=None, other=pred_feat_vec)
         st.table(feat_vec)
 
-    # add connection to multiple_models app
-    # predict category based on predicted features
-
     if st.checkbox('Make category prediction for feature prediction'):
-        "Test"
+
+        "# From features to categories"
+        raw_cat_data, dummy_data = load_cat_data()
+        labels = [col for col in dummy_data if col.startswith('Class')]
+
+        # display the train df
+        if st.checkbox('Show category training dataframe'):
+            dummy_data
+
+            "There are", len(labels), "labels."
+            "We want to learn the following labels: "
+            # draw histogram to see how classes are distributed
+            st.bar_chart(raw_cat_data['Class'].value_counts())
+
+        ######
+        # train the model
+        x = dummy_data.iloc[:, :-len(labels)].values
+        # set Label as y
+        y = dummy_data[labels].values
+
+        # make a train and test split: 75% train; 25% test
+        x_train, x_test, y_train, y_test = train_test_split(
+            x, y, random_state=1)
+
+        "After we perform the train/test-split, we have", len(
+            x_train), "training samples"
+        "After we perform the train/test-split, we have", len(
+            x_test), "test samples"
+
+        "## Choose the model that you want to train"
+        "Right now there is a random forest model and a multilayer preceptron."
+
+        model_folder = "pipeline/models"
+        models = [model[:model.index(".")] for model in listdir(
+            model_folder) if isfile(join(model_folder, model))]
+
+        model_option = st.selectbox(
+            'Which model do you want to train?',
+            models)
+
+        # load selected model
+        model = tm.load_model(model_option, input_shape=x_train.shape[1:])
+
+        '## Fitting the model'
+        try:
+            # if keras model, make several epochs
+            model.fit(x_train, y_train, epochs=500)
+        except TypeError:
+            model.fit(x_train, y_train)
+
+        if hasattr(model, 'score'):
+            score = model.score(x_test, y_test)
+            st.write('Score is', np.round(score, 3))
+
+        if hasattr(model, 'evaluate'):
+            evaluation = model.evaluate(x_test, y_test)
+            st.write('Evaluation is', evaluation)
+
+        # get the predictions
+        y_pred = model.predict(x_test)
+
+        "Number of samples in predictions:", len(y_pred)
+        ######
+
+        "## Results"
+
+        "### Classification report"
+        if st.checkbox('Show classification report'):
+            st.write(pd.DataFrame(classification_report(y_test.argmax(axis=1),
+                                                        y_pred.argmax(axis=1), target_names=labels, output_dict=True)).transpose())
+
+        "### Confusion Matrix"
+        if st.checkbox('Show confusion matrix'):
+            conf_matrix, ax = tm.conf_matrix(
+                x_train, x_test, y_train, y_test, y_pred, labels, model_option)
+            st.pyplot()
+
+        "#### Selected sample"
+
+        "Looking at the", sample_idx, "th feature prediction"
+
+        # doppelt
+        # lieber in gecachte function
+        #pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
+
+        pred_feat_vec = pd.DataFrame(
+            [1, 1, 0, 0, 1, 1, 8, 240, 24, 200]).transpose()
+        pred_feat_vec.columns = LABEL_COLUMNS + AUTO_COLUMNS
+        "Predicted feature vector"
+        st.write(pred_feat_vec)
+
+        # convert
+        row_values = pred_feat_vec.values
+        # predict
+        cat_prediction = model.predict(row_values)
+
+        st.write("feature vector", str(row_values),
+                 " has prediction ", str(cat_prediction))
+
+        st.write("Use argmax to get label: the category label is:",
+                 str(cat_prediction.argmax(axis=1)))
 
 
 if __name__ == '__main__':
