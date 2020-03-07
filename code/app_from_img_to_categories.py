@@ -185,14 +185,14 @@ def main():
         pred_feat_vec = pd.DataFrame(
             pred_feat_vec, columns=[LABEL_COLUMNS])
 
-        # highlight differences
-        st.table(pred_feat_vec.style.apply(highlight_diff_vec, axis=None, other=pd.DataFrame(
-            raw_feat_data[LABEL_COLUMNS].iloc[sample_idx])))
+    # highlight differences
+    st.table(pred_feat_vec.style.apply(highlight_diff_vec, axis=None, other=pd.DataFrame(
+        raw_feat_data[LABEL_COLUMNS].iloc[sample_idx])).format("{:.2f}"))
 
-        "The input/true target vector was/is:"
-        feat_vec = pd.DataFrame(
-            raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
-        st.table(feat_vec)
+    "The input/true target vector was/is:"
+    feat_vec = pd.DataFrame(
+        raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
+    st.table(feat_vec)
 
     if st.checkbox('Make category prediction for feature prediction'):
 
