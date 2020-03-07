@@ -95,6 +95,7 @@ def evaluate(true_labels, predicted_labels):
 
 
 def streamlit_model_summary(model_file, model):
+    """ display model summary as markdown """
     with StringIO() as s:
         def w(l):
             s.write(l)
