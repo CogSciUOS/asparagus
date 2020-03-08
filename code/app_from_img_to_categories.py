@@ -83,24 +83,30 @@ def predict_features(model, raw_feat_data, sample_idx):
 
 
 def highlight_diff_vec(data, other, color='pink'):
+    """ pandas styler: compare each entry of the dfs (round prediction),
+        mark field in prediction red if it not equal"""
     # Define html attribute
     attr = 'background-color: {}'.format(color)
-
-    # data = data.reset_index(drop=True)
-    # data.sort_index(inplace=True)
     other = other.transpose()
-    # other = other.reset_index(drop=True)
-    # other.sort_index(inplace=True)
-
-    # st.write(data, other)
-    # st.write(data.shape, other.shape)
+    # round predicted values to 0 or 1 and compare to true target
     diffs = np.abs((data >= 0.5).values - other.values)
-
     return pd.DataFrame(np.where(diffs, attr, ''), index=data.index, columns=data.columns)
 
 
-def evaluate(true_labels, predicted_labels):
-    pass
+def evaluate(raw_feat_data, sample_idx, pred_feat_vec):
+    """ shows predicted vector and true target and marks differences"""
+
+    pred_feat_vec = pd.DataFrame(
+        pred_feat_vec, columns=[LABEL_COLUMNS])
+
+    # highlight differences
+    st.table(pred_feat_vec.style.apply(highlight_diff_vec, axis=None, other=pd.DataFrame(
+        raw_feat_data[LABEL_COLUMNS].iloc[sample_idx])).format("{:.2f}"))
+
+    "The input/true target vector was/is:"
+    true_vec = pd.DataFrame(
+        raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
+    st.table(true_vec)
 
 
 def streamlit_model_summary(model_file, model):
@@ -118,12 +124,14 @@ def streamlit_model_summary(model_file, model):
 def main():
     st.title('Asparagus label prediction')
 
-    imgdirs = ["/home/katha/labeled_images"]
+    imgdirs = ["/home/katha/labeled_images",
+               "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/without_background_pngs/"]
     imgdir_option = st.selectbox(
         'Please select the image directory',
         imgdirs)
 
-    csv_files = ["all_label_files.csv"]
+    csv_files = ["all_label_files.csv",
+                 "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/labels.csv"]
     csv_option = st.selectbox(
         'Please select the csv file',
         csv_files)
@@ -182,17 +190,11 @@ def main():
         "The model predicts the following target vector:"
         pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
 
-        pred_feat_vec = pd.DataFrame(
-            pred_feat_vec, columns=[LABEL_COLUMNS])
+        # show predicted and true target vector and mark differences
+        evaluate(raw_feat_data, sample_idx, pred_feat_vec)
 
-    # highlight differences
-    st.table(pred_feat_vec.style.apply(highlight_diff_vec, axis=None, other=pd.DataFrame(
-        raw_feat_data[LABEL_COLUMNS].iloc[sample_idx])).format("{:.2f}"))
-
-    "The input/true target vector was/is:"
-    feat_vec = pd.DataFrame(
-        raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
-    st.table(feat_vec)
+        # TODO
+        # calculate different losses
 
     if st.checkbox('Make category prediction for feature prediction'):
 
