@@ -24,6 +24,7 @@ from sklearn.model_selection import train_test_split
 
 
 from skimage.io import imread
+from skimage.transform import resize
 
 from os import listdir
 from io import StringIO
@@ -61,25 +62,20 @@ def convert2binary(vector):
     return vector @ 2 ** np.arange(len(vector))
 
 
-def predict_features(model, raw_feat_data, sample_idx):
+@st.cache
+def get_sample(raw_feat_data, sample_idx):
+    """ given a sample index of the dataframe return the sample """
 
     # convert sample to dataset entry
     row = raw_feat_data.iloc[sample_idx]
 
-    train_dataset, _ = train.create_dataset(
-        raw_feat_data, batch_size=1)
+    resized_shape = (670, 182, 3)
+    sample = {'image_a_input': resize(imread(row['image_a']), resized_shape)[np.newaxis].astype(np.float32),
+              'image_b_input': resize(imread(row['image_b']), resized_shape)[np.newaxis].astype(np.float32),
+              'image_c_input': resize(imread(row['image_c']), resized_shape)[np.newaxis].astype(np.float32),
+              'auto_input': row[AUTO_COLUMNS].values[np.newaxis].astype(np.float32) / 300}
 
-    dataset_sample_cheated = train_dataset.take(1)
-    st.write(dataset_sample_cheated)
-
-    dataset_sample = {'image_a_input': [imread(row['image_a']) / 255],
-                      'image_b_input': [imread(row['image_b']) / 255],
-                      'image_c_input': [imread(row['image_c']) / 255],
-                      'auto_input': [row[AUTO_COLUMNS].values]}
-
-    st.write(dataset_sample)
-
-    return model.predict(dataset_sample_cheated)
+    return sample
 
 
 def highlight_diff_vec(data, other, color='pink'):
@@ -177,6 +173,7 @@ def main():
     "# Inspect the dataset"
     "Select an image"
     sample_idx = st.slider('Sample', 0, int(raw_feat_data.shape[0]), value=0)
+    # TODO hier auslagern
     img_pathes = raw_feat_data[IMAGE_COLUMNS].iloc[sample_idx]
 
     # display the images
@@ -188,7 +185,9 @@ def main():
     if st.checkbox('Make prediction for feature vector'):
 
         "The model predicts the following target vector:"
-        pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
+        sample = get_sample(raw_feat_data, sample_idx)
+
+        pred_feat_vec = model.predict(sample)
 
         # show predicted and true target vector and mark differences
         evaluate(raw_feat_data, sample_idx, pred_feat_vec)
