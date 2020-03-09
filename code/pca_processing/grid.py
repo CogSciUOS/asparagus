@@ -2,7 +2,7 @@ import os
 import sys
 import ast
 
-def submit_script(scriptpath, args, environment,  mem = "8G", cuda_cores = 0, jobname = "job"):
+def submit_script(scriptpath, args, environment,  mem = "32G", cuda_cores = 0, jobname = "job"):
     """ Submits the specified script as a gridjob and passes arguments as command line parameters.
         Use the command line tools qstat to check the status of your gridjobs. Use qdel - u [YOUR_USERNAME] to delete
         all your running jobs. The output and error files are saved to your home directory (cd ~).
