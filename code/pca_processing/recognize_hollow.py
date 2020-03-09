@@ -136,9 +136,9 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         #rust head
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_head/recognize'+str(j)+'.png')
         #rust body
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_body/recognize'+str(j)+'.png')
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_body/recognize'+str(j)+'.png')
         #violet
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_violet/recognize'+str(j)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_violet/recognize'+str(j)+'.png')
 
 
 if __name__ == '__main__':
