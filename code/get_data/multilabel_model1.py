@@ -3,6 +3,7 @@ from __future__ import print_function
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+#from sklearn.utils import class_weight
 #import tensorflow as tf
 #import cv2
 
@@ -93,7 +94,7 @@ if __name__ == '__main__':
     model.add(GlobalAveragePooling2D())
     model.add(Dense(num_classes, activation='sigmoid'))
 
-    model.compile(loss='binary_crossentropy', loss_weights=[0.2,0.8],
+    model.compile(loss='binary_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy'])
                 
@@ -102,12 +103,12 @@ if __name__ == '__main__':
     ################################################################################
     # Train the model
     ################################################################################
-    #early_stop = EarlyStopping(monitor='loss', patience=5, verbose=1)
-                                                
+    #early_stop = EarlyStopping(monitor='loss', patience=5, verbose=1)                               
     history = model.fit(train_img, train_lbl,
                             batch_size=batch_size,
                             epochs=num_epochs,
                             verbose=1,
+                            class_weight={0:1, 1:5},
                             validation_split=0.1)
                             #callbacks=[early_stop])
 
