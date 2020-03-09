@@ -132,11 +132,11 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         #bended
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
         #blume
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_blume/recognize'+str(j)+'.png')
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_blume/recognize'+str(j)+'.png')
         #rust head
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_head/recognize'+str(j)+'.png')
         #rust body
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_body/recognize'+str(j)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_body/recognize'+str(j)+'.png')
         #violet
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_violet/recognize'+str(j)+'.png')
 
@@ -176,10 +176,10 @@ if __name__ == '__main__':
     # test_labels = ['not_bended', 'bended', 'not_bended', 'bended', 'bended', 'bended', 'not_bended', 'bended', 'bended', 'not_bended']
 
     # for blume
-    train_names_1 = ["blume" for x in range(200)]
-    train_names_2 = ["not_blume" for x in range(200)]
-    train_names = train_names_1 + train_names_2
-    test_labels = ['not_blume', 'not_blume', 'blume', 'not_blume', 'not_blume', 'not_blume', 'not_blume','blume', 'not_blume', 'not_blume']
+    # train_names_1 = ["blume" for x in range(200)]
+    # train_names_2 = ["not_blume" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['not_blume', 'not_blume', 'blume', 'not_blume', 'not_blume', 'not_blume', 'not_blume','blume', 'not_blume', 'not_blume']
 
     # rost head
     # train_names_1 = ["rust_head" for x in range(200)]
@@ -188,10 +188,10 @@ if __name__ == '__main__':
     # test_labels = ['not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head', 'not_rust_head','not_rust_head', 'not_rust_head', 'rust_head']
 
     # rust body
-    # train_names_1 = ["rust_body" for x in range(200)]
-    # train_names_2 = ["not_rust_body" for x in range(200)]
-    # train_names = train_names_1 + train_names_2
-    # test_labels = ['not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body','not_rust_body', 'not_rust_body', 'rust_body']
+    train_names_1 = ["rust_body" for x in range(200)]
+    train_names_2 = ["not_rust_body" for x in range(200)]
+    train_names = train_names_1 + train_names_2
+    test_labels = ['not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body', 'not_rust_body','not_rust_body', 'not_rust_body', 'rust_body']
 
     #violet
     # train_names_1 = ["violet" for x in range(200)]
