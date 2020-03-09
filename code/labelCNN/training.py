@@ -22,7 +22,7 @@ log.setLevel(WARNING)
 log.addHandler(StreamHandler())
 
 # Disable warnings
-DISABLE_WARNINGS = True
+DISABLE_WARNINGS = False
 if DISABLE_WARNINGS:
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     import tensorflow as tf  # noqa
