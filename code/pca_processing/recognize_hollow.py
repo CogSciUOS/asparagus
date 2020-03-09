@@ -150,15 +150,7 @@ if __name__ == '__main__':
     path_to_eigenasparagus = np.load(args[4])
     path_to_m = np.load(args[5])
 
-    #train_names = [200*hollow and 200* not_hollow]
-    #labels = ['hollow', 'not_hollow']
-
-    # labels = ['bended', 'not_bended']
-    labels = ['blume', 'not_blume']
-    # labels = ['rust_head', 'not_rust_head']
-    # labels = ['rust_body', 'not_rust_body']
-    # labels = ['violet', 'not_violet']
-
+    #remember train_names = [200*hollow and 200* not_hollow]
 
     num_eigenvectors = 4
     #read in some test data
