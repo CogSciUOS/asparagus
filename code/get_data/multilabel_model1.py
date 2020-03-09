@@ -108,7 +108,7 @@ if __name__ == '__main__':
                             batch_size=batch_size,
                             epochs=num_epochs,
                             verbose=1,
-                            class_weight={0:1, 1:5},
+                            class_weight={0:5, 1:3, 2:2 ,3:2 ,4:1 ,5:3},
                             validation_split=0.1)
                             #callbacks=[early_stop])
 
@@ -151,4 +151,4 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_weighted_20_80.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_weighted.png')
