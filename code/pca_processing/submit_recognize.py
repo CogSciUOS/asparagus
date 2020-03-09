@@ -42,6 +42,40 @@ if __name__ == '__main__':
     # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
 
 
+    #rost head - STILL NOT WORKING!
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
+    # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
+    # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/PC_rost_head.npy'
+    # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/m_rost_head_std.npy'
+    # path_to_space = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/m_rost_head_space.npy'
+    # path_to_eigenasparagus = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/eig_rost_head_used.npy'
+    # path_to_m = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/m_rost_head.npy'
+    # args = [path_to_input, path_to_PC, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m]
+    # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
+
+
+    #rost body
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
+    # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
+    # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/PC_rost_body.npy'
+    # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/m_rost_body_std.npy'
+    # path_to_space = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/m_rost_body_space.npy'
+    # path_to_eigenasparagus = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/eig_rost_body_used.npy'
+    # path_to_m = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/m_rost_body.npy'
+    # args = [path_to_input, path_to_PC, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m]
+    # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet
+
+
+    #violet
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
+    # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
+    # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/PC_violet.npy'
+    # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet_std.npy'
+    # path_to_space = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet_space.npy'
+    # path_to_eigenasparagus = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/eig_violet_used.npy'
+    # path_to_m = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet.npy'
+    # args = [path_to_input, path_to_PC, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m]
+    # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet
 
 
     submit_script(path, args, environment)
