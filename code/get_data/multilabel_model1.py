@@ -3,7 +3,7 @@ from __future__ import print_function
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-#from sklearn.utils import class_weight
+from sklearn.utils import class_weight
 #import tensorflow as tf
 #import cv2
 
@@ -104,11 +104,14 @@ if __name__ == '__main__':
     # Train the model
     ################################################################################
     #early_stop = EarlyStopping(monitor='loss', patience=5, verbose=1)                               
+    class_weights = dict(zip(np.unique(train_lbl), class_weight.compute_class_weight('balanced',
+                                                 np.unique(train_lbl),
+                                                 train_lbl)))
     history = model.fit(train_img, train_lbl,
                             batch_size=batch_size,
                             epochs=num_epochs,
                             verbose=1,
-                            class_weight={0:5, 1:3, 2:2 ,3:2 ,4:1 ,5:3},
+                            class_weight=class_weights, #{0:5, 1:3, 2:2 ,3:2 ,4:1 ,5:3},
                             validation_split=0.1)
                             #callbacks=[early_stop])
 
