@@ -31,15 +31,15 @@ if __name__ == '__main__':
 
 
     #blume
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
-    # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
-    # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/PC_blume.npy'
-    # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume_std.npy'
-    # path_to_space = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume_space.npy'
-    # path_to_eigenasparagus = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/eig_blume_used.npy'
-    # path_to_m = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy'
-    # args = [path_to_input, path_to_PC, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m]
-    # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
+    path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
+    path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
+    path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/PC_blume.npy'
+    path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume_std.npy'
+    path_to_space = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume_space.npy'
+    path_to_eigenasparagus = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/eig_blume_used.npy'
+    path_to_m = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy'
+    args = [path_to_input, path_to_PC, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m]
+    environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
 
 
     #rost head - STILL NOT WORKING!
@@ -67,15 +67,15 @@ if __name__ == '__main__':
 
 
     #violet
-    path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
-    path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
-    path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/PC_violet.npy'
-    path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet_std.npy'
-    path_to_space = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet_space.npy'
-    path_to_eigenasparagus = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/eig_violet_used.npy'
-    path_to_m = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet.npy'
-    args = [path_to_input, path_to_PC, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m]
-    environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/recognize_hollow.py'
+    # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
+    # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/PC_violet.npy'
+    # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet_std.npy'
+    # path_to_space = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet_space.npy'
+    # path_to_eigenasparagus = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/eig_violet_used.npy'
+    # path_to_m = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet.npy'
+    # args = [path_to_input, path_to_PC, path_to_m_std, path_to_space, path_to_eigenasparagus, path_to_m]
+    # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
 
 
     submit_script(path, args, environment)
