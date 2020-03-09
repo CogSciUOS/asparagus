@@ -93,7 +93,7 @@ if __name__ == '__main__':
     model.add(GlobalAveragePooling2D())
     model.add(Dense(num_classes, activation='sigmoid'))
 
-    model.compile(loss='binary_crossentropy', loss_weights={0:0.2, 1:0.8}
+    model.compile(loss='binary_crossentropy', loss_weights={0:0.2, 1:0.8},
                 optimizer='adam',
                 metrics=['accuracy'])
                 
