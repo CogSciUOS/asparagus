@@ -49,7 +49,7 @@ if __name__ == '__main__':
     for i in range(temp1.shape[0]):
         temp2 = str(temp1[i])
         temp3 = np.fromstring(temp2[1:-1], dtype = int, sep=',')
-        train_lbl.append(temp3)
+        train_lbl.append(np.int(temp3))
     
     train_lbl = np.array(train_lbl)
     # temp1 = (np.array(labels_train['label']))
