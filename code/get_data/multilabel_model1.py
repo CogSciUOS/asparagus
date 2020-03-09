@@ -41,7 +41,6 @@ if __name__ == '__main__':
     labels_train['label'] = labels_train.values.tolist()
     print(labels_train.head())
 
-    # desired datatype is a list with arrays containing the 6 labels seperated by a comme
     # desired datatype is a list with arrays containing the 6 labels seperated by a comma
     temp1 = (np.array(labels_train['label']))
     train_lbl = []
@@ -94,7 +93,7 @@ if __name__ == '__main__':
     model.add(GlobalAveragePooling2D())
     model.add(Dense(num_classes, activation='sigmoid'))
 
-    model.compile(loss='binary_crossentropy',
+    model.compile(loss='binary_crossentropy', loss_weights={0:0.2, 1:0.8}
                 optimizer='adam',
                 metrics=['accuracy'])
                 
@@ -151,4 +150,4 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_model3.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_weighted_20_80.png')
