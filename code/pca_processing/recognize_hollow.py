@@ -130,9 +130,9 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         #hollow
         # plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize'+str(j)+'.png')
         #bended
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
         #blume
-        # plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_blume/recognize'+str(j)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_blume/recognize'+str(j)+'.png')
         #rust head
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_head/recognize'+str(j)+'.png')
         #rust body
@@ -170,16 +170,16 @@ if __name__ == '__main__':
     # test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow']
 
     # # for bended
-    train_names_1 = ["bended" for x in range(200)]
-    train_names_2 = ["not_bended" for x in range(200)]
-    train_names = train_names_1 + train_names_2
-    test_labels = ['not_bended', 'bended', 'not_bended', 'bended', 'bended', 'bended', 'not_bended', 'bended', 'bended', 'not_bended']
+    # train_names_1 = ["bended" for x in range(200)]
+    # train_names_2 = ["not_bended" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['not_bended', 'bended', 'not_bended', 'bended', 'bended', 'bended', 'not_bended', 'bended', 'bended', 'not_bended']
 
     # for blume
-    # train_names_1 = ["blume" for x in range(200)]
-    # train_names_2 = ["not_blume" for x in range(200)]
-    # train_names = train_names_1 + train_names_2
-    # test_labels = ['not_blume', 'not_blume', 'blume', 'not_blume', 'not_blume', 'not_blume', 'not_blume','blume', 'not_blume', 'not_blume']
+    train_names_1 = ["blume" for x in range(200)]
+    train_names_2 = ["not_blume" for x in range(200)]
+    train_names = train_names_1 + train_names_2
+    test_labels = ['not_blume', 'not_blume', 'blume', 'not_blume', 'not_blume', 'not_blume', 'not_blume','blume', 'not_blume', 'not_blume']
 
     # rost head
     # train_names_1 = ["rust_head" for x in range(200)]
