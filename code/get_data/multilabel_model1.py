@@ -7,7 +7,7 @@ from sklearn.utils import class_weight
 #import tensorflow as tf
 #import cv2
 
-import keras as K
+import keras
 from keras.models import Sequential
 
 from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
@@ -97,9 +97,9 @@ if __name__ == '__main__':
 
     # add a costumize loss function that weights wrong labels for 1 higher than for 0 (because of class imbalance)
     weights = class_weight.compute_sample_weight(class_weight = "balanced", y = train_lbl)
-    print(weights)
+    print(len(weights))
     def weighted_loss(y_true, y_pred):
-        return K.mean((weights[:,0]**(1-y_true))*(weights[:,1]**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
+        return mean((weights[:,0]**(1-y_true))*(weights[:,1]**(y_true))*binary_crossentropy(y_true, y_pred), axis=-1)
     
     
     model.compile(loss=weighted_loss, #'binary_crossentropy',
