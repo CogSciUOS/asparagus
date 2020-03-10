@@ -99,7 +99,7 @@ if __name__ == '__main__':
     weights = class_weight.compute_sample_weight(class_weight = "balanced", y = train_lbl)
     print(len(weights))
     def weighted_loss(y_true, y_pred):
-        return mean((weights[:,0]**(1-y_true))*(weights[:,1]**(y_true))*binary_crossentropy(y_true, y_pred), axis=-1)
+        return np.mean((weights[:,0]**(1-y_true))*(weights[:,1]**(y_true))*binary_crossentropy(y_true, y_pred), axis=-1)
     
     
     model.compile(loss=weighted_loss, #'binary_crossentropy',
