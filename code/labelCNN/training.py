@@ -11,6 +11,9 @@ from logging import getLogger, StreamHandler, WARNING
 import tensorflow.keras as keras
 import tensorflow as tf
 
+from scipy.stats import zscore
+
+
 from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.models import load_model
 
@@ -33,6 +36,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('labels', help='the combined labels csv')
     parser.add_argument('imagedir', help='the base image directory')
+    parser.add_argument('model_name', help='Model name')
     return parser.parse_args()
 
 
@@ -155,14 +159,6 @@ def load_image(inputs, targets):
         img = tf.image.resize(img, [IMG_WIDTH, IMG_HEIGHT])
         inputs[key] = img
 
-    # rescale auto inputs
-    # TODO
-    print("inputs auto")
-    log.warning("inputs auto")
-    print(inputs['auto_input'])
-    print(type(inputs['auto_input']))
-    inputs['auto_input'] = inputs['auto_input'] / 300.0
-
     return inputs, targets
 
 
@@ -207,6 +203,9 @@ def create_dataset(df, batch_size=5):
     for img_col in image_cols:
         df[img_col] = df[img_col].apply(str)
 
+    # standardize auto values
+    df[auto_cols] = df[auto_cols].apply(zscore)
+
     # define inputs
     inputs = {
         'auto_input': df[auto_cols].values,
@@ -236,7 +235,7 @@ def create_dataset(df, batch_size=5):
     return train_dataset, val_dataset
 
 
-def get_compiled_model():
+def get_compiled_model(model_name):
     """ define and compile the model """
 
     image_a_in = keras.layers.Input(shape=IMAGE_SHAPE, name='image_a_input')
@@ -279,7 +278,7 @@ def get_compiled_model():
     z = keras.layers.Dense(6, activation="sigmoid")(z)
 
     model = keras.models.Model(
-        inputs=[images_merged_model.input, auto_in], outputs=z)
+        inputs=[images_merged_model.input, auto_in], outputs=z, name=model_name)
 
     model.compile(optimizer='sgd',
                   # loss=tf.keras.losses.SparseCategoricalCrossentropy(),
@@ -335,7 +334,7 @@ IMG_HEIGHT = 182
 IMG_WIDTH = 670
 
 
-def main(labels, imagedir):
+def main(labels, imagedir, model_name):
 
     # get preprocessed pd dataframe from csv file
     df = load_df(labels, imagedir)
@@ -345,17 +344,18 @@ def main(labels, imagedir):
         df, batch_size=10)
 
     # define and compile the model to be trained
-    model = get_compiled_model()
+    model = get_compiled_model(model_name)
 
     # fit the model to the data and validate
-    callbacks = []
+    callbacks = [tf.keras.callbacks.TensorBoard(
+        log_dir=f'logs/{model_name}', profile_batch=0), tf.keras.callbacks.ModelCheckpoint(
+        filepath='models/' + model_name + '.{epoch:02d}-{val_loss:.2f}.h5')]
     model.fit(train_dataset, epochs=1,
               validation_data=val_dataset, callbacks=callbacks)
 
     ################# save model ######################
     # creates a HDF5 file 'my_model.h5'
-    model.save('models/CNN_katha.h5')
-
+    model.save(f'models/{model_name}.h5')
     #########################
 
     # try to predict
@@ -385,4 +385,4 @@ def main(labels, imagedir):
 
 if __name__ == "__main__":
     args = parse_args()
-    main(args.labels, args.imagedir)
+    main(args.labels, args.imagedir, args.model_name)
