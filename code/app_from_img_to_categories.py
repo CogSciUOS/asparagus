@@ -211,7 +211,6 @@ def main():
 
         # display the train df
         if st.checkbox('Show category training dataframe'):
-            raw_cat_data
             dummy_data
 
             "There are", len(labels), "labels."
@@ -303,10 +302,11 @@ def main():
 
         # look at the results
         st.write(" has the prediction")
-        st.write(str(cat_prediction))
+        st.write(cat_prediction)
 
         st.write("Use argmax to get label: the category label is:")
-        st.write(str(cat_prediction.argmax(axis=1)))
+        pred_cat = labels[np.asscalar(cat_prediction.argmax(axis=1))]
+        st.write(pred_cat)
 
 
 if __name__ == '__main__':
