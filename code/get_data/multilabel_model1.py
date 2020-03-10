@@ -7,7 +7,7 @@ from sklearn.utils import class_weight
 #import tensorflow as tf
 #import cv2
 
-import keras
+import keras.backend as K
 from keras.losses import binary_crossentropy
 from keras.models import Sequential
 
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 
     # add a costumize loss function that weights wrong labels for 1 higher than for 0 (because of class imbalance)
     def weighted_loss(y_true, y_pred):
-        return np.mean((5**(1-y_true))*(1**(y_true))*binary_crossentropy(y_true, y_pred), axis=-1)
+        return K.mean((5**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
     
     model.compile(loss=weighted_loss, #'binary_crossentropy',
