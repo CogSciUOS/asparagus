@@ -22,7 +22,7 @@ log.setLevel(WARNING)
 log.addHandler(StreamHandler())
 
 # Disable warnings
-DISABLE_WARNINGS = False
+DISABLE_WARNINGS = True
 if DISABLE_WARNINGS:
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     import tensorflow as tf  # noqa
@@ -157,6 +157,10 @@ def load_image(inputs, targets):
 
     # rescale auto inputs
     # TODO
+    print("inputs auto")
+    log.warning("inputs auto")
+    print(inputs['auto_input'])
+    print(type(inputs['auto_input']))
     inputs['auto_input'] = inputs['auto_input'] / 300.0
 
     return inputs, targets
@@ -348,6 +352,10 @@ def main(labels, imagedir):
     model.fit(train_dataset, epochs=1,
               validation_data=val_dataset, callbacks=callbacks)
 
+    ################# save model ######################
+    # creates a HDF5 file 'my_model.h5'
+    model.save('models/CNN_katha.h5')
+
     #########################
 
     # try to predict
@@ -364,16 +372,6 @@ def main(labels, imagedir):
     for row in batch:
         print(
             f"The rounded target prediction: {[round(val, 1) for val in row]}")
-
-    #################save and load again######################
-    # creates a HDF5 file 'my_model.h5'
-    model.save('models/CNN_katha.h5')
-    # deletes the existing model
-    del model
-
-    # returns a compiled model
-    # identical to the previous one
-    model = load_model('models/CNN_katha.h5')
 
     val_dataset = val_dataset.shuffle(buffer_size=100, seed=2)
     sample = val_dataset.take(1)
