@@ -87,6 +87,11 @@ def display_images(raw_feat_data, sample_idx):
     return images_imread
 
 
+@st.cache(allow_output_mutation=True)
+def load_keras_model(model_path):
+    return tensorflow.keras.models.load_model(model_path)
+
+
 def highlight_diff_vec(data, other, color='pink'):
     """ pandas styler: compare each entry of the dfs (round prediction),
         mark field in prediction red if it not equal"""
@@ -173,7 +178,7 @@ def main():
     model_path = model_folder + model_option + ".h5"
 
     # load selected model
-    CNN_model = tensorflow.keras.models.load_model(model_path)
+    CNN_model = load_keras_model(model_path)
 
     # show information about the model
     streamlit_model_summary(model_path, CNN_model)
