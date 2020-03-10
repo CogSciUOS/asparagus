@@ -95,7 +95,13 @@ if __name__ == '__main__':
     model.add(GlobalAveragePooling2D())
     model.add(Dense(num_classes, activation='sigmoid'))
 
-    model.compile(loss='binary_crossentropy',
+    # add a costumize loss function that weights wrong labels for 1 higher than for 0 (because of class imbalance)
+    def get_weighted_loss(weights):
+        def weighted_loss(y_true, y_pred):
+            return K.mean((weights[:,0]**(1-y_true))*(weights[:,1]**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
+        return weighted_loss
+    
+    model.compile(loss= get_weighted_loss, #'binary_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy'])
                 
