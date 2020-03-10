@@ -7,7 +7,7 @@ from sklearn.utils import class_weight
 #import tensorflow as tf
 #import cv2
 
-import keras
+import keras as K
 from keras.models import Sequential
 
 from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
