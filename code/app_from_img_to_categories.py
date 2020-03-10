@@ -208,7 +208,10 @@ def main():
         # TODO
         # calculate different losses
 
-    if st.checkbox('Make category prediction for feature prediction'):
+    if st.checkbox('Score of validation data set'):
+        # load val dataset
+        # model.score(val_dataset)
+        pass
 
         "# From features to categories"
         raw_cat_data, dummy_data = load_cat_data()
@@ -238,7 +241,7 @@ def main():
         "After we perform the train/test-split, we have", len(
             x_test), "test samples"
 
-        "## Choose the model that you want to train"
+        "## Choose the model that you want to use"
         "Right now there is a random forest model and a multilayer preceptron."
 
         model_folder = "pipeline/models"
@@ -246,7 +249,7 @@ def main():
             model_folder) if isfile(join(model_folder, model))]
 
         model_option = st.selectbox(
-            'Which model do you want to train?',
+            'Which model do you want to use?',
             models)
 
         # load selected model
@@ -287,7 +290,6 @@ def main():
 
         "#### Selected sample"
         "Looking at the", sample_idx, "th feature prediction"
-        # TODO is this necessary here?
         sample = get_sample(raw_feat_data, sample_idx)
         pred_feat_vec = CNN_model.predict(sample)
         pred_feat_vec = pd.DataFrame(pred_feat_vec, columns=[
