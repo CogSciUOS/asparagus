@@ -78,6 +78,10 @@ def get_sample(raw_feat_data, sample_idx):
     return sample
 
 
+def predict_features_with_CNN(model, sample):
+    return model.predict(sample)
+
+
 def highlight_diff_vec(data, other, color='pink'):
     """ pandas styler: compare each entry of the dfs (round prediction),
         mark field in prediction red if it not equal"""
@@ -165,14 +169,18 @@ def main():
     model_path = model_folder + model_option + ".h5"
 
     # load selected model
-    model = tensorflow.keras.models.load_model(model_path)
+    CNN_model = tensorflow.keras.models.load_model(model_path)
 
     # show information about the model
-    streamlit_model_summary(model_path, model)
+    streamlit_model_summary(model_path, CNN_model)
 
     "# Inspect the dataset"
     "Select an image"
     sample_idx = st.slider('Sample', 0, int(raw_feat_data.shape[0]), value=0)
+    selected_sample = pd.DataFrame(
+        raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
+    st.write(selected_sample)
+
     # TODO hier auslagern
     img_pathes = raw_feat_data[IMAGE_COLUMNS].iloc[sample_idx]
 
@@ -187,7 +195,7 @@ def main():
         "The model predicts the following target vector:"
         sample = get_sample(raw_feat_data, sample_idx)
 
-        pred_feat_vec = model.predict(sample)
+        pred_feat_vec = predict_features_with_CNN(CNN_model, sample)
 
         # show predicted and true target vector and mark differences
         evaluate(raw_feat_data, sample_idx, pred_feat_vec)
@@ -248,7 +256,7 @@ def main():
 
         if hasattr(model, 'score'):
             score = model.score(x_test, y_test)
-            st.write('Score is', np.round(score, 3))
+            st.write('Score on validation dataset is', np.round(score, 3))
 
         if hasattr(model, 'evaluate'):
             evaluation = model.evaluate(x_test, y_test)
@@ -257,7 +265,7 @@ def main():
         # get the predictions
         y_pred = model.predict(x_test)
 
-        "Number of samples in predictions:", len(y_pred)
+        "Number of samples in validation set:", len(y_pred)
         ######
 
         "## Results"
@@ -277,26 +285,35 @@ def main():
 
         "Looking at the", sample_idx, "th feature prediction"
 
-        # doppelt
+        # TODO
         # lieber in gecachte function
         # pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
 
-        pred_feat_vec = pd.DataFrame(
-            [1, 1, 0, 0, 1, 1, 8, 240, 24, 200]).transpose()
-        pred_feat_vec.columns = LABEL_COLUMNS + AUTO_COLUMNS
-        "Predicted feature vector"
-        st.write(pred_feat_vec)
+        # TODO is this necessary here?
+        sample = get_sample(raw_feat_data, sample_idx)
+        pred_feat_vec = predict_features_with_CNN(CNN_model, sample)
+        pred_feat_vec = pd.DataFrame(pred_feat_vec, columns=[
+                                     LABEL_COLUMNS]).round(0)
+        auto_vals = pd.DataFrame(
+            raw_feat_data[AUTO_COLUMNS].iloc[sample_idx]).transpose().reset_index(drop=True)
+        full_feat_vec = pd.concat(
+            [pred_feat_vec, auto_vals], axis=1, ignore_index=True)
+        full_feat_vec.columns = LABEL_COLUMNS+AUTO_COLUMNS
+
+        "Predicted feature vector concatenated with auto values"
+        st.write(full_feat_vec)
 
         # convert
-        row_values = pred_feat_vec.values
+        row_values = full_feat_vec.values
+
         # predict
         cat_prediction = model.predict(row_values)
 
-        st.write("feature vector", str(row_values),
-                 " has prediction ", str(cat_prediction))
+        st.write("feature vector", str(row_values))
+        str.write(" has prediction ", str(cat_prediction))
 
-        st.write("Use argmax to get label: the category label is:",
-                 str(cat_prediction.argmax(axis=1)))
+        st.write("Use argmax to get label: the category label is:")
+        st.write(str(cat_prediction.argmax(axis=1)))
 
 
 if __name__ == '__main__':
