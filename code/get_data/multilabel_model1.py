@@ -111,10 +111,7 @@ if __name__ == '__main__':
     # Train the model
     ################################################################################
     #early_stop = EarlyStopping(monitor='loss', patience=5, verbose=1)                               
-    # class_weights = dict(zip(np.unique(train_lbl), class_weight.compute_sample_weight('balanced',
-    #                                              np.unique(train_lbl),
-    #                                              train_lbl)))
-    
+    class_weights = class_weight.compute_sample_weight(class_weight = "balanced", y = train_lbl)
     history = model.fit(train_img, train_lbl,
                             batch_size=batch_size,
                             epochs=num_epochs,
