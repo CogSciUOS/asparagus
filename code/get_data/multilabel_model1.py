@@ -96,12 +96,13 @@ if __name__ == '__main__':
     model.add(Dense(num_classes, activation='sigmoid'))
 
     # add a costumize loss function that weights wrong labels for 1 higher than for 0 (because of class imbalance)
-    def get_weighted_loss(weights):
-        def weighted_loss(y_true, y_pred):
-            return K.mean((weights[:,0]**(1-y_true))*(weights[:,1]**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
-        return weighted_loss
+    weights = class_weight.compute_sample_weight(class_weight = "balanced", y = train_lbl)
+    print(weights)
+    def weighted_loss(y_true, y_pred):
+        return K.mean((weights[:,0]**(1-y_true))*(weights[:,1]**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
-    model.compile(loss= get_weighted_loss, #'binary_crossentropy',
+    
+    model.compile(loss=weighted_loss, #'binary_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy'])
                 
@@ -114,7 +115,7 @@ if __name__ == '__main__':
     # class_weights = dict(zip(np.unique(train_lbl), class_weight.compute_sample_weight('balanced',
     #                                              np.unique(train_lbl),
     #                                              train_lbl)))
-    class_weights = class_weight.compute_sample_weight(class_weight = "balanced", y = train_lbl)
+    
     history = model.fit(train_img, train_lbl,
                             batch_size=batch_size,
                             epochs=num_epochs,
