@@ -8,6 +8,7 @@ from sklearn.utils import class_weight
 #import cv2
 
 import keras
+from keras.losses import binary_crossentropy
 from keras.models import Sequential
 
 from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
