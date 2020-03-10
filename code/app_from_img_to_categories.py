@@ -20,22 +20,19 @@ import pandas as pd
 import streamlit as st
 import tensorflow.keras as keras
 import tensorflow.keras.models
-from sklearn.model_selection import train_test_split
 
+from os import listdir
+from os.path import isfile, join
+from io import StringIO
 
 from skimage.io import imread
 from skimage.transform import resize
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 
-from os import listdir
-from io import StringIO
-from os.path import isfile, join
-
-from skimage.io import imread
 
 import labelCNN.training as train
 import pipeline.train_model as tm
-
-from sklearn.metrics import classification_report
 
 
 IMAGE_COLUMNS = ['image_a', 'image_b', 'image_c']
@@ -46,6 +43,8 @@ LABEL_COLUMNS = ['is_hollow', 'has_blume', 'has_rost_head',
 
 @st.cache
 def load_feat_data(labels_csv, imagedir):
+    """ load the df with the handlabeled features and the corresponding pathes to images
+        and add a unique code for each constellation of features"""
     raw_feat_data = train.load_df(labels_csv, imagedir)
     # add unique code for combinations of features
     raw_feat_data["Code"] = raw_feat_data[LABEL_COLUMNS].apply(
@@ -78,8 +77,14 @@ def get_sample(raw_feat_data, sample_idx):
     return sample
 
 
-def predict_features_with_CNN(model, sample):
-    return model.predict(sample)
+@st.cache
+def display_images(raw_feat_data, sample_idx):
+    """ returns 3 asparagus pictures corresponding to the sample_index next to each other """
+    img_pathes = raw_feat_data[IMAGE_COLUMNS].iloc[sample_idx]
+
+    images_imread = [imread(img_path) for img_path in img_pathes]
+
+    return images_imread
 
 
 def highlight_diff_vec(data, other, color='pink'):
@@ -95,7 +100,6 @@ def highlight_diff_vec(data, other, color='pink'):
 
 def evaluate(raw_feat_data, sample_idx, pred_feat_vec):
     """ shows predicted vector and true target and marks differences"""
-
     pred_feat_vec = pd.DataFrame(
         pred_feat_vec, columns=[LABEL_COLUMNS])
 
@@ -181,12 +185,8 @@ def main():
         raw_feat_data[LABEL_COLUMNS+AUTO_COLUMNS].iloc[sample_idx]).transpose()
     st.write(selected_sample)
 
-    # TODO hier auslagern
-    img_pathes = raw_feat_data[IMAGE_COLUMNS].iloc[sample_idx]
-
-    # display the images
-    images_imread = [imread(img_path) for img_path in img_pathes]
     # stack and display 3 images
+    images_imread = display_images(raw_feat_data, sample_idx)
     st.image(np.hstack([np.squeeze(i)
                         for i in images_imread]), use_column_width=True)
 
@@ -195,7 +195,7 @@ def main():
         "The model predicts the following target vector:"
         sample = get_sample(raw_feat_data, sample_idx)
 
-        pred_feat_vec = predict_features_with_CNN(CNN_model, sample)
+        pred_feat_vec = CNN_model.predict(sample)
 
         # show predicted and true target vector and mark differences
         evaluate(raw_feat_data, sample_idx, pred_feat_vec)
@@ -211,6 +211,7 @@ def main():
 
         # display the train df
         if st.checkbox('Show category training dataframe'):
+            raw_cat_data
             dummy_data
 
             "There are", len(labels), "labels."
@@ -245,28 +246,27 @@ def main():
             models)
 
         # load selected model
-        model = tm.load_model(model_option, input_shape=x_train.shape[1:])
+        mult_model = tm.load_model(model_option, input_shape=x_train.shape[1:])
 
         '## Fitting the model'
         try:
             # if keras model, make several epochs
-            model.fit(x_train, y_train, epochs=500)
+            mult_model.fit(x_train, y_train, epochs=500)
         except TypeError:
-            model.fit(x_train, y_train)
+            mult_model.fit(x_train, y_train)
 
-        if hasattr(model, 'score'):
-            score = model.score(x_test, y_test)
+        if hasattr(mult_model, 'score'):
+            score = mult_model.score(x_test, y_test)
             st.write('Score on validation dataset is', np.round(score, 3))
 
-        if hasattr(model, 'evaluate'):
-            evaluation = model.evaluate(x_test, y_test)
+        if hasattr(mult_model, 'evaluate'):
+            evaluation = mult_model.evaluate(x_test, y_test)
             st.write('Evaluation is', evaluation)
 
         # get the predictions
-        y_pred = model.predict(x_test)
+        y_pred = mult_model.predict(x_test)
 
         "Number of samples in validation set:", len(y_pred)
-        ######
 
         "## Results"
 
@@ -278,20 +278,14 @@ def main():
         "### Confusion Matrix"
         if st.checkbox('Show confusion matrix'):
             conf_matrix, ax = tm.conf_matrix(
-                x_train, x_test, y_train, y_test, y_pred, labels, model_option)
+                x_train, x_test, y_train, y_test, y_pred, labels, mult_model)
             st.pyplot()
 
         "#### Selected sample"
-
         "Looking at the", sample_idx, "th feature prediction"
-
-        # TODO
-        # lieber in gecachte function
-        # pred_feat_vec = predict_features(model, raw_feat_data, sample_idx)
-
         # TODO is this necessary here?
         sample = get_sample(raw_feat_data, sample_idx)
-        pred_feat_vec = predict_features_with_CNN(CNN_model, sample)
+        pred_feat_vec = CNN_model.predict(sample)
         pred_feat_vec = pd.DataFrame(pred_feat_vec, columns=[
                                      LABEL_COLUMNS]).round(0)
         auto_vals = pd.DataFrame(
@@ -299,18 +293,17 @@ def main():
         full_feat_vec = pd.concat(
             [pred_feat_vec, auto_vals], axis=1, ignore_index=True)
         full_feat_vec.columns = LABEL_COLUMNS+AUTO_COLUMNS
-
-        "Predicted feature vector concatenated with auto values"
-        st.write(full_feat_vec)
-
-        # convert
         row_values = full_feat_vec.values
 
-        # predict
-        cat_prediction = model.predict(row_values)
+        "The predicted feature vector concatenated with auto values"
+        st.table(full_feat_vec)
 
-        st.write("feature vector", str(row_values))
-        str.write(" has prediction ", str(cat_prediction))
+        # predict with the models from the pipeline folder
+        cat_prediction = mult_model.predict(row_values)
+
+        # look at the results
+        st.write(" has the prediction")
+        st.write(str(cat_prediction))
 
         st.write("Use argmax to get label: the category label is:")
         st.write(str(cat_prediction.argmax(axis=1)))
