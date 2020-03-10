@@ -134,16 +134,24 @@ def main():
     st.title('Asparagus label prediction')
 
     imgdirs = ["/home/katha/labeled_images",
-               "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/without_background_pngs/"]
+               "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/without_background_pngs/", "Custom"]
     imgdir_option = st.selectbox(
         'Please select the image directory',
         imgdirs)
+    if imgdir_option == 'Custom':
+        imgdir_option = st.text_input('Path', value=None)
+    if not Path(imgdir_option).exists():
+        raise FileNotFoundError('Image directory not found.')
 
     csv_files = ["all_label_files.csv",
-                 "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/labels.csv"]
+                 "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/labels.csv", "Custom"]
     csv_option = st.selectbox(
         'Please select the csv file',
         csv_files)
+    if csv_option == 'Custom':
+        csv_option = st.text_input('Path', value=None)
+    if not Path(csv_option).exists():
+        raise FileNotFoundError('Csv file not found.')
 
     '# Generated dataframe'
     raw_feat_data = load_feat_data(csv_option, imgdir_option)
@@ -210,6 +218,7 @@ def main():
 
     if st.checkbox('Score of validation data set'):
         # load val dataset
+        train_dataset, val_dataset = train.create_dataset(df, batch_size=5)
         # model.score(val_dataset)
         pass
 
