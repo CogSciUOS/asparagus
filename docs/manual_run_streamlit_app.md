@@ -27,10 +27,10 @@ if None  you can enter path directly in the app
 
 ## When something is not working
 
-This is my first streamlit app. So although I tried my best to structure the app clearly and make it faster by caching some functions, there is room for improvement. Please let me know when you encounter problems or have some suggestions on how to improve it. I would also be very happy about pull requests that add new features.
+This is my first streamlit app. So although I tried my best to structure the app clearly and make it faster by caching some functions, there is room for improvement. Please **let me know** when you encounter problems or have some suggestions on how to improve it. I would also be very happy about **pull requests** that add new features.
 
 Things you can try on your own when running into problems:
-1. refresh the site
+1. refresh
 2. check all the checkboxes from top to bottom
 3. check the source code
 
