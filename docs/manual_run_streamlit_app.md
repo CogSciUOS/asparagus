@@ -11,7 +11,7 @@ This manual shows you how to run the streamlit app. It also explains how to trai
 
 ## Activate the asparagus_env
 
-You can find the `asparagus_env.yml` file to create an environment in the repository root directory. It is most probably not platform independent, so please use a Linux system (e.g. the university computers). Use the command `conda env create -f environment.yml` to set up the environment. Then activate the environment by using `conda activate asparagus_env`
+You can find the `asparagus_env.yml` file to create an environment in the repository root directory. It is most probably not platform independent, so please use a Linux system (e.g. the university computers). Use the command `conda env create -f asparagus_env.yml` to set up the environment. Then activate the environment by using `conda activate asparagus_env`
 
 
 ### Regarding the requirements
