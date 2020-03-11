@@ -13,6 +13,9 @@
     streamlit run multiple_models_app.py
 """
 
+from io import StringIO
+from os import listdir
+from os.path import isfile, join
 from pathlib import Path
 
 import numpy as np
@@ -21,15 +24,10 @@ import streamlit as st
 import tensorflow.keras as keras
 import tensorflow.keras.models
 
-from os import listdir
-from os.path import isfile, join
-from io import StringIO
-
 from skimage.io import imread
 from skimage.transform import resize
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-
 
 import labelCNN.training as train
 import pipeline.train_model as tm
