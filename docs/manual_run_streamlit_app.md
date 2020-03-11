@@ -1,6 +1,6 @@
-# How to run the end to end streamlit app and add your model
+# How to run the streamlit app and train/add your model
 
-This manual shows you how to run the streamlit app. It also explains how to train your model based on the csv files and the images using the script `code/labelCNN/training.py`. For details please look at the source code.
+This manual shows you how to run the streamlit app. It also explains how to train your model based on the csv files and the images using the scripts `code/labelCNN/combine_labels.py`, `code/labelCNN/training.py`. For details please look at the source code. Also, have a look at `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/` to see what a possible set up looks like or how to use the grid to train your model.
 
 
 ## Clone the github repository
@@ -11,9 +11,10 @@ This manual shows you how to run the streamlit app. It also explains how to trai
 
 ## Activate the asparagus_env
 
+You can find the `asparagus_env.yml` file to create an environment in the root directory. It is most probably not platform independent, so please use a Linux system (e.g. the university computers). Use the command `conda env create -f environment.yml` to set up the environment. Then activate the environment by using `conda activate asparagus_env`
 
 
-### Requirements
+### Regarding the requirements
 
 You do not need to use the provided environment. Probably you should be fine if you have installed the following Python packages: `tensorflow h5py numpy pandas scikit-image streamlit`
 
@@ -42,17 +43,32 @@ You do not need to use the provided environment. Probably you should be fine if 
 
 
 
-To inspect the results you can use streamlit: `streamlit run app.py` (for details follow the next steps)
+To inspect the results you can use streamlit: `streamlit run app_from_img_to_categories.py` (for details follow the next steps)
 
 
 ## Navigate to the streamlit app
 
+You can find the app that supplies an end to end solution in the `code` folder. It is named `app_from_img_to_categories.py`.
+In order to run the app type `streamlit run app_from_img_to_categories.py` in the terminal.
 
-## Open browser at 
+## Open browser at the provided URL
+
+In the terminal you will find output similar to this:
+```
+  You can now view your Streamlit app in your browser.
+
+  Network URL: http://192.168.0.8:8501
+  External URL: http://31.17.252.51:8501
+```
+Copy the Network URL into the address field of the browser of your choice.
 
 
 ## Select the path to image folder
 
+Now you should see that the app is running and greets you with "Asparagus label prediction".
+
+
+The next step is to select the path of the image folder. As we labeled on the 
 if None  you can enter path directly in the app
 
 ## Select csv file
