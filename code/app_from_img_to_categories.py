@@ -54,10 +54,13 @@ def load_feat_data(labels_csv, imagedir):
 
 @st.cache
 def load_cat_data():
+    """ load the dataframes with the 'ground truth' categories of the asparagus pieces"""
     return tm.load_data("../annotations")
 
 
 def convert2binary(vector):
+    """ convert each unique constellation of features into a number/code
+        understand the feature vector as binary number and convert to decimal"""
     return vector @ 2 ** np.arange(len(vector))
 
 
@@ -89,6 +92,7 @@ def display_images(raw_feat_data, sample_idx):
 
 @st.cache(allow_output_mutation=True)
 def load_keras_model(model_path):
+    """ load specified keras model """
     return tensorflow.keras.models.load_model(model_path)
 
 
