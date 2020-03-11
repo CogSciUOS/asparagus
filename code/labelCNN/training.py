@@ -327,30 +327,6 @@ def main(labels, imagedir, model_name):
     model.save(f'models/{model_name}.h5')
     #########################
 
-    # try to predict
-    print("These are the predictions for the first one of first batch of the validation set")
-    sample = val_dataset.take(1)
-    for feat, tar in sample:
-        print(tar.numpy())
-    batch = model.predict(sample)
-    for row in batch:
-        print(
-            f"The rounded target prediction: {[int(round(val)) for val in row]}")
-    print()
-    print()
-    for row in batch:
-        print(
-            f"The rounded target prediction: {[round(val, 1) for val in row]}")
-
-    val_dataset = val_dataset.shuffle(buffer_size=100, seed=2)
-    sample = val_dataset.take(1)
-    feat, tar = next(iter(sample))
-    print("auto", feat["auto_input"].numpy())
-    print("tar", tar.numpy())
-    prediction = model.predict(sample)
-    print("rounded", np.round(prediction))
-    print("orig", prediction)
-
 
 if __name__ == "__main__":
     args = parse_args()
