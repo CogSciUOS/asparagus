@@ -8,6 +8,7 @@ code
    combine_labels
    feature_extraction
    good_style
+   labelCNN
    label_app
    measure_agreement
    pipeline
