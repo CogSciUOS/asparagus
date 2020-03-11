@@ -10,15 +10,11 @@ from logging import getLogger, StreamHandler, WARNING
 
 import tensorflow.keras as keras
 import tensorflow as tf
-
-from scipy.stats import zscore
-
-
 from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.models import load_model
 
 import matplotlib.pyplot as plt
-
+from scipy.stats import zscore
 
 log = getLogger(__file__)
 log.setLevel(WARNING)
@@ -297,33 +293,6 @@ def get_compiled_model(model_name):
     model.summary()
 
     return model
-
-
-class EarlyStoppingAfterMinutes(keras.callbacks.Callback):
-    """ to respect wall time of grid jobs"""
-
-    def __init__(self, minutes):
-        self.timeout = minutes * 60
-        self.start = None
-        self.last_epoch_start = 0
-        self.epochs = 0
-        self.mean_time = 0
-
-    def on_train_begin(self, logs=None):
-        self.start = time.time()
-
-    def on_epoch_begin(self, epoch, logs=None):
-        self.last_epoch_start = time.time()
-
-    def on_epoch_end(self, epoch, logs=None):
-        now = time.time()
-        approx_total = self.mean_time * \
-            self.epochs + (now - self.last_epoch_start)
-        self.epochs += 1
-        self.mean_time = approx_total / self.epochs
-        if now - self.start + 1.5 * self.mean_time > self.timeout:
-            print('Stopping training, time is up')
-            self.model.stop_training = True
 
 
 # IMAGE_SHAPE = (1340, 364, 3)
