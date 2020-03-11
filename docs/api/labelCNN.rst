@@ -20,14 +20,6 @@ labelCNN.training module
    :undoc-members:
    :show-inheritance:
 
-labelCNN.training\_codes module
--------------------------------
-
-.. automodule:: labelCNN.training_codes
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 
 Module contents
 ---------------
