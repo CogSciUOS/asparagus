@@ -1,5 +1,7 @@
 # How to run the end to end streamlit app and add your model
 
+This manual shows you how to run the streamlit app. It also explains how to train your model based on the csv files and the images using the script `code/labelCNN/training.py`. For details please look at the source code.
+
 
 ## Clone the github repository
 
@@ -8,6 +10,39 @@
 
 
 ## Activate the asparagus_env
+
+
+
+### Requirements
+
+You do not need to use the provided environment. Probably you should be fine if you have installed the following Python packages: `tensorflow h5py numpy pandas scikit-image streamlit`
+
+
+## Preparation
+
+1. The image paths are assumed to have this structure:
+   `${IMAGE_DIR}/0/0/0000_a.jpg`, this way we can more or less reliably read
+   them from the csv files.
+
+2. Prepare the labels, so that they are in one file:
+   `python combine_labels.py labels labels.csv`
+   This merges all csv files inside the directory labels properly into labels.csv
+
+
+**Skip this part if you want to use an already trained model (it is as easy as just selecting it in the app):**
+
+3. To train, run training.py:
+   `python `
+   Where images is the `${IMAGE_DIR}` from step 2 and labels.csv the file from step 3.
+   Make sure you save your trained model to the folder `here`.
+
+4. To inspect the training process, run
+   `tensorboard --logdir logs`
+   and open a browser at http://localhost:6006
+
+
+
+To inspect the results you can use streamlit: `streamlit run app.py` (for details follow the next steps)
 
 
 ## Navigate to the streamlit app
@@ -21,6 +56,8 @@
 if None  you can enter path directly in the app
 
 ## Select csv file
+
+
 
 ## Looking at the app
 
