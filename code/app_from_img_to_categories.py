@@ -216,113 +216,109 @@ def main():
         # TODO
         # calculate different losses
 
-    # if st.checkbox('Score of validation data set'):
-    # load val dataset
-    # train_dataset, val_dataset = train.create_dataset(df, batch_size=5)
-    # model.score(val_dataset)
-    # pass
+    if st.checkbox('Make category prediction'):
 
-    "# From features to categories"
-    raw_cat_data, dummy_data = load_cat_data()
-    labels = [col for col in dummy_data if col.startswith('Class')]
+        "# From features to categories"
+        raw_cat_data, dummy_data = load_cat_data()
+        labels = [col for col in dummy_data if col.startswith('Class')]
 
-    # display the train df
-    if st.checkbox('Show category training dataframe'):
-        dummy_data
+        # display the train df
+        if st.checkbox('Show category training dataframe'):
+            dummy_data
 
-        "There are", len(labels), "labels."
-        "We want to learn the following labels: "
-        # draw histogram to see how classes are distributed
-        st.bar_chart(raw_cat_data['Class'].value_counts())
+            "There are", len(labels), "labels."
+            "We want to learn the following labels: "
+            # draw histogram to see how classes are distributed
+            st.bar_chart(raw_cat_data['Class'].value_counts())
 
-    ######
-    # train the model
-    x = dummy_data.iloc[:, :-len(labels)].values
-    # set Label as y
-    y = dummy_data[labels].values
+        ######
+        # train the model
+        x = dummy_data.iloc[:, :-len(labels)].values
+        # set Label as y
+        y = dummy_data[labels].values
 
-    # make a train and test split: 75% train; 25% test
-    x_train, x_test, y_train, y_test = train_test_split(
-        x, y, random_state=1)
+        # make a train and test split: 75% train; 25% test
+        x_train, x_test, y_train, y_test = train_test_split(
+            x, y, random_state=1)
 
-    "After we perform the train/test-split, we have", len(
-        x_train), "training samples"
-    "After we perform the train/test-split, we have", len(
-        x_test), "test samples"
+        "After we perform the train/test-split, we have", len(
+            x_train), "training samples"
+        "After we perform the train/test-split, we have", len(
+            x_test), "test samples"
 
-    "## Choose the model that you want to use"
-    "Right now there is a random forest model and a multilayer preceptron."
+        "## Choose the model that you want to use"
+        "Right now there is a random forest model and a multilayer preceptron."
 
-    model_folder = "pipeline/models"
-    models = [model[:model.index(".")] for model in listdir(
-        model_folder) if isfile(join(model_folder, model))]
+        model_folder = "pipeline/models"
+        models = [model[:model.index(".")] for model in listdir(
+            model_folder) if isfile(join(model_folder, model))]
 
-    model_option = st.selectbox(
-        'Which model do you want to use?',
-        models)
+        model_option = st.selectbox(
+            'Which model do you want to use?',
+            models)
 
-    # load selected model
-    mult_model = tm.load_model(model_option, input_shape=x_train.shape[1:])
+        # load selected model
+        mult_model = tm.load_model(model_option, input_shape=x_train.shape[1:])
 
-    '## Fitting the model'
-    try:
-        # if keras model, make several epochs
-        mult_model.fit(x_train, y_train, epochs=500)
-    except TypeError:
-        mult_model.fit(x_train, y_train)
+        '## Fitting the model'
+        try:
+            # if keras model, make several epochs
+            mult_model.fit(x_train, y_train, epochs=500)
+        except TypeError:
+            mult_model.fit(x_train, y_train)
 
-    if hasattr(mult_model, 'score'):
-        score = mult_model.score(x_test, y_test)
-        st.write('Score on validation dataset is', np.round(score, 3))
+        if hasattr(mult_model, 'score'):
+            score = mult_model.score(x_test, y_test)
+            st.write('Score on validation dataset is', np.round(score, 3))
 
-    if hasattr(mult_model, 'evaluate'):
-        evaluation = mult_model.evaluate(x_test, y_test)
-        st.write('Evaluation is', evaluation)
+        if hasattr(mult_model, 'evaluate'):
+            evaluation = mult_model.evaluate(x_test, y_test)
+            st.write('Evaluation is', evaluation)
 
-    # get the predictions
-    y_pred = mult_model.predict(x_test)
+        # get the predictions
+        y_pred = mult_model.predict(x_test)
 
-    "Number of samples in validation set:", len(y_pred)
+        "Number of samples in validation set:", len(y_pred)
 
-    "## Results"
+        "## Results"
 
-    "### Classification report"
-    if st.checkbox('Show classification report'):
-        st.write(pd.DataFrame(classification_report(y_test.argmax(axis=1),
-                                                    y_pred.argmax(axis=1), target_names=labels, output_dict=True)).transpose())
+        "### Classification report"
+        if st.checkbox('Show classification report'):
+            st.write(pd.DataFrame(classification_report(y_test.argmax(axis=1),
+                                                        y_pred.argmax(axis=1), target_names=labels, output_dict=True)).transpose())
 
-    "### Confusion Matrix"
-    if st.checkbox('Show confusion matrix'):
-        conf_matrix, ax = tm.conf_matrix(
-            x_train, x_test, y_train, y_test, y_pred, labels, mult_model)
-        st.pyplot()
+        "### Confusion Matrix"
+        if st.checkbox('Show confusion matrix'):
+            conf_matrix, ax = tm.conf_matrix(
+                x_train, x_test, y_train, y_test, y_pred, labels, mult_model)
+            st.pyplot()
 
-    "#### Selected sample"
-    "Looking at the", sample_idx, "th feature prediction"
-    sample = get_sample(raw_feat_data, sample_idx)
-    pred_feat_vec = CNN_model.predict(sample)
-    pred_feat_vec = pd.DataFrame(pred_feat_vec, columns=[
-        LABEL_COLUMNS]).round(0)
-    auto_vals = pd.DataFrame(
-        raw_feat_data[AUTO_COLUMNS].iloc[sample_idx]).transpose().reset_index(drop=True)
-    full_feat_vec = pd.concat(
-        [pred_feat_vec, auto_vals], axis=1, ignore_index=True)
-    full_feat_vec.columns = LABEL_COLUMNS+AUTO_COLUMNS
-    row_values = full_feat_vec.values
+        "#### Selected sample"
+        "Looking at the", sample_idx, "th feature prediction"
+        sample = get_sample(raw_feat_data, sample_idx)
+        pred_feat_vec = CNN_model.predict(sample)
+        pred_feat_vec = pd.DataFrame(pred_feat_vec, columns=[
+            LABEL_COLUMNS]).round(0)
+        auto_vals = pd.DataFrame(
+            raw_feat_data[AUTO_COLUMNS].iloc[sample_idx]).transpose().reset_index(drop=True)
+        full_feat_vec = pd.concat(
+            [pred_feat_vec, auto_vals], axis=1, ignore_index=True)
+        full_feat_vec.columns = LABEL_COLUMNS+AUTO_COLUMNS
+        row_values = full_feat_vec.values
 
-    "The predicted feature vector concatenated with auto values"
-    st.table(full_feat_vec)
+        "The predicted feature vector concatenated with auto values"
+        st.table(full_feat_vec)
 
-    # predict with the models from the pipeline folder
-    cat_prediction = mult_model.predict(row_values)
+        # predict with the models from the pipeline folder
+        cat_prediction = mult_model.predict(row_values)
 
-    # look at the results
-    st.write(" has the prediction")
-    st.write(cat_prediction)
+        # look at the results
+        st.write(" has the prediction")
+        st.write(cat_prediction)
 
-    st.write("Use argmax to get label: the category label is:")
-    pred_cat = labels[np.asscalar(cat_prediction.argmax(axis=1))]
-    st.write(pred_cat)
+        st.write("Use argmax to get label: the category label is:")
+        pred_cat = labels[np.asscalar(cat_prediction.argmax(axis=1))]
+        st.write(pred_cat)
 
 
 if __name__ == '__main__':
