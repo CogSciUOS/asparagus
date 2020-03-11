@@ -25,22 +25,22 @@ You do not need to use the provided environment. Probably you should be fine if 
    `${IMAGE_DIR}/0/0/0000_a.jpg`, this way we can more or less reliably read
    them from the csv files.
 
-**Look at the easy alternative below step 2!**
+
 2. Prepare the labels, so that they are in one file:
+   **Look at the easy alternative below step 2!**
    `python combine_labels.py {FOLDER_LABELS} labels.csv`
    This merges all csv files inside the directory labels properly into labels.csv
    You can find the script in the folder `code`. Also have a look at the bash script `merge_labels.sh` to see which folder I used and with which command line arguments I called the script. You find it in `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
 
-**Easy alternative to point 2.**:  just use the `labels.csv` file I already created stored at `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
+   **Easy alternative to point 2.**:  just use the `labels.csv` file I already created stored at `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
 
-
-**Skip this part if you want to use an already trained model (it is as easy as just selecting it in the app):**
 3. To train, run training.py:
+   **Skip this part if you want to use an already trained model (it is as easy as just selecting it in the app):**
    `python training.py labels.csv ${SCRATCH_PROJECT}/preprocessed_images/without_background_pngs/ model_name`
    Where images is the `${IMAGE_DIR}` from step 1 and `labels.csv` the file from step 2 and a `name` for the model.
    Make sure you save your trained model to the folder `code/labelCNN/models`. Also have a look at the bash script `train.sge` to see with which command line arguments I called the script. You find it in `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
 
-4. To inspect the training process, run
+2. To inspect the training process, run
    `tensorboard --logdir logs`
    and open a browser at http://localhost:6006
 
@@ -86,7 +86,7 @@ Please **let me know** when you encounter problems or have some suggestions on h
 
 Things you can try on your own when running into problems:
 1. refresh
-2. check all the checkboxes from top to bottom
+2. check all the check boxes from top to bottom
 3. check the source code
 
 ### Cuda removal
