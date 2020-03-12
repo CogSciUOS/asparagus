@@ -41,16 +41,20 @@ BACKGROUND
 * Include all the literature research you did, ideas, inspirations, theory, etc.) (*keep it of medium length; enough detail but also not too much; rather, references to other literature are very welcome*)
   
 ACTUAL MODEL STRUCTURE (*here come the details*)
-* Give an overview of your model/apporach design
+* Give an overview of your model/approach design
 * Include a picture(s) of your structure (i.e., when your worked on a model)
-- Describe the challenges you run into (What was tested/changed during the working process? Which ob- stacles did occur?)
-- What are potentials/risks of interpreting the results? (e.g. when working with my model the potential for better results was using features instead of classes while the risk could be ... )
-RESULTS (detailed)
-- How good did my model predict?
-DISCUSSION (detailed)
-- Why did it produce the results it produced? - What can I interpret from my results?
-- What could not be done/expected?
-- What is still missing now? What would I do when continuing to work on the
+* Describe the challenges you run into (e.g., What was tested/changed during the working process? Which obstacles did occur?)
+* What are potentials/risks of interpreting the results? (e.g. "When working with my model I saw potential for better results when using features instead of classes while the risk could be ... ")  
+  
+RESULT (*detailed*)
+* How good did my model predict?
+* Describe your results in a neutral way without interpreting them
+  
+DISCUSSION (*detailed*)
+* Why did it produce the results it produced?
+* What can I interpret from my results?
+* What could not be done? What results cannot be expected because of my approach?
+* What is still missing now? What would I do when continuing to work on the
 model?
 
 
