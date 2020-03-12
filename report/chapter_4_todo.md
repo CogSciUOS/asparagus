@@ -1,5 +1,5 @@
 # Chapter 4:&ensp;Classification
-Here, you can find a guideline of how to contribute to chapter 4. In chapter 4, we will discuss each approach we chose to investigate our data, train our models, etc.  
+Here, you can find a guideline of how to contribute to chapter 4 of our report. In chapter 4, we will discuss each approach we chose to investigate our data, train our models, etc.  
   
 This is the overview of Chapter 4 of the Report:  
   
