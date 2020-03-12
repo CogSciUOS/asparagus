@@ -20,8 +20,8 @@
 
 ## 4  Classification
 &ensp; **4.1 Supervised learning**  
-&ensp;&ensp;&ensp; 4.1.1 Single-label classification
-&ensp;&ensp;&ensp; 4.1.2 Multi-label classification
+&ensp;&ensp;&ensp; 4.1.1 Single-label classification  
+&ensp;&ensp;&ensp; 4.1.2 Multi-label classification  
 &ensp; **4.2 Semi-supervised learning**  
 &ensp;&ensp;&ensp; 4.2.1 Autoencoder  
 &ensp; **4.3 Unsupervised learning**  
