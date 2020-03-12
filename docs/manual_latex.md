@@ -20,7 +20,7 @@ The blank pages in the output pdf are correct, as the reported will be printed o
 
 ## Tutorial
 
-I do not find the Tutorial that I used to learn LaTex, but (this)[https://www.latex-tutorial.com/tutorials/] seems to give a good overview.
+I do not find the Tutorial that I used to learn LaTex, but [https://www.latex-tutorial.com/tutorials/](this) seems to give a good overview.
 
 
 ## Spaces
