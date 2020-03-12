@@ -25,23 +25,23 @@
   
 &ensp; **Manual labeling**  
   
-&ensp; **The asparagus dataset**  
+&ensp; **The asparagus dataset**  `Richard` 
 
 ## 4&ensp;Classification
 &ensp; **Supervised learning**  
   
-&ensp;&ensp;&ensp; Single-label classification  
-&ensp;&ensp;&ensp; Multi-label classification  
+&ensp;&ensp;&ensp; Single-label classification  `Josefine`  
+&ensp;&ensp;&ensp; Multi-label classification  `Sophia` 
   
 &ensp; **Semi-supervised learning**  
   
-&ensp;&ensp;&ensp; Autoencoder  
+&ensp;&ensp;&ensp; Autoencoder  `Michael` 
   
 &ensp; **Unsupervised learning**  
   
-&ensp;&ensp;&ensp; Principal component analysis  
+&ensp;&ensp;&ensp; Principal component analysis  `Malin, Maren` 
   
-&ensp; **From feature to label**  
+&ensp; **From feature to label**  `Katha` 
 
 ## 5&ensp;Discussion
 &ensp; **Comparison of neural networks**  
