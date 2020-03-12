@@ -1,6 +1,6 @@
 # Report overview
 
-## 1 &ensp; Introduction  
+## 1&ensp;Introduction  
 &ensp; **1.1 The project**  
   
 &ensp; **1.2 Background on computer vision based classification tasks**  
