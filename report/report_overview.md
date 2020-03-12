@@ -1,6 +1,6 @@
 # Report overview
 
-This is the overview for the Report. The actual report is in the main.tex file in the same folder and constructed from the other .tex files in the Chapters folder. To see the most recent changes in the report, please pull in the origin/Report branch and create a pdf file from the .tex file to see it. 
+This is the overview for the Report. The actual report is in the main.tex file in the same folder and constructed from the other .tex files in the Chapters folder. To see the most recent changes in the report, please pull in the origin/Report branch and create a pdf file from the main.tex file. 
     
 Task distribution is marked `like this`.  
 
