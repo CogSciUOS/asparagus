@@ -1,12 +1,12 @@
 # Report overview
 
 ## 1&ensp;Introduction  
-&ensp; **The project**  |  
-  |  
-&ensp; **Background on computer vision based classification tasks**  |  
-  |  
-&ensp; **Background on sorting asparagus**  |  
-  |  
+&ensp; **The project**  
+  
+&ensp; **Background on computer vision based classification tasks**  
+  
+&ensp; **Background on sorting asparagus**  
+  
 &ensp; **Expected outcome vs. actual outcome of the project**  
 
 ## 2&ensp;Data acquisition and organization
