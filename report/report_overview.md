@@ -7,10 +7,10 @@
     1.4  Expected outcome vs. actual outcome of the project  
 
 2. ## Data acquisition and organization
-    2.1 **Timetable (roadmap) of the project**
-    2.2 **Organisation of the study group**
-    2.3 **Data collection**
-    2.4 **Literature research**
+    2.1 **Timetable (roadmap) of the project**  
+    2.2 **Organisation of the study group**  
+    2.3 **Data collection**  
+    2.4 **Literature research**  
 
 ## 3 Preparing the dataset
 ### 3.1 Preprocessing steps
