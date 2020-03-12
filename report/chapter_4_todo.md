@@ -1,6 +1,8 @@
 # 4&ensp;Classification
+Here, you can find a guideline of how to contribute to chapter 4. In chapter 4, we will discuss each approach we chose to investigate our data, train our models, etc.  
+  
 This is the overview of Chapter 4 of the Report:  
-
+  
 > ## 4&ensp;Classification
 > &ensp; **Supervised learning**  
 >   
@@ -17,5 +19,5 @@ This is the overview of Chapter 4 of the Report:
 >   
 > &ensp; **From feature to label**  `Katha` 
 
-The text marked `like this`show which part is thought to be where you can write about your model.
-In the following it is described which scheme to follow when writing about your approach.
+Task distributions are marked `like this`. It indicates where you can write about your model/approach.  
+In the following, it is described which scheme to follow and which questions you should answer when writing about your approach. 
