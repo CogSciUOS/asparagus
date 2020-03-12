@@ -2,9 +2,9 @@
 
 1.  ## Introduction  
     1.  **The project**  
-    1.  **Background on computer vision based classification tasks**  
-    1.  **Background on sorting asparagus**  
-    1.  **Expected outcome vs. actual outcome of the project**  
+    2.  **Background on computer vision based classification tasks**  
+    3.  **Background on sorting asparagus**  
+    4.  **Expected outcome vs. actual outcome of the project**  
         1. ...
 
 2.  ## Data acquisition and organization
