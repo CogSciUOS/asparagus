@@ -1,56 +1,56 @@
 # Report overview
 
 ## 1&ensp;Introduction  
-&ensp; **1.1 The project**  
+&ensp; **The project**  
   
-&ensp; **1.2 Background on computer vision based classification tasks**  
+&ensp; **Background on computer vision based classification tasks**  
   
-&ensp; **1.3 Background on sorting asparagus**  
+&ensp; **Background on sorting asparagus**  
   
-&ensp; **1.4 Expected outcome vs. actual outcome of the project**  
+&ensp; **Expected outcome vs. actual outcome of the project**  
 
 ## 2&ensp;Data acquisition and organization
-&ensp; **2.1 Timetable (roadmap) of the project**  
+&ensp; **Timetable (roadmap) of the project**  
   
-&ensp; **2.2 Organisation of the study group**  
+&ensp; **Organisation of the study group**  
   
-&ensp; **2.3 Data collection**  
+&ensp; **Data collection**  
   
-&ensp; **2.4 Literature research**  
+&ensp; **Literature research**  
 
 ## 3&ensp;Preparing the dataset
-&ensp; **3.1 Preprocessing steps**  
+&ensp; **Preprocessing steps**  
   
-&ensp; **3.2 The hand-label assistant**  
+&ensp; **The hand-label assistant**  
   
-&ensp; **3.3 Manual labeling**  
+&ensp; **Manual labeling**  
   
-&ensp; **3.4 The asparagus dataset**  
+&ensp; **The asparagus dataset**  
 
 ## 4&ensp;Classification
-&ensp; **4.1 Supervised learning**  
+&ensp; **Supervised learning**  
   
-&ensp;&ensp;&ensp; 4.1.1 Single-label classification  
-&ensp;&ensp;&ensp; 4.1.2 Multi-label classification  
+&ensp;&ensp;&ensp; Single-label classification  
+&ensp;&ensp;&ensp; Multi-label classification  
   
-&ensp; **4.2 Semi-supervised learning**  
+&ensp; **Semi-supervised learning**  
   
-&ensp;&ensp;&ensp; 4.2.1 Autoencoder  
+&ensp;&ensp;&ensp; Autoencoder  
   
-&ensp; **4.3 Unsupervised learning**  
+&ensp; **Unsupervised learning**  
   
-&ensp;&ensp;&ensp; 4.3.1 Principal component analysis  
+&ensp;&ensp;&ensp; Principal component analysis  
   
-&ensp; **4.4 From feature to label**  
+&ensp; **From feature to label**  
 
 ## 5&ensp;Discussion
-&ensp; **5.1 Comparison of neural networks**  
+&ensp; **Comparison of neural networks**  
   
-&ensp; **5.2 Final result of the project**  
+&ensp; **Final result of the project**  
   
-&ensp;&ensp;&ensp; 5.2.1 Scientific results  
-&ensp;&ensp;&ensp; 5.2.2 Organization  
+&ensp;&ensp;&ensp; Scientific results  
+&ensp;&ensp;&ensp; Organization  
   
-&ensp; **5.3 Next steps**  
+&ensp; **Next steps**  
 
 ## 6&ensp;Conclusion
