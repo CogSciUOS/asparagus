@@ -7,6 +7,6 @@ if __name__ == '__main__':
     path_to_csv = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/combined_new.csv'
     
     args = [path_to_imgs, path_to_csv]
-   # env = 'source stack/bin/activate'
+    #env = 'source stack/bin/activate'
 
     submit_script(path, args)
