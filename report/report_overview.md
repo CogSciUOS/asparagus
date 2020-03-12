@@ -2,8 +2,11 @@
 
 ## 1  Introduction  
 &ensp; **1.1 The project**  
+  
 &ensp; **1.2 Background on computer vision based classification tasks**  
+  
 &ensp; **1.3 Background on sorting asparagus**  
+  
 &ensp; **1.4 Expected outcome vs. actual outcome of the project**  
 
 ## 2  Data acquisition and organization
