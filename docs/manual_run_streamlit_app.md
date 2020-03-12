@@ -26,26 +26,27 @@ You do not need to use the provided environment. Probably you should be fine if 
    them from the csv files.
 
 
-2. Prepare the labels, so that they are in one file:
-   **Look at the easy alternative below step 2!**
+2. **Look at the easy alternative below step 2!**  
+   Prepare the labels, so that they are in one file:  
    `python combine_labels.py {FOLDER_LABELS} labels.csv`
    This merges all csv files inside the directory labels properly into labels.csv
    You can find the script in the folder `code`. Also have a look at the bash script `merge_labels.sh` to see which folder I used and with which command line arguments I called the script. You find it in `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
 
-   **Easy alternative to point 2.**:  just use the `labels.csv` file I already created stored at `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
+   **Easy alternative to point 2.**:  just use the `labels.csv` file I already created stored at `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.  
 
-3. To train, run training.py:
-   **Skip this part if you want to use an already trained model (it is as easy as just selecting it in the app):**
+3. **Skip this part if you want to use an already trained model (it is as easy as just selecting in app):**  
+   To train, run training.py:
    `python training.py labels.csv ${SCRATCH_PROJECT}/preprocessed_images/without_background_pngs/ model_name`
    Where images is the `${IMAGE_DIR}` from step 1 and `labels.csv` the file from step 2 and a `name` for the model.
    Make sure you save your trained model to the folder `code/labelCNN/models`. Also have a look at the bash script `train.sge` to see with which command line arguments I called the script. You find it in `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
 
-2. To inspect the training process, run
+4. To inspect the training process, run
    `tensorboard --logdir logs`
-   and open a browser at http://localhost:6006
+   and open a browser at `http://localhost:6006`
 
 
-To inspect the results you can use streamlit: `streamlit run app_from_img_to_categories.py` (for details follow the next steps)
+To inspect the results you can use streamlit: `streamlit run app_from_img_to_categories.py`  
+(for details follow the next steps)
 
 
 ## Navigate to the streamlit app
