@@ -1,10 +1,11 @@
 # Report overview
 
 1.  ## Introduction  
-    1.1  **The project**  
-    1.2  **Background on computer vision based classification tasks**  
-    1.3  **Background on sorting asparagus**  
-    1.4  **Expected outcome vs. actual outcome of the project**  
+    1.  **The project**  
+    1.  **Background on computer vision based classification tasks**  
+    1.  **Background on sorting asparagus**  
+    1.  **Expected outcome vs. actual outcome of the project**  
+        1. ...
 
 2.  ## Data acquisition and organization
     2.1 **Timetable (roadmap) of the project**  
@@ -20,8 +21,8 @@
 
 4.  ## Classification
     4.1 **Supervised learning**  
-         4.1.1 Single-label classification  
-         4.1.2 Multi-label classification  
+        4.1.1 Single-label classification  
+        4.1.2 Multi-label classification  
     4.2 **Semi-supervised learning**  
         4.2.1 Autoencoder  
     4.3 **Unsupervised learning**  
