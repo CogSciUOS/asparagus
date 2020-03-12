@@ -93,7 +93,7 @@ Things you can try on your own when running into problems:
 ### Cuda removal
 
 I had to remove `cudnn` and `cudatoolkit` to run everything without a problem. That is why they are not included in the `asparagus_env`.
-If that leads to problems, install the environment and remove the two packages selectively without removing their dependencies. See 
+If that leads to problems, install the environment and remove the two packages selectively without removing their dependencies.
 
 ## Finally
 
