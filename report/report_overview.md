@@ -18,21 +18,21 @@
     3.3 **Manual labeling**
     3.4 **The asparagus dataset**
 
-## 4 Classification
-### 4.1 Supervised learning
-#### 4.1.1 Single-label classification
-#### 4.1.2 Multi-label classification
-### 4.2 Semi-supervised learning
-#### 4.2.1 Autoencoder
-### 4.3 Unsupervised learning
-#### 4.3.1 Principal component analysis
-### 4.4 From feature to label
+4.  ## Classification
+    4.1 **Supervised learning**  
+        4.1.1 Single-label classification  
+        4.1.2 Multi-label classification  
+    4.2 **Semi-supervised learning**  
+        4.2.1 Autoencoder  
+    4.3 **Unsupervised learning**  
+        4.3.1 Principal component analysis  
+    4.4 **From feature to label**  
 
-## 5 Discussion
-### 5.1 Comparison of neural networks
-### 5.2 Final result of the project
-#### 5.2.1 Scientific results
-#### 5.2.2 Organization 
-### 5.3 Next steps
+5.  ## Discussion
+    5.1 **Comparison of neural networks**  
+    5.2 **Final result of the project**  
+        5.2.1 Scientific results  
+        5.2.2 Organization  
+    5.3 **Next steps**  
 
-## 6 Conclusion
+6.  ## Conclusion
