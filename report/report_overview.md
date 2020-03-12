@@ -2,7 +2,7 @@
 
 ## Introduction  
 &ensp; 1.1 **The project**  
-    2.  **Background on computer vision based classification tasks**  
+&ensp; 1.2 **Background on computer vision based classification tasks**  
     3.  **Background on sorting asparagus**  
     4.  **Expected outcome vs. actual outcome of the project**  
         1. ...
