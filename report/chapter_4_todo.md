@@ -21,7 +21,7 @@ This is the overview of Chapter 4 of the Report:
 
 Task distributions are marked `like this`. It indicates where you can write about your model/approach.  
   
-In the following, there will be a guideline and questions you should answer when writing about your approach. This is to ensure our report will look ordered, complete, and easy to follow when reading it. It makes it also easier to compare our approaches with each other.
+In the following, there will be a guideline and questions you should answer when writing about your approach. This is to ensure our report will look ordered, complete, and easy to follow when reading it. It makes it also easier to compare our approaches with each other.  
 Your text should be  
 * ~2-3 pages long (excluding figures)
 * the more details, however, the better because this chapter is one of the most interesting to our supervisors
@@ -32,7 +32,25 @@ In general, try to follow the *bottleneck approach* which means you start every 
   
 ## Describing your model:
 INTRODUCTION
-* you should include 2-3 introductory sentences as a starter, summarizing your apporach( e.g., One supervised approach for training a model is xxx. It uses xxx and works like xxx.)
-* What approach did I choose? (keep it short)
-- Why did I choose it? (What are the advantages/disadvantages of the model/ap- proach? What results do I expect?) (short)
+* You should include 2-3 introductory sentences as a starter, summarizing your apporach( e.g., One supervised approach for training a model is xxx. It uses xxx and works like xxx.)
+* What approach did I choose? (*keep this part short*)
+* Why did I choose it? (e.g., What are the advantages/disadvantages of the model/approach? What results did I expect when I chose it?) (*again short*)
+  
+BACKGROUND
+* Give a general background on the approach
+* Include all the literature research you did, ideas, inspirations, theory, etc.) (*keep it of medium length; enough detail but also not too much; rather, references to other literature are very welcome*)
+  
+ACTUAL MODEL STRUCTURE (*here come the details*)
+* Give an overview of your model/apporach design
+* Include a picture(s) of your structure (i.e., when your worked on a model)
+- Describe the challenges you run into (What was tested/changed during the working process? Which ob- stacles did occur?)
+- What are potentials/risks of interpreting the results? (e.g. when working with my model the potential for better results was using features instead of classes while the risk could be ... )
+RESULTS (detailed)
+- How good did my model predict?
+DISCUSSION (detailed)
+- Why did it produce the results it produced? - What can I interpret from my results?
+- What could not be done/expected?
+- What is still missing now? What would I do when continuing to work on the
+model?
+
 
