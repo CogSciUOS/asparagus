@@ -26,16 +26,16 @@ You do not need to use the provided environment. Everything should work if you i
    them from the csv files.
 
 
-2. **Look at the easy alternative below step 2!**    
-    Prepare the labels, so that they are in one file:  
+2. **Look at the easy alternative below step 2!**<br/>
+   Prepare the labels, so that they are in one file:  
    `python combine_labels.py ${LABELS_FOLDER} labels.csv`
    This merges all csv files inside the directory labels properly into labels.csv
    You can find the script in the folder `code`. Also have a look at the bash script `merge_labels.sh` to see which folder I used and with which command line arguments I called the script. You find it in `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
 
    **Easy alternative to step 2.**:  You can also use the `labels.csv` file I already created at `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.  
 
-3. **Skip this part if you want to use a trained model (it is as easy as selecting it in the app):**    
-    To train, run training.py:
+3. **Skip this part if you want to use a trained model (it is as easy as selecting it in the app):**<br/> 
+   To train, run training.py:
    `python training.py labels.csv /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/without_background_pngs/ model_name`
    Where images is the `${IMAGE_DIR}` from step 1 and `labels.csv` the file from step 2 and a `name` for the model.
    Make sure you save your trained model to the folder `code/labelCNN/models`. Also have a look at the bash script `train.sge` to see with which command line arguments I called the script. You find it in `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.
