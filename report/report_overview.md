@@ -1,5 +1,9 @@
 # Report overview
 
+This is the overview for the Report. The actual report is in the .tex file in the same folder. To see the most recent changes, please pull in the origin/Report branch.  
+    
+Task distribution is marked `like this`.  
+
 ## 1&ensp;Introduction  
 &ensp; **The project**  
   
