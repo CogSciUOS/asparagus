@@ -26,7 +26,7 @@ You do not need to use the provided environment. Probably you should be fine if 
    them from the csv files.
 
 
-2. **Look at the easy alternative below step 2!**  
+2. **Look at the easy alternative below step 2!**    
    Prepare the labels, so that they are in one file:  
    `python combine_labels.py {FOLDER_LABELS} labels.csv`
    This merges all csv files inside the directory labels properly into labels.csv
@@ -34,7 +34,7 @@ You do not need to use the provided environment. Probably you should be fine if 
 
    **Easy alternative to point 2.**:  just use the `labels.csv` file I already created stored at `/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/`.  
 
-3. **Skip this part if you want to use an already trained model (it is as easy as just selecting in app):**  
+3. **Skip this part if you want to use an already trained model (it is as easy as just selecting in app):**    
    To train, run training.py:
    `python training.py labels.csv ${SCRATCH_PROJECT}/preprocessed_images/without_background_pngs/ model_name`
    Where images is the `${IMAGE_DIR}` from step 1 and `labels.csv` the file from step 2 and a `name` for the model.
