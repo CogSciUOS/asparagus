@@ -1,4 +1,9 @@
-## 4&ensp;Classification
+# 4&ensp;Classification
+This is an overview of Chapter 4 of the Report.  
+
+Please work on your designated part in the scheme that follows.  
+
+> ## 4&ensp;Classification
 &ensp; **Supervised learning**  
   
 &ensp;&ensp;&ensp; Single-label classification  `Josefine`  
