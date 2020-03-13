@@ -24,7 +24,7 @@ Task distributions are marked `like this`. It indicates where you can write abou
 In the following, there will be a guideline and questions you should answer when writing about your approach. This is to ensure our report will look ordered, complete, and easy to follow when reading it. It makes it also easier to compare our approaches with each other.  
   
 Your text should be  
-* ~2-3 pages long (excluding figures)
+* ~2-3 pages long (excluding figures) (*this number is not set in stone*)
 * the more details, however, the better because this chapter is one of the most interesting to our supervisors
 * do not include any code, except it really is necessary for explanatory purposes (code will be in our Github repo which Ulf and Axel will inspect); however, it is always good to refer to the directory (or other place) where to find what you are talking about
 * you do not have to write anything about supervised/semi-supervised/unsupervised learning because they will be described in their own sections before the approaches relying on them
