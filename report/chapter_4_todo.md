@@ -25,8 +25,9 @@ In the following, there will be a guideline and questions you should answer when
 Your text should be  
 * ~2-3 pages long (excluding figures)
 * the more details, however, the better because this chapter is one of the most interesting to our supervisors
-* do not include any code, except it really is necessary for explanatory purposes (code will be in our Github repo which Ulf and Axel will inspect); however, it is always good to refer to the directory etc. where to find what you are talking about 
-* ... (I might add other points here)
+* do not include any code, except it really is necessary for explanatory purposes (code will be in our Github repo which Ulf and Axel will inspect); however, it is always good to refer to the directory (or other place) where to find what you are talking about
+* you do not have to write anything about supervised/semi-supervised/unsupervised learning because they will be described in their own sections before the approaches relying on them
+* ... (I might add other points here; also other ideas are very welcome)
   
 In general, try to follow the *bottleneck approach* which means you start every paragraph or part of your text with an introduction what you are going to describe in the following. When you are done with the paragraph, finish with a wrap-up where you summarise what you did.
   
@@ -38,7 +39,7 @@ INTRODUCTION
   
 BACKGROUND
 * Give a general background on the approach
-* Include all the literature research you did, ideas, inspirations, theory, etc.) (*keep it of medium length; enough detail but also not too much; rather, references to other literature are very welcome*)
+* Include all the literature research you did for your approach - ideas, inspirations, theory, etc. (*keep it of medium length; enough detail but also not too much; rather, references to other literature are very welcome*)
   
 ACTUAL MODEL STRUCTURE (*here come the details*)
 * Give an overview of your model/approach design
