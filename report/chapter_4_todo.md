@@ -26,14 +26,14 @@ Your text should be
 * ~2-3 pages long (excluding figures)
 * the more details, however, the better because this chapter is one of the most interesting to our supervisors
 * do not include any code, except it really is necessary for explanatory purposes (code will be in our Github repo which Ulf and Axel will inspect); however, it is always good to refer to the directory etc. where to find what you are talking about 
-*
+* ... (I might add other points here)
   
 In general, try to follow the *bottleneck approach* which means you start every paragraph or part of your text with an introduction what you are going to describe in the following. When you are done with the paragraph, finish with a wrap-up where you summarise what you did.
   
 ## Describing your model:
 INTRODUCTION
-* You should include 2-3 introductory sentences as a starter, summarizing your apporach( e.g., One supervised approach for training a model is xxx. It uses xxx and works like xxx.)
-* What approach did I choose? (*keep this part short*)
+* You should include 2-3 introductory sentences as a starter, summarizing your apporach (e.g., "One supervised approach for training a model is xxx. It uses xxx and works like xxx.")
+* What approach did I choose? (*keep this part short, it's only the introduction and the details should come later*)
 * Why did I choose it? (e.g., What are the advantages/disadvantages of the model/approach? What results did I expect when I chose it?) (*again short*)
   
 BACKGROUND
@@ -42,7 +42,8 @@ BACKGROUND
   
 ACTUAL MODEL STRUCTURE (*here come the details*)
 * Give an overview of your model/approach design
-* Include a picture(s) of your structure (i.e., when your worked on a model)
+* Describe what your model does and how it does it
+* Include a picture of your structure (i.e., when your worked on a model)
 * Describe the challenges you run into (e.g., What was tested/changed during the working process? Which obstacles did occur?)
 * What are potentials/risks of interpreting the results? (e.g. "When working with my model I saw potential for better results when using features instead of classes while the risk could be ... ")  
   
