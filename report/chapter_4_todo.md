@@ -22,6 +22,7 @@ This is the overview of Chapter 4 of the Report:
 Task distributions are marked `like this`. It indicates where you can write about your model/approach.  
   
 In the following, there will be a guideline and questions you should answer when writing about your approach. This is to ensure our report will look ordered, complete, and easy to follow when reading it. It makes it also easier to compare our approaches with each other.  
+  
 Your text should be  
 * ~2-3 pages long (excluding figures)
 * the more details, however, the better because this chapter is one of the most interesting to our supervisors
