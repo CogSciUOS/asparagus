@@ -28,6 +28,7 @@ Your text should be
 * the more details, however, the better because this chapter is one of the most interesting to our supervisors
 * do not include any code, except it really is necessary for explanatory purposes (code will be in our Github repo which Ulf and Axel will inspect); however, it is always good to refer to the directory (or other place) where to find what you are talking about
 * you do not have to write anything about supervised/semi-supervised/unsupervised learning because they will be described in their own sections before the approaches relying on them
+* it can be written in any format you like and then send it to me (jzerbe@uos.de); I will include it into the latex document
 * ... (I might add other points here; also other ideas are very welcome)
   
 In general, try to follow the *bottleneck approach* which means you start every paragraph or part of your text with an introduction what you are going to describe in the following. When you are done with the paragraph, finish with a wrap-up where you summarise what you did.
