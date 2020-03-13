@@ -2,8 +2,9 @@ This is the Report folder.
 Here you can find everything concerning the report of our study project.  
 You can find an overview of the report structure in the file report_overview.md.  
   
-    
-      
+ <br/>
+ <br/>
+   
 Chapters
 * This folder contains the chapters of the final version of the report.
   
