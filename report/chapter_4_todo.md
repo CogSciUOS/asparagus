@@ -55,7 +55,7 @@ RESULT (*detailed*)
 DISCUSSION (*detailed*)
 * Why did it produce the results it produced?
 * What can I interpret from my results?
-* What could not be done? What results cannot be expected because of my approach?
+* What could not be done? What results cannot be expected with my approach?
 * What is still missing now? What would I do when continuing to work on the
 model?
 
