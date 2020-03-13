@@ -8,9 +8,11 @@ You can find an overview of the report structure in the file report_overview.md.
 Chapters
 * This folder contains the chapters of the final version of the report.
   <br/>
+  <br/>
   
 Figures
 * This folder contains any figures of the final version of the report.
+  <br/>
   <br/>
   
 .latexmkrc
