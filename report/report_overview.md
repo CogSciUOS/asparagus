@@ -5,27 +5,27 @@ This is the overview for the Report. The actual report is in the main.tex file i
 Task distribution is marked `like this`.  
 
 ## 1&ensp;Introduction  
-&ensp; **The project**  
+&ensp; **The project**  `Josefine`
   
-&ensp; **Background on computer vision based classification tasks**  
+&ensp; **Background on computer vision based classification tasks**  `Josefine`
   
-&ensp; **Background on sorting asparagus**  
+&ensp; **Background on sorting asparagus**  `Josefine`
   
 &ensp; **Expected outcome vs. actual outcome of the project**  
 
 ## 2&ensp;Data acquisition and organization
-&ensp; **Timetable (roadmap) of the project**  
+&ensp; **Timetable (roadmap) of the project**  `Josefine`
   
 &ensp; **Organisation of the study group**  
   
-&ensp; **Data collection**  
+&ensp; **Data collection**  `Josefine`
   
-&ensp; **Literature research**  
+&ensp; **Literature research**  `Josefine`
 
 ## 3&ensp;Preparing the dataset
 &ensp; **Preprocessing steps**  
   
-&ensp; **The hand-label assistant**  
+&ensp; **The hand-label assistant**  `Michael`
   
 &ensp; **Manual labeling**  
   
