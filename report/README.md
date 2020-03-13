@@ -6,7 +6,7 @@ You can find an overview of the report structure in the file report_overview.md.
  <br/>
    
 Chapters
-* This folder contains the chapters of the final version of the report.
+* This folder contains the chapters.tex of the final version of the report.
   <br/>
   <br/>
   
