@@ -164,16 +164,16 @@ if __name__ == '__main__':
     print(test_img.shape)
 
     #for hollow
-    train_names_1 = ["hollow" for x in range(200)]
-    train_names_2 = ["not_hollow" for x in range(200)]
-    train_names = train_names_1 + train_names_2
-    test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow']
+    # train_names_1 = ["hollow" for x in range(200)]
+    # train_names_2 = ["not_hollow" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow']
 
     # # for bended
-    # train_names_1 = ["bended" for x in range(200)]
-    # train_names_2 = ["not_bended" for x in range(200)]
-    # train_names = train_names_1 + train_names_2
-    # test_labels = ['not_bended', 'bended', 'not_bended', 'bended', 'bended', 'bended', 'not_bended', 'bended', 'bended', 'not_bended']
+    train_names_1 = ["bended" for x in range(200)]
+    train_names_2 = ["not_bended" for x in range(200)]
+    train_names = train_names_1 + train_names_2
+    test_labels = ['not_bended', 'bended', 'not_bended', 'bended', 'bended', 'bended', 'not_bended', 'bended', 'bended', 'not_bended']
 
     # for blume
     # train_names_1 = ["blume" for x in range(200)]
