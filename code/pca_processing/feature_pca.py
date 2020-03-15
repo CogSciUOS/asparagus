@@ -38,7 +38,7 @@ def calculate_PC(matrix):
     #plt.show()
 
     #standardization of the matrix
-    matrix_std = (matrix - matrix.mean(axis = 0))/matrix.std()
+    matrix_std = (matrix - matrix.mean())/matrix.std()
     print('ist matrix_std complex? \n', np.iscomplex(matrix_std))
 
     #Compute eigenvectors and values
