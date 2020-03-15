@@ -128,9 +128,9 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.title(('*' if name_label != name_winner else '') + name_winner)
         plt.show()
         #hollow
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_hollow/recognize'+str(j)+'.png')
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_hollow/recognize'+str(j)+'.png')
         #bended
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
         #blume
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_blume/recognize'+str(j)+'.png')
         #rust head
