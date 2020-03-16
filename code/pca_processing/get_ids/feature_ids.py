@@ -19,13 +19,7 @@ all the calculated values need to be put in the method that gives
 the asparagus a class'''
 
 
-#get how many hollow and not hollow? 100/100, oder 500/500?
-# auf welchen index geht die csv original files to index?
-
-#hier muss so ein loop: if value  in bestimmter spate == 1, dann extracte erstmal den path, aber nur ganz hinten....
-# 0/0/999_b - ist das letzte aus dem 0er ordner
-# aber es passt soweit alles. also dann nur die nummer extracten, dann diese nummer in Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\preprocessed_images\labeled_with_background
-# raussuchen (da können wir eigentlich auch einfach a,b,c nehmen)
+#get how many hollow and not hollow? we choose 200/valid_until_31_July_2020
 
 import pandas as pd
 import numpy as np
@@ -166,7 +160,7 @@ def get_asparagus_ids(PATH):
 
 def get_images(ids_hollow):
 
-    #, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
+    # nacheinander ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
      '''
      Get all images in the directories,
      referring to our feature_ids
