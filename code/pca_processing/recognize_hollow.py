@@ -128,7 +128,7 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         plt.title(('*' if name_label != name_winner else '') + name_winner)
         plt.show()
         #hollow
-        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_hollow/recognize'+str(j)+'.png')
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_hollow/recognize'+str(j)+'.png')
         #bended
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
         #blume
@@ -139,6 +139,10 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_body/recognize'+str(j)+'.png')
         #violet
         #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_violet/recognize'+str(j)+'.png')
+        #width
+        plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_width/recognize'+str(j)+'.png')
+        #length
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_length/recognize'+str(j)+'.png')
 
 
 if __name__ == '__main__':
@@ -164,10 +168,10 @@ if __name__ == '__main__':
     print(test_img.shape)
 
     #for hollow
-    train_names_1 = ["hollow" for x in range(200)]
-    train_names_2 = ["not_hollow" for x in range(200)]
-    train_names = train_names_1 + train_names_2
-    test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow']
+    # train_names_1 = ["hollow" for x in range(200)]
+    # train_names_2 = ["not_hollow" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow', 'not_hollow']
 
     # # for bended
     # train_names_1 = ["bended" for x in range(200)]
@@ -198,6 +202,19 @@ if __name__ == '__main__':
     # train_names_2 = ["not_violet" for x in range(200)]
     # train_names = train_names_1 + train_names_2
     # test_labels = ['not_violet', 'not_violet', 'not_violet', 'violet', 'not_violet', 'not_violet', 'not_violet','not_violet', 'not_violet', 'not_violet']
+
+    #width (wider than 20 is width, other is not_width)
+    train_names_1 = ["width" for x in range(200)]
+    train_names_2 = ["not_width" for x in range(200)]
+    train_names = train_names_1 + train_names_2
+    test_labels = ['width', 'not_width', 'width', 'not_width', 'width', 'not_width', 'not_width','not_width', 'width', 'width']
+
+    #length (longer than 210 mm is length, other is not_length)
+    # train_names_1 = ["length" for x in range(200)]
+    # train_names_2 = ["not_length" for x in range(200)]
+    # train_names = train_names_1 + train_names_2
+    # test_labels = ['length', 'length', 'length', 'length', 'length', 'length', 'length','length', 'length', 'length']
+
 
 
     show_recognition_results(test_img, test_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
