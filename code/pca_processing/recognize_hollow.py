@@ -1,16 +1,7 @@
 '''this is the recognize asparagus function
-first done for hollow
+first done for hollow, then bended, then bended, then rust_head,
+then rust_body, then violet, then width and finally length
 '''
-
-''' then bended'''
-
-''' then blume'''
-
-''' then rust head'''
-
-''' then rust body'''
-
-''' then violet'''
 
 from scipy.spatial.distance import cdist
 import cv2
@@ -24,12 +15,12 @@ img_shape = (1340,364,3)
 
 def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     """
-    Recognize a face from a face database.
-    and return the index of the best matching database entry.
+    Recognizes an asparagus piece from a 400 pieces asparagus database
+    and returns the index of the best matching piece of the database
 
-    The FACE is first centered and projected into the eigeface
-    space provided by EIGENFACES. Then the best match is found
-    according to the euclidean distance in the eigenface space.
+    The asparagus piece is first centered and projected into the eigeface
+    space provided by the eigen_asparagus. Then the best match is found
+    according to the euclidean distance in the eigen_asparagus space.
 
     Args:
         input (ndarray): asparagus to be recognised.
@@ -42,7 +33,7 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     """
     index = -1
 
-    # center the face
+    # center the piece
     print('input_shapr \n', input.shape) #(1463280,)
     mean_asparagus = mean_asparagus.mean(axis = 0)
     print('mean asps \n', mean_asparagus.shape)
@@ -55,12 +46,11 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
     print(projected.shape) #(4,)
     print(asparagus_space.shape)# (400,4)
 
-    # Now compute the similarity to all known faces
+    # Now compute the similarity to all known pieces
     # (comparison is performed in the eigenface space)
     distances = cdist(asparagus_space, projected[None,:])
     index = distances.argmin()
 
-    # END SOLUTION
     print(index)
     return index
 
@@ -83,8 +73,7 @@ def find_integer(index):
     return n_index
 
 
-# ... and now check your function on the training set ...
-# BEGIN SOLUTION
+
 def show_recognition_results(imgs, labels, train_imgs, train_labels,
                              num_eigenfaces, eigenfaces, mean_face, face_db):
     """Iterate over all face images and compute the best matching face in face_db.
@@ -106,12 +95,12 @@ def show_recognition_results(imgs, labels, train_imgs, train_labels,
     print('neue Image_shape: \n', img_shape)
     plt.figure(figsize=(20, 20))
     plt.suptitle('Asparagus recognition based on {} principal components'.format(num_eigenfaces))
-    #plt.gray()
+
     for j, img in enumerate(imgs):
 
         # find the best match in the eigenface database
         winner = recognize(img.reshape(np.prod(img_shape)), path_to_eigenasparagus, path_to_m_std, path_to_space)
-        #winner1 = find_integer(winner)
+
         name_label = labels[j]#[5:7]
         name_winner = train_labels[winner]#[5:7]
 
@@ -154,7 +143,7 @@ if __name__ == '__main__':
     path_to_eigenasparagus = np.load(args[4])
     path_to_m = np.load(args[5])
 
-    #remember train_names = [200*hollow and 200* not_hollow]
+    #remember: train_names = [200*hollow and 200* not_hollow]
 
     num_eigenvectors = 4
     #read in some test data
@@ -164,7 +153,6 @@ if __name__ == '__main__':
     for i in range(10):
         img = cv2.imread(path_to_input+'13644'+str(s+i)+'_b.png')
         test_img[i,:,:,:] = img
-        #print(raw_ims.shape)
     print(test_img.shape)
 
     #for hollow
@@ -214,7 +202,6 @@ if __name__ == '__main__':
     train_names_2 = ["not_length" for x in range(200)]
     train_names = train_names_1 + train_names_2
     test_labels = ['length', 'length', 'length', 'length', 'length', 'length', 'length','length', 'length', 'length']
-
 
 
     show_recognition_results(test_img, test_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
