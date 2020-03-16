@@ -8,7 +8,7 @@ Install (La)Tex:
 - Mac: Mac Tex
 - Windows: MiKTeX
 
-Just google or have a look [https://www.latex-tutorial.com/installation/](here).
+Just google or have a look [here](https://www.latex-tutorial.com/installation/).
 
 
 ## Generate a pdf output
@@ -20,7 +20,7 @@ The blank pages in the output pdf are correct, as the reported will be printed o
 
 ## Tutorial
 
-I do not find the Tutorial that I used to learn LaTex, but (this)[https://www.latex-tutorial.com/tutorials/] seems to give a good overview.
+I do not find the Tutorial that I used to learn LaTex, but [this](https://www.latex-tutorial.com/tutorials/) seems to give a good overview.
 
 
 ## Spaces

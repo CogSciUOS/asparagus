@@ -14,6 +14,7 @@ import os
 import sys
 import subprocess
 sys.path.insert(0, os.path.abspath('../code/pipeline'))
+sys.path.insert(0, os.path.abspath('../code/labelCNN'))
 sys.path.insert(0, os.path.abspath('../code'))
 
 # Build api docs first
