@@ -279,7 +279,7 @@ def get_compiled_model(model_name):
 
     # add a costumize loss function that weights wrong labels for 1 higher than for 0
     def weighted_loss(y_true, y_pred):
-        return K.mean((3**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
+        return K.mean((2**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
 
     model.compile(optimizer='sgd',
                   loss = weighted_loss,
