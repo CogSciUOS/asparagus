@@ -125,8 +125,7 @@ def load_df(labels_csv, imagedir):
     # make a separate column for each of the three pictures for one asparagus piece (named: image_a, image_b, image_c)
     for i, col in enumerate('abc'):
         # apply the relative path function to each entry
-        df[f'image_{col}'] = splitted_into_3_series[i].transform(
-            relative_path)
+        df[f'image_{col}'] = splitted_into_3_series[i].transform(relative_path)
 
     # drop original filenames column and NaN rows
     df = df.drop(columns='filenames')
@@ -282,7 +281,8 @@ def get_compiled_model(model_name):
         return K.mean((2**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
 
     model.compile(optimizer='sgd',
-                  loss = weighted_loss,
+                  #loss = weighted_loss,
+                  loss = tf.keras.losses.SigmoidFocalCrossEntropy()
                   # loss=tf.keras.losses.SparseCategoricalCrossentropy(),
                   # loss=tf.keras.losses.BinaryCrossentropy(),
                   # loss=tf.keras.losses.Poisson(),
