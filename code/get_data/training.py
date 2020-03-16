@@ -282,7 +282,7 @@ def get_compiled_model(model_name):
 
     model.compile(optimizer='sgd',
                   #loss = weighted_loss,
-                  loss = tf.keras.losses.SigmoidFocalCrossEntropy()
+                  loss = tf.keras.losses.SigmoidFocalCrossEntropy(),
                   # loss=tf.keras.losses.SparseCategoricalCrossentropy(),
                   # loss=tf.keras.losses.BinaryCrossentropy(),
                   # loss=tf.keras.losses.Poisson(),
