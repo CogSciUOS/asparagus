@@ -31,7 +31,7 @@ Task distribution is marked `like this`.
   
 &ensp; **The asparagus dataset**  `Richard` 
 
-## 4&ensp;Classification
+## 4&ensp;Classification `Malin`
 &ensp; **Supervised learning**  
   
 &ensp;&ensp;&ensp; Single-label classification  `Josefine`  
