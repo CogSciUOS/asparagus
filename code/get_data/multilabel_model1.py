@@ -108,7 +108,7 @@ if __name__ == '__main__':
     model.compile(#loss=weighted_loss,
                 loss='binary_crossentropy',
                 optimizer='adam',
-                metrics=['accuracy', falsePositives(), falseNegatives()]) 
+                metrics=['accuracy', falsePositives, falseNegatives]) 
 
     model.summary()
 
