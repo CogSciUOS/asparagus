@@ -112,7 +112,7 @@ if __name__ == '__main__':
     def TN_wrapper():
         def trueNegatives(y_true, y_pred):
             neg_y_true = 1 - y_true
-            new_y_pred = 1 - y_pred
+            neg_y_pred = 1 - y_pred
             tn = K.sum(neg_y_true * neg_y_pred)
             return tn
         return trueNegatives
