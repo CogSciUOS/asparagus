@@ -112,8 +112,8 @@ if __name__ == '__main__':
     FN = FN_wrapper()
     FP = FP_wrapper()
 
-    model.compile(#loss=weighted_loss,
-                loss='binary_crossentropy',
+    model.compile(loss=weighted_loss,
+                #loss='binary_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy', FN, FP])
 
