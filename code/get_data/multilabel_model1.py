@@ -105,7 +105,7 @@ if __name__ == '__main__':
             fp = K.sum(neg_y_true * y_pred)
             #tn = K.sum(neg_y_true * neg_y_pred)
             return fp
-        return falseNegatives()
+        return falseNegatives
 
     # def FP_wrapper():
     #     def falsePositives(y_true, y_pred):
