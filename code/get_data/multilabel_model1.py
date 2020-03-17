@@ -95,7 +95,7 @@ if __name__ == '__main__':
     def weighted_loss(y_true, y_pred):
         return K.mean((2**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
-     def FN_wrapper():
+    def FN_wrapper():
         def falseNegatives(y_true, y_pred):
             #FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
             #FN = K.sum(K.variable(y_pred))
