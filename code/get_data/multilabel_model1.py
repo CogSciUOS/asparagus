@@ -95,13 +95,17 @@ if __name__ == '__main__':
     def weighted_loss(y_true, y_pred):
         return K.mean((2**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
-    # def FN_wrapper():
-    #     def falseNegatives(y_true, y_pred):
-    #         #FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
-    #         FN = K.sum(K.variable(y_pred))
-    #         print(FN)
-    #         return FN
-    #     return falseNegatives
+     def FN_wrapper():
+         def falseNegatives(y_true, y_pred):
+            #FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
+            #FN = K.sum(K.variable(y_pred))
+            neg_y_true = 1 - y_true
+            neg_y_pred = 1 - y_pred
+
+            fp = K.sum(neg_y_true * y_pred)
+            #tn = K.sum(neg_y_true * neg_y_pred)
+            return fp
+         return falseNegatives()
 
     # def FP_wrapper():
     #     def falsePositives(y_true, y_pred):
@@ -111,13 +115,13 @@ if __name__ == '__main__':
     #         return FP
     #     return falsePositives
 
-    # FN = FN_wrapper()
+    FN = FN_wrapper()
     # FP = FP_wrapper()
 
     model.compile(#loss=weighted_loss,
                 loss='binary_crossentropy',
                 optimizer='adam',
-                metrics=['accuracy']) #, FN, FP]) 
+                metrics=['accuracy', FN]) #, FN, FP]) 
 
     model.summary()
 
