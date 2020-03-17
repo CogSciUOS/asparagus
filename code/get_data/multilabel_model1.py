@@ -99,6 +99,7 @@ if __name__ == '__main__':
         def falseNegatives(y_true, y_pred):
             FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
             FN = K.sum(K.variable(TN))
+            print(FN)
             return FN
         return falseNegatives
 
@@ -106,6 +107,7 @@ if __name__ == '__main__':
         def falsePositives(y_true, y_pred):
             FP = np.logical_and(K.eval(y_true) == 0, K.eval(y_pred) == 1)
             FP = K.sum(K.variable(FP))
+            print(FP)
             return FP
         return falsePositives
 
