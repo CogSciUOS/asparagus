@@ -60,3 +60,6 @@ Task distribution is marked `like this`.
 &ensp; **Summary**  
     
 &ensp; **Next steps** 
+  
+&ensp;&ensp;&ensp; Outlook of the project  
+&ensp;&ensp;&ensp; Contribution to scientific landscape  
