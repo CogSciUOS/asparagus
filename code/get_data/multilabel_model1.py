@@ -95,11 +95,21 @@ if __name__ == '__main__':
     def weighted_loss(y_true, y_pred):
         return K.mean((2**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
+    def falseNegatives(y_true, y_pred):
+        FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
+        FN = K.sum(K.variable(TN))
+        return FN
+
+    def falsePositives(y_true, y_pred):
+        FP = np.logical_and(K.eval(y_true) == 0, K.eval(y_pred) == 1)
+        FP = K.sum(K.variable(FP))
+        return FP
     
-    model.compile(loss=weighted_loss, #'binary_crossentropy',
+    model.compile(#loss=weighted_loss,
+                loss='binary_crossentropy',
                 optimizer='adam',
-                metrics=['accuracy']) #, tf.keras.metrics.FalsePositives(), tf.keras.metrics.FalseNegatives()])
-                
+                metrics=['accuracy', falsePositives(), falseNegatives()]) 
+
     model.summary()
 
     ################################################################################
@@ -114,7 +124,7 @@ if __name__ == '__main__':
                             #class_weight=class_weights, #{0:5, 1:3, 2:2 ,3:2 ,4:1 ,5:3},
                             validation_split=0.1)
                             #callbacks=[early_stop])
-
+    print(history.history)
     ################################################################################
     # Check the history
     ################################################################################
