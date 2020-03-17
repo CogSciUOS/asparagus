@@ -97,31 +97,25 @@ if __name__ == '__main__':
     
     def FN_wrapper():
         def falseNegatives(y_true, y_pred):
-            #FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
-            #FN = K.sum(K.variable(y_pred))
-            neg_y_true = 1 - y_true
             neg_y_pred = 1 - y_pred
-
-            fp = K.sum(neg_y_true * y_pred)
-            #tn = K.sum(neg_y_true * neg_y_pred)
-            return fp
+            fn = K.sum(y_true * neg_y_pred)
+            return fn
         return falseNegatives
 
-    # def FP_wrapper():
-    #     def falsePositives(y_true, y_pred):
-    #         #FP = np.logical_and(K.eval(y_true) == 0, K.eval(y_pred) == 1)
-    #         FP = K.sum(K.variable(y_pred))
-    #         print(FP)
-    #         return FP
-    #     return falsePositives
+    def FP_wrapper():
+        def falsePositives(y_true, y_pred):
+            neg_y_true = 1 - y_true
+            fp = K.sum(neg_y_true * y_pred)
+            return fp
+        return falsePositives
 
     FN = FN_wrapper()
-    # FP = FP_wrapper()
+    FP = FP_wrapper()
 
     model.compile(#loss=weighted_loss,
                 loss='binary_crossentropy',
                 optimizer='adam',
-                metrics=['accuracy', FN]) #, FN, FP]) 
+                metrics=['accuracy', FN, FP])
 
     model.summary()
 
