@@ -98,7 +98,7 @@ if __name__ == '__main__':
     def FN_wrapper():
         def falseNegatives(y_true, y_pred):
             FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
-            FN = K.sum(K.variable(TN))
+            FN = K.sum(K.variable(FN))
             print(FN)
             return FN
         return falseNegatives
