@@ -96,7 +96,7 @@ if __name__ == '__main__':
         return K.mean((2**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
      def FN_wrapper():
-         def falseNegatives(y_true, y_pred):
+        def falseNegatives(y_true, y_pred):
             #FN = np.logical_and(K.eval(y_true) == 1, K.eval(y_pred) == 0)
             #FN = K.sum(K.variable(y_pred))
             neg_y_true = 1 - y_true
@@ -105,7 +105,7 @@ if __name__ == '__main__':
             fp = K.sum(neg_y_true * y_pred)
             #tn = K.sum(neg_y_true * neg_y_pred)
             return fp
-         return falseNegatives()
+        return falseNegatives()
 
     # def FP_wrapper():
     #     def falsePositives(y_true, y_pred):
