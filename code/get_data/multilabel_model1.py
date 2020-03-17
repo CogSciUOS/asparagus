@@ -3,7 +3,7 @@ from __future__ import print_function
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-from sklearn.utils import class_weight
+#from sklearn.utils import class_weight
 import tensorflow as tf
 #import cv2
 
@@ -14,10 +14,10 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
 from keras.layers import Dense
 
-from keras.utils import plot_model
-from keras.utils import np_utils
+#from keras.utils import plot_model
+#from keras.utils import np_utils
 
-from keras.callbacks import EarlyStopping
+#from keras.callbacks import EarlyStopping
 
 from grid import*
 from submit_model import*
