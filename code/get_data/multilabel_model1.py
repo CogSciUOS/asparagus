@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from sklearn.utils import class_weight
-#import tensorflow as tf
+import tensorflow as tf
 #import cv2
 
 import keras.backend as K
@@ -67,10 +67,6 @@ if __name__ == '__main__':
     test_img = imgs[12000:]
     print(" >>> train_img.shape = ", train_img.shape)
 
-    # muss ich auch noch normalisieren?
-    # train_img = train_img.astype('float32') 
-    # train_img /= 255
-
     ################################################################################
     # Build the model
     ################################################################################
@@ -78,7 +74,6 @@ if __name__ == '__main__':
     batch_size = 32
     num_epochs = 50
     num_classes = 6
-    conv_size = 32
 
     model = Sequential()
 
@@ -98,12 +93,12 @@ if __name__ == '__main__':
 
     # add a costumize loss function that weights wrong labels for 1 higher than for 0 (because of class imbalance)
     def weighted_loss(y_true, y_pred):
-        return K.mean((5**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
+        return K.mean((2**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
     
     model.compile(loss=weighted_loss, #'binary_crossentropy',
                 optimizer='adam',
-                metrics=['accuracy'])
+                metrics=['accuracy', tf.keras.metrics.FalsePositives(), tf.keras.metrics.FalseNegatives()])
                 
     model.summary()
 
@@ -116,7 +111,7 @@ if __name__ == '__main__':
                             batch_size=batch_size,
                             epochs=num_epochs,
                             verbose=1,
-                            class_weight=class_weights, #{0:5, 1:3, 2:2 ,3:2 ,4:1 ,5:3},
+                            #class_weight=class_weights, #{0:5, 1:3, 2:2 ,3:2 ,4:1 ,5:3},
                             validation_split=0.1)
                             #callbacks=[early_stop])
 
