@@ -53,8 +53,10 @@ Task distribution is marked `like this`.
 &ensp; **Final result of the project**  
   
 &ensp;&ensp;&ensp; Scientific results  
-&ensp;&ensp;&ensp; Organization  
-  
-&ensp; **Next steps**  
+&ensp;&ensp;&ensp; Organization   
 
-## 6&ensp;Conclusion
+## 6&ensp;Conclusion  
+  
+&ensp; **Summary**  
+    
+&ensp; **Next steps** 
