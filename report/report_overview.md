@@ -48,7 +48,7 @@ Task distribution is marked `like this`.
 &ensp; **From feature to label**  `Katha` 
 
 ## 5&ensp;Discussion
-&ensp; **Comparison of neural networks**  
+&ensp; **Comparison of classification approaches**  
   
 &ensp; **Final result of the project**  
   
