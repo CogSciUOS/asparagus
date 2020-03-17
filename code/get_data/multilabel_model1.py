@@ -117,11 +117,11 @@ if __name__ == '__main__':
             return tn
         return trueNegatives
 
-    def TN_wrapper():
-        def trueNegatives(y_true, y_pred):
+    def TP_wrapper():
+        def truePositives(y_true, y_pred):
             tp = K.sum(y_true * y_pred)
             return tp
-        return trueNegatives
+        return truePositives
 
     FN = FN_wrapper()
     FP = FP_wrapper()
