@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 #from sklearn.utils import class_weight
-#import tensorflow as tf
+import tensorflow as tf
 #import cv2
 
 import keras.backend as K
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     
     model.compile(loss=weighted_loss, #'binary_crossentropy',
                 optimizer='adam',
-                metrics=['accuracy']) #, tf.keras.metrics.FalsePositives(), tf.keras.metrics.FalseNegatives()])
+                metrics=['accuracy', tf.keras.metrics.FalsePositives(), tf.keras.metrics.FalseNegatives()])
                 
     model.summary()
 
