@@ -3,6 +3,7 @@ from __future__ import print_function
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from sklearn.metrics import hamming_loss
 #from sklearn.utils import class_weight
 #import tensorflow as tf
 #import cv2
@@ -95,6 +96,9 @@ if __name__ == '__main__':
     def weighted_loss(y_true, y_pred):
         return K.mean((0.8**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
+    def hamming(y_true, y_pred):
+        return hamming_loss(y_true, y_pred)
+    
     def FN_wrapper():
         def falseNegatives(y_true, y_pred):
             neg_y_pred = 1 - y_pred
@@ -129,7 +133,8 @@ if __name__ == '__main__':
     TP = TP_wrapper()
 
     model.compile(#loss=weighted_loss,
-                loss='binary_crossentropy',
+                #loss='binary_crossentropy',
+                loss = hamming,
                 optimizer='adam',
                 metrics=['accuracy', FN, FP, TN, TP])
 
@@ -187,13 +192,13 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_binary_cross.png')
-    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/binary_cross.h5')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_hamming.png')
+    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/hamming.h5')
 
     # convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'history_binary_cross.csv'
+    hist_csv_file = 'history_hamming.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
