@@ -98,6 +98,12 @@ if __name__ == '__main__':
     
     def hamming(y_true, y_pred):
         return hamming_loss(y_true, y_pred)
+
+    def hn_multilabel_loss(y_true, y_pred):
+        # Avoid divide by 0
+        y_pred = K.clip(y_pred, K.epsilon(), 1 - K.epsilon())
+        # Multi-task loss
+        return K.mean(K.sum(- y_true * K.log(y_pred) - (1 - y_true) * K.log(1 - y_pred), axis=1))
     
     def FN_wrapper():
         def falseNegatives(y_true, y_pred):
@@ -134,7 +140,7 @@ if __name__ == '__main__':
 
     model.compile(#loss=weighted_loss,
                 #loss='binary_crossentropy',
-                loss = hamming,
+                loss = hn_multilabel_loss,
                 optimizer='adam',
                 metrics=['accuracy', FN, FP, TN, TP])
 
