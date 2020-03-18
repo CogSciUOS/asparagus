@@ -128,8 +128,8 @@ if __name__ == '__main__':
     TN = TN_wrapper()
     TP = TP_wrapper()
 
-    model.compile(loss=weighted_loss,
-                #loss='binary_crossentropy',
+    model.compile(#loss=weighted_loss,
+                loss='binary_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy', FN, FP, TN, TP])
 
@@ -187,13 +187,13 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_weighted_08_1.png')
-    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/weighted_08_1.h5')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_binary_cross.png')
+    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/binary_cross.h5')
 
     # convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'history_weighted_08_1.csv'
+    hist_csv_file = 'history_binary_cross.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
