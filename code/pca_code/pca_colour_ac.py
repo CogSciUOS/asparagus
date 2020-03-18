@@ -18,7 +18,9 @@ from scipy.spatial.distance import cdist
 
 #get the files (files contai 10 images of each class)
 
-img = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/0_b.png')
+#img = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/0_b.png')
+#img = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/0_b.png')
+
 
 img_shape = img.shape #(1376, 1040, 3)
 
@@ -31,7 +33,7 @@ s = 0
 raw_ims = np.zeros((n_bands,img_shape[0],img_shape[1],img_shape[2]))
 
 for i in range(n_bands):
-    img = cv2.imread('C:/Users/schmuri/github/asparagus/code/pca_images_all_classes/'+str(s+i)+'_b.png')
+    img = cv2.imread('C:/Users/Malin/Desktop/Master/StudyProject/asparagus/code/pca_code/pca_images_all_classes/'+str(s+i)+'_b.png')
     raw_ims[i,:,:,:] = img
     #print(raw_ims.shape)
     flat = np.reshape(img,newshape = (img_shape[0],img.shape[1]*img.shape[2]))
@@ -95,8 +97,9 @@ print(MB_matrix.shape)
 asparagus_space = (MB_matrix.T - MB_matrix_mean) @ eig_asparagus_used
 print("dim aspa_space: \n" , asparagus_space.shape)
 
+np.save(os.path.join('C:/Users/Malin/Desktop/Master/StudyProject', 'm_all_color_space', asparagus_space)
 
-print(PC.shape)
+#print(PC.shape)
 #teil eins vom plotten der PCs
 # for i in range(10): #wir gucken uns die ersten 4 an, weil dort noch hohe eigenvalues zu sehen waren
 #      test = PC[:,i].reshape(img_shape)
@@ -178,7 +181,6 @@ def recognize_face(face, eigenfaces, mean_face, face_db):
     return index
 
 #recognize_face(img, PC, MB_matrix_mean, asparagus_space)
-
 
 
 def find_integer(index):
