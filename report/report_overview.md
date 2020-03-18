@@ -25,12 +25,25 @@ Task distribution is marked `like this`.
 ## 3&ensp;Preparing the dataset
 &ensp; **Preprocessing steps**  
   
+&ensp;&ensp;&ensp; Automatic feature extraction  
+&ensp;&ensp;&ensp; Preparation for manual feature extraction  
+  
 &ensp; **The hand-label assistant**  `Michael`
+  
+&ensp;&ensp;&ensp; How to install  
+&ensp;&ensp;&ensp; Operation instructions  
+&ensp;&ensp;&ensp; Performance  
   
 &ensp; **Manual labeling**  
   
+&ensp;&ensp;&ensp; Sorting criteria  
+&ensp;&ensp;&ensp; Sorting outcome  
+  
 &ensp; **The asparagus dataset**  `Richard` 
-
+  
+&ensp;&ensp;&ensp; Different datasets  
+&ensp;&ensp;&ensp; Challenges  
+  
 ## 4&ensp;Classification `Malin`
 &ensp; **Supervised learning**  
   
