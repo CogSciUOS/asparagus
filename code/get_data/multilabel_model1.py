@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
     # add a costumize loss function that weights wrong labels for 1 higher than for 0 (because of class imbalance)
     def weighted_loss(y_true, y_pred):
-        return K.mean((1**(1-y_true))*(2**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
+        return K.mean((0.8**(1-y_true))*(1**(y_true))*K.binary_crossentropy(y_true, y_pred), axis=-1)
     
     def FN_wrapper():
         def falseNegatives(y_true, y_pred):
@@ -187,4 +187,13 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/asparagus/code/get_data/fig_weighted.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_weighted_08_1.png')
+    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/weighted_08_1.h5')
+
+    # convert the history.history dict to a pandas DataFrame   
+    hist_df = pd.DataFrame(history.history) 
+
+    # and save to csv
+    hist_csv_file = 'history_weighted_08_1.csv'
+    with open(hist_csv_file, mode='w') as f:
+        hist_df.to_csv(f)
