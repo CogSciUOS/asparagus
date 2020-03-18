@@ -50,6 +50,10 @@ Task distribution is marked `like this`.
 ## 5&ensp;Discussion
 &ensp; **Comparison of classification approaches**  
   
+&ensp;&ensp;&ensp; Comparing architectures  
+&ensp;&ensp;&ensp; Comparing results
+
+  
 &ensp; **Final result of the project**  
   
 &ensp;&ensp;&ensp; Scientific results  
