@@ -5,8 +5,6 @@
 3. run createDataset.py from this folder
 4. you are done
 
-
-
 https://www.tensorflow.org/datasets/add_dataset#overview 
 
 https://github.com/tensorflow/datasets/blob/master/docs/add_dataset.md#testing-mydataset 

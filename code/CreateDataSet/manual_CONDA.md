@@ -25,23 +25,24 @@ To use the shared installation you have to tell linux where it is.
 1. Log in
     `ssh ...@gate.ikw.uos.de`
 2. Add some lines at the end of your bashrc file: </br>
-    `$ nano -Bu ~/.bashrc` </br> Or you could use ranger or vim instead...</br>
+    `$ nano -Bu ~/.bashrc` </br> 
+    Or you could use ranger or vim instead...</br>
     ```
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
+    __conda_setup="$('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/conda' 'shell.bash' '$if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/etc/profile.d/conda.sh" ]; then
-            . "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/etc/profile.d/conda.sh"
+        if [ -f "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/etc/profile.d/conda.sh" ]; then        . "/net/projects/scratch/winter/        valid_until_31_July_2020/asparagus/sharedConda/etc/profile.d/conda.sh"
         else
-            export PATH="/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin:$PATH"
+        export PATH="/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin:$PATH"
         fi
     fi
     unset __conda_setup
     # <<< conda initialize <<<
     ```
+
+
 3. For changes to take effect, close and re-open your current shell.</br>
     `$ exit` 
 4. Log in again. If you want to use a single GPU log in to shadow or light.
@@ -53,7 +54,6 @@ To use the shared installation you have to tell linux where it is.
 5. After Log in hit: </br>
     `$ conda activate dataSet`
 6. Test a tensorflow file on the GPU</br>
-    `$ python /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/richard/tf_test.py` </br>
     `$ nvidia-smi -l`
 
 
