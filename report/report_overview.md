@@ -28,7 +28,7 @@ Task distribution is marked `like this`.
 &ensp;&ensp;&ensp; Automatic feature extraction  `Sophia?`  
 &ensp;&ensp;&ensp; Preparation for manual feature extraction  `Maren?`  
   
-&ensp; **The hand-label assistant**  `Michael`
+&ensp; **The hand-label app**  `Michael`
   
 &ensp;&ensp;&ensp; How to install  
 &ensp;&ensp;&ensp; Operation instructions  
