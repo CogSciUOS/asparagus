@@ -41,7 +41,7 @@ Task distribution is marked `like this`.
   
 &ensp; **The asparagus dataset**  `Richard?` 
   
-&ensp;&ensp;&ensp; Different datasets  `Sophia?`
+&ensp;&ensp;&ensp; Different datasets  `Sophia?`  
 &ensp;&ensp;&ensp; Challenges  
   
 ## 4&ensp;Classification `Malin`
