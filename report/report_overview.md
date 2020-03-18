@@ -25,8 +25,8 @@ Task distribution is marked `like this`.
 ## 3&ensp;Preparing the dataset
 &ensp; **Preprocessing steps**  
   
-&ensp;&ensp;&ensp; Automatic feature extraction  `Sophia?`
-&ensp;&ensp;&ensp; Preparation for manual feature extraction  `Maren?`
+&ensp;&ensp;&ensp; Automatic feature extraction  `Sophia?`  
+&ensp;&ensp;&ensp; Preparation for manual feature extraction  `Maren?`  
   
 &ensp; **The hand-label assistant**  `Michael`
   
@@ -36,10 +36,10 @@ Task distribution is marked `like this`.
   
 &ensp; **Manual labeling**  
   
-&ensp;&ensp;&ensp; Sorting criteria  `Josefine`
-&ensp;&ensp;&ensp; Sorting outcome  `Josefine, Malin?`
+&ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
+&ensp;&ensp;&ensp; Sorting outcome  `Josefine, Malin?`  
   
-&ensp; **The asparagus dataset**  `Richard` 
+&ensp; **The asparagus dataset**  `Richard?` 
   
 &ensp;&ensp;&ensp; Different datasets  
 &ensp;&ensp;&ensp; Challenges  
