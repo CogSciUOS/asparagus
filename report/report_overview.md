@@ -18,6 +18,9 @@ Task distribution is marked `like this`.
   
 &ensp; **Organisation of the study group**  
   
+&ensp;&ensp;&ensp; Communication  
+&ensp;&ensp;&ensp; Teamwork  
+  
 &ensp; **Data collection**  `Josefine`
   
 &ensp; **Literature research**  `Josefine`
