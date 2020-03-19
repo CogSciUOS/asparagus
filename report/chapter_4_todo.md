@@ -44,11 +44,13 @@ BACKGROUND
 * Include all the literature research you did for your approach - ideas, inspirations, theory, etc. (*keep it of medium length; enough detail but also not too much; rather, references to other literature are very welcome*)
   
 ACTUAL MODEL STRUCTURE (*here come the details*)  
+  
 Overview  
 * Give an overview of your model/approach design
 * Describe what your model does and how it does it
 * Include a picture of your structure (i.e., when your worked on a model)  
-Process of coding/building/training 
+  
+Process of coding/building/training   
 * Describe the process of building your model, how you came to include certain ideas, techniques etc, what you did not include and the reasons for that (try to be detailed enough to make clear what took long and where you put in a lot of effort)
 * Describe the challenges you run into (e.g., What was tested/changed during the working process? Which obstacles did occur?) 
 * What are potentials/risks of interpreting the results? (e.g. "When working with my model I saw potential for better results when using features instead of classes while the risk could be ... ")  
