@@ -3,7 +3,7 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
     
 > ## 3&ensp;Preparing the dataset 
 > &ensp;&ensp;&ensp; Different preprocessing steps of the data and deciding how the data should/will look like.  
-> &ensp;&ensp;&ensp; The label app is introduced and the process of manually labeling a part of the data, with a  
+> &ensp;&ensp;&ensp; The label app is introduced and the process of manually labelling a part of the data, with a  
 > &ensp;&ensp;&ensp; description of the criteria. Finally, the dataset is introduced.  
 >  
 > &ensp; **Preprocessing steps**    
@@ -16,7 +16,7 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 > &ensp;&ensp;&ensp; rust, bent, etc. ...  
 >  
 > &ensp;&ensp;&ensp; Preparation for manual feature extraction  `Maren?`  
-> &ensp;&ensp;&ensp; Preparing the images for manual classification to create more labeled data: sorting the pictures in  
+> &ensp;&ensp;&ensp; Preparing the images for manual classification to create more labelled data: sorting the pictures in  
 > &ensp;&ensp;&ensp; the grid, have 3 pictures per asparagus spear, etc. ...   
 >  
 > &ensp; **The hand-label app**  `Michael?`  
@@ -36,12 +36,12 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 >  
 > &ensp;&ensp;&ensp; Performance  
 > &ensp;&ensp;&ensp; Results and general performance of the app: How well did the feature extraction work? How much features   
-> &ensp;&ensp;&ensp; had to be labeled by hand? What is the output of the app?  
+> &ensp;&ensp;&ensp; had to be labelled by hand? What is the output of the app?  
 >  
 > &ensp; **Manual labeling**
 >  
 > &ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
-> &ensp;&ensp;&ensp; The criteria explained in detail for the hand-labeling of the features with the app (including example   
+> &ensp;&ensp;&ensp; The criteria explained in detail for the hand-labelling of the features with the app (including example   
 > &ensp;&ensp;&ensp; pictures). What are expected difficulties we might encounter?  
 >  
 > &ensp;&ensp;&ensp; Sorting outcome  `Malin?`  
@@ -52,7 +52,7 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 > &ensp; **The asparagus dataset**  `Richard?`  
 >  
 > &ensp;&ensp;&ensp; Different datasets `Sophia?`  
-> &ensp;&ensp;&ensp; Structural information on the datasets: What do they look like? How big are they (labeled vs unlabeled   
+> &ensp;&ensp;&ensp; Structural information on the datasets: What do they look like? How big are they (labelled vs unlabelled   
 > &ensp;&ensp;&ensp; samples)? Which were criteria for throwing out data? (maybe have an overview picture with all relevant   
 > &ensp;&ensp;&ensp; information on one glance  
 >  
