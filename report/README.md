@@ -55,7 +55,7 @@ chapter_5_todo.md
   <br/>
   <br/>
   
-  chapter_6_todo.md
+chapter_6_todo.md
 * A bit more detailed overview of who writes which part for the sixth chapter of our report. Can also be found in the .tex files of the report.
   <br/>
   <br/>
