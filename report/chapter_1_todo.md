@@ -10,12 +10,14 @@ Here, you can find an overview of how to contribute to chapter 1 of our report, 
 >   
 > &ensp; **Background on computer vision based classification tasks**  `Josefine`  
 >   
-> &ensp;&ensp;&ensp; Short introduction into the field of computer vision and short introduction to artificial neural networks. Prospects > &ensp;&ensp;&ensp; and challenges of both on a general basis.  
+> &ensp;&ensp;&ensp; Short introduction into the field of computer vision and short introduction to artificial neural networks.  
+> &ensp;&ensp;&ensp; Prospects and challenges of both on a general basis.  
 > &ensp;&ensp;&ensp; This part is kept very brief.  
 >   
 > &ensp; **Background on sorting asparagus**  `Josefine`  
 >   
-> &ensp;&ensp;&ensp; What is the main focus during the sorting process, i.e. why do you need to sort asparagus and in which classes do you > &ensp;&ensp;&ensp; sort it?  
+> &ensp;&ensp;&ensp; What is the main focus during the sorting process, i.e. why do you need to sort asparagus and in which  
+> &ensp;&ensp;&ensp; classes do you sort it?  
 > &ensp;&ensp;&ensp; What problems and challenges will be met - including the difference of challenge for humans vs. machines.  
 > &ensp;&ensp;&ensp; Including the decision tree for the labels as sorted with Silvan’s machine.  
 >   
