@@ -20,7 +20,7 @@ Here, you can find an overview of how to contribute to chapter 2 of our report, 
 > &ensp;&ensp;&ensp; Grid: working together with the IKW data store, other teamwork related experiences  
 > &ensp;&ensp;&ensp; (could we integrate the strengths and weaknesses of the single team members) ...  
 >  
-> &ensp; **Data Collection**   
+> &ensp; **Data Collection**  `Josefine`  
 >  
 > &ensp;&ensp;&ensp; How we collected the data and what the data looked like.  
 > &ensp;&ensp;&ensp; Here, the process of driving to Rheine and collecting the data with an external hard-drive is described.  
@@ -29,7 +29,7 @@ Here, you can find an overview of how to contribute to chapter 2 of our report, 
 > &ensp;&ensp;&ensp; through the sorting machine, did not (completely) resolve our problem), saving the data manually  
 > &ensp;&ensp;&ensp; on an external harddrive ( -> solved by building a script for data transfer, and Teamviewer sessions)  
 >  
-> &ensp; **Literature research**  
+> &ensp; **Literature research**  `Josefine`  
 >  
 > &ensp;&ensp;&ensp; Previous literature research concerning food classification and handling unlabeled data.  
 > &ensp;&ensp;&ensp; Searching for background literature close to our project, e.g. automatic CV-based sorting of other  
