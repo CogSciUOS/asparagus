@@ -25,16 +25,16 @@ Here, you can find an overview of how to contribute to chapter 2 of our report, 
 > &ensp;&ensp;&ensp; How we collected the data and what the data looked like.  
 > &ensp;&ensp;&ensp; Here, the process of driving to Rheine and collecting the data with an external hard-drive is described.  
 > &ensp;&ensp;&ensp; Understanding the sorting machine and its output.  
-> &ensp;&ensp;&ensp; First problems that had to be resolved: labeled vs. unlabeled data ( -> running pre-sorted pieces  
+> &ensp;&ensp;&ensp; First problems that had to be resolved: labelled vs. unlabelled data ( -> running pre-sorted pieces  
 > &ensp;&ensp;&ensp; through the sorting machine, did not (completely) resolve our problem), saving the data manually  
 > &ensp;&ensp;&ensp; on an external harddrive ( -> solved by building a script for data transfer, and Teamviewer sessions)  
 >  
 > &ensp; **Literature research**  `Josefine`  
 >  
-> &ensp;&ensp;&ensp; Previous literature research concerning food classification and handling unlabeled data.  
+> &ensp;&ensp;&ensp; Previous literature research concerning food classification and handling unlabelled data.  
 > &ensp;&ensp;&ensp; Searching for background literature close to our project, e.g. automatic CV-based sorting of other  
 > &ensp;&ensp;&ensp; food products.  
-> &ensp;&ensp;&ensp; Researching semi-supervised and unsupervised learning approaches.  
+> &ensp;&ensp;&ensp; Researching supervised, but specifically semi-supervised and unsupervised learning approaches.  
 > &ensp;&ensp;&ensp; Re-reading on potential ANN structures that we could use for sorting.  
 > &ensp;&ensp;&ensp; What was the result?  
 > &ensp;&ensp;&ensp; Could we rely on a certain paper/process? Did it work?  
