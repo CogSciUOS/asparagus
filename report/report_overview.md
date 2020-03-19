@@ -37,7 +37,7 @@ Task distribution is marked `like this`.
 &ensp;&ensp;&ensp; Operation instructions  
 &ensp;&ensp;&ensp; Performance  
   
-&ensp; **Manual labeling**  
+&ensp; **Manual labelling**  
   
 &ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
 &ensp;&ensp;&ensp; Sorting outcome  `Malin?`  
