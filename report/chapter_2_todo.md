@@ -1,7 +1,7 @@
 # Report chapter 2:&ensp;Data acquisition and organization
 Here, you can find an overview of how to contribute to chapter 2 of our report, copy & pasted from the report, so you do not need to create a pdf from the .tex files.    
     
-> ## 1&ensp;Data acquisition and organization  
+> ## 2&ensp;Data acquisition and organization  
 >  
 > &ensp; **Timetable (roadmap) of the project**     
 >     
