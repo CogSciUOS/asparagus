@@ -85,7 +85,7 @@ if __name__ == '__main__':
     #model.add(Dropout(0.5))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
-    model.add(MaxPooling2D(pool_size=(2, 2))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
