@@ -81,16 +81,16 @@ if __name__ == '__main__':
 
     model = Sequential()
 
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img), kernel_regularizer=l1(0.01)) 
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img), kernel_regularizer=l1(0.01))
     #model.add(Dropout(0.5))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)) 
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)) 
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
     model.add(GlobalAveragePooling2D())
