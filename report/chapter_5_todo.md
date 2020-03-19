@@ -10,8 +10,8 @@ Here, you can find an overview of how to contribute to chapter 5 of our report, 
 > &ensp;&ensp;&ensp; Which parameters are different? Can we expect the results to be comparable?  
 >  
 > &ensp;&ensp;&ensp; Comparing results  
-> &ensp;&ensp;&ensp; Which approach worked best? Which values do we want to use for comparison? e.g. ROC curve (false positive   
-> &ensp;&ensp;&ensp; (FP), true positive(TP)), validation accuracy, ...  
+> &ensp;&ensp;&ensp; Which approach worked best? Which values do we want to use for comparison? e.g. ROC curve   
+> &ensp;&ensp;&ensp; false positive (FP), true positive(TP)), validation accuracy, ...  
 >  
 > &ensp; **Final result of the project**  
 >  
