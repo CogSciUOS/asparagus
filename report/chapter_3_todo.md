@@ -8,7 +8,7 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 >  
 > &ensp; **Preprocessing steps**     
 >     
-> First approach to create a dataset (layout) and data augmentation to generate more samples.  
+> &ensp;&ensp;&ensp; First approach to create a dataset (layout) and data augmentation to generate more samples.  
 >  
 > &ensp;&ensp;&ensp; Automatic feature extraction  
 > &ensp;&ensp;&ensp; We (tried to) create scripts for: background removal of the collected images, and automatic feature  
@@ -21,12 +21,10 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 >  
 > &ensp; **The hand-label app**  
 >  
-> &ensp;&ensp;&ensp; Introduction to the script created for manual sorting. Fusion of the feature extraction scripts.   
-> &ensp;&ensp;&ensp; What is it?  
-> &ensp;&ensp;&ensp; Why did we need it? What was the idea behind it?  
-> &ensp;&ensp;&ensp; How does it work? (keep short! it's only the introduction)  
-> &ensp;&ensp;&ensp; Do not explain in length here but rather give an idea and refer to README's and to code in GitHub  
-> &ensp;&ensp;&ensp; whenever possible.  
+> &ensp;&ensp;&ensp; Introduction to the script created for manual sorting. Fusion of the feature extraction scripts:   
+> &ensp;&ensp;&ensp; What is it? Why did we need it? What was the idea behind it? How does it work? (keep short! it's   
+> &ensp;&ensp;&ensp; only the introduction) Do not explain in length here but rather give an idea and refer to README's   
+> &ensp;&ensp;&ensp; and to code in GitHub whenever possible.  
 >  
 > &ensp;&ensp;&ensp; How to install  
 > &ensp;&ensp;&ensp; Installation of the app: environment setup, mount points, problems we ran into, etc. ...  
@@ -58,7 +56,7 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 > &ensp;&ensp;&ensp; samples)? Which were criteria for throwing out data? (maybe have an overview picture with all relevant   
 > &ensp;&ensp;&ensp; information on one glance  
 >  
-> &ensp;&ensp;&ensp; Challenges
+> &ensp;&ensp;&ensp; Challenges  
 > &ensp;&ensp;&ensp; Problems and challenges during the creation of the datasets: What were the challenges in creating a   
 > &ensp;&ensp;&ensp; general dataset? What were challenges in general? How well could we work with the datasets? What was used   
 > &ensp;&ensp;&ensp; as training data, validation data, and test data?  
