@@ -81,16 +81,16 @@ if __name__ == '__main__':
 
     model = Sequential()
 
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img, kernel_regularizer=l1(0.01)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img, kernel_regularizer=l2(0.01)))
     #model.add(Dropout(0.5))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(0.01)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
     model.add(GlobalAveragePooling2D())
@@ -203,13 +203,13 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_l1.png')
-    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/l1.h5')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_l2.png')
+    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/l2.h5')
 
     # convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'history_l1.csv'
+    hist_csv_file = 'history_l2.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
