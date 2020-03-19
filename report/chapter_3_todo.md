@@ -58,5 +58,5 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 >  
 > &ensp;&ensp;&ensp; Challenges  
 > &ensp;&ensp;&ensp; Problems and challenges during the creation of the datasets: What were the challenges in creating a   
-> &ensp;&ensp;&ensp; general dataset? What were challenges in general? How well could we work with the datasets? What was used   
-> &ensp;&ensp;&ensp; as training data, validation data, and test data?  
+> &ensp;&ensp;&ensp; general dataset? What were challenges in general? How well could we work with the datasets? What was   
+> &ensp;&ensp;&ensp; used as training data, validation data, and test data?  
