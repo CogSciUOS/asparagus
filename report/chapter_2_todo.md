@@ -34,8 +34,8 @@ Here, you can find an overview of how to contribute to chapter 2 of our report, 
 > &ensp;&ensp;&ensp; Previous literature research concerning food classification and handling unlabeled data.  
 > &ensp;&ensp;&ensp; Searching for background literature close to our project, e.g. automatic CV-based sorting of other  
 > &ensp;&ensp;&ensp; food products.  
-> &ensp;&ensp;&ensp; Researching semi-supervised and unsupervised learning approaches.
-> &ensp;&ensp;&ensp; Re-reading on potential ANN structures that we could use for sorting.
-> &ensp;&ensp;&ensp; What was the result?
-> &ensp;&ensp;&ensp; Could we rely on a certain paper/process? Did it work?
+> &ensp;&ensp;&ensp; Researching semi-supervised and unsupervised learning approaches.  
+> &ensp;&ensp;&ensp; Re-reading on potential ANN structures that we could use for sorting.  
+> &ensp;&ensp;&ensp; What was the result?  
+> &ensp;&ensp;&ensp; Could we rely on a certain paper/process? Did it work?  
  
