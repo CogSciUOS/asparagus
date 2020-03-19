@@ -12,8 +12,10 @@ import keras.backend as K
 from keras.losses import binary_crossentropy
 from keras.models import Sequential
 
-from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
+from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D, Dropout
 from keras.layers import Dense
+
+from keras.regularizers import l1, l2
 
 #from keras.utils import plot_model
 #from keras.utils import np_utils
@@ -73,20 +75,22 @@ if __name__ == '__main__':
     ################################################################################
     input_shape_img = (train_img.shape[1], train_img.shape[2], train_img.shape[3])
     batch_size = 32
-    num_epochs = 50
+    num_epochs = 25
     num_classes = 6
+    reg = l1(0.001)
 
     model = Sequential()
 
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img)) 
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape_img), kernel_regularizer=l1(0.01)) 
+    #model.add(Dropout(0.5))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01))
+    model.add(MaxPooling2D(pool_size=(2, 2))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)) 
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same')) 
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', padding='same')) 
+    model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l1(0.01)) 
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
     model.add(GlobalAveragePooling2D())
@@ -100,6 +104,7 @@ if __name__ == '__main__':
         return hamming_loss(y_true, y_pred)
 
     def hn_multilabel_loss(y_true, y_pred):
+        # code snippet from https://groups.google.com/forum/#!topic/keras-users/_sjndHbejTY
         # Avoid divide by 0
         y_pred = K.clip(y_pred, K.epsilon(), 1 - K.epsilon())
         # Multi-task loss
@@ -139,8 +144,8 @@ if __name__ == '__main__':
     TP = TP_wrapper()
 
     model.compile(#loss=weighted_loss,
-                #loss='binary_crossentropy',
-                loss = hn_multilabel_loss,
+                loss='binary_crossentropy',
+                #loss = hn_multilabel_loss,
                 optimizer='adam',
                 metrics=['accuracy', FN, FP, TN, TP])
 
@@ -198,13 +203,13 @@ if __name__ == '__main__':
     plt.xticks(np.arange(0, num_epochs + 1, 5))
     plt.grid()
     plt.show()    
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_hamming.png')
-    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/hamming.h5')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/fig_l1.png')
+    model.save('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sophia/asparagus/code/get_data/l1.h5')
 
     # convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'history_hamming.csv'
+    hist_csv_file = 'history_l1.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
