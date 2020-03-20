@@ -18,10 +18,10 @@ Task distribution is marked `like this`.
   
 &ensp; **Organisation of the study group**  
   
-&ensp;&ensp;&ensp; Communication  
-&ensp;&ensp;&ensp; Teamwork  
+&ensp;&ensp;&ensp; Communication  `Richard`  
+&ensp;&ensp;&ensp; Teamwork  `Richard`  
   
-&ensp; **Data collection**  `Josefine`
+&ensp; **Data collection**  `Josefine, Richard`
   
 &ensp; **Literature research**  `Josefine`
 
@@ -45,7 +45,7 @@ Task distribution is marked `like this`.
 &ensp; **The asparagus dataset**  `Richard?` 
   
 &ensp;&ensp;&ensp; Different datasets  `Sophia?`  
-&ensp;&ensp;&ensp; Challenges  
+&ensp;&ensp;&ensp; Challenges   `Sophia, Richard`
   
 ## 4&ensp;Classification `Malin`
 &ensp; **Supervised learning**  
@@ -79,7 +79,7 @@ Task distribution is marked `like this`.
   
 &ensp; **Summary**  
     
-&ensp; **Next steps** 
+&ensp; **Next steps**   `Richard`
   
 &ensp;&ensp;&ensp; Outlook of the project  
 &ensp;&ensp;&ensp; Contribution to scientific landscape  

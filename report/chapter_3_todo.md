@@ -56,7 +56,7 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 > &ensp;&ensp;&ensp; samples)? Which were criteria for throwing out data? (maybe have an overview picture with all relevant   
 > &ensp;&ensp;&ensp; information on one glance  
 >  
-> &ensp;&ensp;&ensp; Challenges  `Sophia?`   
+> &ensp;&ensp;&ensp; Challenges  `Sophia, Richard`   
 > &ensp;&ensp;&ensp; Problems and challenges during the creation of the datasets: What were the challenges in creating a   
 > &ensp;&ensp;&ensp; general dataset? What were challenges in general? How well could we work with the datasets? What was   
 > &ensp;&ensp;&ensp; used as training data, validation data, and test data?  

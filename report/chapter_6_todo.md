@@ -10,8 +10,8 @@ Here, you can find an overview of how to contribute to chapter 6 of our report, 
 >  
 > &ensp; **Next steps**  
 >   
-> &ensp;&ensp;&ensp; Outlook of the project  
-> &ensp;&ensp;&ensp; How could the project continue?  
+> &ensp;&ensp;&ensp; Outlook of the project  `Richard`
+> &ensp;&ensp;&ensp; How could the project continue?  `Richard`
 >  
 > &ensp;&ensp;&ensp; Contribution to scientific landscape  
 > &ensp;&ensp;&ensp; How do our findings contribute to the ANN landscape/ open science? Can we publish the dataset?  
