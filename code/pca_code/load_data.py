@@ -11,9 +11,9 @@ import shutil
 
 eig_used = np.load('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_hollow/eig_hollow_used.npy')
 
-#all_pc = np.load('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width/PC_width.py')
+all_pc = np.load('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width/PC_width.npy')
 
 
 print("dim aspa_space: \n",eig_used)
 
-#print(all_pc)
+print(all_pc)
