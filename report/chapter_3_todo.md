@@ -1,7 +1,7 @@
-# Report chapter 3:&ensp;Preparing the dataset
+# Report chapter 3:&ensp;The dataset
 Here, you can find an overview of how to contribute to chapter 3 of our report, copy & pasted from the report, so you do not need to create a pdf from the .tex files.    
     
-> ## 3&ensp;Preparing the dataset 
+> ## 3&ensp;The dataset 
 > &ensp;&ensp;&ensp; Different preprocessing steps of the data and deciding how the data should/will look like.  
 > &ensp;&ensp;&ensp; The label app is introduced and the process of manually labelling a part of the data, with a  
 > &ensp;&ensp;&ensp; description of the criteria. Finally, the dataset is introduced.  
@@ -44,10 +44,14 @@ Here, you can find an overview of how to contribute to chapter 3 of our report, 
 > &ensp;&ensp;&ensp; The criteria explained in detail for the hand-labelling of the features with the app (including example   
 > &ensp;&ensp;&ensp; pictures). What are expected difficulties we might encounter?  
 >  
-> &ensp;&ensp;&ensp; Sorting outcome  `Malin?`  
+> &ensp;&ensp;&ensp; Sorting outcome  `Josefine`  
 > &ensp;&ensp;&ensp; The process and the results of the sorting: How much did we sort? How well did the sorting work in general  
 > &ensp;&ensp;&ensp; (i.e., was it easy to sort? how long did it take? what problems were encountered?)? How accurately did   
 > &ensp;&ensp;&ensp; we sort as a group? (i.e., Kappa Agreement)  
+>  
+> &ensp; **Validity**  `Malin`  
+>  
+> &ensp;&ensp;&ensp; Expanding on how accurately we sorted/how valid our sorting was as a group i.e. on the Kappa Agreement  
 >  
 > &ensp; **The asparagus dataset**  `Richard?`  
 >  
