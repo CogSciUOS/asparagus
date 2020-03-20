@@ -25,7 +25,7 @@ Task distribution is marked `like this`.
   
 &ensp; **Literature research**  `Josefine`
 
-## 3&ensp;Preparing the dataset
+## 3&ensp;The dataset
 &ensp; **Preprocessing steps**  
   
 &ensp;&ensp;&ensp; Automatic feature extraction  `Sophia?`  
