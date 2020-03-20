@@ -40,7 +40,9 @@ Task distribution is marked `like this`.
 &ensp; **Manual labelling**  
   
 &ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
-&ensp;&ensp;&ensp; Sorting outcome  `Malin?`  
+&ensp;&ensp;&ensp; Sorting outcome  `Josefine`  
+  
+&ensp; **Validity**  `Malin?`
   
 &ensp; **The asparagus dataset**  `Richard?` 
   
