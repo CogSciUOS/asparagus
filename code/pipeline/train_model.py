@@ -68,7 +68,11 @@ def load_model(model_module, input_shape=None):
     """loads model from file in models folder
     """
     # load model from file
-    model_util = importlib.import_module('pipeline.models.' + model_module)
+    try:
+        model_util = importlib.import_module('pipeline.models.' + model_module)
+    except ModuleNotFoundError:
+        model_util = importlib.import_module('models.' + model_module)
+
     # call create_model function of the model_util
     return model_util.create_model(input_shape)
 

@@ -32,10 +32,11 @@ from os.path import isfile, join
 
 
 def main():
-    """
+    st.markdown(
+        """
     # Visualizing the results of multiple models
     Here's our first attempt at displaying the data
-    """
+    """)
 
     # loading the data
     @st.cache
@@ -105,8 +106,8 @@ def main():
     "Number of samples in predictions:", len(y_pred)
     ######
 
-    """## Results
-    ### Classification report"""
+    """## Results"""
+    """ ### Classification report"""
     st.write(pd.DataFrame(classification_report(y_test.argmax(axis=1),
                                                 y_pred.argmax(axis=1), target_names=labels, output_dict=True)).transpose())
 
