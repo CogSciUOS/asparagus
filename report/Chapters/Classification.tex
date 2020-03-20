@@ -126,16 +126,36 @@ DISCUSSION \\
 Unsupervised approach to sort the asparagus. \\
 \\
 INTRODUCTION \\
-... \\
+Unsupervised learning are all kinds of machine learning algorithms which are not supervised.
+More specifically, they work without a known goal, a reward system or prior training,
+and find a structure within the data, or some form of clustering of data points.
+In supervised approaches, the model is given both the input and the labels.
+In unsupervised learning approaches, the model is only given the input data.
+What this means is that unsupervised learning works without training samples,
+and without labeled data. One goal of unsupervised learning algorithms is to find
+hidden structures or patterns in the data, without a given label.  \\
 \\
 GENERAL BACKGROUND \\
-... \\
+Dimension reduction algorithms and clustering algorithms have been identified as the two main
+classes of unsupervised machine learning algorithms which are used in unsupervised image
+categorization (link:https://www.researchgate.net/publication/265729668_Unsupervised_Classification_of_Images_A_Review  Olaode 2014).
+
+Multivariate datasets are generally also high dimensional. However, it is common,
+that some parts of that variable space are more filled with data points than others.
+Large parts of high dimensional variable space are not used. In order to recognize a
+structure or pattern in the data, it is often necessary to reduce the number of dimensions.
+For this, both linear- as well as non-linear approaches can be applied.\\
 \\
 IDEAS FOR MODELS \\
-... \\
+Linear unsupervised learning methods for which also descriptive statistics can be
+acquired are e.g. Principal Component Analysis (PCA), Non-negative matrix
+factorization, and Independent component analysis.
+(link:https://www.researchgate.net/publication/265729668_Unsupervised_Classification_of_Images_A_Review).
+Some examples for non-linear approaches would be Kernel PCA,( Scholkopf  et  al. – im oben genannten paper),
+Isometric Feature Mapping, Local Linear Embedding, and Local Multi-Dimensional Scaling.\\
 \\
 OUTRO \\
-Transfer to the specific model ideas that we worked on for unsupervised learning. \\
+For the current work, the linear dimension reduction algorithm PCA was chosen.\\
 \\
 \subsubsection{Principal component analysis}
 
