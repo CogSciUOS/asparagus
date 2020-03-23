@@ -17,7 +17,7 @@ This is the overview of Chapter 4 of the Report:
 >   
 > &ensp;&ensp;&ensp; Principal component analysis  `Malin, Maren` 
 >   
-> &ensp; **From feature to label**  `Katha` 
+> &ensp; **From feature to label**  `Josefine` 
 
 Task distributions are marked `like this`. It indicates where you can write about your model/approach.  
   
