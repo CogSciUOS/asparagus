@@ -65,7 +65,7 @@ Task distribution is marked `like this`.
   
 &ensp;&ensp;&ensp; Principal component analysis  `Malin, Maren` 
   
-&ensp; **From feature to label**  `Katha` 
+&ensp; **From feature to label**  `Josefine` 
 
 ## 5&ensp;Discussion
 &ensp; **Comparison of classification approaches**  
