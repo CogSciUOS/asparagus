@@ -33,8 +33,8 @@ Task distribution is marked `like this`.
   
 &ensp; **The hand-label app**  `Michael`
   
-&ensp;&ensp;&ensp; How to install  `Michael`
-&ensp;&ensp;&ensp; Operation instructions  `Michael`
+&ensp;&ensp;&ensp; How to install `Michael`
+&ensp;&ensp;&ensp; Operation instructions `Michael`
 &ensp;&ensp;&ensp; Performance  `Michael`
   
 &ensp; **Manual labelling**  
