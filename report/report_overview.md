@@ -43,8 +43,7 @@ Task distribution is marked `like this`.
   
 &ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
 &ensp;&ensp;&ensp; Sorting outcome  `Josefine`  
-  
-&ensp; **Validity**  `Malin`
+&ensp;&ensp;&ensp; Validity `Malin`
   
 &ensp; **The asparagus dataset**  `Richard?` 
   
