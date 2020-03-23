@@ -11,7 +11,7 @@ Task distribution is marked `like this`.
   
 &ensp; **Background on sorting asparagus**  `Josefine`
   
-&ensp; **Expected outcome vs. actual outcome of the project**  
+&ensp; **Expected outcome vs. actual outcome of the project**  `Malin`
 
 ## 2&ensp;Data acquisition and organization
 &ensp; **Timetable (roadmap) of the project**  `Josefine`
@@ -26,40 +26,40 @@ Task distribution is marked `like this`.
 &ensp; **Literature research**  `Josefine`
 
 ## 3&ensp;The dataset
-&ensp; **Preprocessing steps**  
+&ensp; **Preprocessing steps**  `Sophia` 
   
-&ensp;&ensp;&ensp; Automatic feature extraction  `Sophia?`  
-&ensp;&ensp;&ensp; Preparation for manual feature extraction  `Maren?`  
+&ensp;&ensp;&ensp; Automatic feature extraction  `Sophia`  
+&ensp;&ensp;&ensp; Preparation for manual feature extraction  `Maren, Sophia` 
   
 &ensp; **The hand-label app**  `Michael`
   
-&ensp;&ensp;&ensp; How to install  
-&ensp;&ensp;&ensp; Operation instructions  
-&ensp;&ensp;&ensp; Performance  
+&ensp;&ensp;&ensp; How to install  `Michael`
+&ensp;&ensp;&ensp; Operation instructions  `Michael`
+&ensp;&ensp;&ensp; Performance  `Michael`
   
 &ensp; **Manual labelling**  
   
 &ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
 &ensp;&ensp;&ensp; Sorting outcome  `Josefine`  
   
-&ensp; **Validity**  `Malin?`
+&ensp; **Validity**  `Malin`
   
 &ensp; **The asparagus dataset**  `Richard?` 
   
-&ensp;&ensp;&ensp; Different datasets  `Sophia?`  
+&ensp;&ensp;&ensp; Different datasets  `Sophia`  
 &ensp;&ensp;&ensp; Challenges   `Sophia, Richard`
   
 ## 4&ensp;Classification `Malin`
-&ensp; **Supervised learning**  
+&ensp; **Supervised learning**  `Josefine`  
   
 &ensp;&ensp;&ensp; Single-label classification  `Josefine`  
 &ensp;&ensp;&ensp; Multi-label classification  `Sophia` 
   
-&ensp; **Semi-supervised learning**  
+&ensp; **Semi-supervised learning**   `Michael, Richard`
   
 &ensp;&ensp;&ensp; Autoencoder  `Michael` 
   
-&ensp; **Unsupervised learning**  
+&ensp; **Unsupervised learning**  `Malin` 
   
 &ensp;&ensp;&ensp; Principal component analysis  `Malin, Maren` 
   
