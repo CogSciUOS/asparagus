@@ -20,7 +20,7 @@ def show_images(images, cols = 1, titles = None):
     n_images = len(images)
     if titles is None: titles = ['Image (%d)' % i for i in range(1,n_images + 1)]
     fig = plt.figure()
-    fig.suptitle("First 10 Eigenasparagus rust", fontsize=120, fontweight='bold')
+    fig.suptitle("First 10 Eigenasparagus length", fontsize=120, fontweight='bold')
     for n, (image, title) in enumerate(zip(images, titles)):
         a = fig.add_subplot(cols, np.ceil(n_images/float(cols)), n + 1)
         if image.ndim == 2:
@@ -47,11 +47,11 @@ def get_pc_files(PATH):
     return all_files
 
 if __name__ == '__main__':
-    path = "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/"
+    path = "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_length/"
     files = get_pc_files(path)
     images = []
     for file in files:
         images.append(plt.imread(file))
     titles = ["1","2","3","4","5","6","7","8","9","10"]
     show_images(images, cols = 2, titles = titles)
-    plt.savefig("pc_rust")
+    plt.savefig("pc_length")
