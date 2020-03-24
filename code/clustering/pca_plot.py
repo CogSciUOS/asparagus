@@ -25,7 +25,8 @@ def show_images(images, cols = 1, titles = None):
         a = fig.add_subplot(cols, np.ceil(n_images/float(cols)), n + 1)
         if image.ndim == 2:
             plt.gray()
-        plt.imshow(image[:,100:200,:])
+        crop = image[:,215:425,:]
+        plt.imshow(crop)
         a.set_title(title)
         a.set_axis_off()
     fig.set_size_inches(np.array(fig.get_size_inches()) * n_images)
@@ -39,7 +40,6 @@ def get_pc_files(PATH):
     '''
     all_files = []
     for files in os.listdir(PATH):
-        #print(files)
         if files.endswith(".png"):
             if files.startswith("pca"):
                 all_files.append(os.path.join(path,files))
@@ -49,12 +49,9 @@ def get_pc_files(PATH):
 if __name__ == '__main__':
     path = "/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended/"
     files = get_pc_files(path)
-    #print(files)
     images = []
     for file in files:
         images.append(plt.imread(file))
-    print(images[0].shape)
     titles = ["1","2","3","4","5","6","7","8","9","10"]
     show_images(images, cols = 2, titles = titles)
-    #plt.show(figure)
     plt.savefig("pc_bended")
