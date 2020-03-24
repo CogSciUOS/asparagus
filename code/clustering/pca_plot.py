@@ -27,7 +27,7 @@ def show_images(images, cols = 1, titles = None):
             plt.gray()
         crop = image[20:460,215:425,:]
         plt.imshow(crop)
-        a.set_title(title, fontsize=120, fontweight='bold')
+        a.set_title(title, fontsize=100)
         a.set_axis_off()
     fig.set_size_inches(np.array(fig.get_size_inches()) * n_images)
     plt.show()
