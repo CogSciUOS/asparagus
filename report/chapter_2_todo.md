@@ -10,11 +10,11 @@ Here, you can find an overview of how to contribute to chapter 2 of our report, 
 >  
 > &ensp; **Organisation of the study group**  
 >  
-> &ensp;&ensp;&ensp; Communication  `Richard`
+> &ensp;&ensp;&ensp; Communication  `Richard`  
 > &ensp;&ensp;&ensp; Deciding on a communication platform and handling it: organization in general, team meetings,   
 > &ensp;&ensp;&ensp; Asana, Telegram, and any other virtual form of communication  
 >  
-> &ensp;&ensp;&ensp; Teamwork  `Richard`
+> &ensp;&ensp;&ensp; Teamwork  `Richard`  
 > &ensp;&ensp;&ensp; The experience of working in a team and organising/distributing tasks in a group:  
 > &ensp;&ensp;&ensp; task distribution, cooperation on tasks, GitHub: organising our project with Git,  
 > &ensp;&ensp;&ensp; Grid: working together with the IKW data store, other teamwork related experiences  
