@@ -49,7 +49,6 @@ Here, you can find an overview of how to contribute to chapter 2 of our report, 
 #### Teamwork
   
 INTRODUCTION  
-  
 * 1-3 Introductory sentences: What are we going to read about in the next lines? (e.g. "In this subchapter, the teamwork experience and structuring of our group are outlined. .. ")
 * Name every point once (e.g. "First, the team members are introduced and their working abilities are evaluated. Then, the practical aspects of the teamwork are described, the working structure, how tasks were distributed, ....")  
   
@@ -64,24 +63,22 @@ Theory
 * Did we evaluate/assess them beforehand?  
     * e.g. with a Belbin test?
 * Did we make use of them/include them when thinking about our working structures?  
-  
+  <br/>
   
 MAIN PART: PRACTICE   
-  
 Working structure  
 * Was everyone working on their own? Did we split into groups? Was there a general structure?  
     * e.g., distribution into specialty groups/ one team leader/ a democratic decision making process?
 * Did this group structure work?  
     * Where were the advantages of working like this?  
     * Where were the disadvantages?  
-  
+   
 Distributing tasks  
 - Did we think beforehand about how we should distribute tasks or did we adapt to a system over time?
 - How were tasks distributed in the beginning?  
     - e.g. by one person delegating them or did everyone select on their own from the tasks available
 - Did we start distributing them differently after some time? Why?  
     - e.g. 'yes, first everyone selected their tasks on their own, later we included manager roles and a working plan with distributions because we were lacking structure/communication and had less team-internal meetings independent of Ulf and Axel where the task distribution was made clear' (just as example, no opinion)  
-   
     
 Working platform  
 - What did we use to work together?   
@@ -90,10 +87,9 @@ Working platform
     - Advantages/ Disadvantages
 - As a team, could we work well with the platforms? Why?  
     - e.g. Refer to the advantages/disadvantages of the point before + add anything new, f.e. the time spent learning how to use them, ...)  
-   
+  <br/>
    
 SUMMARY    
-  
 Summarizing main points  
 - Name the main point/message of every section of the above in one sentence, respectively.
 - Mention that we evaluate the outcome/fazit (what went good/bad; what we would keep/do different next time) of our teamwork in chapter 5.2.2
