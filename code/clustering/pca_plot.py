@@ -20,7 +20,7 @@ def show_images(images, cols = 1, titles = None):
     n_images = len(images)
     if titles is None: titles = ['Image (%d)' % i for i in range(1,n_images + 1)]
     fig = plt.figure()
-    fig.title("First 10 Eigenasparagus bended", fontsize=40, fontweight='bold')
+    fig.suptitle("First 10 Eigenasparagus bended", fontsize=40, fontweight='bold')
     for n, (image, title) in enumerate(zip(images, titles)):
         a = fig.add_subplot(cols, np.ceil(n_images/float(cols)), n + 1)
         if image.ndim == 2:
