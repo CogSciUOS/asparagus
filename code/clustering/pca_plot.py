@@ -53,6 +53,6 @@ if __name__ == '__main__':
     for file in files:
         images.append(plt.imread(file))
     titles = ["Eigenasparagus 1","Eigenasparagus 2","Eigenasparagus 3","Eigenasparagus 4","Eigenasparagus 5","Eigenasparagus 6","Eigenasparagus 7","Eigenasparagus 8","Eigenasparagus 9","Eigenasparagus 10"]
-    figure = show_images(images, cols = 3, titles = titles)
-    plt.show(figure)
+    show_images(images, cols = 3, titles = titles)
+    #plt.show(figure)
     plt.save("pc_bended")
