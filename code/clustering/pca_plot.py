@@ -25,7 +25,7 @@ def show_images(images, cols = 1, titles = None):
         a = fig.add_subplot(cols, np.ceil(n_images/float(cols)), n + 1)
         if image.ndim == 2:
             plt.gray()
-        plt.imshow(image)
+        plt.imshow(image[:,100:200,:])
         a.set_title(title)
         a.set_axis_off()
     fig.set_size_inches(np.array(fig.get_size_inches()) * n_images)
@@ -53,7 +53,8 @@ if __name__ == '__main__':
     images = []
     for file in files:
         images.append(plt.imread(file))
+    print(images[0].shape)
     titles = ["1","2","3","4","5","6","7","8","9","10"]
-    show_images(images, cols = 5, titles = titles)
+    show_images(images, cols = 2, titles = titles)
     #plt.show(figure)
     plt.savefig("pc_bended")
