@@ -42,7 +42,8 @@ Task distribution is marked `like this`.
 &ensp; **Manual labelling**  
   
 &ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
-&ensp;&ensp;&ensp; Sorting outcome  `Josefine`  
+&ensp;&ensp;&ensp; Sorting outcome  `Josefine`
+&ensp;&ensp;&ensp; Agreement measures `Malin`
 &ensp;&ensp;&ensp; Validity `Malin`
   
 &ensp; **The asparagus dataset**  `Richard?` 
