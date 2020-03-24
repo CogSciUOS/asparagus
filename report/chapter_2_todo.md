@@ -65,7 +65,8 @@ Theory
 * Did we make use of them/include them when thinking about our working structures?  
   <br/>
   
-MAIN PART: PRACTICE   
+MAIN PART: PRACTICE  
+  
 Working structure  
 * Was everyone working on their own? Did we split into groups? Was there a general structure?  
     * e.g., distribution into specialty groups/ one team leader/ a democratic decision making process?
@@ -90,6 +91,7 @@ Working platform
   <br/>
    
 SUMMARY    
+  
 Summarizing main points  
 - Name the main point/message of every section of the above in one sentence, respectively.
 - Mention that we evaluate the outcome/fazit (what went good/bad; what we would keep/do different next time) of our teamwork in chapter 5.2.2
