@@ -20,14 +20,14 @@ def show_images(images, cols = 1, titles = None):
     n_images = len(images)
     if titles is None: titles = ['Image (%d)' % i for i in range(1,n_images + 1)]
     fig = plt.figure()
-    fig.suptitle("First 10 Eigenasparagus bended", fontsize=40, fontweight='bold')
+    fig.suptitle("First 10 Eigenasparagus bended", fontsize=120, fontweight='bold')
     for n, (image, title) in enumerate(zip(images, titles)):
         a = fig.add_subplot(cols, np.ceil(n_images/float(cols)), n + 1)
         if image.ndim == 2:
             plt.gray()
         crop = image[20:460,215:425,:]
         plt.imshow(crop)
-        a.set_title(title, fontsize=15, fontweight='bold')
+        a.set_title(title, fontsize=120, fontweight='bold')
         a.set_axis_off()
     fig.set_size_inches(np.array(fig.get_size_inches()) * n_images)
     plt.show()
