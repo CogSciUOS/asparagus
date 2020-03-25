@@ -1,3 +1,7 @@
+"""
+A collection of utility classes for manipulating asparagus images
+"""
+
 import os
 import sys
 import math
@@ -12,9 +16,6 @@ from skimage.measure import block_reduce
 
 from skimage.transform import hough_line, hough_line_peaks
 
-"""
-A collection of utility classes for manipulating asparagus images
-"""
 
 def binarize(img, thres):
     """

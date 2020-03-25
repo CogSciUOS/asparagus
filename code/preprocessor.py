@@ -10,7 +10,6 @@ from scipy.ndimage import label, find_objects
 from sklearn.decomposition.pca import PCA
 from skimage.measure import label, regionprops
 
-# @Thomas, why were those nested?
 def binarize_asparagus_img(img):
     def blue_delta(img):
         """ returns the delta between blue and the avg other channels """
@@ -23,7 +22,6 @@ def binarize_asparagus_img(img):
     blue = blue_delta(img) > 25
     return np.logical_and(white, np.invert(blue))
 
-# Michaels function - might be redundant with Thomas' proprocessor function
 def cut_background(img, background_min_hue, background_max_hue, background_brightness):
     """ Initiates masking in the hsv space.
 
@@ -240,10 +238,8 @@ if __name__ == "__main__":
 
     from pathlib import Path
 
-    
-
-    img_dir = "C:/Users/Sophia/Documents/GitHub/asparagus/Blume/"
-    target_dir = "C:/Users/Sophia/Documents/GitHub/asparagus/Blume/clean/"
+    img_dir = # path to the images that should be processed
+    target_dir = # path to where the images should be saved
     target_dir_path = Path(target_dir)
     if not target_dir_path.is_dir():
         os.makedirs(target_dir_path)

@@ -163,8 +163,36 @@ def rust_counter(img, lower=np.array([50,42,31]), upper=np.array([220,220,55]), 
 
     return value
 
-if __name__ == "__main__":
-    # read in the image
-    img = plt.imread("C:/Users/Sophia/Documents/GitHub/asparagus/Blume/clean/7_2.jpg")
-    rust = rust_counter(img)
-    print(rust)
+def zero_crossing(img):   
+    """
+    Use zero crossing to detect edges and display them.
+    Filter the image with a laplacian to get an approximation of the second derivate and apply zero crossing.
+    This function does not give a return value, but plots the results for visual inspection.
+    Note: This function was an attempt for flower detection, but it was never finished.
+    Args:
+        img: the image
+    Return:
+        None
+    """
+    # convert image to grey scale
+    img = color.rgb2gray(img)
+    # smooth the image
+    img_smoothed = filters.gaussian(img, sigma=4) # or 2.0, 4.0
+    # detect edges using a laplacian filter
+    edges = filters.laplace(img_smoothed)
+    # N4 neighborhood
+    zero_crossings_n4 = (edges[:-1, 1:] * edges[1:, 1:] <= 0) | (edges[1:, :-1] * edges[1:, 1:] <= 0)
+    # N8 neighborhood
+    zero_crossings_n8 = (zero_crossings_n4[:, 1:] 
+                        | (edges[:-1, 1:-1] * edges[1:, :-2] <= 0) 
+                        | (edges[:-1, 1:-1] * edges[1:, 2:] <= 0))
+    # plot the results
+    plt.figure(figsize=(12, 12))
+    plt.gray()
+
+    plt.subplot(2,2,1); plt.axis('off'); plt.imshow(img); plt.title('original')
+    plt.subplot(2,2,2); plt.axis('off'); plt.imshow(edges); plt.title('edges')
+    plt.subplot(2,2,3); plt.axis('off'); plt.imshow(zero_crossings_n4); plt.title('zero crossings (N4)')
+    plt.subplot(2,2,4); plt.axis('off'); plt.imshow(zero_crossings_n8); plt.title('zero crossings (N8)' )
+
+    plt.show()
