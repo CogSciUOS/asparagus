@@ -1,3 +1,7 @@
+'''
+This script takes all asparagus IDs from a csv file (in this case all IDs that we hand labeled) and moves the corresponding image files to the desired location.
+'''
+
 import pandas as pd
 import numpy as np
 import os
@@ -40,7 +44,7 @@ if __name__ == '__main__':
     
     path_to_imgs = args[0]
     path_to_csv = args[1]
-    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_rotated'
+    path_to_save = args[2]
     # read ids from combined.csv
     ids = get_asparagus_ids(path_to_csv)
     print('#ids: ' + str(len(ids)))

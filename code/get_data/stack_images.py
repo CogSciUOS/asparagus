@@ -1,3 +1,6 @@
+'''
+This script takes the three perspectives of one asparagus piece and stacks them. They can be stacked horizontally (side by side) or vertically (one after another).
+'''
 # load packages
 from matplotlib.pyplot import imread
 #import pandas as pd
@@ -68,7 +71,7 @@ def stack_images(file_paths, file_names, path_out):
         df_b = np.array(img_b)
         img_c = imread(file_paths[i+2])
         df_c = np.array(img_c)
-        df_concat = np.concatenate((df_a, df_b, df_c), axis = 1)
+        df_concat = np.concatenate((df_a, df_b, df_c), axis = 1) # change the axis here to stack in different direction
         # get the filename of the image to save the stacked image with the same number
         filename = file_names[i]
         # remove _a.png and add _stacked instead
@@ -90,8 +93,6 @@ def stack_images(file_paths, file_names, path_out):
 if __name__ == '__main__':
 
     args = typecast(sys.argv[1:])
-    #path_in = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/with_background_pngs'
-    #path_out = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/stacked_images_horizontal/'
     path_in = args[0]
     path_out = args[1]
     file_paths, file_names = get_files(path_in)
