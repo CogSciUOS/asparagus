@@ -9,6 +9,7 @@ agreement = pd.concat(map(pd.read_csv, glob.glob(os.path.join(
 
 def main():
 
+    global agreement
     print(agreement.head())
 
     print()
@@ -20,13 +21,11 @@ def main():
 
     print()
     print("Annotator pairs IQR")
-    test = agreement.groupby(
-        ["feature", "evaluation_measure"]).median()
-    df = test.reset_index()[test.reset_index()
-                            ["evaluation_measure"] == "kappa"]
-    df = agreement[agreement["evaluation_measure"] == "kappa"]
-    Q1 = df['score'].quantile(0.25)
-    Q3 = df['score'].quantile(0.75)
+    agreement_IQR = agreement.drop(columns=["annotators"])
+    Q1 = agreement_IQR.groupby(
+        ["feature", "evaluation_measure"]).quantile(0.25)
+    Q3 = agreement_IQR.groupby(
+        ["feature", "evaluation_measure"]).quantile(0.75)
     IQR = Q3 - Q1
     print("IQR")
     print(IQR)
