@@ -13,8 +13,10 @@ def main():
 
     print()
     print("Aggregated kappa score over all annotator pairs")
-    print(agreement.groupby(
-        ["feature", "evaluation_measure"]).median())  # where?
+    test = agreement.groupby(
+        ["feature", "evaluation_measure"]).median()
+    print(test.reset_index()[test.reset_index()
+                             ["evaluation_measure"] == "kappa"])
 
     print()
     print("Annotator pairs vs. different measures")
