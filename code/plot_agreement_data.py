@@ -19,6 +19,19 @@ def main():
                              ["evaluation_measure"] == "kappa"])
 
     print()
+    print("Annotator pairs IQR")
+    test = agreement.groupby(
+        ["feature", "evaluation_measure"]).median()
+    df = test.reset_index()[test.reset_index()
+                            ["evaluation_measure"] == "kappa"]
+    df = agreement[agreement["evaluation_measure"] == "kappa"]
+    Q1 = df['score'].quantile(0.25)
+    Q3 = df['score'].quantile(0.75)
+    IQR = Q3 - Q1
+    print("IQR")
+    print(IQR)
+
+    print()
     print("Annotator pairs vs. different measures")
     print(agreement.groupby(
         ["annotators", "evaluation_measure", "feature"]).mean())
