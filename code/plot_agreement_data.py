@@ -8,6 +8,29 @@ agreement = pd.concat(map(pd.read_csv, glob.glob(os.path.join(
 
 
 def main():
+
+    print(agreement.head())
+
+    print()
+    print("Aggregated kappa score over all annotator pairs")
+    print(agreement.groupby(
+        ["feature", "evaluation_measure"]).median())  # where?
+
+    print()
+    print("Annotator pairs vs. different measures")
+    print(agreement.groupby(
+        ["annotators", "evaluation_measure", "feature"]).mean())
+
+    print()
+    print("Comparing the different measures")
+    print(agreement.groupby(
+        ["evaluation_measure", "feature"]).median())
+
+    print()
+    print("Comparing the different features")
+    print(agreement.groupby(
+        ["feature", "evaluation_measure"]).median())
+
     p1 = (ggplot(agreement, aes(x='evaluation_measure', y='score', group='annotators', color='feature'))
           + geom_line(aes(group='feature'), alpha=0.7)
           + geom_point(size=3, alpha=0.7)
