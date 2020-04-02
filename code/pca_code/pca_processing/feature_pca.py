@@ -116,6 +116,7 @@ def calculate_first_eigval(matrix):
     EigVal = EigVal[order]
     EigVal = EigVal[:10]
 
+    print(EigVal)
     np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width','eigval_width'),EigVal)
 
 
