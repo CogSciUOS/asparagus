@@ -44,7 +44,7 @@ def get_asparagus_ids(PATH):
     ids_hollow = csvs.loc[csvs['is_hollow']== 1.0, 'id']
     ids_hollow = ids_hollow[:200]
     ids_hollow = np.array(ids_hollow)
-    print(ids_hollow)
+    #print(ids_hollow)
  # die nummerierung ist ids[1] also die richtige column
     # wir haben 439 hollow
 
@@ -52,7 +52,7 @@ def get_asparagus_ids(PATH):
     ids_unhollow = csvs.loc[csvs['is_hollow']== 0.0, 'id']
     ids_unhollow = ids_unhollow[:200]
     ids_unhollow = np.array(ids_unhollow)
-    print(ids_unhollow)
+    #print(ids_unhollow)
 
     '''get is_bruch ids
 
