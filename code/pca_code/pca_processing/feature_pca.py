@@ -15,6 +15,7 @@ from submit_feature_pca import*
 
 img_shape = (1340, 364, 3)
 
+
 def calculate_PC(matrix):
 
     #load data
@@ -82,7 +83,6 @@ def calculate_PC(matrix):
 
     num_eigenvectors = 4 #lets see how many good ones we have
 
-    #das meinte sophia, wäre dann quasi doe überbleibenden PCs, aber man kann das auch anders berechenen, vielleicht liegt es daran
     eig_used = PC[:num_eigenvectors,:] #Eigenvektoren, die wir benutzen
 
     print("Eig_used: \n", eig_used.shape) #(4, 1463280)
@@ -99,11 +99,34 @@ def calculate_PC(matrix):
 
 #matrix = np.load('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume.npy')
 #calculate_PC(matrix)
+def calculate_first_eigval(matrix):
+    #standardization of the matrix
+    matrix_std = (matrix - matrix.mean())/matrix.std()
+    print('ist matrix_std complex? \n', np.iscomplex(matrix_std))
+
+    #Compute eigenvectors and values
+    # Covariance
+    np.set_printoptions(precision=3)
+    cov = np.cov(matrix_std)
+    # Eigen Values
+    EigVal,EigVec = np.linalg.eig(cov)
+
+    # Ordering Eigen values and vectors
+    order = EigVal.argsort()[::-1]
+    EigVal = EigVal[order]
+    EigVal = EigVal[:10]
+
+    np.save(os.path.join('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width','eigval_width'),EigVal)
+
+
 
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
     matrix = np.load(args[0])
-    calculate_PC(matrix)
+    #calculate_PC(matrix)
+
+    calculate_first_eigval(matrix)
+
     # args = typecast(sys.argv[1:])
     # path_to_imgs = args[0]
     # path_features = args[1]
