@@ -16,8 +16,10 @@ import subprocess
 sys.path.insert(0, os.path.abspath('../code'))
 
 # Build api docs first
-subprocess.run(['sphinx-apidoc', '-f', '-o',
-                'api', os.path.abspath('../code')])
+subprocess.run(['sphinx-apidoc',
+                '-f',
+                '-o', 'api',
+                os.path.abspath('../code')])
 
 
 # -- Project information -----------------------------------------------------
