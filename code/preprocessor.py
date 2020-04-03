@@ -8,9 +8,8 @@ from scipy.ndimage.interpolation import rotate
 from scipy.ndimage.morphology import binary_hit_or_miss, binary_opening, binary_closing, binary_dilation
 from scipy.ndimage import label, find_objects
 from sklearn.decomposition.pca import PCA
+from skimage.measure import label, regionprops
 
-
-# @Thomas, why were those nested?
 def binarize_asparagus_img(img):
     def blue_delta(img):
         """ returns the delta between blue and the avg other channels """
@@ -23,28 +22,7 @@ def binarize_asparagus_img(img):
     blue = blue_delta(img) > 25
     return np.logical_and(white, np.invert(blue))
 
-
-# @Thomas, why do you use dilation after the opening?
-# I commented it out for the proprocessing for the feature extraction
-# if we still need it at another point we have to change this back
-# TODO: clean comments
-def filter_mask_img(img):
-    """Opening on the binarized image.
-    Args:
-        img: image
-    Returns:
-        rotated_img: image after opening
-    """
-    img = binary_opening(img, structure=np.ones((21, 21)))  # 21,21
-    # sometimes, it cuts the heads off, so mostly vertical dilation
-    # img = binary_dilation(img, np.ones((60, 20)))
-    # unnecessary with new approach
-    # img = binary_closing(img, structure=np.ones((35,35))) # 45,45
-    return img
-
-
-# Michaels function - might be redundant with Thomas' proprocessor function
-def cut_background(img, background_max_hue, background_min_hue, background_brightness):
+def cut_background(img, background_min_hue, background_max_hue, background_brightness):
     """ Initiates masking in the hsv space.
 
     Cuts out background with specific hue values.
@@ -60,17 +38,16 @@ def cut_background(img, background_max_hue, background_min_hue, background_brigh
     """
     
     # Open Image
-    raw = img
+    raw = np.array(img)
     # remove alpha-channel (only if its RGBA)
     raw = raw[:,:,0:3]
     # transform to HSV color space
     hsv = matplotlib.colors.rgb_to_hsv(raw)
-    
     # Mask all blue hues (background)
     mask = np.logical_and(hsv[:,:,0] > background_min_hue , hsv[:,:,0] < background_max_hue)
-    # Mask out values that are not bright enough
-    mask = np.logical_or(hsv[:,:,2]< background_brightness, mask)
     
+    # Mask out values that are not bright enough
+    mask = np.logical_or(hsv[:,:,2] < background_brightness, mask)
     #Use binary hit and miss to remove potentially remaining isolated pixels:
     m = np.logical_not(mask)
 
@@ -87,7 +64,7 @@ def cut_background(img, background_max_hue, background_min_hue, background_brigh
     raw[:,:,2][mask] = 0
 
 
-    return raw
+    return mask, raw
 
 def verticalize_img(img):
     """Rotate an image based on its principal axis, makes it upright.
@@ -107,6 +84,57 @@ def verticalize_img(img):
     # Note we use the masked image to find the angle but rotate the original image now
     rotated_img = rotate(img, angle/np.pi*180+90)
     return rotated_img
+
+def mask_img(img):
+    """
+    Finds asparagus in an image and returns a mask that is 1 for every pixel which belongs
+    to an asparagus piece and 0 everywhere else. 
+    
+    img = the image after running segmentation based on color
+    
+    returns: mask as described above
+    """
+    img = np.array(img)
+
+    def binarize(img, thres):
+        res = np.sum(img,axis=2) > thres
+        return res.astype(int)
+
+    bin_img = binarize(img, 10)
+    
+    def find_largest_region(binary_img):
+        """
+        Finds the largest continuous region in a binary image
+        (which hopefully is the asparagus piece)
+        
+        binary_img = a binary image with patches of different sizes
+        
+        returns: essentially a mask
+        """
+        labeled_img = label(bin_img)
+        props = regionprops(labeled_img)
+        maxi = 0
+        maxval = 0
+        for i, prop in enumerate(props):
+            if prop.area > maxval:
+                maxi = i
+                maxval = prop.area
+
+        proppy = props[maxi]
+        coords = proppy.coords # 2d np array
+        empty = np.zeros(bin_img.shape)
+        for i in range(len(coords)):
+            empty[coords[i,0], coords[i,1]] = 1
+        return empty
+    
+    # find largest region, open the image, and find the largest region
+    # once again, because the opening might just have created a small
+    # "island" instead of completely removing the noise
+    empty = find_largest_region(bin_img)
+    empty = binary_opening(empty, structure=np.ones((21,21)))
+    empty = find_largest_region(empty)
+    
+    return empty
 
 def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_constraint=None, max_width = 250, max_height = 1200):
     """ Walks over a directory full of images, detects asparagus in those images, extracts them with minimal bounding box
@@ -139,8 +167,7 @@ def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_co
             idx = int(idx) + 1
 
         for subdir, dirs, files in os.walk(img_dir):
-            files = sorted([f for f in files if not f[0]
-                            == '.' and f[-4:] == '.bmp'])
+            files = sorted([f for f in files if not f[0] == '.' and f[-4:] == '.bmp'])
             for file in files:
                 # print(os.path.join(subdir, file))
                 if((not ready) and current == file):
@@ -155,8 +182,7 @@ def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_co
                     # gathering metadata
                     splits = file.split("-")
                     date = splits[1]  # like 190411
-                    batch_number, photo_number = splits[3].split(
-                        "_")  # like [874][F01.bmp]
+                    batch_number, photo_number = splits[3].split("_")  # like [874][F01.bmp]
                     photo_number = int(photo_number.split(".")[0][2:])
                     if(debug):
                         print("Date: {}".format(date))
@@ -179,10 +205,9 @@ def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_co
                         plt.show()
 
                     # transform to binary (still just black and white)
-                    binary = binarize_asparagus_img(subimg)
-
+                    mask, color_seg_result = cut_background(subimg, 0.4, 0.8, 50)#binarize_asparagus_img(subimg)
                     # create mask, i.e.: Where is asparagus?
-                    mask = filter_mask_img(binary)
+                    #mask = filter_mask_img(binary)
 
                     if(debug):
                         plt.figure(figsize=(20, 20))
@@ -190,45 +215,17 @@ def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_co
                         plt.show()
 
                     # assign a label to each piece of asparagus
-                    labeled_mask, num_features = label(mask)
-
+                    #labeled_mask, num_features = label(mask)
+                    mask = mask_img(color_seg_result)
                     # turn our mask into a color mask
                     cmask = np.stack([mask, mask, mask], axis=2)
 
                     # mask the image
-                    masked = np.where(cmask, subimg, np.ones(
-                        subimg.shape, dtype=np.uint8))
+                    masked = np.where(cmask, subimg, np.ones(subimg.shape, dtype=np.uint8))
 
-                    # find bounding box around every object, pieces = list of tuples, which are corners of bb:
-                    # pieces[0] contains (x1,x2,None), (y1,y2,None) where x1y1 is the upper left coordinate and x2y2 the lower right
-                    pieces = find_objects(labeled_mask)
-
-                    for box in pieces:
-
-                        hs, ws = box
-                        delta_h = hs.stop - hs.start
-                        delta_w = ws.stop - ws.start
-
-                        # if the segment is too small, it was probably a light reflex
-                        if(delta_w < 20 or delta_h < 300):
-                            print("artifact discovered in {}".format(file))
-                        else:
-                            # patch is asparagus, extract to new image and add some padding
-                            new_img = masked[hs.start:hs.stop,
-                                             ws.start:ws.stop, :]
-                            lr = max_width - delta_w
-                            ud = max_height - delta_h
-                            new_img = np.pad(new_img, ((int(np.floor(ud/2)), int(np.ceil(ud/2))),
-                                                       (int(np.floor(lr/2)),
-                                                        int(np.ceil(lr/2))),
-                                                       (0, 0)), "constant", constant_values=0)
-                            if(show):
-                                plt.figure(figsize=(15, 15))
-                                plt.imshow(new_img)
-                                plt.show()
-                            if(save):
-                                plt.imsave(os.path.join(target_dir, str(
-                                    idx)+"_"+str(photo_number)+".jpg"), new_img)
+                    if(save):
+                        plt.imsave(os.path.join(target_dir, str(
+                            idx)+"_"+str(photo_number)+".jpg"), masked)
 
                     if(photo_number == 2):
                         progress.truncate(0)
@@ -237,4 +234,38 @@ def preprocessor(img_dir, target_dir, show=True, save=False, debug=True, time_co
                         idx += 1
 
 
+if __name__ == "__main__":
 
+    from pathlib import Path
+
+    img_dir = # path to the images that should be processed
+    target_dir = # path to where the images should be saved
+    target_dir_path = Path(target_dir)
+    if not target_dir_path.is_dir():
+        os.makedirs(target_dir_path)
+    if not Path(os.path.join(target_dir, "names.csv")).is_file():
+        open(os.path.join(target_dir, "names.csv"), 'a').close()
+    if not Path(os.path.join(img_dir, "progress.txt")).is_file():
+        open(os.path.join(img_dir, "progress.txt"), 'a').close()
+
+    try:
+        with open(os.path.join(img_dir, "progress.txt")) as file:
+            pass
+    except IOError:
+        file = open(os.path.join(img_dir, "progress.txt"), "w")
+        file.close()
+
+    try:
+        with open(os.path.join(target_dir, "names.csv")) as file:
+            pass
+    except IOError:
+        file = open(os.path.join(target_dir, "names.csv"), "a")
+        file.close()
+
+    avg_width = 160
+    avg_height = 1050
+
+    max_width = 250
+    max_height = 1200
+
+    preprocessor(img_dir, target_dir, show=False, save=True, debug=False)
