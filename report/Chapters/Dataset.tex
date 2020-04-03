@@ -1,0 +1,158 @@
+%----------------------------------------------------------------------------------------
+%	PREPROCESSING PIPELINE AND DATASET CREATION
+%----------------------------------------------------------------------------------------
+\section{The dataset}
+
+Different preprocessing steps of the data and deciding how the data should/will look like. The label app is introduced and the process of manually labeling a part of the data, with a description of the criteria. Finally, the dataset is introduced.
+
+
+\subsection{Preprocessing steps}
+
+First approach to create a dataset (layout) and data augmentation to generate more samples.
+
+
+\subsubsection{Automatic feature extraction}
+
+We (tried to) create scripts for:
+
+\begin{itemize}
+\item background removal of the collected images
+\item automatic feature extraction pipeline (including the decision that we first try to sort for features and not labels) for
+
+\begin{itemize}
+\item rust
+\item bent
+\item etc. ...
+\end{itemize}
+
+\end{itemize}
+
+
+\subsubsection{Preparation for manual feature extraction}
+
+Preparing the images for manual classification to create more labeled data.
+
+\begin{itemize}
+\item sorting the pictures in the grid
+\item have 3 pictures per asparagus spear
+\end{itemize}
+
+
+\subsection{The hand-label app}
+
+Introduction to the script created for manual sorting. Fusion of the feature extraction scripts.
+
+\begin{itemize}
+\item What is it?
+\item Why did we need it? What was the idea behind it?
+\item How does it work? (keep short! it's only the introduction)
+\end{itemize}
+
+Do not explain in length here but rather give an idea and refer to README's and to code in GitHub whenever possible.
+
+
+\subsubsection{How to install}
+
+Installation of the app.
+
+\begin{itemize}
+\item environment setup
+\item mount points
+\item problems we ran into
+\item etc.
+\end{itemize}
+
+
+\subsubsection{Operating instructions}
+
+User manual for the app and introduction to its graphical user interface.
+
+\begin{itemize}
+\item What can you find where? (include one example picture)
+\item Step-by-step guideline through
+
+\begin{enumerate}
+\item loading pictures,
+\item creating a .csv file,
+\item and how to sort one picture.
+\end{enumerate}
+
+\end{itemize}
+
+
+\subsubsection{Performance}
+
+Results and general performance of the app.
+
+\begin{itemize}
+\item How well did the feature extraction work?
+\item How much features had to be labeled by hand?
+\item What is the output of the app?
+\end{itemize}
+
+
+\subsection{Manual labeling}
+
+The process and outcome of the hand-labeling of the asparagus images.
+
+
+\subsubsection{Sorting criteria}
+
+The criteria explained in detail for the hand-labeling of the features with the app.
+
+\begin{itemize}
+\item The single sorting criteria for rust, bent, flower, etc. (including example pictures)
+\item What are expected difficulties we might encounter?
+\end{itemize}
+
+
+\subsubsection{Sorting outcome}
+
+The process and the results of the sorting. 
+
+\begin{enumerate}
+\item How much did we sort?
+\item How well did the sorting work in general?
+\begin{enumerate}
+\item i.e., was it easy to sort?
+\item how long did it take?
+\item what problems were encountered?
+\end{enumerate}
+\item How accurately did we sort as a group?
+\begin{enumerate}
+\item what measurements do we take i.e., Kappa Agreement
+\end{enumerate}
+\end{enumerate}
+
+\subsection{Validity}
+
+The validity of our sorted data: Kappa Agreement
+
+
+\subsection{The asparagus dataset}
+
+Any information on the data we worked with for our approaches.
+
+
+\subsubsection{Different datasets}
+
+Structural information on the datasets.
+
+\begin{itemize}
+\item What do they look like?
+\item How big are they (labeled vs unlabeled samples)?
+\item Which were criteria for throwing out data?
+\item maybe an overview picture with all relevant information on one glance
+\end{itemize}
+
+
+\subsubsection{Challenges}
+
+Problems and challenges during the creation of the datasets.
+
+\begin{itemize}
+\item What were the challenges in creating a general dataset?
+\item What were challenges in general?
+\item How well could we work with the datasets?
+\item What was used as training data, validation data, and test data?
+\end{itemize}

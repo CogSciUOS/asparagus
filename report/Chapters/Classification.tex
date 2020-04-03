@@ -1,0 +1,185 @@
+%----------------------------------------------------------------------------------------
+%	CLASSIFICATION OF DATA VIA DIFFERENT METHODS
+%
+%	Classification of the data using different approaches.
+%----------------------------------------------------------------------------------------
+\section{Classification}
+
+Given the structure of our dataset, namely image data with a sub dataset with corresponding class labels, and a sub dataset with corresponding feature labels, different machine learning and computer vision methods were chosen, to tackle the problem of image classification. \\
+
+Image classification refers to the method of identifying to which category an image belongs to, according to its visual information.  Classification problems can be divided into three different types: binary, multi-class and multi-label. Whereas a binary classification only distinguishes between two different classes and therefore classifies an image into one of the two classes, a multi-class classification distinguishes between multiple exclusive classes. A multi-label classification also works for multiple classes. However, a single image can belong to none, one, several or all of the classes. Those classes can be seen as a feature vector for each image. Each feature can be present or not, independently of the other features. ( vielleicht hier zitieren, seite muss noch rausgesucht werden: Har-Peled, S., Roth, D., Zimak, D. (2003) "Constraint Classification for Multiclass Classification and Ranking." In: Becker, B., Thrun, S., Obermayer, K. (Eds) Advances in Neural Information Processing Systems 15: Proceedings of the 2002 Conference, MIT Press. ISBN 0-262-02550-7) \\
+
+Each of those classification methods comes with certain advantages and implications.
+There exist many classification methods which have been developed for binary classification problems, but less methods are suited for multi-label or multi-class classification. Therefore, the latter often work as a combination of binary classifiers. Moreover, multi-class and multi-label classification have the difficulty of sparser labels. \\
+
+Binary classification can be used to decide whether a certain feature is present at one certain asparagus piece, or not. This is helpful for a first inspection of the data, but does not enable a full classification of one image into one of 13 classes, which are currently sorted at the Spargelhof Gut Hosterfeld. Multi-class classification solves this problem. It is ferly easy to apply this classification type on the prelabeled images, but increasingly difficult for the semi-supervised and unsupervised approaches. While it enables a clear identification of class belonging, it also does not enable to train variability within classes. As the class id results from a combination of the presence of certain features, and not others, it is therefore also reasonable to go for a multi-label classification approach. \\
+
+Moreover, there are different methods on how to approach image classification. Those can be divided into three main groups: supervised learning, semi supervised learning and unsupervised learning. Additionally to classical computer vision based approaches, our study group investigated several neural network approaches. \\
+
+During our group work, algorithms of all three different classification types (binary, multiclass and multilabel) as well as of all three learning types (supervised, semi-supervised and unsupervised) were applied for different working steps and different purposes. \\
+
+In the long run, an integrated model was aimed which predicts all features of a single asparagus piece, and from which an additional class can be inferred. However, as intermediate steps towards that goal, the focus was to optimize models on identifying the presence of single features. Besides that, we only investigated a few multi-label classification tasks. \\
+
+The following chapter aims to give a general background of the different approaches chosen for our image classification problem, as well as a detailed overview of the concrete implementations of the models and the mechanisms of their hyperparameters.
+All algorithms were implemented in Python.  \\
+
+
+
+\subsection{Supervised learning}
+
+Convolutional neural networks created to sort the samples for their features. \\
+\\
+INTRODUCTION \\
+... \\
+\\
+GENERAL BACKGROUND \\
+... \\
+\\
+IDEAS FOR MODELS \\
+... \\
+\\
+OUTRO \\
+Transfer to the specific model ideas that we worked on for supervised learning.
+
+\subsubsection{Single-label classification}
+
+Single-label approach, where the network sorts for one feature. \\
+\\
+\\
+\\
+INTRODUCTION \\
+... \\
+\\
+BACKGROUND \\
+... \\
+\\
+ACTUAL MODEL STRUCTURE \\
+... \\
+\\
+RESULTS \\
+... \\
+\\
+DISCUSSION \\
+... \\
+\\
+
+\subsubsection{Multi-label classification}
+
+Multi-label approach, where the network labels everything at the same time. \\
+\\
+\\
+\\
+INTRODUCTION \\
+... \\
+\\
+BACKGROUND \\
+... \\
+\\
+ACTUAL MODEL STRUCTURE \\
+... \\
+\\
+RESULTS \\
+... \\
+\\
+DISCUSSION \\
+... \\
+\\
+
+
+\subsection{Semi-supervised learning}
+
+Train a network on labeled and unlabeled samples. \\
+\\
+INTRODUCTION \\
+... \\
+\\
+GENERAL BACKGROUND \\
+... \\
+\\
+IDEAS FOR MODELS \\
+... \\
+\\
+OUTRO \\
+Transfer to the specific model ideas that we worked on for semi-supervised learning. \\
+\\
+
+\subsubsection{Autoencoder}
+
+INTRODUCTION \\
+... \\
+\\
+BACKGROUND \\
+... \\
+\\
+ACTUAL MODEL STRUCTURE \\
+... \\
+\\
+RESULTS \\
+... \\
+\\
+DISCUSSION \\
+... \\
+\\
+
+\subsection{Unsupervised learning}
+
+Unsupervised approach to sort the asparagus. \\
+\\
+INTRODUCTION \\
+Unsupervised learning are all kinds of machine learning algorithms which are not supervised.
+More specifically, they work without a known goal, a reward system or prior training,
+and find a structure within the data, or some form of clustering of data points.
+In supervised approaches, the model is given both the input and the labels.
+In unsupervised learning approaches, the model is only given the input data.
+What this means is that unsupervised learning works without training samples,
+and without labeled data. One goal of unsupervised learning algorithms is to find
+hidden structures or patterns in the data, without a given label.  \\
+\\
+GENERAL BACKGROUND \\
+Dimension reduction algorithms and clustering algorithms have been identified as the two main
+classes of unsupervised machine learning algorithms which are used in unsupervised image
+categorization (link:https://www.researchgate.net/publication/265729668_Unsupervised_Classification_of_Images_A_Review  Olaode 2014).
+
+Multivariate datasets are generally also high dimensional. However, it is common,
+that some parts of that variable space are more filled with data points than others.
+Large parts of high dimensional variable space are not used. In order to recognize a
+structure or pattern in the data, it is often necessary to reduce the number of dimensions.
+For this, both linear- as well as non-linear approaches can be applied.\\
+\\
+IDEAS FOR MODELS \\
+Linear unsupervised learning methods for which also descriptive statistics can be
+acquired are e.g. Principal Component Analysis (PCA), Non-negative matrix
+factorization, and Independent component analysis.
+(link:https://www.researchgate.net/publication/265729668_Unsupervised_Classification_of_Images_A_Review).
+Some examples for non-linear approaches would be Kernel PCA,( Scholkopf  et  al. – im oben genannten paper),
+Isometric Feature Mapping, Local Linear Embedding, and Local Multi-Dimensional Scaling.\\
+\\
+OUTRO \\
+For the current work, the linear dimension reduction algorithm PCA was chosen.\\
+\\
+\subsubsection{Principal component analysis}
+
+INTRODUCTION \\
+... \\
+\\
+BACKGROUND \\
+... \\
+\\
+ACTUAL MODEL STRUCTURE \\
+... \\
+\\
+RESULTS \\
+... \\
+\\
+DISCUSSION \\
+... \\
+\\
+
+\subsection{From feature to label}
+
+Linking the features to their designated label and combining the outcome of multiple networks for further processing.
+
+\begin{itemize}
+\item how we go from the single features to the label
+\item integrating and visualizing the approaches in streamlit
+\end{itemize}
