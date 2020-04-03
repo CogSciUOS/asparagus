@@ -1,3 +1,16 @@
+""" This is a streamlit app to compare different models
+    
+    The models take features that were labeled by humans as input
+    (for training we have a hand-sortet ground truth)
+    and provide a prediction for a class as output
+
+    - inspection of corresponding image is possible
+    - inspection of data frame 
+    - inspection of confusion matrix
+
+    To run the app:
+    streamlit run multiple_models_app.py
+"""
 import streamlit as st
 
 import numpy as np
@@ -22,7 +35,7 @@ from os.path import isfile, join
 Here's our first attempt at displaying the data
 """
 
-
+# loading the data
 @st.cache
 def load_data():
     return tm.load_data("../../annotations")
@@ -31,6 +44,7 @@ def load_data():
 raw_data, dummy_data = load_data()
 labels = [col for col in dummy_data if col.startswith('Class')]
 
+# display the train df
 if st.checkbox('Show training dataframe'):
     dummy_data
 
@@ -40,42 +54,36 @@ if st.checkbox('Show training dataframe'):
 st.bar_chart(raw_data['Class'].value_counts())
 
 
+######
+# train the model
 x = dummy_data.iloc[:, :-len(labels)].values
 # set Label as y
 y = dummy_data[labels].values
 
-# make a train and test split
-# 75% train; 25% test
-# TODO maybe add a slider here?  Well that is cheating isn't it?
+# make a train and test split: 75% train; 25% test
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)
 
 "After we perform the train/test-split, we have", len(
     x_train), "training samples"
 "After we perform the train/test-split, we have", len(x_test), "test samples"
 
-
 """
 ## Choose the model that you want to train
 Right now there is a random forest model and a multilayer preceptron.
 """
-
 model_folder = "models"
 models = [model[:model.index(".")] for model in listdir(
     model_folder) if isfile(join(model_folder, model))]
 
-
 model_option = st.selectbox(
     'Which model do you want to train?',
     models)
-
 'You selected: ', model_option
 
 # load selected model
 model = tm.load_model(model_option, input_shape=x_train.shape[1:])
 
-
 '## Fitting the model'
-
 try:
     # if keras model, make several epochs
     model.fit(x_train, y_train, epochs=500)
@@ -94,20 +102,13 @@ if hasattr(model, 'evaluate'):
 y_pred = model.predict(x_test)
 
 "Number of samples in predictions:", len(y_pred)
+######
+
 
 """## Results
-
 ### Classification report"""
-
 st.write(pd.DataFrame(classification_report(y_test.argmax(axis=1),
                                             y_pred.argmax(axis=1), target_names=labels, output_dict=True)).transpose())
-
-
-kappa_img_folder = "kappa_images"
-class_folders = [class_folder for class_folder in listdir(
-    kappa_img_folder)]
-class_folders.sort()
-
 
 "### Confusion Matrix"
 if st.checkbox('Show confusion matrix'):
@@ -118,11 +119,14 @@ if st.checkbox('Show confusion matrix'):
 
 """ ## Inspecting specific asparagus pieces
 ### Which image folder do you want to have a look at?"""
+kappa_img_folder = "kappa_images"
+class_folders = [class_folder for class_folder in listdir(
+    kappa_img_folder)]
+class_folders.sort()
 
 img_option = st.selectbox(
     '',
     class_folders)
-
 
 number_img_folder = len(
     [image for image in listdir(kappa_img_folder+"/"+img_option+"/")])
@@ -161,9 +165,7 @@ def load_sample(row):
 # I am missing the filenames here
 # so this is not totally correct and only for visualization
 df = dummy_data
-
 sample_idx = st.slider('Sample', 0, int(number_img_folder / 3.0), value=0)
-
 load_sample(df.iloc[sample_idx])
 
 
