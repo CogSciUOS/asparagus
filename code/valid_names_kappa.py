@@ -7,15 +7,11 @@ def rek_get_files(path, name_contains, ignore, root=None):
     for f in os.scandir(path):
         if ignore in f.path:
             continue
-        if f.is_dir():
-            print("Get all filenames in ... " + f.path)
-            rek_get_files(f.path+"/", name_contains, ignore, root)
-        else:
-            if name_contains in f.name:
-                if root == None:
-                     files.append(path+f.name)
-                else:
-                     files.append((path+f.name)[len(root):])
+        if name_contains in f.name:
+            if root == None:
+                 files.append(path+f.name)
+            else:
+                 files.append((path+f.name)[len(root):])
 
 def get_files(path, name_contains, ignore, use_full_path=False):
     files.clear()
@@ -59,13 +55,15 @@ def get_valid_triples(root):
     return valid_triples
 
 if __name__ == "__main__":
-    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/unlabled/"
-    valid = get_valid_triples(root)
-    # safe list of valid names in a csv file
-    # each row contains a triplet of file directories
-    with open(root+'valid_files.csv', 'w') as outfile:
-        writer = csv.writer(outfile, delimiter=',')
-        for i in valid:
-            writer.writerow(i)
-
-
+    root = "/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/"
+    classes = ["1A_Anna", "1A_Bona", "1A_Clara", "1A_Krumme", "1A_Violett", "2A", "2B", "Blume", "Dicke", "Hohle", "Köpfe", "Rost", "Suppe"]
+    
+    for c in classes:
+        path = root + c + "/"
+        valid = get_valid_triples(path)
+        # safe list of valid names in a csv file
+        # each row contains a triplet of file directories
+        with open(root + "valids_" + c + ".csv", 'w') as outfile:
+            writer = csv.writer(outfile, delimiter=',')
+            for i in valid:
+                writer.writerow(i)
