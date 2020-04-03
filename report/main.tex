@@ -39,7 +39,7 @@ liststotoc, % Uncomment to add the list of figures/tables/etc to the table of co
 %parskip, % Uncomment to add space between paragraphs
 %nohyperref, % Uncomment to not load the hyperref package
 headsepline, % Uncomment to get a line under the header
-%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%chapterinoneline,                            % Uncomment to place the chapter title next to the number on one line
 %consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
 ]{MastersDoctoralThesis} % The class file specifying the document structure
 
@@ -51,26 +51,31 @@ headsepline, % Uncomment to get a line under the header
 % facilitate commenting
 \usepackage{comment}
 
+% hoped I can use this for line break in long url links but seems not to work
+\usepackage[breaklinks=true]{hyperref}
+
 % Use the Palatino font by default
 \usepackage{mathpazo}
 
 % Use the bibtex backend with the authoryear citation style (which resembles APA)
-%\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
 
-\usepackage[citestyle=authoryear,
-			bibstyle=authoryear,
-			natbib=true,
-			backend=biber,
-            maxbibnames=10,
-			maxcitenames=2,
-            giveninits=true,
-            uniquename=init,
-            terseinits = true,
-            dashed=false
-			]{biblatex}
+
+%\usepackage[citestyle=authoryear,
+% 			bibstyle=authoryear,
+%			natbib=true,
+%			backend=biber,
+%            maxbibnames=10,
+% 	 		maxcitenames=2,
+%            giveninits=true,
+%            uniquename=init,
+%            terseinits = true,
+%            dashed=false
+%			]{biblatex}
 
 % The filename of the bibliography
 \addbibresource{bibliography.bib}
+
 
 % Required to generate language-dependent quotes in the bibliography
 \usepackage[autostyle=true]{csquotes}
@@ -183,6 +188,8 @@ headsepline, % Uncomment to get a line under the header
 \hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
 \hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
 }
+
+%\bibliographystyle{plain}
 
 \begin{document}
 
@@ -305,7 +312,7 @@ headsepline, % Uncomment to get a line under the header
 
 \printbibliography[heading=bibintoc]
 
-
+%\bibliography{bibliography.bib}
 
 
 %----------------------------------------------------------------------------------------
