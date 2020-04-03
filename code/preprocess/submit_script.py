@@ -5,7 +5,7 @@ def submit_script(scriptpath, args, mem = "4G", cuda_cores = 0, jobname = "job")
     args = [str(a) for a in args]
     args_string = ""
     for a in args:
-        args_string += a # i dont get why?
+        args_string += a
         args_string += " "
     args_string = args_string[:-1]
 
@@ -25,4 +25,3 @@ def submit_script(scriptpath, args, mem = "4G", cuda_cores = 0, jobname = "job")
 
 if __name__ == "__main__":
     submit_script(os.getcwd()+"/"+sys.argv[1],sys.argv[2:])
-
