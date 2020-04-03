@@ -68,7 +68,7 @@ def load_model(model_module, input_shape=None):
     """loads model from file in models folder
     """
     # load model from file
-    model_util = importlib.import_module('.' + model_module, 'models')
+    model_util = importlib.import_module('pipeline.models.' + model_module)
     # call create_model function of the model_util
     return model_util.create_model(input_shape)
 
@@ -176,7 +176,7 @@ def visualize_by_pca(x_train, x_test, y_train, y_test, y_pred, labels=None, mode
     ax[2].set_xlim([-.5, 5])
     fig.colorbar(sc_pred, ax=ax[2])
 
-    plt.show()
+    return fig
 
 
 def load_annotation(filename, drop_columns_starting_with=None):
@@ -324,14 +324,14 @@ def main():
     log.info("Number of samples in predictions:")
     log.info(len(y_pred))
 
-    log.info("feature vector", y_test[0])
+    log.info("feature vector %s", y_test[0])
     log.info("has prediction")
-    log.info("feature vector", y_pred[0].round(3))
+    log.info("feature vector %s", y_pred[0].round(3))
 
     log.info("Use argmax to get labels")
-    log.info("sample label", y_test.argmax(axis=1)[0])
+    log.info("sample label %s", y_test.argmax(axis=1)[0])
     log.info("has prediction")
-    log.info("sample label", y_pred.argmax(axis=1)[0])
+    log.info("sample label %s", y_pred.argmax(axis=1)[0])
 
     # looking at the results using classif report, confusion matrix and PCA
     classif_report(x_train, x_test, y_train,
