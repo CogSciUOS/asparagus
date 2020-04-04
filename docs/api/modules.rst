@@ -4,8 +4,12 @@ code
 .. toctree::
    :maxdepth: 4
 
+   app_from_img_to_categories
+   combine_labels
    feature_extraction
    good_style
-   kappa_agreement
+   labelCNN
    label_app
-   preprocessor
+   measure_agreement
+   pipeline
+   plot_agreement_data
