@@ -3,69 +3,65 @@
 %----------------------------------------------------------------------------------------
 \section{Discussion}
 
-TODO
-
-\subsection{Comparison of classification approaches}
-
-TODO: In this section, we can compare the different approaches we used to classify our data.
+In our study project we pursued three main objectives. The main goal was to develop and improve algorithms for fruit classification. The second objective is closely linked to this and relates to best practices in relation to applied data science and big data. This included storage of data on remote servers and computationally expensive procedures that are required for training in the computational grid of Osnabrück University: The methodological aspect of our study project. As our work also served as a sample project to learn more about possibilities to effectively organize collaborative work we also targeted at the organizational aspect that is closely linked to project management. In the following, the core results with respect to named objectives are shortly named and discussed.
 
 
-\subsubsection{Comparing architectures}
+\subsection{Discussion of classification results}
 
-TODO: Comparing the architectures of the approaches.
-
-\begin{itemize}
-\item Are they comparable?
-\item How is the structure different?
-\item Which parameters are different?
-\item Can we expect the results to be comparable?
-\end{itemize}
-
-
-\subsubsection{Comparing results}
-
-TODO: Comparing the results of the different classification approaches.
-
-\begin{itemize}
-\item Which approach worked best?
-\item Which values do we want to use for comparison? e.g.
-
-\begin{itemize}
-\item ROC curve (false positive (FP), true positive(TP)) 
-\item validation accuracy
-\item ...
-\end{itemize}
-
-\end{itemize}
+Asparagus pieces have several features that we aimed to extract. Some features such as the length and width of asparagus pieces were undoubtedly measurable using a pure computer vision approach that does rely on machine learning. For others direct filtering was not easily possible. Arguably, there are two reasons. First a clear cut definition of features such as “curvature” or “violet” that is precise enough to directly be implemented does not exist. Although relevant information can easily be extracted, the rules to infer the desired binary features are inaccessible: On one side, decision boundaries for binary classifiers have to be found while the perception of the features colour or curvature, on the other, has shown to be very subjective. Second, filtering features such as “flowering head” has proven difficult. Named attribute relates to details in a few pixels, comes in different forms and highly depends on the perspective. Because of both reasons machine learning must be employed to successfully classify asparagus. \\
+We designed several neural networks and applied them in different ways to analyze and classify a large-scale asparagus image dataset. Some approaches worked better than others. The maximum accuracy we reached is X\%, which was reached by model X.  \\
+\\
+Training MLP classifiers on histograms of palette images has proven a promising approach to predict colour features. Named histograms contain information about the fraction of foreground pixels that correspond to violet or rusty colours. As MLPs have few parameters the design is rather trivial and the training process quick. The results are considered as a good baseline performance for “rusty body” and “violet”. The application on palette images that show asparagus heads only might also be suitable to predict the feature “rusty head”. This is yet to be tested. MLPs have also shown to be suitable when applied to predict the binary curvature feature based on partial angles. The fact that predictions are far from perfect is arguably due to inconsistencies in the training data. One may assume, however, that the models generalized well and represent rules that relate to average opinions or definitions of highly subjective features such as color or curvature. \\
+\\
+Feedforward CNNs were applied to predict individual features, for multilabel prediction and predictions based on snippets that depict asparagus heads. In addition, effects of a custom loss function were tested. Promising in the multilabel prediction is that not only individual features, but also the relation between features can be considered in the learning process. Our multilabel CNN reaches an accuracy up to 87\%, which seems high. However, when looking at the accuracy and loss values over time, one can see that the model does not learn much. While sensitivity and specificity improve, and therefore indicate learning, the validation loss remains high, indicating overfitting. This model seems to be especially sensitive to the imbalance between 0 and 1 in the label vectors. Concerning this, there is still room to play around with our parameters to further improve the architecture. \\
+\\
+Applying PCA on individual features and projecting the image information into a lower dimensional subspace showed promising results, too. It really seemed that the first principal components managed to capture most of the information. However, differences between features seem to be too small, to reliably distinguish all features. In this approach, the features width, length and hollow seem to be classifiable with high performance, and the features bent and rusty body seem to be most difficult.  \\
+\\
+Similarly variational autoencoders were used to derive a low dimensional representation using unsupervised learning. While some features such as the width and length were mapped to clearly differentiable regions in latent asparagus space this was not the case for many others. Only as a tendency, spears labelled as “bent” are for example mapped to regions in the lower periphery. Autoencoders are known for blurry reconstructions. This is a possible explanation for the lack of clusters in latent space for features that relate to details that were not sufficiently reconstructed.  \\
+\\
+Convolutional autoencoders were used for semi-supervised learning. However the results could be described as mediocre only. One problem is arguably the mentioned insufficiency in reconstructing details. As details such as brown spots define target classes (e.g. “rusty head”) and they are not present in latent space. It is hard to establish a correlation of the respective latent layer activation and the target labels. Larger input image sizes or different network architectures that are suitable to reconstruct higher detail images could potentially help to improve performance of semi supervised learning. \\
+\\
+Detecting the feature “rust head” has proven rather difficult even though a dedicated network was trained on snippets that show asparagus heads in rather high resolution. This is potentially the case because details (here: small brown spots) that are hardly visible even to the human eye have to be considered that occur in different locations. Although better results were achieved for flowering heads this arguably also holds for this category. In contrast better results were achieved for features that relate to the overall shape of asparagus pieces  instead of fine details. Arguably this holds for the category “hallow” but e.g. also for curvature. Colour features are detected especially well based on histograms of palette images while convolutional networks have proven suitable to detect shape related features.\\
+\\
+In summary we successfully measured the width and height of asparagus pieces and were able to develop detectors for the other features that performed surprisingly good, given the low inter-coder reliability that was arguably due to unclear definitions of binary features such as “bent” or “violet.” 
 
 
-\subsection{Final result of the project}
 
-TODO: Our final conclusion on the project.
+\subsection{Methodological discussion}
+
+Looking back, there are methodological issues, which we would do differently now. We started our study project at the beginning of April. This was at the same time, as the asparagus harvesting season started. Positive about this was that we knew that we could start collecting data straight away. Negative about it was that we had to start collecting data without a detailed plan in advance. This could have made the data acquisition more efficient, and structured. We did not have enough time to clarify some important things in advance, such as: How much data do we need, what format do we need it in? Is autonomous calibration possible? How exactly do we store the images effectively and efficiently? Is the setup as we need it - compare different ones and decide:  How can we improve the setup?  What kind of measurements or changes do we want to perform with the camera?  Is the illumination as we want it? Could stereo cameras or other 3D view techniques such as depth cameras or latergitter be used? How should our pipeline look? How can we get labelled data right away?  \\
+\\
+Another discussion point concerns our data. The image quality in terms of pixel size of our images was really high. Also, the illumination was fairly consistent during the harvesting season. However, we did not investigate in trying to improve the illumination by more LEDs. This could have improved the amount of reflections, which can be seen on some images. \\
+\\
+Even though we have three images of every asparagus spear, they are all taken from the same perspective – from above. In the ideal case, the asparagus spear rotates over the assembly line, and we can see each spear from a different viewpoint. The more the asparagus is rotated, the more reliable a later judgement of the spear in terms of class or features is possible. As the rotation often does not occur, because the spear is too bended, an additional viewpoint could improve the rating. This could be through an additional camera from the top, or an additional camera taking an image from the bottom of the spear (see also chapter XX). \\
+\\
+As already previously mentioned, our labels of asparagus features were partly achieved by computer-vision algorithms, partly based on human perception. As previously outlined, human performance is commonly acknowledged as the baseline performance in classification tasks. While the performance of our automatic feature-extraction for length and width is really high, we decided that for the features violet, rusty head, rusty body, curvature, hollow and blooming a human perception would be more accurate. Even though this is commonly used as the “gold standard”, it can of course also bring more variation, and maybe even inconsistency between raters, than an algorithm (see also 3.3). \\
+\\
+Also, we decided to keep the features binary, as this was easier to label, and easier to use for our supervised classification approaches. The down side of a binary label is however, that a clear boundary is set, where in real life there is a smooth transition. Even for our supervising farmer, it was sometimes not clear to set the boundary – especially for the feature bent, this was difficult. While this makes certain analyses and classification much easier, it also brings certain restrictions. \\
+\\
+Moreover, we also observed difficulties concerning the labels in the communication between us and the farmer. The communicated need is that the sorting algorithm works “better”. But what does that technically mean? And what is technically possible? For him, the sorting would already be “better”, if the sorting mistakes would be more systematic. This would not necessarily mean that the overall accuracy of correctly sorted asparagus into 1 out of 13 classes needs to improve, but that the overall impression of all spears sorted into one class is more homogeneous. \\
+\\
+In connection to the previous difficulty, Mr. Schulze-Weddige mentioned a wish that there would always be the same amount of asparagus spears in the first class. In this case, it would be accompanied by the fact that we need a smooth transition for several features, so that we could sort e.g. the only little bent spears on some days into the first class, on other days into the second class. One idea we had for this was to implement a Bayesian classifier into our deep learning approaches, but due to time constraints we did not pursue this idea. \\
+\\
+Different models ran with jpg or png files of our initial images. All color analysis was performed in the RGB color space. In the literature it is found that some authors (e.g. Bhargave 2018) use different color spaces for color-based feature extraction. Exploring other color spaces could potentially also improve our violet and rust detection. 
 
 
-\subsubsection{Scientific results}
-
-TODO: Short summary/evaluation of the project and its outcome on a scientific basis.
-
-\begin{itemize}
-\item What did we achieve in the end?
-\item What went well and what did not work so well?
-\item What would we do differently if we could start anew, what would we keep?
-\item What problems did we run into and how did we solve them?
-\item Were there any technical restrictions?
-\end{itemize}
 
 
-\subsubsection{Organization}
+\subsection{Organizational results}
 
-TODO: Short summary/evaluation of the project as a study project and teamwork experience.
-
-\begin{itemize}
-\item How did the organisation work?
-\item What did we achieve in the end?
-\item What went well and what did not work so well?
-\item What would we do differently if we could start anew - what would we keep?
-\item What problems did we run into and how did we solve them?
-\end{itemize}
+- still in progress - \\
+\\
+During the course of the study project, the team did not only pursue the objective of learning and implementing computer vision based approaches for a practical application in asparagus classification but also grew in respect to soft-skills like teamwork and project management. \\
+In the following text, it is summarized and briefly discussed what each member has personally learned during the year on an organizational level. \\
+\\
+On a more practical level, programming skills could be further developed together and a larger focus was set on clean and comprehensive code. Additional scripts and programs were introduced like Github or pages as read the docs. For better communication, it was indispensable to write code or text that can be understood by many people as well as formulate tasks and working goals in a clear and open way. Every member of the group had the responsibility to explain not only his or her views but also learn to listen to the ideas of others. Team discussions became a valuable basis for exchanging and learning from each other. It was understood that there is no point in closing yourself off from the group and minding your own business. Also, updating your team members is important and saves more than time, frustraction, and the double-distribution of tasks. Other practical skills comprise giving understandable presentations and holding productive meetings where goal-oriented questions are discussed. Working together towards a goal was also a good training ground for assessing how teamwork and task distribution are done in research groups at companies or in the scientific fields. \\
+When evaluating the team dynamics through the year, especially the time management and the sharing of responsibilities were emphasized. It could be trained how a team meeting is held effectively and productive. Further, each member came at least once to their frustration limits. Mistakes had to be owned to be able to progress towards the shared goal. It had to be learned to deal with frustration and drawbacks as well as practicing open and constructive criticism. Again, communication was key when the team was struggling to build each other up and help each other out. It is also important to value the effort that your team members put into their task, take the time to listen to what they did and help with constructive feedback. \\
+\\
+For the next project, it was agreed that the working environment had to be stricter and more focused. Everyone needs to know what he or she has to do and it has to be made sure by everyone. No one should be left behind. In turn, taking the initiative and also more responsibility were points we would have done differently if we could start anew. Delegating works and having an overview were further points that were considered worth of improvement for the next teamwork challenge. Democratic decision making does not necessarily have to exclude the role of a team leader or manager who has an overview of the tasks, can delegate work and, thus, enable faster decision-making. Formulation of concrete goals, overcoming fears of failing and perfectionism, more working together on tasks. … \\
+Analyse your team members. Evalue which strengths everyone can contribute to the team. Not everyone has to do the task he or she is best at but also tasks that are new, challenging and interesting to allow for growth. Do not only choose the tasks you are comfortable with but take the challenge. Further, include everyone into the team by sharing responsibilities and distributing roles. Think more about the bigger goal than of what lies directly ahead. Take more time into consideration when planning ahead. Usually, finishing work takes longer than previously planned. \\
+\\
+In summary, we can say that we have not only learned new scientific skills and techniques of data acquisition, preparation, and analysis but also gained valuable new insights into the organization of a large project with many members. We  understood how to organize ourselves more successfully and purposefully. First and foremost, we learned that this needs excellent communication. The whole team agrees that we would structure the next project in the same way as we did in the second half of our project. Communication is important, but it was further discovered that there is a right way to balance the amount and effectiveness of communication. Not everyone has to discuss or listen to all the details in every area, often it suffices when all team members have a broad overview.
+Additionally, it turned out to be helpful when one or two members exchange some of the task-related work in favour of more management-related work. This helps to gain a better team structure, time management and, in the end, make the team members work more effectively and efficiently towards the goal. \\
+The experience of having two different working structures gave us the ability to compare and judge what is essential to successful teamwork. It also helped to understand how each member contributes to the team regarding personal skills and interests, and what each member can improve for future teamwork. As the main intention of the study project was understood as a learning unit, we wanted to seek out tasks that we were motivated to do and that brought us new experiences and skills, and not just tasks and practice what we already knew.
 

@@ -3,23 +3,30 @@
 %----------------------------------------------------------------------------------------
 \section{Conclusion}
 
-TODO: We summarise again what we have learned and put the results and the project into a future perspective.
 
 \subsection{Summary}
 
-TODO: Short summary of the whole report. \\
-What we aimed for, what we tried, and what we achieved (as best to our knowledge). \\
+It has been possible to develop various modern computer vision techniques with the aim of classifying asparagus pieces according to the quality of the asparagus pieces and to examine their practicability in commercial applications. The specifications of the project, which were given in the introduction, were taken into account in the planning and successfully implemented. By implementing different approaches it is possible to classify asparagus in dependence of the quality. After a time-consuming collection of data, laborious labelling and classical pre-processing steps, we applied different procedures. Different approaches were implemented: supervised learning, unsupervised learning and semi-supervised learning. As explained in chapter five - result discution - . \\
+\\
+In conclusion, we can affirm that modern approaches from computer vision and machine learning can (not) improve sorting. We have shown that the algorithms can also be used (not) only for scientific purposes but also in industrial applications, such as the asparagus sorting problem. \\
+\\
+Whether we have succeeded in improving the currently running sorting algorithm has not yet been irrefutably clarified, because we lack a comparison of suitable evaluation. In cooperation with the local asparagus farmer and the manufacturer of his asparagus sorting machine, a method can now be developed. However, we have proved that Computer Vision and Machine Learning are able to solve the problem, so the requirements of the project are fulfilled. \\
+\\
+The intention of the study project ~\citep{ studyregulations}~\citep{moduledescription} has been followed up. Good self-organisation and team building became the formula for the progress of the project. We have learned to organize ourselves, to work as a team, to put theoretical knowledge into practice, to develop software, to analyze data, to practice the analysis and interpretation of statistical data under the conditions of a common research project.
 
-\subsection{Next steps}
 
-TODO: What happens after the project is done?
+\subsection{Outlook of the project}
 
-\subsubsection{Outlook of the project}
+After this project was discussed and summarized at previous chapters, this chapter gives an outlook on future steps. This will reach from  setup, to the control of the system, the concept of a continuous data stream, a runtime optimization, other approaches with more complex requirements up to an evaluation procedure. \\
+\\
+Due to the harvesting season at the beginning of the project period, the setup was not up for discussion. However, many improvements were discussed among the manufacturer of the machine. A second camera to capture the head of the asparagus is particularly evident, also shown by our results. This should help to classify the properties "rust" and "flower". Accordingly, we would have to adapt our preprocessing and our pipeline. \\
+\\
+In order to put the project into practice, a control system for the machine must be implemented. For this purpose, a cooperation with the manufacturing company must be arranged. After we have delivered results in the project, this can be the next step in the near future. \\
+\\
+If the sorting machine follows our algorithms it will be possible to create an evaluation. We have already discussed the difficulties that exist. One method is to measure and compare the sorting of the harvesters. Other methods of evaluation can be considered, if necessary, the setup for automated procedures can be extended. \\
+\\
+Furthermore, it is possible to continuously collect more data and use it for the training. An automated implementation, running either locally on the PC of the machine is conceivable. Thus one would be in the area of mobile application of neural networks. A merging of the different networks of different farms would be conceivable. On the other hand, the data could be collected from farms with a serial internet connection and the network could be updated manually and locally on a regular basis. \\
+\\
+Another claim that we have not yet addressed is that the asparagus harvest also varies during the harvest season. For example, upon request, asparagus should be placed in a higher category than normal after an unfavourable weather situation. In order to meet this requirement, we need either manual adjusting screws, which is impossible with neural networks in their current form, or a different form. Since we introduce a temporal, sequential component, it may be worthwhile to consider LSTMs in combination with CNNs. Also the literature search shows that there are still many wide possibilities, for example ....
 
-TODO: How could the project continue? \\
-
-\subsubsection{Contribution to scientific landscape}
-
-TODO: How do our findings contribute to the ANN landscape/ open science?
-Can we publish the dataset?
 

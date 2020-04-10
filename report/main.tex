@@ -57,8 +57,14 @@ headsepline, % Uncomment to get a line under the header
 % Use the Palatino font by default
 \usepackage{mathpazo}
 
+% hope this helps with figures
+\usepackage{subfig}
+%\usepackage{caption}
+%\usepackage{subcaption}
+
 % Use the bibtex backend with the authoryear citation style (which resembles APA)
 \usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
+\setlength\bibitemsep{0.5\baselineskip}
 
 
 %\usepackage[citestyle=authoryear,
@@ -271,6 +277,8 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \tableofcontents % Prints the main table of contents
+\listoffigures % Prints the list of figures
+\listoftables	% Print the list of tables
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
@@ -289,6 +297,7 @@ headsepline, % Uncomment to get a line under the header
 \include{Chapters/Preparations}
 \include{Chapters/Dataset}
 \include{Chapters/Classification}
+\include{Chapters/Summary}
 \include{Chapters/Discussion}
 \include{Chapters/Conclusion}
 
