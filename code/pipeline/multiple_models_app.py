@@ -41,7 +41,7 @@ def main():
     # loading the data
     @st.cache
     def load_data():
-        return tm.load_data("../../annotations")
+        return tm.load_data("../../annotations/evaluation_agreement_1")
 
     raw_data, dummy_data = load_data()
     labels = [col for col in dummy_data if col.startswith('Class')]
