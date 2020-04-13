@@ -4,21 +4,33 @@ This is the overview for the Report. The actual report is in the main.tex file i
     
 Task distribution is marked `like this`.  
 
-## 1&ensp;Introduction  
+## 1&ensp;Introduction `Josefine`  
 &ensp; **The project**  `Josefine`
   
-> Rough summary of the idea of the project.   
+>    Rough summary of the idea of the project.     
 >    How did the idea come up?   
 >    What is the project about?   
   
-&ensp; **Background on computer vision based classification tasks**  `Josefine`
+&ensp; **Background on computer vision based classification tasks**  `Sophia`
   
-
+>    Short introduction into the field of computer vision and short introduction to artificial neural networks.  
+>    Prospects and challenges of both on a general basis.  
+>    This part is kept very brief.  
   
 &ensp; **Background on sorting asparagus**  `Josefine`
   
+>    What is the main focus during the sorting process, i.e. why do you need to sort asparagus and in which  
+>    classes do you sort it?  
+>    What problems and challenges will be met - including the difference of challenge for humans vs. machines.  
+>    Including the decision tree for the labels as sorted with Silvan’s machine.  
+  
 &ensp; **Expected outcome vs. actual outcome of the project**  `Malin`
-
+  
+>    What did we hope to achieve with the project and, in contrast to that, what was the actual outcome?  
+>    What challenges did we expect and what results did we aim for?  
+>    Which challenges did we not expect and what did we do to overcome them?  
+>    Did we actually solve them?  
+  
 ## 2&ensp;Data acquisition and organization
 &ensp; **Timetable (roadmap) of the project**  `Josefine`
   
