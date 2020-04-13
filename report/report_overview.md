@@ -7,7 +7,13 @@ Task distribution is marked `like this`.
 ## 1&ensp;Introduction  
 &ensp; **The project**  `Josefine`
   
+> Rough summary of the idea of the project.   
+>    How did the idea come up?   
+>    What is the project about?   
+  
 &ensp; **Background on computer vision based classification tasks**  `Josefine`
+  
+
   
 &ensp; **Background on sorting asparagus**  `Josefine`
   
