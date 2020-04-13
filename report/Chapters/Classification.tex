@@ -198,9 +198,9 @@ L1 and L2 regularization can both be interpreted as constraints to the optimizat
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.6]{Figures/chapter04/multilabel_structure}
+	\includegraphics[scale=0.8]{Figures/chapter04/multilabel_structure}
 	\decoRule
-	\caption[Model Structure]{This table shows the structure of the multilabel classification model. It describes which layers were implemented, how the output changes in each layer and how many parameters were trained in each layer and in total.}
+	\caption[Multi-Label Model Structure]{\textbf{Multi-Label Model Structure}~~~This table shows the structure of the multi-label classification model. It describes which layers were implemented, how the output changes in each layer and how many parameters were trained in each layer and in total.}
 	\label{fig:MultilabelStructure}
 \end{figure}
 
@@ -210,25 +210,25 @@ When looking at the true positive rates, also called sensitivity, and the true n
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/multi_crossent}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_crossentropy}
 	\decoRule
-	\caption[Binary Cross-Entropy Loss]{These graphs show the evaluation of the training with binary cross-entropy loss. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
+	\caption[Binary Cross-Entropy Loss]{\textbf{Binary Cross-Entropy Loss}~~~These graphs show the evaluation of the training with binary cross-entropy loss. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelCrossentropy}
 \end{figure}
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/multi_ham}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_hamming}
 	\decoRule
-	\caption[Hamming Loss]{These graphs show the evaluation of the training with hamming loss. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
+	\caption[Hamming Loss]{\textbf{Hamming Loss}~~~These graphs show the evaluation of the training with hamming loss. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelHammingLoss}
 \end{figure}
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/multi_costum}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_costum}
 	\decoRule
-	\caption[Costum Loss]{These graphs show the evaluation of the training with costum loss that punishes falsely classified ones more than falsely classified zeros. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
+	\caption[Costum Loss]{\textbf{Costum Loss}~~~These graphs show the evaluation of the training with costum loss that punishes falsely classified ones more than falsely classified zeros. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelCostumLoss}
 \end{figure}
 \\
@@ -236,17 +236,17 @@ When comparing the three different loss functions, it is noticeable that the bin
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/multi_reg1}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_L1}
 	\decoRule
-	\caption[L1 Regularization]{These graphs show the evaluation of the training with L1 regularization. As the loss function the binary cross-entropy loss was used. The model was trained over 25 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
+	\caption[L1 Regularization]{\textbf{L1 Regularization}~~~These graphs show the evaluation of the training with L1 regularization. As the loss function the binary cross-entropy loss was used. The model was trained over 25 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelL1Regularization}
 \end{figure}
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/multi_reg2}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_L2}
 	\decoRule
-	\caption[L2 Regularization]{These graphs show the evaluation of the training with L2 regularization. As the loss function the binary cross-entropy loss was used. The model was trained over 25 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
+	\caption[L2 Regularization]{\textbf{L2 Regularization}~~~These graphs show the evaluation of the training with L2 regularization. As the loss function the binary cross-entropy loss was used. The model was trained over 25 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelL2Regularization}
 \end{figure}
 \\
@@ -320,76 +320,75 @@ There are three different opportunities regarding our project which can be consi
  \\
 We calculated the PCA for black-and-white images, as well as on images without background, and also tried to work on all groups at the same time, group-wise as well as feature-wise. We decided to perform our final PCA on sliced RGB images with background, that are labelled with features by us with the hand-label-app, as this seems to yield the best results. An amount of 400 pictures per feature was considered to later on perform a binary PCA for each feature (either the feature is absent or present). \\
 \\
-The 200 pictures where the certain feature is present as well as the 200 pictures where the certain feature is absent are extracted through a function in code/pca\textunderscore code/feature\textunderscore ids.py. This function loops over the combinded\textunderscore new.csv csv-file, where all hand-labelled information is stored as well as the path to the labeled pictures. For each feature a matrix is created, storing 200 pictures with the present feature and 200 pictures without the feature. E.g., m\textunderscore hollow is the matrix created for the feature hollow (shape = 400, img\textunderscore shape[0]$\times$ img\textunderscore shape[1]$\times$ img\textunderscore shape[2]). The first 200 entries in the matrix are pictures of hollow asparagus, the last 200 pictures show asparagus, which is not hollow. These matrices were calculated for the features hollow,  flower, rusty head, rusty body, bent, violet, length and width. The data points of those 400 images in 2D space can be seen in figure XX (die figure mit den scatterplots).  \\
+The 200 pictures where the certain feature is present as well as the 200 pictures where the certain feature is absent are extracted through a function in code/\-pca\-\textunderscore \-code/\-feature\-\textunderscore \-ids.py. This function loops over the combinded\textunderscore new.csv csv-file, where all hand-labelled information is stored as well as the path to the labeled pictures. For each feature a matrix is created, storing 200 pictures with the present feature and 200 pictures without the feature. E.g., m\textunderscore hollow is the matrix created for the feature hollow (shape = 400, img\textunderscore shape[0]$\times$ img\textunderscore shape[1]$\times$ img\textunderscore shape[2]). The first 200 entries in the matrix are pictures of hollow asparagus, the last 200 pictures show asparagus, which is not hollow. These matrices were calculated for the features hollow,  flower, rusty head, rusty body, bent, violet, length and width. The data points of those 400 images in 2D space can be seen in figure XX (die figure mit den scatterplots).  \\
 \\
-For all these features a PCA is calculated by first standardizing the matrix pixelwise (dimensions: 1340$3\times4$ 346$3\times4$ 3), calculating the covariance matrix and then extracting the ordered eigenvalues. The principal components are calculated multiplying these eigenvectors with the standardized matrix. The highest 10 eigenvalues were plotted to visually decide where to set the threshold of how many principal components will be further included (see figure XX - die figure mit dem graph - die ersten 10 eigenvalues). The feature space, the principal components and the standardized matrices are saved to later perform a recognition function. The first ten “Eigenasparagus” for each feature can be seen in figure XX (die schön bunten spargelbilder).  \\
+For all these features a PCA is calculated by first standardizing the matrix pixelwise (dimensions: 1340$\times$ 346$\times$ 3), calculating the covariance matrix and then extracting the ordered eigenvalues. The principal components are calculated multiplying these eigenvectors with the standardized matrix. The highest 10 eigenvalues were plotted to visually decide where to set the threshold of how many principal components will be further included (see figure XX - die figure mit dem graph - die ersten 10 eigenvalues). The feature space, the principal components and the standardized matrices are saved to later perform a recognition function. The first ten “Eigenasparagus” for each feature can be seen in figure XX (die schön bunten spargelbilder).  \\
 \\
 The recognize function is a control function, which performs on unseen images and tries to predict if a feature is absent or present. This function is also performed feature-wise. It reads in a new picture of one asparagus, which is not part of the asparagus database, so not within the 400 images. Then, it searches for this picture the most similar asparagus in the feature matrices (which are 200 pictures with the feature, 200 pictures without).  \\
 In greater detail, the input picture is first centered by subtracting the mean asparagus and then the picture is projected into the corresponding feature-space. That means the picture is “translated” into the lower dimensional space, in order to compare it to the known 400 pictures. The comparison is made through calculating the distance between the single centered eigenasparagus and the 400 pictures in the feature space, by using the cdist function of the SciPy software. The smallest distance is considered as the most similar asparagus. If the index of the most similar asparagus is smaller than 200 we know that the feature is present, if it is above 200 the feature is absent. By comparing this to the information of the single asparagus piece, we know if the new asparagus has the same feature as its closest asparagus in the feature space, or not. By doing this for several images, we can already presume if the two features are likely to be easily separable or not. By evaluating this, we have a measure of how well our used principal components capture the distinguishing information of each feature.\\
 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.09]{Figures/chapter04/pc_bended}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:PrincipalComponentBended}
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_length_graph}}
+    \qquad
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_length}}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Length]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Length}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature length. (B) These images show the first ten “Eigenasparagus” of the feature length.}
+    \label{fig:PCAlength}
 \end{figure}
 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.09]{Figures/chapter04/pc_blume}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:PrincipalComponentBlume}
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_hollow_graph}}
+    \qquad
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_hollow}}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Hollow]{\textbf{Eigenvalues and "Eigenasparagus" of feature hollow}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the Feature Hollow. (B) These images show the first ten “Eigenasparagus” of the feature hollow.}
+    \label{fig:PCAhollow}
 \end{figure}
 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.09]{Figures/chapter04/pc_hollow}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:PrincipalComponentHollow}
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_bent_graph}}
+    \qquad
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_bent}}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Bent]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Bent}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature bent. (B) These images show the first ten “Eigenasparagus” of the feature bent.}
+    \label{fig:PCAbent}
 \end{figure}
 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.09]{Figures/chapter04/pc_length}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:PrincipalComponentLength}
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_violet_graph}}
+    \qquad
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_violet}}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Violet]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Violet}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature violet. (B) These images show the first ten “Eigenasparagus” of the feature violet.}
+    \label{fig:PCAviolet}
 \end{figure}
 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.09]{Figures/chapter04/pc_rust}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:PrincipalComponentRust}
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_width_graph}}
+    \qquad
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_width}}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Width]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Width}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature width. (B) These images show the first ten “Eigenasparagus” of the feature width.}
+    \label{fig:PCAwidth}
 \end{figure}
 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.09]{Figures/chapter04/pc_violet}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:PrincipalComponentViolet}
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_rustybody_graph}}
+    \qquad
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_rustybody}}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Rusty Body.]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Rusty Body}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature rusty body. (B) These images show the first ten “Eigenasparagus” of the feature rusty body.}
+    \label{fig:PCArustybody}
 \end{figure}
 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.09]{Figures/chapter04/pc_width}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:PrincipalComponentWidth}
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_flower_graph}}
+    \qquad
+    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_flower}}
+    \caption[First ten eigenvalues and "Eigenasparagus" of Feature Flower]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Flower}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature flower. (B) These images show the first ten “Eigenasparagus” of the feature flower.}
+    \label{fig:PCAflower}
 \end{figure}
-
 
 The final results of the PCA are given feature-wise and were not translated back on the initial 13 groups. The features on which results are given are: hollow, flower, violet, rusty body, bent, width and length. All features are binary. For the first five features, the manually hand-labelled information was taken, for the last two features, the information, which was extracted by the algorithms used in the hand-label app were taken. The decision boundary for the first five therefore depends on our predefined criteria on labeling. The decision boundary for width was narrower or equal to 20 mm or wider than 20 mm, for length shorter or equal to 210mm or longer than 210 mm.  \\
 \\
@@ -401,14 +400,14 @@ After inspection of the graph of the first 10 principal components,  only the  f
  \\
 We plotted the four-dimensional data in the feature space as scatterplots in three-dimensional space and the fourth dimension as color, but as it was difficult to interpret and visually understand, we decided to show plots of only the first two dimensions, here. \\ 
 \\ 
-The scatterplots in Figure~\ref{fig:PrincipalComponentScatter} show the data of each feature lined up along the axes of the first two principal components of each feature. \\
+The scatterplots in Figure~\ref{fig:PCAscatter} show the data of each feature lined up along the axes of the first two principal components of each feature. \\
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/pc_2dspace}
+	\includegraphics[scale=0.75]{Figures/chapter04/pca_scatterplot}
 	\decoRule
-	\caption[Featurewise scatterplot in 2D]{Plotting the data in the 2D PC space for each feature.}
-	\label{fig:PrincipalComponentScatter}
+	\caption[Feature-wise Scatterplots]{\textbf{Feature-wise Scatterplots}~~~These scatterplots show the 200 data points where the feature is present in blue and the 200 data points where the feature is absent in orange. The data is projected into a 2D subspace, which is  spanned by the first two principal components of each feature. }
+	\label{fig:PCAscatter}
 \end{figure}
 \\
 For the recognition function, we used the same 10 images, to test each feature. The classification worked best for the features length and hollow (10/10 classified correctly) and then width (8/10 classified correctly). It performed around chance-level for flower (6/10 classified correctly), violet and rusty body (5/10 classified correctly) and extremely poor for bent (2/10 classified correctly).   \\

@@ -21,13 +21,12 @@ At the beginning of the project, a roadmap was created to structure the year int
 \\
 The following timetables in Figure~\ref{fig:Timetable} give a broad outline of the major stages of the project. In the left figure, it was estimated how much time for a specific phase is needed, whereas in the right figure the time spent for the stage is given. Both figures are structured to display the year in a circle, starting in April of 2019, and running clockwise through the year until April 2020. The months are represented by the inner circle while the outer circle marks the different working stages. \\
 The project comprised four to five major stages. The following stage descriptions are shortened for the purpose of simplicity. A more detailed representation of the single tasks attributed to each stage can be found in the ensuing roadmaps in Fig.~\ref{fig:RoadmapPlanned} and Fig.~\ref{fig:RoadmapActual}. The project started with the Data Collection and the Organization of the study project. During the first stage, the images were recorded with the sorting machine, while the major planning and research for the project took place. In the second phase, most of the Preprocessing happened, that is, preparing and labelling the image data. This phase is split into two phases for the right figure displaying the actual time, ‘Preprocessing’ and ‘Labelling’. The classification stage includes the time spent on the machine learning approaches which were implemented and trained on the asparagus data. In the last stage, the approaches were evaluated and their results were compared. It is noteworthy that the different stages overlapped to a certain degree, because minor tasks of a previous stage were still in progress while tasks from the subsequent stage had already started. For the purpose of this figure the start and end time is displayed as a hard boundary. \\
-\\
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.4]{Figures/chapter02/fig_timetable}
+	\includegraphics[scale=0.36]{Figures/chapter02/timetable}
 	\decoRule
-	\caption[Timetable of the project]{On the left side is a timetable with the estimated time of the study project during the year from April 2019 to April 2020. To the right, the timetable displays how the time was spent.}
+	\caption[Timetable of the Project]{\textbf{Timetable of the Project}~~~On the left side is a timetable with the estimated time of the study project during the year from April 2019 to April 2020. To the right, the timetable displays how the time was spent.}
 	\label{fig:Timetable}
 \end{figure}
 
@@ -51,7 +50,7 @@ As a result, both timetables differ in that the year was more optimistically pla
 	\caption[Actual Roadmap]{A roadmap that shows how the time was spent.}
 	\label{fig:RoadmapActual}
 \end{figure}
-\\
+
 In Figure~\ref{fig:RoadmapPlanned} and Figure~\ref{fig:RoadmapActual}, the stage specific tasks can be seen in more detail. Again, both figures display the estimated time and the actual time, respectively. The headlines serve as the division into the major stages except for the first heading, ‘Constant Work’, which shows the tasks that demanded continuous attention and effort throughout the year. The duration of tasks is represented in blue, while the yellow lines mark milestones that are explained in their legends. \\
 \\
 Comparing both roadmaps, the shift of focus is seen more clearly and can be associated with the duration of single tasks. Especially the prominent drift of the classification stage mirrors the fact that the time estimation is worth improving. The roadmap helped to better assess the time needed for task completion.
@@ -100,20 +99,8 @@ For the data collection, the project group had to drive to the asparagus farm �
  \\
 First, the asparagus sorting machine at Gut Holsterfeld is described before reporting about the process of labelled and unlabelled data collection.
 The machine ‘Autoselect ATS II’ (2003) is designed for sorting white asparagus and green asparagus~\citep{autoselectanleitung}. The sorting is based on the parameters width, length, shape, curvature, rust, and colour. A total of 30 criteria for classifying an asparagus spear are used to describe these parameters. The calculation of the single features is based on a classical analytical approach. For example, the feature colour is composed of 8 sub-parameters. Each spear is reviewed at different areas (the head of the asparagus, the area below the head, and the stem, respectively) and judged for its hue in percentage. The values are compared and, according to a threshold, the spear is sorted into a colour category. For all parameters, there is a minimal threshold and a maximal threshold. As another example, the parameter width is calculated at three points at the asparagus (top, middle, and bottom part). From these three values, an average value is calculated that decides in which category the asparagus is sorted. If an asparagus exceeds the maximal threshold, it is not recognized and cannot be sorted accordingly. Thus, all parameters have to have an upper and a lower threshold, including parameters like shape, curvature, and colour. When evaluating which thresholds to choose, it is recommended to check that most asparagus spears tend to be in between the average value and the maximal threshold, with a larger tendency to accumulate around the average value. All parameters can be freely chosen by the farmer and can this way be fitted to the needs of the respective asparagus farm. \\
-According to the manual, the number of classifications (quality classes) is selectable but it is based on the number of output trays available to the machine. The machine Autoselect at “Gut Holsterfeld” has 16 trays. The program of the Autoselect processes the sorting parameters from the best class to the worst class. The user can define the order of parameters. The manufacturer suggests to first sort for length and width, then sort for colours parameters, and analyze the shape parameters last. 
-
-
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=4cm]{Figures/chapter02/anna_a}}
-    \qquad
-    \subfloat[]{\includegraphics[width=4cm]{Figures/chapter02/anna_b}}
-    \qquad
-    \subfloat[ ]{\includegraphics[width=4cm]{Figures/chapter02/anna_c}}
-    \caption[Example of asparagus images]{Example pictures of the quality class I A Anna. In picture (A), the asparagus spear is to the right, in (B), it is in the middle, and in (C) it is to the left.}
-    \label{fig:ExampleImagesAnna}
-\end{figure}
-
+According to the manual, the number of classifications (quality classes) is selectable but it is based on the number of output trays available to the machine. The machine Autoselect at “Gut Holsterfeld” has 16 trays. The program of the Autoselect processes the sorting parameters from the best class to the worst class. The user can define the order of parameters. The manufacturer suggests to first sort for length and width, then sort for colours parameters, and analyze the shape parameters last. \\
+\\
 The sorting process of the software is performed in a certain order according to the quality, with asparagus of the best quality classes being collected in the first trays. Before the first use of the machine, all parameters are selected after the first sort has run through the machine. Then, the user can fit the thresholds accordingly.
 The asparagus is arranged on a conveyor belt that runs it through the recording section of the machine. Here, a camera takes three pictures per asparagus as seen in Figure~\ref{fig:ExampleImagesAnna}. Small wheels on the conveyor belt rotate the asparagus in the meantime so that it can be photographed from several positions. In the best case, on each image a different side of the asparagus is recorded. The conveyor belt transports the spear further and it is sorted into a tray depending on the chosen quality class by the machine. \\
 The accuracy of the sorting machine is described to be as good as 90\% best case by the manufacturer, while the farm reported it to be best around 70\%, with re-sorting being necessary by professional sorters. Especially categories like Blume or Hohle were considered to be inconsistent - if no better than chance - by both, manufacturer and farmer. Further information could not be given on the software of the machine. A meeting with a representative of the engineering company HMF that manufactured the sorting machine was arranged (\url=www.hmf-hermeler.de). Unfortunately, the software itself was not available to HMF as it was produced by another specialized company. During the meeting, it was discovered that the quality of the camera might be highly relevant for the accuracy of the sorting machine. Luminance and resolution are decisive for the quality of the image. Thus, technical restrictions for the sorting process had to be expected, also for our idea of implementing techniques based on machine learning.\\
@@ -124,25 +111,36 @@ A program was needed that transfers the images to a new saving destination to re
 \\
 Another issue concerning the storage space for collecting the image data was that the external harddrive ran full after 2 to 3 sorting days. The project members split in groups of 2 and exchanged the harddrive two times a week. The collected images were then transferred to storage capacities of the university with the support of the project’s supervisors. \\
 A last problem that had to be considered was that of unlabelled data. Before the project had started, the farm had not collected any labelled data and we could not rely on the labels that the machine attributed to each asparagus. A solution was to send the already sorted asparagus a second time through the machine. Like this it was assumed that we can not only receive labelled data but also acquire the parameters calculated by the machine. Unfortunately, it was not possible to extract the parameters from the machine. Another issue was posed by the fact that a second sorting is not good for the quality of the asparagus spears. Running them through the machine damaged some spears or led to the exclusion of certain spears from a good quality class into a worse quality class. Further, at least one project member had to be involved in the re-sorting and, thus, had to be present at the farm. The sessions of exchanging the external harddrive and collecting labelled image data were then combined. \\
-\\
-An example image of the received data can be seen in Figure~\ref{fig:ExampleImagesAnna}. There are three pictures per spear. The image resolution is around 1040$3\times4$ 1376 pixel per image, with an RGB colour space. \\
-All in all, the number of collected, unlabelled data is above XX images, thus, above XX asparagus spears. Of the labelled data, we collected 1005 images with the label I A Anna,  908 images for I A Bona, 513 images of I A Clara, 936 images of I A Krumme, 1514 images of I A Violett, 1051 images of II A, 1468 images of II B, 1169 images of Rost, 749 images of Dicke, 775 images of Hohle, 1717 images of Blume, 1157 images of Suppe, and at least 309 labelled as Bruch. The image number does not represent the number of different asparagus spears, as each spear is represented by three distinct images. \\
 
 \begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=4cm]{Figures/chapter02/anna_a}}
+    \qquad
+    \subfloat[]{\includegraphics[width=4cm]{Figures/chapter02/anna_b}}
+    \qquad
+    \subfloat[]{\includegraphics[width=4cm]{Figures/chapter02/anna_c}}
+    \caption[Example Asparagus Images]{\textbf{Example Asparagus Images}~~~Example pictures of the quality class I A Anna. In picture (A), the asparagus spear is to the right, in (B), it is in the middle, and in (C) it is to the left.}
+    \label{fig:ExampleImagesAnna}
+\end{figure}
+
+An example image of the received data can be seen in Figure~\ref{fig:ExampleImagesAnna}. There are three pictures per spear. The image resolution is around 1040$\times$ 1376 pixel per image, with an RGB colour space. \\
+All in all, the number of collected, unlabelled data is above XX images, thus, above XX asparagus spears. Of the labelled data, we collected 1005 images with the label I A Anna,  908 images for I A Bona, 513 images of I A Clara, 936 images of I A Krumme, 1514 images of I A Violett, 1051 images of II A, 1468 images of II B, 1169 images of Rost, 749 images of Dicke, 775 images of Hohle, 1717 images of Blume, 1157 images of Suppe, and at least 309 labelled as Bruch. The image number does not represent the number of different asparagus spears, as each spear is represented by three distinct images. \\
+\\
+Most image data, that is XX image samples, was received from the asparagus farm “Gut Holsterfeld”. Additionally, a few images could be recorded at another asparagus farm, “Querdel’s Hof”, in Emsbüren (\url{https://www.querdel.de/}). The farm sorts the asparagus with an updated version of the Autoselect machine at “Gut Holsterfeld”, that is, it uses the same software but other hardware. The difference of both machines is purely in hardware, in particular the resolution of the camera was improved and a second camera was installed that focuses on the head region of the asparagus. At “Querdel’s Hof”, we collected 20616 images in total, 76 from the class ‘normal’, 152 from the class ‘violet/flower’, and 20388 unlabelled images. Of the data, an asparagus spear is represented by four images: three images show the same asparagus from different perspectives and a fourth image depicting solely the head region. An example image can be seen in Figure~\ref{fig:ExampleImagesQuerdel}. No internet connection could be established to the farm, thus, no further images were collected. Moreover, the class labels of asparagus spears as well as the data format of the images from “Querdel’s Hof” are different to the data from the farm “Gut Holsterfeld”, due to the additional head image. Therefore a combination of both data sets was not convenient. A further reason for no more collected data at the second farm was that the objective behind the study project was primarily the implementation of new software regarding the machine type Autoselect at the farm “Gut Holsterfeld”. \\
+
+\begin{figure}[h]
     \centering
     \subfloat[]{\includegraphics[width=3cm]{Figures/chapter02/querdel_a}}
     \qquad
     \subfloat[]{\includegraphics[width=3cm]{Figures/chapter02/querdel_b}}
     \qquad
-    \subfloat[ ]{\includegraphics[width=3cm]{Figures/chapter02/querdel_c}}
+    \subfloat[]{\includegraphics[width=3cm]{Figures/chapter02/querdel_c}}
     \qquad
-    \subfloat[ ]{\includegraphics[width=3cm]{Figures/chapter02/querdel_d}}
-    \caption[Example of asparagus images of Querdel's Hof]{Example pictures of the asparagus farm "Querdel's Hof". In picture (A), the asparagus spear is to the right, in (B), it is in the middle, and in (C) it is to the left. A fourth picture (D) is taken with a second camera with focus on the head}.
+    \subfloat[]{\includegraphics[width=3cm]{Figures/chapter02/querdel_d}}
+    \caption[Example Images Querdel's Hof]{\textbf{Example Images Querdel's Hof}~~~Example pictures of the asparagus farm "Querdel's Hof". In picture (A), the asparagus spear is to the right, in (B), it is in the middle, and in (C) it is to the left. A fourth picture (D) is taken with a second camera with focus on the head}.
     \label{fig:ExampleImagesQuerdel}
 \end{figure}
 
-Most image data, that is XX image samples, was received from the asparagus farm “Gut Holsterfeld”. Additionally, a few images could be recorded at another asparagus farm, “Querdel’s Hof”, in Emsbüren (\url{https://www.querdel.de/}). The farm sorts the asparagus with an updated version of the Autoselect machine at “Gut Holsterfeld”, that is, it uses the same software but other hardware. The difference of both machines is purely in hardware, in particular the resolution of the camera was improved and a second camera was installed that focuses on the head region of the asparagus. At “Querdel’s Hof”, we collected 20616 images in total, 76 from the class ‘normal’, 152 from the class ‘violet/flower’, and 20388 unlabelled images. Of the data, an asparagus spear is represented by four images: three images show the same asparagus from different perspectives and a fourth image depicting solely the head region. An example image can be seen in Figure~\ref{fig:ExampleImagesQuerdel}. No internet connection could be established to the farm, thus, no further images were collected. Moreover, the class labels of asparagus spears as well as the data format of the images from “Querdel’s Hof” are different to the data from the farm “Gut Holsterfeld”, due to the additional head image. Therefore a combination of both data sets was not convenient. A further reason for no more collected data at the second farm was that the objective behind the study project was primarily the implementation of new software regarding the machine type Autoselect at the farm “Gut Holsterfeld”. \\
-\\
 To summarize this section, of the XX images collected in total, mostly unlabelled data was collected from the sorting machine Autoselect at the asparagus farm Gut Holsterfeld. Of the labelled data, each class of asparagus is represented with at least XX images (corresponding to XX spears).
 
 
