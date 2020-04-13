@@ -31,18 +31,43 @@ Task distribution is marked `like this`.
 >    Which challenges did we not expect and what did we do to overcome them?  
 >    Did we actually solve them?  
   
-## 2&ensp;Data acquisition and organization
-&ensp; **Timetable (roadmap) of the project**  `Josefine`
+## 2&ensp;Data acquisition and organization  `Josefine`
+&ensp; **Timetable (roadmap) of the project**  `Josefine`  
   
-&ensp; **Organisation of the study group**  
+>    A (visual) overview of the project's course during the year.  
+>    How we planned the project vs. how the actual timetable of the project looked like.  
+  
+&ensp; **Organisation of the study group**  `Richard`
   
 &ensp;&ensp;&ensp; Communication  `Richard`  
+  
+>    Deciding on a communication platform and handling it: organization in general, team meetings,  
+>    Asana, Telegram, and any other virtual form of communication  
+  
 &ensp;&ensp;&ensp; Teamwork  `Richard`  
+  
+>    The experience of working in a team and organising/distributing tasks in a group:  
+>    task distribution, cooperation on tasks, GitHub: organising our project with Git,  
+>    Grid: working together with the IKW data store, other teamwork related experiences  
+>    (could we integrate the strengths and weaknesses of the single team members) ...  
   
 &ensp; **Data collection**  `Josefine, Richard`
   
-&ensp; **Literature research**  `Josefine`
-
+>    How we collected the data and what the data looked like.  
+>    Here, the process of driving to Rheine and collecting the data with an external hard-drive is described.  
+>    Understanding the sorting machine and its output.  
+>    First problems that had to be resolved: labelled vs. unlabelled data ( -> running pre-sorted pieces  
+>    through the sorting machine, did not (completely) resolve our problem), saving the data manually  
+>    on an external harddrive ( -> solved by building a script for data transfer, and Teamviewer sessions)  
+  
+&ensp; **Literature research**  `Josefine`  
+  
+>    Previous literature research concerning food classification and handling unlabelled data.  
+>    Searching for background literature close to our project, e.g. automatic CV-based sorting of other  
+>    food products.  
+>    Re-reading on potential ANN structures that we could use for sorting.  
+>    Could we rely on a certain paper/process? Did it work?  
+  
 ## 3&ensp;The dataset
 &ensp; **Preprocessing steps**  `Sophia` 
   
