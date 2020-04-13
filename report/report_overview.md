@@ -84,26 +84,60 @@ Task distribution is marked `like this`.
   
 &ensp; **The hand-label app**  `Michael`
   
+>    Introduction to the script created for manual sorting. Fusion of the feature extraction scripts:  
+>    What is it? Why did we need it? What was the idea behind it? How does it work? (keep short! it's  
+>    only the introduction) Do not explain in length here but rather give an idea and refer to README's  
+>    and to code in GitHub whenever possible.  
+  
 &ensp;&ensp;&ensp; How to install `Michael`  
   
-&ensp;&ensp;&ensp; Operation instructions `Michael`
-
-&ensp;&ensp;&ensp; Performance  `Michael`
+>    Installation of the app: environment setup, mount points, problems we ran into, etc. ...  
   
-&ensp; **Manual labelling**  
+&ensp;&ensp;&ensp; Operation instructions `Michael`  
   
-&ensp;&ensp;&ensp; Sorting criteria  `Josefine`
-
-&ensp;&ensp;&ensp; Sorting outcome  `Josefine`
-
-&ensp;&ensp;&ensp; Agreement measures  `Malin`
-
+>    User manual for the app and introduction to its graphical user interface: What can you find where?  
+>    (include one example picture of GUI), Step-by-step guideline through loading pictures, creating  
+>    a .csv file, and how to sort one picture.  
+  
+&ensp;&ensp;&ensp; Performance  `Michael`  
+  
+>    Results and general performance of the app: How well did the feature extraction work? How much features  
+>    had to be labelled by hand? What is the output of the app?  
+  
+&ensp; **Manual labelling**  `Josefine`  
+  
+&ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
+  
+>    The criteria explained in detail for the hand-labelling of the features with the app (including example  
+>    pictures). What are expected difficulties we might encounter?  
+  
+&ensp;&ensp;&ensp; Sorting outcome  `Josefine`  
+  
+>    The process and the results of the sorting: How much did we sort? How well did the sorting work in general  
+>    (i.e., was it easy to sort? how long did it take? what problems were encountered?)? How accurately did  
+>    we sort as a group? (i.e., Kappa Agreement)  
+  
+&ensp;&ensp;&ensp; Agreement measures  `Malin`  
+  
+>    Theoretical background on a measurement that assesses our sorting agreement.
+  
 &ensp;&ensp;&ensp; Validity  `Malin`
+  
+>    Expanding on how accurately we sorted/how valid our sorting was as a group. Introducing the Kappa Agreement. 
   
 &ensp; **The asparagus dataset**  `Richard?` 
   
-&ensp;&ensp;&ensp; Different datasets  `Sophia`  
-&ensp;&ensp;&ensp; Challenges   `Sophia, Richard`
+&ensp;&ensp;&ensp; Different datasets  `Sophia, Richard`  
+  
+>    Structural information on the datasets: What do they look like? How big are they (labelled vs unlabelled  
+>    samples)? Which were criteria for throwing out data? (maybe have an overview picture with all relevant  
+>    information on one glance  
+  
+&ensp;&ensp;&ensp; Challenges   `Richard, Sophia`
+  
+>    Problems and challenges during the creation of the datasets: What were the challenges in creating a  
+>    general dataset? What were challenges in general? How well could we work with the datasets? What was  
+>    used as training data, validation data, and test data?  
   
 ## 4&ensp;Classification `Malin`
 &ensp; **Supervised learning**  `Josefine`  
