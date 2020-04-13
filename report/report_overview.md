@@ -68,16 +68,24 @@ Task distribution is marked `like this`.
 >    Re-reading on potential ANN structures that we could use for sorting.  
 >    Could we rely on a certain paper/process? Did it work?  
   
-## 3&ensp;The dataset
+## 3&ensp;The dataset `Josefine`  
 &ensp; **Preprocessing steps**  `Sophia` 
   
-&ensp;&ensp;&ensp; Automatic feature extraction  `Sophia`  
-&ensp;&ensp;&ensp; Preparation for manual feature extraction  `Maren, Sophia` 
+>    First approach to create a dataset (layout) and data augmentation to generate more samples.  
+>    Preparation for manual feature extraction, background removal, etc. ...    
+>    Preparing the images for manual classification to create more labelled data: sorting the pictures in  
+>    the grid, have 3 pictures per asparagus spear, etc. ...  
+  
+&ensp; **Automatic feature extraction**  `Sophia, Michael`  
+  
+>    We (tried to) create scripts for an automatic feature extraction pipeline  
+>    (including the decision to sort for features and not labels) for   
+>    rust, bent, etc. ...  (all features)  
   
 &ensp; **The hand-label app**  `Michael`
   
-&ensp;&ensp;&ensp; How to install `Michael`
-
+&ensp;&ensp;&ensp; How to install `Michael`  
+  
 &ensp;&ensp;&ensp; Operation instructions `Michael`
 
 &ensp;&ensp;&ensp; Performance  `Michael`
