@@ -8,6 +8,7 @@ import sys
 import shutil
 
 
+# the path needs to be adjusted individually for each feature
 
 eig_used = np.load('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_hollow/eig_hollow_used.npy')
 
