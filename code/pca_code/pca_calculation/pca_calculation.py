@@ -1,4 +1,13 @@
-'''these are the pca methods for the features'''
+'''Here the PCA is calculated for one feature at a time.
+Input: path_to_matrix (where the ids matrices are stored)
+Out:
+
+space
+EigVal
+matrix_std
+eig_used
+PC
+'''
 
 import matplotlib.pyplot as plt
 import cv2
@@ -9,8 +18,6 @@ import sys
 import shutil
 from grid import*
 from submit_feature_pca import*
-
-'''start with the m_hollow'''
 
 
 img_shape = (1340, 364, 3)
