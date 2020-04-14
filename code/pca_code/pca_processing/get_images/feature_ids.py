@@ -1,4 +1,4 @@
-'''This is a PCA considering all features, that we have
+'''This code gets the ids of all asparagus features.
 Features are:
 is_bruch
 is_hollow
@@ -10,16 +10,6 @@ is_violet
 auto_length : these are values that were not labeled manually
 auto_width  : these are values that were not labeled manually
 '''
-
-'''For each feature, the image undergoes the pca method
-as output we get for the feature a binary score.
-Eg.: is_bruch = TRUE or is_bruch = FALSE
-
-all the calculated values need to be put in the method that gives
-the asparagus a class'''
-
-
-#get how many hollow and not hollow? we choose 200/valid_until_31_July_2020
 
 import pandas as pd
 import numpy as np
@@ -35,7 +25,7 @@ def get_asparagus_ids(PATH):
     '''
     Get ids of the asparagus pieces that have been labeled so far.
     Args: path to the combined.csv file that contains all labelfiles
-    Out: only the ids aka the first column
+    Out: array of 400 ids. 200 of the asparagus with feature, 200 without
     '''
     # read in the file
     csvs = pd.read_csv(PATH, sep = ';')
@@ -44,15 +34,11 @@ def get_asparagus_ids(PATH):
     ids_hollow = csvs.loc[csvs['is_hollow']== 1.0, 'id']
     ids_hollow = ids_hollow[:200]
     ids_hollow = np.array(ids_hollow)
-    #print(ids_hollow)
- # die nummerierung ist ids[1] also die richtige column
-    # wir haben 439 hollow
 
     ids_unhollow = []
     ids_unhollow = csvs.loc[csvs['is_hollow']== 0.0, 'id']
     ids_unhollow = ids_unhollow[:200]
     ids_unhollow = np.array(ids_unhollow)
-    #print(ids_unhollow)
 
     '''get is_bruch ids
 
@@ -141,7 +127,7 @@ def get_asparagus_ids(PATH):
     ids_auto_width_small = np.array(ids_auto_width_small)
 
 
-# #zum testen jetzt hier rein
+# #test
 #     img_shape = (1340, 364, 3)
 #     M_hollow = np.zeros((img_shape[0],img_shape[1]*img_shape[2],400))
 #     ids_hollow = ids_hollow[:200]
