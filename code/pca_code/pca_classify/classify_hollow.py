@@ -13,12 +13,12 @@ import matplotlib.pyplot as plt
 
 img_shape = (1340,364,3)
 
-def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
+def classify(input, eigenasparagus, mean_asparagus, asparagus_space):
     """
     Recognizes an asparagus piece from a 400 pieces asparagus database
     and returns the index of the best matching piece of the database
 
-    The asparagus piece is first centered and projected into the eigeface
+    The asparagus piece is first centered and projected into the asparagus_space
     space provided by the eigen_asparagus. Then the best match is found
     according to the euclidean distance in the eigen_asparagus space.
 
@@ -26,33 +26,29 @@ def recognize(input, eigenasparagus, mean_asparagus, asparagus_space):
         input (ndarray): asparagus to be recognised.
         eigenasparagus (ndarray): Array of eigenasparagus.
         mean_asparagus (ndarray): Average asparagus.
-        asparagus_space (ndarray): Database of asparagus projectected into Eigenface space.
+        asparagus_space (ndarray): Database of asparagus projectected into asparagus space.
 
     Returns:
-        index (uint): Position of the best matching face in face_db.
+        index (uint): Position of the best matching asparagus in asparagus_space.
     """
     index = -1
 
     # center the piece
-    print('input_shapr \n', input.shape) #(1463280,)
     mean_asparagus = mean_asparagus.mean(axis = 0)
-    print('mean asps \n', mean_asparagus.shape)
     centered = input - mean_asparagus
-    print('centered shape: \n', centered.shape) #(1463280,)
-    print('eigenasparagus \n', eigenasparagus.shape) #(4, 1463280)
 
-    # and project it into the eigenface space
+    # project it into the asparagus space
     projected = eigenasparagus @ centered
-    print(projected.shape) #(4,)
-    print(asparagus_space.shape)# (400,4)
 
-    # Now compute the similarity to all known pieces
-    # (comparison is performed in the eigenface space)
+    # compute the similarity to all known pieces
+    # (comparison is performed in the asparagus_space)
     distances = cdist(asparagus_space, projected[None,:])
     index = distances.argmin()
 
-    print(index)
     return index
+
+
+def find_integer(index):
 
 '''this function turns the index found into the binary class
 if index is <199, argument is true
@@ -61,9 +57,8 @@ e.g. for hollow:
 first 200 pictures in m_hollow are hollow
 the others are not hollow
 so if one of the pictures is recognized, lower than the index 200
-the asparagus is hollow'''
+the asparagus is classified as hollow'''
 
-def find_integer(index):
     n_index = 400
     if index <= 199:
         n_index = 0
@@ -73,64 +68,47 @@ def find_integer(index):
     return n_index
 
 
-
-def show_recognition_results(imgs, labels, train_imgs, train_labels,
-                             num_eigenfaces, eigenfaces, mean_face, face_db):
-    """Iterate over all face images and compute the best matching face in face_db.
+def show_classify_results(test_imgs, test_labels, train_imgs, train_labels,
+                             num_eigenvectors, PC, mean_asparagus, asparagus_space):
+    """Iterate over all asparagus images and compute the best matching asparagus in asparagus_space.
 
     Args:
-        imgs (list): List of test faces.
-        train_imgs (list): List of training faces.
-        train_labels (list): List of training labels.
-        num_eigenfaces (uint): Number of eigenfaces.
-        eigenfaces (list): List of the eigenfaces.
-        mean_face (ndarray): Average face.
-        face_db (ndarray): Database of faces projectected into Eigenface space.
+        test_imgs (list): List of 10 test asparagus.
+        test_labels(list): List of correct labels of test_imgs
+        train_imgs (matrix): Matrix of 400 feature asparagus images.
+        train_labels (list): Labels of the train_imgs (200 with feature, 200 without).
+        num_eigenvectors (uint): Number of eigenvectors used.
+        PC (matrix): The principle components.
+        mean_asparagus (ndarray): Average asparagus.
+        space (ndarray): Database of asparagus projectected into asparagus space.
 
     Returns:
+    classification result (image) - score
 
     """
-    img_shape = imgs[0].shape
-    print('imgs[0] \n', imgs[0])
-    print('neue Image_shape: \n', img_shape)
+    img_shape = test_imgs[0].shape
+
     plt.figure(figsize=(20, 20))
-    plt.suptitle('Asparagus recognition based on {} principal components'.format(num_eigenfaces))
+    plt.suptitle('Asparagus classified based on {} principal components'.format(num_eigenvectors))
 
-    for j, img in enumerate(imgs):
+    for j, img in enumerate(test_imgs):
 
-        # find the best match in the eigenface database
-        winner = recognize(img.reshape(np.prod(img_shape)), path_to_eigenasparagus, path_to_m_std, path_to_space)
+        # find the best match in the database
+        winner = classify(img.reshape(np.prod(img_shape)), path_to_eigenasparagus, path_to_m_std, path_to_space)
 
-        name_label = labels[j]#[5:7]
+        name_label = test_labels[j]#[5:7]
         name_winner = train_labels[winner]#[5:7]
 
         plt.subplot(5, 4, 2 * j + 1)
         plt.axis('off')
         plt.imshow(img)
-        plt.title(labels[j][5:7])
-        #plt.show()
+        plt.title(test_labels[j][5:7])
 
         plt.subplot(5, 4, 2 * j + 2)
         plt.axis('off')
-        #ich glaube train_imgs müssen noch wieder gereshaped werden...
         plt.imshow(train_imgs[winner].reshape(img_shape))
         plt.title(('*' if name_label != name_winner else '') + name_winner)
         plt.show()
-        #hollow
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_hollow/recognize'+str(j)+'.png')
-        #bended
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_bended/recognize'+str(j)+'.png')
-        #blume
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_blume/recognize'+str(j)+'.png')
-        #rust head
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_head/recognize'+str(j)+'.png')
-        #rust body
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_rust_body/recognize'+str(j)+'.png')
-        #violet
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_violet/recognize'+str(j)+'.png')
-        #width
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_width/recognize'+str(j)+'.png')
-        #length
         plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/recognize_length/recognize'+str(j)+'.png')
 
 
@@ -143,17 +121,14 @@ if __name__ == '__main__':
     path_to_eigenasparagus = np.load(args[4])
     path_to_m = np.load(args[5])
 
-    #remember: train_names = [200*hollow and 200* not_hollow]
-
     num_eigenvectors = 4
-    #read in some test data
-    #test_img = np.zeros((10, img_shape[0]*img_shape[1]*img_shape[2]))
-    test_img = np.zeros((10, img_shape[0],img_shape[1],img_shape[2]))
+    #read in test data
+    test_imgs = np.zeros((10, img_shape[0],img_shape[1],img_shape[2]))
     s = 1
     for i in range(10):
         img = cv2.imread(path_to_input+'13644'+str(s+i)+'_b.png')
-        test_img[i,:,:,:] = img
-    print(test_img.shape)
+        test_imgs[i,:,:,:] = img
+    print(test_imgs.shape)
 
     #for hollow
     # train_names_1 = ["hollow" for x in range(200)]
@@ -204,4 +179,4 @@ if __name__ == '__main__':
     test_labels = ['length', 'length', 'length', 'length', 'length', 'length', 'length','length', 'length', 'length']
 
 
-    show_recognition_results(test_img, test_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
+    show_classify_results(test_imgs, test_labels, path_to_m, train_names, num_eigenvectors, path_to_PC, path_to_m_std, path_to_space)
