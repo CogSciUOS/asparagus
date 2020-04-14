@@ -146,11 +146,10 @@ def get_asparagus_ids(PATH):
 
 def get_images(ids_hollow):
 
-    # nacheinander ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small
      '''
      Get all images in the directories,
-     referring to our feature_ids
-     Args: PATH to files
+     referring to the ids
+     Args: PATH to files (ids_feature)
      Out: matrices that store pictures of certain features
      M_hollow
      M_blume
@@ -160,11 +159,12 @@ def get_images(ids_hollow):
      M_violet
      M_length
      M_width
+
+     part to be used, needs to be uncommented.
      '''
      #get all ids
      ids_hollow, ids_unhollow, ids_blume, ids_notblume, ids_has_rost_head, ids_not_has_rost_head, ids_has_rost_body, ids_not_has_rost_body, ids_is_bended, ids_not_is_bended, ids_is_violet, ids_not_is_violet, ids_auto_length_big, ids_auto_length_small, ids_auto_width_big, ids_auto_width_small = get_asparagus_ids(path_features)
     #initialize all goal matrices
-     # image shape is (1340, 364, 3)
      img_shape = (1340, 364, 3)
 
 
