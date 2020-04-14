@@ -3,7 +3,7 @@ from grid import*
 
 if __name__ == '__main__':
     #hollow
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_hollow/PC_hollow_1.npy'
     # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_hollow/m_hollow_std_1.npy'
@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 
     # #bended
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended/PC_bended.npy'
     # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_bended/m_bended_std.npy'
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
 
     #blume
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/PC_blume.npy'
     # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_blume/m_blume_std.npy'
@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
 
     #rost head - STILL NOT WORKING!
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/PC_rost_head.npy'
     # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_head/m_rost_head_std.npy'
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 
     #rost body
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/PC_rost_body.npy'
     # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_rost_body/m_rost_body_std.npy'
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
 
     #violet
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/PC_violet.npy'
     # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_violet/m_violet_std.npy'
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
 
     #width
-    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    # path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     # path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     # path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width/PC_width.npy'
     # path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_width/m_width_std.npy'
@@ -89,7 +89,7 @@ if __name__ == '__main__':
     # environment = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
 
     #length
-    path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify_hollow.py'
+    path = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/asparagus/code/pca_processing/classify.py'
     path_to_input =  '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/'# for testing (test_img)
     path_to_PC = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_length/PC_length.npy'
     path_to_m_std = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/data_length/m_length_std.npy'

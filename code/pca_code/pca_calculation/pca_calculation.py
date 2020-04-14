@@ -131,7 +131,8 @@ def calculate_first_eigval(matrix):
 if __name__ == '__main__':
     args = typecast(sys.argv[1:])
     matrix = np.load(args[0])
-    #calculate_PC(matrix)
+
+    calculate_PC(matrix)
 
     calculate_first_eigval(matrix)
 
@@ -141,8 +142,8 @@ if __name__ == '__main__':
     #
     # ids_hollow = []
     #
-    # # get image_size:
-    # #img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
-    # #print(img.shape) (1340, 364, 3)
+    # get image_size:
+    # img = cv2.imread('Z:/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/labeled_with_background/0_b.png')
+    # print(img.shape) (1340, 364, 3)
     #
     # get_images(ids_hollow)
