@@ -98,9 +98,14 @@ headsepline, % Uncomment to get a line under the header
 % for prettier tables
 \usepackage{booktabs} 
 
+% for adjusting table size
+\usepackage{graphicx}
+
 % use a glossary (file is still there if wanted)
 %\usepackage[acronym,toc,nonumberlist]{glossaries} % use acronyms
 %\makeglossaries
+%\input{Glossary}
+%\loadglsentries{Glossary}
 
 % to display code
 \usepackage{listings}
@@ -277,8 +282,11 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \tableofcontents % Prints the main table of contents
+
 \listoffigures % Prints the list of figures
+
 \listoftables	% Print the list of tables
+
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
@@ -320,6 +328,8 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \printbibliography[heading=bibintoc]
+
+%\printglossaries
 
 %\bibliography{bibliography.bib}
 

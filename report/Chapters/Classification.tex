@@ -4,6 +4,7 @@
 %	Classification of the data using different approaches.
 %----------------------------------------------------------------------------------------
 \section{Classification}
+\label{ch:Classification}
 
 Given the structure of our dataset, namely image data with a sub dataset with corresponding class labels, and a sub dataset with corresponding feature labels, different machine learning and computer vision methods were chosen, to tackle the problem of image classification. \\
 \\
@@ -25,6 +26,7 @@ All algorithms were implemented using Python.
 
 
 \subsection{Supervised learning}
+\label{sec:SupervisedLearning}
 
 In machine learning, there are different approaches for an application to be trained on a set of data~\citep{geron2019hands}~\citep{bishop2006pattern}. Depending on the level of supervision that the system receives during the training phase, the learning process is grouped into one of four major categories~\citep{geron2019hands}. One of these categories is supervised learning. For supervised learning approaches, the training data includes not only the input but also its corresponding target labels, which is why only labelled data is used. The objective is to find a mapping between target (x) and label (y) when a set of both (x,y) is provided as training data to the application~\citep{olivier2006semi}. An advantage of supervised learning is that the problem is well defined and the model can be evaluated in respect to its performance on a labelled data set~\citep{daume2012course}~\citep{olivier2006semi}. In other words, the labels can be used as a direct basis for the model optimizing function during training. \\
 Supervised learning spans over a large set of different methods, from decision trees and random forests, to support vector machines (SVM), to neural networks~\citep{caruana2006comparison}~\citep{geron2019hands}. \\
@@ -37,97 +39,134 @@ In the last section 4.1.5 \textit{From feature to label}, a random forest approa
 
 
 \subsubsection{Prediction based on feature engineering}
+\label{subsec:FeatureEngineering}
 
-Besides approaches that directly use images as an input one may use high level feature engineering to retrieve sparse representations that contain relevant information in a condensed form and apply classical machine learning classifiers such as MLPs to predict labels~\citep{zheng2018feature}. These classifiers are comparatively simple, fast to train and only few network hyperparameters have to be defined. One may argue that this is one of the major benefits as compared to networks of higher complexity (e.g. convolutional deep learning nets) that are typically characterized by a more complex structure and hence a larger hyperparameter space. As a consequence, finding suitable parameters for MLPs (i.e. the number of hidden layers and neurons per layer) is comparatively easy(Footnote: The challenge of finding appropriate network parameters is well known in the deep learning community: “Designing and training a network using backprop requires making many seemingly arbitrary choices [...] These choices can be critical, yet there is no foolproof recipe for deciding them because they are largely problem and data dependent”~\citep{lecun2012efficient}. The requirement to specify hyperparameters is a disadvantage of neural networks (including MLPs) as compared to parameter free methods (ScikitLearn \url{https://scikit-learn.org/stable/modules/neural\underscore networks\underscore supervised.html}). Due to the combinatorial explosion the above mentioned challenge of finding suitable is harder for more complex networks as more options must be considered.): An extensive search in hyperparameter space is practicable because of its small size and because training on sparse representations limits the number of neurons in the networks which results in fast training that allows for many experiments. As compared to convolutional networks for deep learning where suitable means to avoid the vanishing gradient problem are required (\url{https://towardsdatascience.com/the-vanishing-gradient-problem-69bf08b15484}), kernel sizes, strides, the number of kernels and other parameters must be defined there simply less one could do wrong when defining shallow MLPs. It deserves no further explanation that underfitting can potentially be due to an unsuitable network design or because predictions are impossible due to incongruencies or missing information in the sparse data set~\citep{lecun2012efficient}. If the learning task is simple enough to be accomplished by MLPs (e.g. finding combinations of partial angles that correspond to the impression of curvature), one may hence speculate that underfitting can rather be explained by incongruencies or missing information in the labels then a result of issues in design and training hyperparameters of the network. This classical machine learning approach that relies on feature engineering was applied to predict features based on colour and partial angles of asparagus spears.
+Besides approaches that directly use images as an input one may use high level feature engineering to retrieve sparse representations that contain relevant information in a condensed form and apply classical machine learning classifiers such as MLPs to predict labels~\citep{zheng2018feature}. These classifiers are comparatively simple, fast to train and only few network hyperparameters have to be defined. One may argue that this is one of the major benefits as compared to networks of higher complexity (e.g. convolutional deep learning nets) that are typically characterized by a more complex structure and hence a larger hyperparameter space. As a consequence, finding suitable parameters for MLPs (i.e. the number of hidden layers and neurons per layer) is comparatively easy.~\footnote{The challenge of finding appropriate network parameters is well known in the deep learning community: “Designing and training a network using backprop requires making many seemingly arbitrary choices [...] These choices can be critical, yet there is no foolproof recipe for deciding them because they are largely problem and data dependent”~\citep{lecun2012efficient}. The requirement to specify hyperparameters is a disadvantage of neural networks (including MLPs) as compared to parameter free methods (ScikitLearn \url{https://scikit-learn.org/stable/modules/neural\underscore networks\underscore supervised.html}). Due to the combinatorial explosion the above mentioned challenge of finding suitable is harder for more complex networks as more options must be considered.} An extensive search in hyperparameter space is practicable because of its small size and because training on sparse representations limits the number of neurons in the networks which results in fast training that allows for many experiments. As compared to convolutional networks for deep learning where suitable means to avoid the vanishing gradient problem are required (\url{https://towardsdatascience.com/the-vanishing-gradient-problem-69bf08b15484}), kernel sizes, strides, the number of kernels and other parameters must be defined there simply less one could do wrong when defining shallow MLPs. It deserves no further explanation that underfitting can potentially be due to an unsuitable network design or because predictions are impossible due to incongruencies or missing information in the sparse data set~\citep{lecun2012efficient}. If the learning task is simple enough to be accomplished by MLPs (e.g. finding combinations of partial angles that correspond to the impression of curvature), one may hence speculate that underfitting can rather be explained by incongruencies or missing information in the labels then a result of issues in design and training hyperparameters of the network. This classical machine learning approach that relies on feature engineering was applied to predict features based on colour and partial angles of asparagus spears.
 \\
 \\
 \textbf{Violet and rust prediction based on color histograms} \\
-The initial approach of measuring the feature “violet” that is based on distribution of sufficiently intense colour hues in the violet range faces at least two drawbacks: First it requires to define two thresholds and second the impression of a violet asparagus piece could potentially be affected by the mix of colours (combinations of colours) that are potentially outside the violet range or are too pale to be considered (see XXX). The same holds for the feature “rust”. Hence in a second approach histograms were computed for foreground pixels after transforming the images to palette images with 256 colour hues (see XXX). The resulting representation is arguably a sparse descriptor that allows to predict colour features using explicitly defined rules or trainable machine learning models. \\
-\\
-\begin{figure}[h]
+The initial approach of measuring the feature “violet” that is based on distribution of sufficiently intense colour hues in the violet range faces at least two drawbacks: First it requires to define two thresholds and second the impression of a violet asparagus piece could potentially be affected by the mix of colours (combinations of colours) that are potentially outside the violet range or are too pale to be considered (see XXX). The same holds for the feature “rust”. Hence in a second approach histograms were computed for foreground pixels after transforming the images to palette images with 256 colour hues (see XXX). The resulting representation is arguably a sparse descriptor that allows to predict colour features using explicitly defined rules or trainable machine learning models.
+
+\begin{table}[h]
 	\centering
-	\includegraphics[scale=0.6]{Figures/chapter04/feature_engineering}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:FeatureEngineering}
-\end{figure}
-
-\\
-\begin{tabular}{lrrrrrr}\n\\toprule\n{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\\\\n\\midrule\nis\\violet     &            0.04 &            0.03 &           0.05 &           0.88 &         0.62 &         0.96 \\\\\nhas\\rost\\body &            0.19 &            0.14 &           0.33 &           0.34 &         0.71 &         0.65 \\\\\n
-\bottomrule\n
-\end{tabular}\n
-
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{lrrrrrr}
+		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
+		\noalign{\smallskip}
+		\hline
+		\\
+		is\textunderscore violet     &            0.04 &            0.03 &           0.05 &           0.88 &         0.62 &         0.96 \\
+		has\textunderscore rost\textunderscore body &            0.19 &            0.14 &           0.33 &           0.34 &         0.71 &         0.65 \\
+		\\
+		\hline
+	\end{tabular}%
+	}
+	\caption[??]{\textbf{??}~~~??}
+	\label{tab:}
+\end{table}
 
 A simple MLP with four hidden layers and 128 neurons in each of them was trained on the resulting normalized histograms of palette colours (ReLU activation / sigmoid activation in the final layer). Hyperparameters were optimized and the network was trained for a total of 500 epochs as the learning curve indicated convergence at this point. \\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{Figures/chapter04/fe_palette_color}
+	\decoRule
+	\caption[Learning Curve for Palette-Color Histogram based Prediction]{\textbf{Learning Curve for Palette-Color Histogram based Prediction}~~~The depiction shows the loss per training episode for the MLP trained on histograms of palette images.}
+	\label{fig:FeatureEngineeringPaletteColor}
+\end{figure}
 \\
 \textbf{Curvature prediction based on partial angles} \\
-Although the accuracies are far from perfect the results appear to be promising. The hit rate for curvature detection is high: 82\% of all bended pieces were identified as such. In comparison, this holds for 71\% of the pieces affected by rust and 62\% of the violet pieces. In contrast, almost all pieces that are identified not to be violet are labelled accordingly (96\% specificity) whereas the specificity for rust (65\%) and curvature (67\%) is lower. The receiver operating characteristic reveals that the prediction is of better quality for violet and curvature prediction as compared to rust prediction which is reflected in a smaller area under the curve. Possibly this reflects that rather small brown spots were considered rust by some coders that attributed labels.
- \\
+Although the accuracies are far from perfect the results appear to be promising. The hit rate for curvature detection is high: 82\% of all bended pieces were identified as such. In comparison, this holds for 71\% of the pieces affected by rust and 62\% of the violet pieces. In contrast, almost all pieces that are identified not to be violet are labelled accordingly (96\% specificity) whereas the specificity for rust (65\%) and curvature (67\%) is lower.
 
-\begin{figure}[h]
+\begin{table}[h]
 	\centering
-	\includegraphics[scale=0.6]{Figures/chapter04/fe_curve}
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{lrrrrrr}
+		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
+		\noalign{\smallskip}
+		\hline
+		\\		
+		is\textunderscore bended &            0.19 &            0.07 &           0.34 &            0.4 &         0.82 &         0.67 \\
+		\\
+		\hline
+	\end{tabular}%
+	}
+	\caption[??]{\textbf{??}~~~??}
+	\label{tab:}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{Figures/chapter04/fe_curve}
 	\decoRule
-	\caption[??]{??}
+	\caption[Learning Curve For Angle Based Prediction]{\textbf{Learning Curve For Angle Based Prediction}~~~The depiction shows the loss per training episode for the MLP trained on partial angles of the centerline of asparagus spears.}
 	\label{fig:FeatureEngineeringCurve}
-\end{figure}
-
-\begin{tabular}{lrrrrrr}\n\\toprule\n{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\\\\n\\midrule\nis\\bended &            0.19 &            0.07 &           0.34 &            0.4 &         0.82 &         0.67 \\\\\n\bottomrule\n
-\end{tabular}\n
-
-Considering the low agreement in labeling, higher values for the specificity and sensitivity of the classifier were not expected. A likely explanation is that the model generalizes deviating understandings and incongruencies we had when attributing labels and affected the reliability of the data. Arguably only little information was discarded by computing the sparse representations that served as an input. Information about irregularities in the outline that a center line does not reflect but potentially contribute to the perception of curvature are not reflected in named sparse representation. The same holds for the spatial distribution of coloured pixels might contain additional information regarding rust and violet-detection. However, the major criteria are captured. As MLPs have little hyperparameters that are suitable for non-linear mappings and  as the task of mapping high level features to human estimates appears to be rather simple, one could argue that there is little potential to improve the predictive quality using other techniques. By introducing a bias, the sensitivity (true positive rate) of the classifier can be adjusted at the cost of more false positives. Introducing a bias means that the threshold that is used to convert the floating point outputs of a neural network to booleans that indicate whether a feature is present or not can be set to values other than 0.5. The possibility of making the classifier more or less sensitive appears to be a good option to be implemented as a feature for customization by the user in asparagus sorting machines. The resulting behavior is reflected in the receiver operating characteristic that is calculated using different biases.
-
-\begin{figure}[h]
+	\vspace{2cm}
 	\centering
 	\includegraphics[scale=0.6]{Figures/chapter04/fe_roc}
-	\decoRule
-	\caption[??]{??}
+	\caption[ROC for MLPs Trained on High Level Features]{\textbf{ROC for MLPs Trained on High Level Features}~~~The depiction shows the receiver operating characteristic for the classifiers that were trained on the features retrieved via feature engineering. It allows to compare the performance. A larger area under the ROC curve indicates better performance while a curve close to the diagonal line indicates poor results.}
 	\label{fig:FeatureEngineeringROC}
 \end{figure}
 
 
+The receiver operating characteristic reveals that the prediction is of better quality for violet and curvature prediction as compared to rust prediction which is reflected in a smaller area under the curve. Possibly this reflects that rather small brown spots were considered rust by some coders that attributed labels. \\
+Considering the low agreement in labeling, higher values for the specificity and sensitivity of the classifier were not expected. A likely explanation is that the model generalizes deviating understandings and incongruencies we had when attributing labels and affected the reliability of the data. Arguably only little information was discarded by computing the sparse representations that served as an input. Information about irregularities in the outline that a center line does not reflect but potentially contribute to the perception of curvature are not reflected in named sparse representation. The same holds for the spatial distribution of coloured pixels might contain additional information regarding rust and violet-detection. However, the major criteria are captured. As MLPs have little hyperparameters that are suitable for non-linear mappings and  as the task of mapping high level features to human estimates appears to be rather simple, one could argue that there is little potential to improve the predictive quality using other techniques. By introducing a bias, the sensitivity (true positive rate) of the classifier can be adjusted at the cost of more false positives. Introducing a bias means that the threshold that is used to convert the floating point outputs of a neural network to booleans that indicate whether a feature is present or not can be set to values other than 0.5. The possibility of making the classifier more or less sensitive appears to be a good option to be implemented as a feature for customization by the user in asparagus sorting machines. The resulting behavior is reflected in the receiver operating characteristic that is calculated using different biases.
+
+
 
 \subsubsection{A dedicated network for head-related features}
+\label{subsec:HeadNetwork}
 
 Some features relate to the asparagus heads only. Hence, it was assumed that classification is easiest when training a convolutional neural network on depictions of the respective region of the asparagus. Therefore, a dataset that consists only of images of the head area was used. Images of all three perspectives were appended horizontally such that each sample contains the information from all available viewpoints. This is especially important as rust affected spots are sometimes only visible from some angles. The depiction below shows one sample of rust affected asparagus heads. \\
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.6]{Figures/chapter04/fe_head}
+	\includegraphics[scale=0.4]{Figures/chapter04/head_example}
 	\decoRule
-	\caption[??]{??}
-	\label{fig:FeatureEngineeringHead}
+	\caption[Training Sample of Preprocessed and Aligned Asparagus Heads]{\textbf{Training Sample}~~~The depiction shows a sample for the preprocessed and vertically aligned asparagus heads. Mind that images from all perspectives were stacked horizontally and used as a single input for the CNN.}
+	\label{fig:HeadExample}
 \end{figure}
+
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{lrrrrrr}
+		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
+		\noalign{\smallskip}
+		\hline
+		\\		
+		has\textunderscore blume     &            0.04 &            0.06 &           0.08 &           0.82 &         0.55 &         0.95 \\
+		has\textunderscore rost\textunderscore head &            0.02 &            0.13 &           0.03 &           0.83 &         0.19 &         0.98 \\
+		\\
+		\hline
+	\end{tabular}%
+	}
+	\caption[??]{\textbf{??}~~~??}
+	\label{tab:}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.8]{Figures/chapter04/head_curve}
+	\decoRule
+	\caption[Learning Curve for the Head Features CNN]{\textbf{Learning Curve for the Head Features CNN}~~~The depiction shows the loss per training episode for the CNN trained on asparagus heads.}
+	\label{fig:HeadCurve}
+	\centering
+	\vspace{2cm}
+	\includegraphics[scale=1.55]{Figures/chapter04/head_roc}
+	\decoRule
+	\caption[ROC for the Head Features CNN]{\textbf{ROC for the Head Features CNN}~~~The depiction shows the receiver operating characteristic for the predictions of the CNN trained on asparagus heads. It allows to compare the performance. A larger area under the ROC curve indicates better performance while a curve close to the diagonal line indicates poor results.}
+	\label{fig:HeadROC}
+\end{figure}
+
 
 A simple feedforward convolutional network was trained on the images. The features “flowering head” and “rust affected head” were chosen as target categories. The network comprises the input layer, three convolutional layers with kernel size two, a fully connected layer with 128 neurons as well as the output layer. For the final layer the sigmoid activation function was applied while the hidden layers have RELU activations. A dropout layer was added to avoid overfitting. The network was trained using mean squared error (MSE) as an error function. The development of loss in the learning curve indicated convergence after 40 epochs. \\
-\\
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.6]{Figures/chapter04/fe_head_curve}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:FeatureEngineeringHeadCurve}
-\end{figure}
-
 The results for both features showed to be highly specific. In contrast the sensitivity is rather low. Only 55\% of the asparagus pieces labelled as “flowering head” were identified as such whereas the true positive rate is only 19\% for “rust head”. Given the low labeling agreement for these criteria these mediocre results are not surprising. \\
-\\
 The ROC curve indicates how the classifiers respond to the introduction of a bias and shows the overall prediction quality. The area under the curve is small for the feature “rost head”. Beside incongruencies in the labels this is possibly due the choice of the head region. It might be the case that brown spots in regions other than the cropped head were considered as an indicator for a rusty head when attributing labels. Improvements by increasing the cropped head region appear to be possible. \\
-
-\begin{tabular}{lrrrrrr}\n\\toprule\n{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\\\\n\\midrule\nhas\\blume     &            0.04 &            0.06 &           0.08 &           0.82 &         0.55 &         0.95 \\\\\nhas\\rost\\head &            0.02 &            0.13 &           0.03 &           0.83 &         0.19 &         0.98 \\\\\n
-\bottomrule\n
-\end{tabular}
-
-\\
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.6]{Figures/chapter04/fe_head_roc}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:FeatureEngineeringHeadROC}
-\end{figure}
 
 
 \subsubsection{Single-label classification}
+\label{subsec:SingleLabel}
 
 One supervised approach often used for training a model on image data is a convolutional neural network (CNN)~\citep{geron2019hands} ~\citep{lecun1995convolutional}. The approach was tested for our data with the application of a CNN using single-label classification on features. CNN apply trainable filtering kernels to extract features from an input image and project these features onto feature maps ~\citep{geron2019hands} ~\citep{bishop2006pattern} ~\citep{lecun1995convolutional}. Based on these maps, the label is predicted by a standard fully-connected layer. \\
 Though using a CNN on the raw data images seemed promising, the results were only slightly better than chance level for the training accuracy. \\
@@ -164,6 +203,7 @@ In conclusion, the simple CNN seems not able to learn from the data. The train l
 
 
 \subsubsection{Multi-label classification}
+\label{subsec:MultiLabel}
 
 
 Building on the standard single-label classification we were further interested whether it would be possible to build a model that can predict several feature labels at the same time. A multi-label classification model hereby gets an image as the input and learns to predict the presence or absence of  the feature labels. \\
@@ -267,18 +307,41 @@ In summary, the model improves its sensitivity and specificity, but it seems lik
 
 
 
-\subsubsection{From feature to label}
+\subsubsection{From features to labels}
+\label{subsec:FeaturesToLabels}
 
 Approximately 200 asparagus pieces per label class were pre-sorted [cf. Chapter 1.4] and served as ground truth mappings between input images and output class labels. These images were manually annotated with features (see Chapter X.X and Table X.X table with the features). This allowed us to break up the classification process into two steps: In the first step we predict feature values from images and in a second step we predict class labels from feature values. \\
 \\
-This chapter deals with the second step: using supervised learning to predict 13 ground truth class labels based on manually labelled features. We build a unified interface to load different models, train them and analyze their predictions. It provides compatibility for scikit-learn as well as for keras models. To explore the data and visualize the results, a streamlit app was built(Footnote: the source code can be found in the GitHub repository at code/pipeline). This has the advantage that the user can easily load a model which is automatically trained, select an asparagus piece, see the corresponding pictures and the predicted class label. The user is sees the distribution of the selected data (Figure XX) and can inspect the absolute and relative number of correctly and incorrectly classified asparagus pieces in the confusion matrix (Figure XX). n a confusion matrix (Figure X)", "overall distribution of true positives and negatives (Figure Y)" etc. We can clearly see that … Furthermore, the user can see the images of an individual asparagus piece and check if  his/her expectations for the manually labelled features are satisfied and if the class label of the piece is predicted correctly (Figure XX). \\
-\\
-\begin{figure}[h]
+This chapter deals with the second step: using supervised learning to predict 13 ground truth class labels based on manually labelled features. We build a unified interface to load different models, train them and analyze their predictions. It provides compatibility for scikit-learn as well as for keras models. To explore the data and visualize the results, a streamlit app was built.~\footnote{the source code can be found in the GitHub repository at code/pipeline} This has the advantage that the user can easily load a model which is automatically trained, select an asparagus piece, see the corresponding pictures and the predicted class label. The user is sees the distribution of the selected data (Figure XX) and can inspect the absolute and relative number of correctly and incorrectly classified asparagus pieces in the confusion matrix (Figure XX). n a confusion matrix (Figure X)", "overall distribution of true positives and negatives (Figure Y)" etc. We can clearly see that … Furthermore, the user can see the images of an individual asparagus piece and check if  his/her expectations for the manually labelled features are satisfied and if the class label of the piece is predicted correctly (Figure XX). \\
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/feature_to_label}
+	\includegraphics[scale=0.4]{Figures/chapter04/ftl_streamlit_app}
 	\decoRule
 	\caption[??]{??}
-	\label{fig:FeatureToLabel}
+	\label{fig:FeaturetoLabelStreamlitApp}
+	\centering
+	\vspace{1cm}
+	\includegraphics[scale=0.4]{Figures/chapter04/ftl_confusion_recall_random_forest}
+	\decoRule
+	\caption[??]{??}
+	\label{fig:FeatureToLabelRandomForest}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.55]{Figures/chapter04/ftl_visualization}
+	\decoRule
+	\caption[??]{??}
+	\label{fig:FeatureToLabelVisualization}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{Figures/chapter04/ftl_classification_report}
+	\decoRule
+	\caption[??]{??}
+	\label{fig:FeatureToLabelReport}
 \end{figure}
 
 
@@ -294,6 +357,7 @@ There are still many unanswered questions about how the selection of features or
 
 
 \subsection{Unsupervised learning}
+\label{sec:UnsupervisedLearning}
 
 Unsupervised learning are all kinds of machine learning algorithms which are not supervised. More specifically, they work without a known goal, a reward system or prior training, and find a structure within the data, or some form of clustering of data points. In supervised approaches, the model is given both the input and the labels. In unsupervised learning approaches, the model only receives the input data. Thus, unsupervised learning works without training samples, and without labelled data. The goal of unsupervised learning algorithms is to find hidden structures in the data.  \\
 \\
@@ -304,6 +368,7 @@ For the current work, the linear dimension reduction algorithm PCA was chosen.
 
 
 \subsubsection{Principal Component Analysis}
+\label{subsec:PCA}
 
 PCA was chosen, because it is one of the standard unsupervised machine learning methods. Moreover, it is a linear, non-parametric method and widespread application to extract relevant information from high dimensional datasets. The hope is to reduce the complexity of the data, by only a minor loss of information~\citep{shlens2009}. Besides being a dimension reduction algorithm, PCA can also be useful to visualize the data, filter noise, extract features, or compress the data. \\
 \\
@@ -404,7 +469,7 @@ The scatterplots in Figure~\ref{fig:PCAscatter} show the data of each feature li
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.75]{Figures/chapter04/pca_scatterplot}
+	\includegraphics[scale=0.35]{Figures/chapter04/pca_scatterplot}
 	\decoRule
 	\caption[Feature-wise Scatterplots]{\textbf{Feature-wise Scatterplots}~~~These scatterplots show the 200 data points where the feature is present in blue and the 200 data points where the feature is absent in orange. The data is projected into a 2D subspace, which is  spanned by the first two principal components of each feature. }
 	\label{fig:PCAscatter}
@@ -427,31 +492,33 @@ Another reason why the results are partly only moderate, is that RGB image data 
 
 
 \subsubsection{Autoencoder}
+\label{subsec:Autoencoder}
 
 Beside PCA, there are further techniques for dimensionality reduction. One alternative machine learning technique that can be employed to deduce sparse representations and automatically extract features by learning from examples are autoencoders. Simple autoencoders, where the decoder and encoder consist of multilayer perceptrons, were already proposed as an alternative to PCA in early days of artificial neural networks when computational resources were still comparatively limited (Kramer 1991). Today one can choose from a multitude of network architectures and designs that all have one property in common: A bottleneck layer. For image classification it is common practice to use convolutional autoencoders. There are numerous papers that employed convolutional autoencoders in various domains. Examples range from medical images to aerial radar images (Chen et al 2017). These include not only shallow networks but more recently the benefits of deep autoencoders were demonstrated (Geng et al. 2015). In addition, more complex architectures like ones that combine autoencoders with generative adversarial models were proposed recently (Bao et al. 2017). In many cases the purpose of autoencoders is dimensionality reduction and feature extraction or in other words the learned latent space of the bottleneck neurons. In other cases, autoencoders are used to map images from one domain to another, for example camera recordings to label-images such that after training a labelled image can be retrieved from the decoder’s output layer (Iglovikov 2018). In short, there are many possible ways to apply autoencoders and many architectures to realize them. \\
 \\
 This motivates the question of how autoencoders work. As mentioned all autoencoders have a bottleneck layer. If applied for dimensionality reduction autoencoders are usually used to predict the input, in this case the image, with the input itself. Autoencoders consist of an encoder that contains the initial layers as well as the bottleneck layer and the decoder that maps the respective latent space back to the image. The desired mapping function of the input to a sparse representation is generated as a side product of the optimization in end to end training, as weights of the decoder are trained such that meaningful features are extracted. The main difference to PCA is that nonlinear functions can be approximated. Feedforward ANNs such as the encoder are non-linear function approximators. Networks with multiple layers are especially well known for establishing named nonlinear correlation. Hence, autoencoders allow for non-linear mappings to the latent space. This means that in the latter multiple features may be represented in a two dimensional space. It shows that compared to PCA where one dimension typically corresponds to one feature more information can be represented in fewer dimensions. Different properties of the input are mapped to different areas of the latent space. In this case, a convolutional variational autoencoder was used. In variational autoencoders a special loss function is used that ensures features in latent space are mapped to a compact cluster of values. This allows for interpolation between samples by moving on a straight line because regions between points in the latent space lie within the data and hence reconstructions of the decoder are more realistic. Other than that variational autoencoders share most properties with regular autoencoders. The location of a point in latent space refers to a compressed representation of the input.These can be interpreted as features of the input. \\
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/chapter04/autoencoder_latent_asparagus}
+	\decoRule
+	\caption[Latent Asparagus Space for MLP-VAE and Reconstruction Manifold]{\textbf{Latent Asparagus Space for MLP-VAE and Reconstruction Manifold}~~~The depiction shows illustrates the mapping by the encoder and decoder of the variational autoencoder: On the left you may see scatterplots illustrating the activation of latent layer neurons for the test dataset (the mapping by the encoder). Image-features are mapped to the respective latent asparagus space. Mind that there is a scatterplot for each feature of interest where colors indicate positive and negative samples. On the right a manifold of decoded images can be found. The axis relate to the points sampled in latent asparagus space that correspond to the reconstructions (mapping by the decoder).}
+	\label{fig:AutoencoderLatentSpace}
+\end{figure}
 \\
 Different variational autoencoders were tested in the realm of the project. First, a simple variational autoencoder with a multilayer perceptron as decoder was implemented. The second approach was a comparatively shallow convolutional variational autoencoder. The third approach relates to an autoencoder with a deeper encoder that was later used to design the networks for semi supervised learning. As the third approach did not improve the mapping of the properties of asparagus pieces to a two latent asparagus space the results for the second of named networks are described here. It was derived from a standard example for convolutional variational autoencoders (Keras 2020a). The presented results are for a network that comprises two hidden convolutional layers in the encoder and two deconvolutional layers in the decoder. \\
 \\
 Similar to the presented way of applying PCA, batches of images that contain only one perspective were used as input to the network. The downsampled dataset was used. Images had to be padded as the implementation does not work with inputs of arbitrary shape. The deconvolutional layers of the decoder can only increase dimensionality by an integer factor: The filters that were used for the deconvolution in the given net double the tensor dimensionality. For padded images, this means an increase for the vertical dimension from 34 to 68 and finally to the desired 136 pixels was achieved in the last three layers of the network (impossible for the original height of 134 pixels). The input shape which defines the shape of the output layer as well must be divisible by two without remainder twice.  \\
 The depiction below shows the results. \\
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/autoencoder}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:Autoencoder}
-\end{figure}
 
 It demonstrates that the features short thick and thin are mapped to separable clusters. As a tendency curvature correlates with a region in the lower periphery as indicated especially by the deconstruction. The other features (violet, rust and blooming) are not mapped adequately and they are not visible in the reconstruction. This shows that only some features of interest were mapped to the latent space and used to decode images. Reconstructions of autoencoders are known to miss many details. Better results could potentially have been achieved using larger input images. The possibility to generate, for example, more or less curved asparagus pieces may help to define a clear cut decision boundary and classify images accordingly. As a potential feature for asparagus sorting machines this would allow the user to customize the definition of curvature to his or her own taste. For this approach to be viable for all features, however, the network performance appears to be insufficient. Some features are poorly separated by our network that was employed on downscaled images.
 
 
 
 \subsection{Semi-supervised learning}
+\label{sec:SemiSupervisedLearning}
 
-We collected more than 100.000 samples. Considering the uniform appearance of the images this represents a substantial amount. However, the target categories and information regarding the features present for each peace are unavailable. Labels had to be manually generated which was done for around 10.000 samples. As a consequence, there is only a small subset of data with attributed labels. Smaller amounts of labelled data mean that predictions can be successful only if the variance in the source values is limited. Hence, for high dimensional data such as images, sparse representations are desirable. Extracting features automatically instead of relying on manual feature engineering is a strategy that is especially appealing if large amounts of unlabelled data are available. In semi-supervised learning features are extracted from the main input (here: images) using unsupervised learning if target labels are unavailable (Keng 2017). Hence, semi-supervised learning promises better results by using not only labeled samples but also unlabeled data points of partially labeled datasets.\\
+We collected more than 100 000 samples. Considering the uniform appearance of the images this represents a substantial amount. However, the target categories and information regarding the features present for each peace are unavailable. Labels had to be manually generated which was done for around 10 000 samples. As a consequence, there is only a small subset of data with attributed labels. Smaller amounts of labelled data mean that predictions can be successful only if the variance in the source values is limited. Hence, for high dimensional data such as images, sparse representations are desirable. Extracting features automatically instead of relying on manual feature engineering is a strategy that is especially appealing if large amounts of unlabelled data are available. In semi-supervised learning features are extracted from the main input (here: images) using unsupervised learning if target labels are unavailable (Keng 2017). Hence, semi-supervised learning promises better results by using not only labeled samples but also unlabeled data points of partially labeled datasets.\\
 \\
 In the previous chapter, methods and results for unsupervised learning are presented. One example are convolutional autoencoders. In this section it is shown how convolutional autoencoders with additional soft constraints in the loss function can be used for semi supervised learning. Instead of computing another dataset of sparse representations that contains the results of unsupervised methods, in semi-supervised learning sparse representations are retrieved and mapped to latent features at the same time (Keng 2017). Bottleneck layer activations represent automatically extracted features. For semi-supervised learning one tries to enforce that latent layer activations of autoencoders correlate with the target categories. \\
 \\
@@ -463,37 +530,46 @@ A custom conditional loss function was used. If labels are present for the curre
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/vae}
+	\includegraphics[scale=0.8]{Figures/chapter04/semi_supervised_network}
 	\decoRule
-	\caption[??]{??}
-	\label{fig:VAE}
+	\caption[Network Structures for Semi-Supervised Learning]{\textbf{Network Structures for Semi-Supervised Learning}~~~The depiction illustrates the network structure for the autoencoders used for semi-supervised learning. Left: The structure for the semi-supervised convolutional variational autoencoder. Right: The structure for the semi-supervised convolutional autoencoder. Further explanations can be found in the text.}
+	\label{fig:SemiSupervisedNetworkStructures}
 \end{figure}
-\\
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/vae_2}
+	\includegraphics[scale=0.35]{Figures/chapter04/semi_supervised_latent_asparagus}
 	\decoRule
-	\caption[??]{??}
-	\label{fig:VAE2}
+	\caption[Latent Asparagus Space for Semi-Supervised CNN-VAE]{\textbf{Latent Asparagus Space for Semi-Supervised CNN-VAE}~~~The depiction shows illustrates the mapping by the encoder and decoder of the vartiational autoencoder with additional constraints in the loss function for semi-supervised learning: On the left you may see scatterplots illustrating the activation of latent layer neurons for the test dataset (the mapping by the encoder). Image-features are mapped to the respective latent asparagus space. Mind that there is a scatterplot for each feature of interest where colors indicate positive and negative samples. On the right a manifold of decoded images can be found. The axis relate to the points sampled in latent asparagus space that correspond to the reconstructions (mapping by the decoder).}
+	\label{fig:SemiSupervisedLatentSpace}
 \end{figure}
-\\
+
 
 The results for the semi-supervised variational autoencoder are illustrated in table (X) and figure X. As one can immediately see, the feature “thin” was adequately mapped to a decisive region in latent space. For the other features, no such clear cut clustering is visible. Reconstructions indicate that the main purpose of the network of predicting the input images was accomplished successfully although the reconstructions look rather uniform. Values for accuracy and sensitivity indicate only poor performance. Only the features “rusty body”(se=.42), “thin”(se=.54) and “bent”(se=.1) sensitivities are above zero. \\
-\\
 
-\begin{tabular}{lrrrrrr}
-\toprule
-{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
-\midrule
-is\_bended     &            0.04 &            0.37 &           0.04 &           0.55 &         0.10 &         0.94 \\
-is\_violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
-has\_rost\_body &            0.14 &            0.27 &           0.20 &           0.39 &         0.42 &         0.73 \\
-short         &            0.00 &            0.02 &           0.00 &           0.98 &         0.00 &         1.00 \\
-thick         &            0.00 &            0.07 &           0.00 &           0.93 &         0.00 &         1.00 \\
-thin          &            0.00 &            0.14 &           0.16 &           0.70 &         0.54 &         0.99 \\
-\bottomrule
-\end{tabular}
-\\
+
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{lrrrrrr}
+		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
+		\noalign{\smallskip}
+		\hline
+		\\
+		is\textunderscore bended     &            0.04 &            0.37 &           0.04 &           0.55 &         0.10 &         0.94 \\
+		is\textunderscore violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
+		has\textunderscore rost\textunderscore body &            0.14 &            0.27 &           0.20 &           0.39 &         0.42 &         0.73 \\
+		short         &            0.00 &            0.02 &           0.00 &           0.98 &         0.00 &         1.00 \\
+		thick         &            0.00 &            0.07 &           0.00 &           0.93 &         0.00 &         1.00 \\
+		thin          &            0.00 &            0.14 &           0.16 &           0.70 &         0.54 &         0.99 \\
+		\\
+		\hline
+	\end{tabular}%
+	}
+	\caption[??]{\textbf{??}~~~??}
+	\label{tab:}
+\end{table}
+
 Compared to the variational convolutional autoencoder for semi-supervised learning, the convolutional autoencoder for supervised learning performs better, but performance could be improved further. In table (X) the results are summarized. Violet detection was not successful at all (se=.0). For the other features the network was trained on, mediocre results were achieved. Thickness detection showed little sensitivity (se=.04) however a high specificity of 1.0. Better results exist for curvature (se=.18) “rusty body” (se=.42) and “short” (se=.6). The specificity for the “rusty body” is lower (sp=.6) as compared to named other features (se=1 and se=.96). Thin pieces were detected in 76\% of all cases and few false positives characterize the detection of named feature (sp=.97). \\
 \\
 The approach for semi-supervised learning presented here faces two challenges. First, it should be mentioned that the networks for semi supervised learning were trained only on one perspective although labels were attributed per asparagus piece. Information that is visible on one or two out of three perspectives only can not be mapped to the desired target category. Imagewise labels would be desirable to improve the approach. \\
@@ -502,15 +578,24 @@ Second, reconstructions using convolutional autoencoders contain little detail. 
 \\
 In summary, one may conclude that autoencoders appear as an alternative to manual feature engineering if a large dataset is available and only a subset contains labelled samples. However, more research is necessary to find best suitable network structures.\\
 \\
-\begin{tabular}{lrrrrrr}
-\toprule
-{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
-\midrule
-is\_bended     &            0.02 &            0.34 &           0.07 &           0.57 &         0.18 &         0.96 \\
-is\_violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
-has\_rost\_body &            0.23 &            0.19 &           0.28 &           0.30 &         0.59 &         0.57 \\
-short         &            0.00 &            0.01 &           0.01 &           0.97 &         0.57 &         1.00 \\
-thick         &            0.00 &            0.06 &           0.00 &           0.93 &         0.04 &         1.00 \\
-thin          &            0.02 &            0.07 &           0.23 &           0.68 &         0.76 &         0.97 \\
-\bottomrule
-\end{tabular}
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{lrrrrrr}
+		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
+		\noalign{\smallskip}
+		\hline
+		\\
+		is\textunderscore bended     &            0.02 &            0.34 &           0.07 &           0.57 &         0.18 &         0.96 \\
+		is\textunderscore violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
+		has\textunderscore rost\textunderscore body &            0.23 &            0.19 &           0.28 &           0.30 &         0.59 &         0.57 \\
+		short         &            0.00 &            0.01 &           0.01 &           0.97 &         0.57 &         1.00 \\
+		thick         &            0.00 &            0.06 &           0.00 &           0.93 &         0.04 &         1.00 \\
+		thin          &            0.02 &            0.07 &           0.23 &           0.68 &         0.76 &         0.97 \\
+		\\
+		\hline
+	\end{tabular}%
+	}
+	\caption[??]{\textbf{??}~~~??}
+	\label{tab:}
+\end{table}

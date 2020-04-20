@@ -3,6 +3,7 @@
 %----------------------------------------------------------------------------------------
 
 \section{Data acquisition and organization}
+\label{ch:DataAcquisition}
 
 The value and purpose of a study project does not only lie in the implementation and realization of a long-term scientific study - in our case, computer vision-based label prediction to improve an agricultural sorting machine. The intention is also to learn how to organize, schedule, and distribute tasks for a team over the period of one year. \\
  \\
@@ -11,11 +12,12 @@ The process of team building and structuring is captured in the first half of th
 Further, the communication between the members is addressed which includes regular meetings, agreements on different issues, or the working platforms that were used. Additionally, the teamwork is evaluated which comprises task distribution, the democratic working structure, and the structural integrity of the team. \\
 After the organizational part of the project, the second half of this chapter is concerned with the collection of the data and the literature research. The sorting machine is described as well as the process of saving and retrieving the recorded images. It is followed by a summary of the literature which was thought to be relevant to our topic, regarding the visual detection of agricultural products or images with low variance with machine learning approaches. There was no specific paper, however, which could be used as a basis for our project. \\
 \\
-The first section of this chapter, 2.1 \textit{Roadmap of the project}, gives an overview of the time management of the study group. It is followed by the chapter 2.2 \textit{Organization of the study group}, in which communication and teamwork are assessed. In 2.3 \textit{Data collection}, the acquisition of the data from the sorting machine is described in more detail. The last section, 2.4 \textit{Literature research}, presents the retrieved literature concerning the issue of asparagus classification and agricultural product classification with machine learning based approaches.
+The first section of this chapter~\ref{sec:Roadmap} \textit{Roadmap of the project} gives an overview of the time management of the study group. It is followed by the subchapter~\ref{sec:Organization} \textit{Organization of the study group} in which communication and teamwork are assessed. In~\ref{sec:DataCollection} \textit{Data collection}, the acquisition of the data from the sorting machine is described in more detail. The last section~\ref{sec:Literature} \textit{Literature research}, presents the retrieved literature concerning the issue of asparagus classification and agricultural product classification with machine learning based approaches.
 
 
 
 \subsection{Roadmap of the project}
+\label{sec:Roadmap}
 
 At the beginning of the project, a roadmap was created to structure the year into different working stages as well as to have an overview of the tasks and problems that needed to be addressed. Near the end of the year, this map was evaluated and updated to mirror the actual time spent at each project stage and to check how accurately the project had been planned from the start. If there were great discrepancies between estimation and reality, the map helped to acknowledge the wrong judgement of time and which working stages had taken longer than others. \\
 \\
@@ -58,11 +60,13 @@ In the following chapter, the management of the work distribution and the commun
 
 
 \subsection{Organisation of the study group}
+\label{sec:Organization}
 
 In this chapter, we will describe how we have organized ourselves to work together on the project. For this we will elaborate on the tools we used for communication and organization as well as on the structure of our group work and our teamwork in general.
 
 
 \subsubsection{Communication}
+\label{subsec:Communication}
 
 Our main way of communication were frequent meetings in which we discussed our process work period and distributed tasks for the next one. In addition to those meetings, we used different platforms, which worked with varying degrees of success. After a presentation about possible strategies of cooperation, we initially decided to use Asana, GitHub and Telegram to facilitate the communication outside of our meetings. The different means of communication will be described and evaluated in the following abstract. \\
 \\
@@ -73,6 +77,7 @@ GitHub is a web-based popular plattform using a version control system using Git
 
 
 \subsubsection{Teamwork}
+\label{subsec:Teamwork}
 
 This subchapter outlines the team forming, the team members and the cooperation in our study project. It starts by introducing the team members and their previous experiences. This is followed by a description of the practical aspects of teamwork, the work structure, and the distribution of project-relevant tasks. \\
 \\
@@ -93,6 +98,7 @@ In the course of the project and to sum up the focus of this chapter, namely the
 
 
 \subsection{Data collection}
+\label{sec:DataCollection}
 
 In this section, the process of recording and assembling the data is described, together with information about the asparagus sorting machine ‘Autoselect’.
 For the data collection, the project group had to drive to the asparagus farm “Gut Holsterfeld” at Rheine. First expectations to receive only labelled data were disappointed. The farmer was not able to provide the amount of labelled data that was needed for the project. As the asparagus season was about to start, the first two months of the project were mainly dedicated to data collection. \\
@@ -110,7 +116,7 @@ One solution to the image selection problem was the installation of the Teamview
 A program was needed that transfers the images to a new saving destination to resolve the problem of limited storage and manual transfer. It had to run in the background and should not disturb the workflow during the sorting process. The operating system on which the sorting machine runs is Windows. After some internet research on background processes and programs, the decision was made to use a service, that is, a system process running independently of any program. As Windows was used, the development was done with the DOTNET framework in the programming language C#. The package provided is called Topshelf (\url{https://github.com/Topshelf/Topshelf}). Topshelf is a service hosting framework for building Windows services using .NET (\url{https://docs.microsoft.com/en-us/dotnet/framework/get-started/overview}). Like this, it is possible to develop a console application in the development phase, compile it as a service, and install it later via the console. Previously, it was not possible to debug services. The function of the service is based on the FileSystemWatcher object (\url{https://docs.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher?view=netframework-4.8}) from the System.IO namespace. In the main program, a list of files in the source folder is kept. Files that are older than one hour are moved to the target folder on the external drive. The selected files are moved by a function that is called, when an event is triggered. The event is triggered by the FileSystemWatcher after subscribing to different flags. After a short time the service was adjusted. An hourly waiting time was then introduced via Teamviewer sessions because the program of the sorting machine itself still accessed the image number indefinitely and therefore image collection had to be started every 1000th image. \\
 \\
 Another issue concerning the storage space for collecting the image data was that the external harddrive ran full after 2 to 3 sorting days. The project members split in groups of 2 and exchanged the harddrive two times a week. The collected images were then transferred to storage capacities of the university with the support of the project’s supervisors. \\
-A last problem that had to be considered was that of unlabelled data. Before the project had started, the farm had not collected any labelled data and we could not rely on the labels that the machine attributed to each asparagus. A solution was to send the already sorted asparagus a second time through the machine. Like this it was assumed that we can not only receive labelled data but also acquire the parameters calculated by the machine. Unfortunately, it was not possible to extract the parameters from the machine. Another issue was posed by the fact that a second sorting is not good for the quality of the asparagus spears. Running them through the machine damaged some spears or led to the exclusion of certain spears from a good quality class into a worse quality class. Further, at least one project member had to be involved in the re-sorting and, thus, had to be present at the farm. The sessions of exchanging the external harddrive and collecting labelled image data were then combined. \\
+A last problem that had to be considered was that of unlabeled data. Before the project had started, the farm had not collected any labelled data and we could not rely on the labels that the machine attributed to each asparagus. A solution was to send the already sorted asparagus a second time through the machine. Like this it was assumed that we can not only receive labelled data but also acquire the parameters calculated by the machine. Unfortunately, it was not possible to extract the parameters from the machine. Another issue was posed by the fact that a second sorting is not good for the quality of the asparagus spears. Running them through the machine damaged some spears or led to the exclusion of certain spears from a good quality class into a worse quality class. Further, at least one project member had to be involved in the re-sorting and, thus, had to be present at the farm. The sessions of exchanging the external harddrive and collecting labelled image data were then combined. \\
 
 \begin{figure}
     \centering
@@ -119,14 +125,14 @@ A last problem that had to be considered was that of unlabelled data. Before the
     \subfloat[]{\includegraphics[width=4cm]{Figures/chapter02/anna_b}}
     \qquad
     \subfloat[]{\includegraphics[width=4cm]{Figures/chapter02/anna_c}}
-    \caption[Example Asparagus Images]{\textbf{Example Asparagus Images}~~~Example pictures of the quality class I A Anna. In picture (A), the asparagus spear is to the right, in (B), it is in the middle, and in (C) it is to the left.}
+    \caption[Example Asparagus Images]{\textbf{Example Asparagus Images}~~~Example pictures of the quality class I A Anna. In picture (A) the asparagus is to the left, in (B) it is in the middle, and in (C) it is to the right.}
     \label{fig:ExampleImagesAnna}
 \end{figure}
 
-An example image of the received data can be seen in Figure~\ref{fig:ExampleImagesAnna}. There are three pictures per spear. The image resolution is around 1040$\times$ 1376 pixel per image, with an RGB colour space. \\
-All in all, the number of collected, unlabelled data is above XX images, thus, above XX asparagus spears. Of the labelled data, we collected 1005 images with the label I A Anna,  908 images for I A Bona, 513 images of I A Clara, 936 images of I A Krumme, 1514 images of I A Violett, 1051 images of II A, 1468 images of II B, 1169 images of Rost, 749 images of Dicke, 775 images of Hohle, 1717 images of Blume, 1157 images of Suppe, and at least 309 labelled as Bruch. The image number does not represent the number of different asparagus spears, as each spear is represented by three distinct images. \\
+An example image of the received data can be seen in Figure~\ref{fig:ExampleImagesAnna}. There are three pictures per asparagus. The image resolution is around 1040$\times$1376 pixel per image, with an RGB color space. \\
+All in all, we collected 59497 labeled and unlabeled images with the Autoselect ATS II at the asparagus farm Gut Holsterfeld. The number of unlabeled data is above 578226 images, thus, above 192742 asparagus. Of the labeled data, we collected 1005 images with the label I A Anna,  908 images for I A Bona, 513 images of I A Clara, 936 images of I A Krumme, 1514 images of I A Violett, 1051 images of II A, 1468 images of II B, 1169 images of Rost, 749 images of Dicke, 775 images of Hohle, 1717 images of Blume, 1157 images of Suppe, and at least 309 images labeled as Bruch. The image number does not represent the number of different asparagus, as each asparagus is represented by three distinct images. \\
 \\
-Most image data, that is XX image samples, was received from the asparagus farm “Gut Holsterfeld”. Additionally, a few images could be recorded at another asparagus farm, “Querdel’s Hof”, in Emsbüren (\url{https://www.querdel.de/}). The farm sorts the asparagus with an updated version of the Autoselect machine at “Gut Holsterfeld”, that is, it uses the same software but other hardware. The difference of both machines is purely in hardware, in particular the resolution of the camera was improved and a second camera was installed that focuses on the head region of the asparagus. At “Querdel’s Hof”, we collected 20616 images in total, 76 from the class ‘normal’, 152 from the class ‘violet/flower’, and 20388 unlabelled images. Of the data, an asparagus spear is represented by four images: three images show the same asparagus from different perspectives and a fourth image depicting solely the head region. An example image can be seen in Figure~\ref{fig:ExampleImagesQuerdel}. No internet connection could be established to the farm, thus, no further images were collected. Moreover, the class labels of asparagus spears as well as the data format of the images from “Querdel’s Hof” are different to the data from the farm “Gut Holsterfeld”, due to the additional head image. Therefore a combination of both data sets was not convenient. A further reason for no more collected data at the second farm was that the objective behind the study project was primarily the implementation of new software regarding the machine type Autoselect at the farm “Gut Holsterfeld”. \\
+Most image data was received from the asparagus farm Gut Holsterfeld. Additionally, a few images could be recorded at another asparagus farm, Querdel’s Hof, in Emsbüren.~\footnote{see their website:~\url{https://www.querdel.de/}} The farm sorts the asparagus with an updated version of the Autoselect ATS II at Gut Holsterfeld, that is, it uses the same software but other hardware. The difference of both machines is purely in hardware, in particular the resolution of the camera was improved and a second camera was installed that focuses on the head region of the asparagus. At Querdel’s Hof, we collected 20616 images in total, 76 from the class ‘normal’, 152 from the class ‘violet/flower’, and 20388 unlabeled images. Of the data, an asparagus is represented by four images: three images show the same asparagus from different perspectives and a fourth image depicting solely the head region. An example image can be seen in Figure~\ref{fig:ExampleImagesQuerdel}. No internet connection could be established to the farm, thus, no further images were collected. Moreover, the class labels of asparagus spears as well as the data format of the images from Querdel’s Hof are different to the data from the farm Gut Holsterfeld, due to the additional head image. Therefore a combination of both data sets was not convenient. A further reason for no more collected data at the second farm was that the objective behind the study project was primarily the implementation of new software regarding the machine type Autoselect ATS II at the farm Gut Holsterfeld.  \\
 
 \begin{figure}[h]
     \centering
@@ -137,14 +143,15 @@ Most image data, that is XX image samples, was received from the asparagus farm 
     \subfloat[]{\includegraphics[width=3cm]{Figures/chapter02/querdel_c}}
     \qquad
     \subfloat[]{\includegraphics[width=3cm]{Figures/chapter02/querdel_d}}
-    \caption[Example Images Querdel's Hof]{\textbf{Example Images Querdel's Hof}~~~Example pictures of the asparagus farm "Querdel's Hof". In picture (A), the asparagus spear is to the right, in (B), it is in the middle, and in (C) it is to the left. A fourth picture (D) is taken with a second camera with focus on the head}.
+    \caption[Example Asparagus Images Querdel's Hof]{\textbf{Example Images Querdel's Hof}~~~Example pictures of the asparagus farm Querdel's Hof. In picture (A), the asparagus spear is to the left, in (B), it is in the middle, and in (C) it is to the right. A fourth picture (D) is taken with a second camera with focus on the head.}
     \label{fig:ExampleImagesQuerdel}
 \end{figure}
 
-To summarize this section, of the XX images collected in total, mostly unlabelled data was collected from the sorting machine Autoselect at the asparagus farm Gut Holsterfeld. Of the labelled data, each class of asparagus is represented with at least XX images (corresponding to XX spears).
+To summarize this section, of the 612113 images collected in total, mostly unlabeled data was collected from the sorting machine Autoselect ATS II at the asparagus farm Gut Holsterfeld. Of the labeled data, each class of asparagus is represented with at least 309 images (corresponding to 103 asparagus).
 
 
 \subsection{Literature research}
+\label{sec:Literature}
 
 In the classification of food products, there seems to be a large field of different possibilities to apply classical machine learning, and also artificial neural network approaches for classification tasks on image data~\citep{bhargava2018fruits} ~\citep{brosnan2002inspection}. \\
 Although, none of the papers that were found could be used as a blueprint to the asparagus classification project, some of them helped to get a better idea of how to proceed with the project, how to give structure to our preprocessing phase, or evaluate the machine learning methods that were already used on other food classification tasks~\citep{mery2013automated} ~\citep{bhargava2018fruits}. For example, some of the literature was concerned with the evaluation of food products but not with differentiating between as many classes as 13~\citep{diaz2004comparison} ~\citep{kilicc2007classification}. Often, the variance in the food products used was either too high~\citep{zhang2012classification} or too low~\citep{kilicc2007classification} ~\citep{al2011dates}.  One paper even evaluates the sorting of asparagus, however, only on a small dataset with three categories of green asparagus~\citep{donis2016classification}. Further papers discovered on food classification were not detailed enough in their approaches and, thus, not sharing any information needed for our task~\citep{pedreschi2016grading}. Other papers were mainly interested in the implementation of a certain toolbox~\citep{mery2013automated}. \\
