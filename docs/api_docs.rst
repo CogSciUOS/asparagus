@@ -2,7 +2,7 @@ API Documentation
 =================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 6
    :caption: API Documentation:
    :glob:
 
