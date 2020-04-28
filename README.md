@@ -1,6 +1,5 @@
 # Asparagus classification project
 
-
 We are a study project of Osnabrueck University that is interested in Computer Vision. With this project we want to improve the performance of an asparagus sorting machine. The repository shows how we classify images of asparagus with Machine Learning methods.
 
 
@@ -11,19 +10,19 @@ You can find in this repository:
     -   Protocols
     -   Paper Library
     -   Report
--   Preprocess
+-   Preprocessing
     -   Labeling
-        - Labeling Application
-        - Kappa Agreement
-        - Annotations 
-    - Data Sets 
+    -   Labeling Application
+    -   Kappa Agreement
+    -   Annotations 
+    -   Data Sets 
 -   Classification
-    - Pipeline
-    - Unsupervised Learning
-    - Semi-Supervised Learning
-    - Supervised Learning
+    -   Pipeline
+    -   Unsupervised Learning
+    -   Semi-Supervised Learning
+    -   Supervised Learning
 -   Evaluation
-    Images
+-   Images
 -   Service
 
 
