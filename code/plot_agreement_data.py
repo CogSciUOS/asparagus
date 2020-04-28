@@ -8,6 +8,43 @@ agreement = pd.concat(map(pd.read_csv, glob.glob(os.path.join(
 
 
 def main():
+
+    global agreement
+    print(agreement.head())
+
+    print()
+    print("Aggregated kappa score over all annotator pairs")
+    test = agreement.groupby(
+        ["feature", "evaluation_measure"]).median()
+    print(test.reset_index()[test.reset_index()
+                             ["evaluation_measure"] == "kappa"])
+
+    print()
+    print("Annotator pairs IQR")
+    agreement_IQR = agreement.drop(columns=["annotators"])
+    Q1 = agreement_IQR.groupby(
+        ["feature", "evaluation_measure"]).quantile(0.25)
+    Q3 = agreement_IQR.groupby(
+        ["feature", "evaluation_measure"]).quantile(0.75)
+    IQR = Q3 - Q1
+    print("IQR")
+    print(IQR)
+
+    print()
+    print("Annotator pairs vs. different measures")
+    print(agreement.groupby(
+        ["annotators", "evaluation_measure", "feature"]).mean())
+
+    print()
+    print("Comparing the different measures")
+    print(agreement.groupby(
+        ["evaluation_measure", "feature"]).median())
+
+    print()
+    print("Comparing the different features")
+    print(agreement.groupby(
+        ["feature", "evaluation_measure"]).median())
+
     p1 = (ggplot(agreement, aes(x='evaluation_measure', y='score', group='annotators', color='feature'))
           + geom_line(aes(group='feature'), alpha=0.7)
           + geom_point(size=3, alpha=0.7)

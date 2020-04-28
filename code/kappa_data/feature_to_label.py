@@ -57,9 +57,10 @@ def add_label(df):
 
 
 if __name__ == "__main__":
-    #path = 'Z:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/results/'
-    path = 'C:/Users/Sophia/Documents/asparagus/code/kappa_data/'
+    path = # path to label files for which a class should be estimated
+    # get all csv files in path
     csvs = [x for x in os.listdir(path) if x.endswith('.csv')]
+    # open files and add the corresponding labels to each image id
     for csv in csvs:
         full_path = path + csv
         df = pd.read_csv(full_path, delimiter=';')
