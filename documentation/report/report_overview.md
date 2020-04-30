@@ -1,10 +1,10 @@
 # Report overview
 
-This is the overview for the Report. The actual report is in the main.tex file in the same folder and constructed from the other .tex files in the Chapters folder. To see the most recent changes in the report, please pull in the origin/Report branch and create a pdf file from the main.tex file. 
+This is the overview for the report. The actual report is in the main.tex file in the same folder and constructed from the other .tex files in the Chapters folder. To see the most recent changes in the report, please create a pdf file from the main.tex file or have a look at asparagus-report.pdf. 
     
 Task distribution is marked `like this`.  
 
-## 1&ensp;Introduction `Josefine`  
+## 1&ensp;Introduction   
 &ensp; **The project**  `Josefine`
   
 >    Rough summary of the idea of the project.     
@@ -24,14 +24,7 @@ Task distribution is marked `like this`.
 >    What problems and challenges will be met - including the difference of challenge for humans vs. machines.  
 >    Including the decision tree for the labels as sorted with Silvan’s machine.  
   
-&ensp; **Expected outcome vs. actual outcome of the project**  `Malin`
-  
->    What did we hope to achieve with the project and, in contrast to that, what was the actual outcome?  
->    What challenges did we expect and what results did we aim for?  
->    Which challenges did we not expect and what did we do to overcome them?  
->    Did we actually solve them?  
-  
-## 2&ensp;Data acquisition and organization  `Josefine`
+## 2&ensp;Data acquisition and organization 
 &ensp; **Timetable (roadmap) of the project**  `Josefine`  
   
 >    A (visual) overview of the project's course during the year.  
@@ -68,7 +61,7 @@ Task distribution is marked `like this`.
 >    Re-reading on potential ANN structures that we could use for sorting.  
 >    Could we rely on a certain paper/process? Did it work?  
   
-## 3&ensp;The dataset `Josefine`  
+## 3&ensp;Preprocessing and data set creation   
 &ensp; **Preprocessing steps**  `Sophia` 
   
 >    First approach to create a dataset (layout) and data augmentation to generate more samples.  
@@ -85,93 +78,62 @@ Task distribution is marked `like this`.
 &ensp; **The hand-label app**  `Michael`
   
 >    Introduction to the script created for manual sorting. Fusion of the feature extraction scripts:  
->    What is it? Why did we need it? What was the idea behind it? How does it work? (keep short! it's  
->    only the introduction) Do not explain in length here but rather give an idea and refer to README's  
->    and to code in GitHub whenever possible.  
+>    What is it? Why did we need it? What was the idea behind it? How does it work? What is the output of the app?  
   
-&ensp;&ensp;&ensp; How to install `Michael`  
-  
->    Installation of the app: environment setup, mount points, problems we ran into, etc. ...  
-  
-&ensp;&ensp;&ensp; Operation instructions `Michael`  
-  
->    User manual for the app and introduction to its graphical user interface: What can you find where?  
->    (include one example picture of GUI), Step-by-step guideline through loading pictures, creating  
->    a .csv file, and how to sort one picture.  
-  
-&ensp;&ensp;&ensp; Performance  `Michael`  
-  
->    Results and general performance of the app: How well did the feature extraction work? How much features  
->    had to be labelled by hand? What is the output of the app?  
-  
-&ensp; **Manual labelling**  `Josefine`  
+&ensp; **Manual labeling**  `Josefine`  
   
 &ensp;&ensp;&ensp; Sorting criteria  `Josefine`  
   
->    The criteria explained in detail for the hand-labelling of the features with the app (including example  
+>    The criteria explained in detail for the hand-labeling of the features with the app (including example  
 >    pictures). What are expected difficulties we might encounter?  
   
 &ensp;&ensp;&ensp; Sorting outcome  `Josefine`  
   
->    The process and the results of the sorting: How much did we sort? How well did the sorting work in general  
->    (i.e., was it easy to sort? how long did it take? what problems were encountered?)? How accurately did  
->    we sort as a group? (i.e., Kappa Agreement)  
+>    The process and the results of the sorting: How much did we sort? How well did the sorting work in general:  
+>    i.e., was it easy to sort? How long did it take? What problems were encountered?  
   
 &ensp;&ensp;&ensp; Agreement measures  `Malin`  
   
 >    Theoretical background on a measurement that assesses our sorting agreement.
   
-&ensp;&ensp;&ensp; Validity  `Malin`
+&ensp;&ensp;&ensp; Reliability  `Malin`
   
 >    Expanding on how accurately we sorted/how valid our sorting was as a group. Introducing the Kappa Agreement. 
   
-&ensp; **The asparagus dataset**  `Richard?` 
-  
-&ensp;&ensp;&ensp; Different datasets  `Sophia, Richard`  
+&ensp; **The asparagus data set**  `Richard, Sophia` 
   
 >    Structural information on the datasets: What do they look like? How big are they (labelled vs unlabelled  
->    samples)? Which were criteria for throwing out data? (maybe have an overview picture with all relevant  
->    information on one glance  
-  
-&ensp;&ensp;&ensp; Challenges   `Richard, Sophia`
-  
+>    samples)? Which were criteria for throwing out data?   
 >    Problems and challenges during the creation of the datasets: What were the challenges in creating a  
 >    general dataset? What were challenges in general? How well could we work with the datasets? What was  
 >    used as training data, validation data, and test data?  
   
-## 4&ensp;Classification `Malin`
+## 4&ensp;Classification
 &ensp; **Supervised learning**  `Josefine`  
   
-&ensp;&ensp;&ensp; Single-label classification  `Josefine`  
-&ensp;&ensp;&ensp; Multi-label classification  `Sophia` 
-  
-&ensp; **Semi-supervised learning**   `Michael, Richard`
-  
-&ensp;&ensp;&ensp; Autoencoder  `Michael` 
+&ensp;&ensp;&ensp; Feature Engineering  `Michael`   
+&ensp;&ensp;&ensp; Single-label classification  `Josefine`    
+&ensp;&ensp;&ensp; Multi-label classification  `Sophia`   
+&ensp;&ensp;&ensp; Head-related Feature Network  `Michael`   
+&ensp;&ensp;&ensp; From Features to Labels  `Katharina`   
   
 &ensp; **Unsupervised learning**  `Malin` 
   
 &ensp;&ensp;&ensp; Principal component analysis  `Malin, Maren` 
   
-&ensp; **From feature to label**  `Josefine` 
-
-## 5&ensp;Discussion
-&ensp; **Comparison of classification approaches**  
+&ensp; **Semi-supervised learning**   `Michael`  
   
-&ensp;&ensp;&ensp; Comparing architectures  
-&ensp;&ensp;&ensp; Comparing results
-
+&ensp;&ensp;&ensp; Autoencoder  `Michael` 
   
-&ensp; **Final result of the project**  
+## 5&ensp;Summary  `Maren`
   
-&ensp;&ensp;&ensp; Scientific results  
-&ensp;&ensp;&ensp; Organization   
-
-## 6&ensp;Conclusion  
+## 5&ensp;Discussion  `Malin`
+&ensp; **Classification results**  `Malin, Michael`
   
-&ensp; **Summary**  
-    
-&ensp; **Next steps**   `Richard`
+&ensp; **Methodology**  `Malin`
   
-&ensp;&ensp;&ensp; Outlook of the project  
-&ensp;&ensp;&ensp; Contribution to scientific landscape  
+&ensp; **Organization**  `Josefine, Richard`
+   
+## 6&ensp;Conclusion  `Richard`
+  
+>    Outlook of the project. Contribution to scientific landscape? 
