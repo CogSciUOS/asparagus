@@ -26,9 +26,9 @@
 \documentclass[
 %in original
 11pt, % The default document font size, options: 10pt, 11pt, 12pt
-%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
 english, % ngerman for German
-singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
 %
@@ -48,19 +48,25 @@ headsepline, % Uncomment to get a line under the header
 % Output font encoding for international characters
 \usepackage[T1]{fontenc}
 
+% use math symbols
+\usepackage{mathtools}
+
 % facilitate commenting
 \usepackage{comment}
-
-% hoped I can use this for line break in long url links but seems not to work
-\usepackage[breaklinks=true]{hyperref}
 
 % Use the Palatino font by default
 \usepackage{mathpazo}
 
 % hope this helps with figures
-\usepackage{subfig}
+%\usepackage{subfig}
+
+% hope this helps with floats
+\usepackage{float}
 %\usepackage{caption}
-%\usepackage{subcaption}
+\usepackage{subcaption}
+
+% hope this helps to keep floats to their sections
+\usepackage{placeins}
 
 % Use the bibtex backend with the authoryear citation style (which resembles APA)
 \usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
@@ -86,6 +92,10 @@ headsepline, % Uncomment to get a line under the header
 % Required to generate language-dependent quotes in the bibliography
 \usepackage[autostyle=true]{csquotes}
 
+% hoped I can use this for line break in long url links but seems not to work
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{xurl}
+
 % none of the packages worked as expected
 \usepackage{textcomp} % to be able to use \textdegree
 
@@ -94,24 +104,31 @@ headsepline, % Uncomment to get a line under the header
 % make a / to indicate "per"
 \sisetup{per-mode=symbol}
 
-
 % for prettier tables
 \usepackage{booktabs} 
 
 % for adjusting table size
 \usepackage{graphicx}
 
+% for wrapping text around figures
+\usepackage{wrapfig}
+
 % use a glossary (file is still there if wanted)
-%\usepackage[acronym,toc,nonumberlist]{glossaries} % use acronyms
-%\makeglossaries
-%\input{Glossary}
-%\loadglsentries{Glossary}
+\usepackage[acronym,toc,nonumberlist]{glossaries} % use acronyms
+\makeglossaries
+\loadglsentries{Glossary}
 
 % to display code
 \usepackage{listings}
 
 % remove indentation
 \setlength{\parindent}{0in}
+
+% have two footnotes behind each other
+\usepackage[multiple,hang,flushmargin]{footmisc}
+
+% stretch table sizes
+\renewcommand{\arraystretch}{1.2}
 
 
 %----------------------------------------------------------------------------------------
@@ -131,10 +148,10 @@ headsepline, % Uncomment to get a line under the header
 % }
 
 \geometry{paper= a4paper,
-				left=5cm,%
-                right=2cm,%
+				left=4cm,%
+                right=3cm,%
                 top=2.25cm,%
-                bottom=2.25cm,%
+                 bottom=2.25cm,%
                 headheight=12pt}%
    
 
@@ -153,8 +170,8 @@ headsepline, % Uncomment to get a line under the header
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
 \subject{Cognitive Science} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
-\keywords{Computer Vision, ANN, Supervised Learning, Semi-supervised Learning, Unsupervised Learning} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
-\university{\href{https://www.uni-osnabrueck.de/en/home.html}{Osnabrück University}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\keywords{Classification, Computer Vision, ANN, CNN, Supervised Learning, Semi-supervised Learning, Unsupervised Learning} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{https://www.uni-osnabrueck.de/en/home.html}{Osnabr{\"u}ck University}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \department{\href{https://www.ikw.uni-osnabrueck.de/en/home.html}{Institute of Cognitive Science}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
 \group{\href{https://www.ikw.uni-osnabrueck.de/en/research_groups/computer_vision.html}{Research Group Computer Vision}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
 \faculty{\href{https://www.uni-osnabrueck.de/universitaet/fachbereiche/fachbereich_humanwissenschaften.html}{School of Human Sciences}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
@@ -191,7 +208,30 @@ headsepline, % Uncomment to get a line under the header
 \makeatother
 %%%%% END SECTION REDEFINITIONS
 
+%%%%% FLOAT STOPPING
+% further redefinitions to have floats stop at subsections and not only sections
+\makeatletter
+\AtBeginDocument{%
+  \expandafter\renewcommand\expandafter\subsection\expandafter
+    {\expandafter\@fb@secFB\subsection}%
+  \newcommand\@fb@secFB{\FloatBarrier
+    \gdef\@fb@afterHHook{\@fb@topbarrier \gdef\@fb@afterHHook{}}}%
+  \g@addto@macro\@afterheading{\@fb@afterHHook}%
+  \gdef\@fb@afterHHook{}%
+}
+\makeatother
 
+\makeatletter
+\AtBeginDocument{%
+  \expandafter\renewcommand\expandafter\subsubsection\expandafter
+    {\expandafter\@fb@subsecFB\subsubsection}%
+  \newcommand\@fb@subsecFB{\FloatBarrier
+    \gdef\@fb@afterHHook{\@fb@topbarrier \gdef\@fb@afterHHook{}}}%
+  \g@addto@macro\@afterheading{\@fb@afterHHook}%
+  \gdef\@fb@afterHHook{}%
+}
+\makeatother
+%%%%% END FLOAT STOPPING
 
 
 \AtBeginDocument{
@@ -323,13 +363,19 @@ headsepline, % Uncomment to get a line under the header
 % Include the appendices of the thesis as separate files from the Appendices folder
 % \include{Appendices/AppendixCommentSheet}
 
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+
+% print the glossary
+\printglossary[type=\acronymtype]
+
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
 \printbibliography[heading=bibintoc]
-
-%\printglossaries
 
 %\bibliography{bibliography.bib}
 

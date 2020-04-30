@@ -6,48 +6,50 @@
 \section{Classification}
 \label{ch:Classification}
 
-Given the structure of our dataset, namely image data with a sub dataset with corresponding class labels, and a sub dataset with corresponding feature labels, different machine learning and computer vision methods were chosen, to tackle the problem of image classification. \\
-\\
-Image classification refers to the method of identifying to which category an image belongs to, according to its visual information.  Classification problems can be divided into three different types: binary, multi-class and multi-label. Whereas a binary classification only distinguishes between two different classes and therefore classifies an image into one of the two classes, a multi-class classification distinguishes between multiple exclusive classes. A multi-label classification also works for multiple classes. However in the latter, a single image can belong to none, one, several or all of the classes. Those classes can be seen as a feature vector for each image. Each feature can be present or not, independently of the other features. ( vielleicht hier zitieren, seite muss noch rausgesucht werden~\citep{har2003constraint}) \\
-\\
-Each of those classification methods comes with certain advantages and implications.
-There exist many classification methods which have been developed for binary classification problems, but less methods are suited for multi-label or multi-class classification. Therefore, the latter often work as a combination of binary classifiers. Moreover, multi-class and multi-label classification have the difficulty of sparser labels.  \\
-\\
-Binary classification can be used to decide whether a certain feature is present at one certain asparagus piece, or not. This is helpful for a first inspection of the data, but does not enable a full classification of one image into one of 13 classes, which are currently sorted at the Spargelhof Gut Hosterfeld. Multi-class classification solves this problem. It is fairly easy to apply this classification type on the pre labelled images, but increasingly difficult for the semi-supervised and unsupervised approaches. While it enables a clear identification of class belonging, it does not enable to train variability within classes. As the class id results from a combination of the presence of certain features, and the absence of others, it is therefore also reasonable to go for a multi-label classification approach.  \\
-\\
-Moreover, there are different methods on how to approach image classification. Those can be divided into three main groups: supervised learning, semi supervised learning and unsupervised learning. In addition to classical computer vision-based approaches, our study group investigated several neural network approaches. \\
-\\
-During our group work, algorithms of all three different classification types (binary, multiclass and multilabel) as well as of all three learning types (supervised, semi-supervised and unsupervised) were applied for different working steps and different purposes. \\
-\\
-In the long run, an integrated model was aimed which predicts all features of a single asparagus piece, and from which an additional class can be inferred. However, as intermediate steps towards that goal, the focus was to optimize models on identifying the presence of single features. Besides that, we only investigated a few multi-label classification tasks.   \\
-\\
-The following chapter aims to give a general background of the different approaches chosen for our image classification problem, as well as a detailed overview of the concrete implementations of the models and the mechanisms of their hyperparameters. 
-All algorithms were implemented using Python.  
+Given the structure of our data set, namely image data with a sub data set with corresponding class labels, and a sub data set with corresponding feature labels, different machine learning and computer vision methods were chosen, to tackle the problem of image classification.
+
+Image classification refers to the method of identifying to which category an image belongs to, according to its visual information. Classification problems can be divided into three different types: binary, multiclass and multi-label. Moreover, there are different methods on how to approach image classification. Those can be divided into three main groups: supervised learning, semi-supervised learning and unsupervised learning. 
+
+Image classification refers to the method of identifying to which category an image belongs to, according to its visual information. Classification problems can be divided into three different types: binary, multiclass and multi-label. Whereas a binary classification only distinguishes between two different classes and therefore classifies an image into one of the two classes, a multiclass classification distinguishes between multiple exclusive classes. A multi-label classification also works for multiple classes. However in the latter, a single image can belong to none, one, several or all of the classes ~\citep{har2003constraint}.
+
+Binary classification can be used to decide whether a certain feature is present at one certain asparagus piece, or not. Multiclass classification solves this problem as well, but is also applicable for data with more than two classes. As the class label results from a combination of the presence of certain features, and the absence of others, it is also reasonable to go for a multi-label classification approach.
+
+\bigskip
+During our group work, algorithms of the different classification types as well as of the different learning types were applied.
+In the long run, an integrated model was aimed at predicting all features of a single asparagus piece, from which the final class label can be inferred. However, as intermediate steps towards that goal, the focus was to optimize models on identifying the presence of the features described in~\autoref{subsec:SortingCriteria}.
+
+\bigskip
+This chapter gives a general background of the different approaches chosen for our image classification problem, as well as a detailed overview of the concrete implementations of the models and the mechanisms of their hyperparameters.  
 
 
 \subsection{Supervised learning}
 \label{sec:SupervisedLearning}
 
-In machine learning, there are different approaches for an application to be trained on a set of data~\citep{geron2019hands}~\citep{bishop2006pattern}. Depending on the level of supervision that the system receives during the training phase, the learning process is grouped into one of four major categories~\citep{geron2019hands}. One of these categories is supervised learning. For supervised learning approaches, the training data includes not only the input but also its corresponding target labels, which is why only labelled data is used. The objective is to find a mapping between target (x) and label (y) when a set of both (x,y) is provided as training data to the application~\citep{olivier2006semi}. An advantage of supervised learning is that the problem is well defined and the model can be evaluated in respect to its performance on a labelled data set~\citep{daume2012course}~\citep{olivier2006semi}. In other words, the labels can be used as a direct basis for the model optimizing function during training. \\
-Supervised learning spans over a large set of different methods, from decision trees and random forests, to support vector machines (SVM), to neural networks~\citep{caruana2006comparison}~\citep{geron2019hands}. \\
-A classic task for supervised learning systems is the classification of received data and mapping it to one of a finite number of categories~\citep{bishop2006pattern}.
-The disadvantage of supervised learning is the effort of receiving enough labelled data. It can be challenging to obtain fully labelled data because labelling experts are needed to classify the data which is usually a time consuming and expensive task~\citep{zhu05survey}~\citep{figueroa2012predicting}. \\
-\\
-In the following subchapters, different supervised learning methods were chosen to solve the classification task either (a) by using the labelled data that we collected by running pre-sorted samples a second time through the sorting machine, or (b) by using the data that was manually labelled for features as described in chapter 3. In  4.1.1 \textit{Prediction based on feature engineering}, an approach using a multi-layer perceptron (MLP) is described for feature classification. In the second section 4.1.2 \textit{A dedicated network for head-related features}, a convolutional neural network is used to train solely on the head image data for the features flower and rusty head. The third section, 4.1.3 \textit{Single-label classification}, is concerned with labelling the input images with a convolutional neural network (CNN) in a binary setup for their designated features. In 4.1.4 \textit{Multi-label classification}, a neural network is trained on the data to label it not only for one feature but all features at the same time.
-In the last section 4.1.5 \textit{From feature to label}, a random forest approach is described to map the features of the image data to their class label.
+In machine learning, there are different approaches for an application to be trained on a set of data~\citep{geron2019hands,bishop2006pattern}. Depending on the level of supervision that the system receives during the training phase, the learning process is grouped into one of four major categories~\citep{geron2019hands}. One of these categories is supervised learning. For supervised learning approaches, the training data includes not only the input but also its corresponding target labels. The objective is to find a mapping between object \((x)\) and label \((t)\) when a set of both \((x,t)\) is provided as training data to the application~\citep{olivier2006semi}. An advantage of supervised learning is that the problem is well defined and the model can be evaluated in respect to its performance on labeled data~\citep{daume2012course,olivier2006semi}. In other words, the labels are used as a direct basis for the model optimizing function during training.
 
+Supervised learning spans over a large set of different methods, from decision trees and random forests, to \acrfull{svm}  and \acrlong{ann}s~\citep{caruana2006comparison,geron2019hands}.
+
+A classical task for supervised learning systems is the classification of received data and mapping it to one of a finite number of categories~\citep{bishop2006pattern}.
+The disadvantage of supervised learning is the effort of receiving enough labeled data. It can be challenging to obtain fully labeled data because labeling experts are needed to classify the data which is usually a time consuming and expensive task~\citep{zhu05survey,figueroa2012predicting}.
+
+\bigskip
+In the following subchapters, different supervised learning methods were chosen to solve the classification task using the data that was manually labeled for features as described in~\autoref{ch:Dataset}. In~\autoref{subsec:FeatureEngineering}, an approach using an \acrshort{mlp} is described for feature classification. In the second~\autoref{subsec:HeadNetwork}, a \acrshort{cnn} is used to train solely on the head image data for the features flower and rusty head. The~\autoref{subsec:SingleLabel} is concerned with labeling the input images with a \acrshort{cnn} in a binary setup for their designated features. In~\autoref{subsec:MultiLabel}, a neural network is trained on the data to label it not only for one feature but all features at the same time.
+Finally, in~\autoref{subsec:FeaturesToLabels}, a random forest approach is described to map the features of the image data to their class label.
 
 
 \subsubsection{Prediction based on feature engineering}
 \label{subsec:FeatureEngineering}
 
-Besides approaches that directly use images as an input one may use high level feature engineering to retrieve sparse representations that contain relevant information in a condensed form and apply classical machine learning classifiers such as MLPs to predict labels~\citep{zheng2018feature}. These classifiers are comparatively simple, fast to train and only few network hyperparameters have to be defined. One may argue that this is one of the major benefits as compared to networks of higher complexity (e.g. convolutional deep learning nets) that are typically characterized by a more complex structure and hence a larger hyperparameter space. As a consequence, finding suitable parameters for MLPs (i.e. the number of hidden layers and neurons per layer) is comparatively easy.~\footnote{The challenge of finding appropriate network parameters is well known in the deep learning community: “Designing and training a network using backprop requires making many seemingly arbitrary choices [...] These choices can be critical, yet there is no foolproof recipe for deciding them because they are largely problem and data dependent”~\citep{lecun2012efficient}. The requirement to specify hyperparameters is a disadvantage of neural networks (including MLPs) as compared to parameter free methods (ScikitLearn \url{https://scikit-learn.org/stable/modules/neural\underscore networks\underscore supervised.html}). Due to the combinatorial explosion the above mentioned challenge of finding suitable is harder for more complex networks as more options must be considered.} An extensive search in hyperparameter space is practicable because of its small size and because training on sparse representations limits the number of neurons in the networks which results in fast training that allows for many experiments. As compared to convolutional networks for deep learning where suitable means to avoid the vanishing gradient problem are required (\url{https://towardsdatascience.com/the-vanishing-gradient-problem-69bf08b15484}), kernel sizes, strides, the number of kernels and other parameters must be defined there simply less one could do wrong when defining shallow MLPs. It deserves no further explanation that underfitting can potentially be due to an unsuitable network design or because predictions are impossible due to incongruencies or missing information in the sparse data set~\citep{lecun2012efficient}. If the learning task is simple enough to be accomplished by MLPs (e.g. finding combinations of partial angles that correspond to the impression of curvature), one may hence speculate that underfitting can rather be explained by incongruencies or missing information in the labels then a result of issues in design and training hyperparameters of the network. This classical machine learning approach that relies on feature engineering was applied to predict features based on colour and partial angles of asparagus spears.
-\\
-\\
-\textbf{Violet and rust prediction based on color histograms} \\
-The initial approach of measuring the feature “violet” that is based on distribution of sufficiently intense colour hues in the violet range faces at least two drawbacks: First it requires to define two thresholds and second the impression of a violet asparagus piece could potentially be affected by the mix of colours (combinations of colours) that are potentially outside the violet range or are too pale to be considered (see XXX). The same holds for the feature “rust”. Hence in a second approach histograms were computed for foreground pixels after transforming the images to palette images with 256 colour hues (see XXX). The resulting representation is arguably a sparse descriptor that allows to predict colour features using explicitly defined rules or trainable machine learning models.
+Besides approaches that directly use images as an input one may use high level feature engineering to retrieve sparse representations that contain relevant information in a condensed form and apply classical machine learning classifiers such as \acrshort{mlp}s to predict labels~\citep{zheng2018feature}. These classifiers are comparatively simple, fast to train and only few network hyperparameters have to be defined. One may argue that this is one of the major benefits as compared to networks of higher complexity (e.g. deep \acrshort{cnn}s). As a consequence, finding suitable parameters for \acrshort{mlp}s (i.e. the number of hidden layers and neurons per layer) is comparatively easy.\footnote{The challenge of finding appropriate network parameters is well known in the deep learning community: ``Designing and training a network using backpropagation requires making many seemingly arbitrary choices [...]. These choices can be critical, yet there is no foolproof recipe for deciding them because they are largely problem and data dependent’’~\citep{lecun2012efficient}. The requirement to specify hyperparameters is a disadvantage of neural networks (including \acrshortpl{mlp}) as compared to parameter free methods~\citep{scikit2019neural}. Due to the combinatorial explosion, the above mentioned challenge of finding suitable parameter settings is harder for more complex networks as more options must be considered.}
 
-\begin{table}[h]
+An extensive search in hyperparameter space is practicable because of its small size and because training on sparse representations limits the number of neurons in the networks which results in fast training that allows for many experiments. In \acrshortpl{cnn} for deep learning suitable means are required to avoid the vanishing gradient problem.~\citep{wang2019vanishing} Further, kernel sizes, strides, the number of kernels and other parameters must be defined. Therefore, designing shallow \acrshortpl{mlp} appears to be easier: There is simply less one could possibly do wrong. It deserves no further explanation that underfitting can potentially be due to an unsuitable network design or because predictions are impossible due to incongruencies or missing information in the sparse data set~\citep{lecun2012efficient}. If the learning task is simple enough to be accomplished by \acrshortpl{mlp} (e.g. finding combinations of partial angles that correspond to the impression of curvature), one may speculate that underfitting can rather be explained by incongruencies or missing information in the labels than a result of issues in design- and training hyperparameters of the network. This classical machine learning approach that relies on feature engineering was applied to predict features based on color and partial angles of asparagus spears.
+
+\bigskip
+\textbf{Violet and rust prediction based on color histograms} 
+
+The initial approach of measuring the feature violet that is based on distribution of sufficiently intense color hues in the violet range faces at least two drawbacks: First, it requires to define two thresholds. Second, the impression of a violet asparagus spear could potentially be affected by the combination of colors that are potentially outside the violet range or are too pale to be considered (see~\autoref{subsec:Violet}). The same holds for the features rusty body and rusty head. Hence, in a second approach histograms were computed for foreground pixels after transforming the images to palette images with 256 color hues (see \ref{preprocessing}). The resulting representation is a sparse descriptor that allows to predict color features using explicitly defined rules or trainable machine learning models.
+
+\begin{table}[!h]
 	\centering
 	\resizebox{\columnwidth}{!}{%
 	\begin{tabular}{lrrrrrr}
@@ -61,24 +63,26 @@ The initial approach of measuring the feature “violet” that is based on dist
 		\hline
 	\end{tabular}%
 	}
-	\caption[??]{\textbf{??}~~~??}
-	\label{tab:}
-\end{table}
+	\caption[Feature Engineering Color-Based Prediction]{\textbf{Color-Based Prediction}~~~Performance of color histogram based predictions with a \acrshort{mlp}.}
+	\label{tab:performance_color_feature_based}
+\end{table} 
 
-A simple MLP with four hidden layers and 128 neurons in each of them was trained on the resulting normalized histograms of palette colours (ReLU activation / sigmoid activation in the final layer). Hyperparameters were optimized and the network was trained for a total of 500 epochs as the learning curve indicated convergence at this point. \\
-
-\begin{figure}[h]
+\begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=0.7]{Figures/chapter04/fe_palette_color}
+	\includegraphics[scale=0.7]{Figures/chapter04/fe_palette_color.png}
 	\decoRule
-	\caption[Learning Curve for Palette-Color Histogram based Prediction]{\textbf{Learning Curve for Palette-Color Histogram based Prediction}~~~The depiction shows the loss per training episode for the MLP trained on histograms of palette images.}
+	\caption[Feature Engineering Learning Curve for Color-Based Prediction]{\textbf{Learning Curve for Palette-Color Histogram based Prediction}~~~The depiction shows the loss per training episode for the \acrshort{mlp} trained on histograms of palette images.}
 	\label{fig:FeatureEngineeringPaletteColor}
 \end{figure}
-\\
-\textbf{Curvature prediction based on partial angles} \\
-Although the accuracies are far from perfect the results appear to be promising. The hit rate for curvature detection is high: 82\% of all bended pieces were identified as such. In comparison, this holds for 71\% of the pieces affected by rust and 62\% of the violet pieces. In contrast, almost all pieces that are identified not to be violet are labelled accordingly (96\% specificity) whereas the specificity for rust (65\%) and curvature (67\%) is lower.
 
-\begin{table}[h]
+A simple \acrshort{mlp} with four hidden layers and 128 neurons in each of them was trained on the resulting normalized histograms of palette colors (ReLU activation / sigmoid activation in the final layer). Hyperparameters were optimized and the network was trained for a total of 500 epochs as the learning curve indicated convergence at this point.
+
+\bigskip
+\textbf{Curvature prediction based on partial angles} 
+
+Although the accuracies are far from perfect the results appear to be promising. The hit rate for curvature detection is high: 82\% of all bent spears were identified as such. In comparison, this holds for 71\% of the spears affected by rust and 62\% of the violet spears. In contrast, almost all spears that are identified not to be violet are labeled accordingly (96\% specificity), whereas the specificity for rust (65\%) and curvature (67\%) is lower.
+
+\begin{table}[!h]
 	\centering
 	\resizebox{\columnwidth}{!}{%
 	\begin{tabular}{lrrrrrr}
@@ -91,116 +95,215 @@ Although the accuracies are far from perfect the results appear to be promising.
 		\hline
 	\end{tabular}%
 	}
-	\caption[??]{\textbf{??}~~~??}
-	\label{tab:}
+	\caption[Feature Engineering Curvature Prediction]{\textbf{Curvature Prediction}~~~Performance of curvature prediction based on angles}
+	\label{tab:performance_angle_based}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=0.7]{Figures/chapter04/fe_curve}
+	\includegraphics[scale=0.7]{Figures/chapter04/fe_curve.png}
 	\decoRule
-	\caption[Learning Curve For Angle Based Prediction]{\textbf{Learning Curve For Angle Based Prediction}~~~The depiction shows the loss per training episode for the MLP trained on partial angles of the centerline of asparagus spears.}
+	\caption[Feature Engineering Learning Curve For Angle Based Prediction]{\textbf{Learning Curve For Angle Based Prediction}~~~The depiction shows the loss per training episode for the \acrshort{mlp} trained on partial angles of the centerline of asparagus spears.}
 	\label{fig:FeatureEngineeringCurve}
 	\vspace{2cm}
 	\centering
-	\includegraphics[scale=0.6]{Figures/chapter04/fe_roc}
-	\caption[ROC for MLPs Trained on High Level Features]{\textbf{ROC for MLPs Trained on High Level Features}~~~The depiction shows the receiver operating characteristic for the classifiers that were trained on the features retrieved via feature engineering. It allows to compare the performance. A larger area under the ROC curve indicates better performance while a curve close to the diagonal line indicates poor results.}
+	\includegraphics[scale=0.6]{Figures/chapter04/fe_roc.png}
+	\caption[Feature Engineering ROC for MLPs Trained on High Level Features]{\textbf{\acrshort{roc} for \acrshortpl{mlp} Trained on High Level Features}~~~The depiction shows the \acrfull{roc} for the classifiers that were trained on the features retrieved via feature engineering. This allows to compare the performance. A larger area under the \acrshort{roc} curve indicates better performance while a curve close to the diagonal line indicates poor results.}
 	\label{fig:FeatureEngineeringROC}
 \end{figure}
 
+The receiver operating characteristic reveals that the prediction is of better quality for violet and curvature prediction as compared to rust prediction which is reflected in a smaller area under the curve. Possibly this reflects that rather small brown spots were considered rust by some raters but not by others. 
 
-The receiver operating characteristic reveals that the prediction is of better quality for violet and curvature prediction as compared to rust prediction which is reflected in a smaller area under the curve. Possibly this reflects that rather small brown spots were considered rust by some coders that attributed labels. \\
-Considering the low agreement in labeling, higher values for the specificity and sensitivity of the classifier were not expected. A likely explanation is that the model generalizes deviating understandings and incongruencies we had when attributing labels and affected the reliability of the data. Arguably only little information was discarded by computing the sparse representations that served as an input. Information about irregularities in the outline that a center line does not reflect but potentially contribute to the perception of curvature are not reflected in named sparse representation. The same holds for the spatial distribution of coloured pixels might contain additional information regarding rust and violet-detection. However, the major criteria are captured. As MLPs have little hyperparameters that are suitable for non-linear mappings and  as the task of mapping high level features to human estimates appears to be rather simple, one could argue that there is little potential to improve the predictive quality using other techniques. By introducing a bias, the sensitivity (true positive rate) of the classifier can be adjusted at the cost of more false positives. Introducing a bias means that the threshold that is used to convert the floating point outputs of a neural network to booleans that indicate whether a feature is present or not can be set to values other than 0.5. The possibility of making the classifier more or less sensitive appears to be a good option to be implemented as a feature for customization by the user in asparagus sorting machines. The resulting behavior is reflected in the receiver operating characteristic that is calculated using different biases.
-
-
-
-\subsubsection{A dedicated network for head-related features}
-\label{subsec:HeadNetwork}
-
-Some features relate to the asparagus heads only. Hence, it was assumed that classification is easiest when training a convolutional neural network on depictions of the respective region of the asparagus. Therefore, a dataset that consists only of images of the head area was used. Images of all three perspectives were appended horizontally such that each sample contains the information from all available viewpoints. This is especially important as rust affected spots are sometimes only visible from some angles. The depiction below shows one sample of rust affected asparagus heads. \\
-\\
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.4]{Figures/chapter04/head_example}
-	\decoRule
-	\caption[Training Sample of Preprocessed and Aligned Asparagus Heads]{\textbf{Training Sample}~~~The depiction shows a sample for the preprocessed and vertically aligned asparagus heads. Mind that images from all perspectives were stacked horizontally and used as a single input for the CNN.}
-	\label{fig:HeadExample}
-\end{figure}
-
-\begin{table}[h]
-	\centering
-	\resizebox{\columnwidth}{!}{%
-	\begin{tabular}{lrrrrrr}
-		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
-		\noalign{\smallskip}
-		\hline
-		\\		
-		has\textunderscore blume     &            0.04 &            0.06 &           0.08 &           0.82 &         0.55 &         0.95 \\
-		has\textunderscore rost\textunderscore head &            0.02 &            0.13 &           0.03 &           0.83 &         0.19 &         0.98 \\
-		\\
-		\hline
-	\end{tabular}%
-	}
-	\caption[??]{\textbf{??}~~~??}
-	\label{tab:}
-\end{table}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1.8]{Figures/chapter04/head_curve}
-	\decoRule
-	\caption[Learning Curve for the Head Features CNN]{\textbf{Learning Curve for the Head Features CNN}~~~The depiction shows the loss per training episode for the CNN trained on asparagus heads.}
-	\label{fig:HeadCurve}
-	\centering
-	\vspace{2cm}
-	\includegraphics[scale=1.55]{Figures/chapter04/head_roc}
-	\decoRule
-	\caption[ROC for the Head Features CNN]{\textbf{ROC for the Head Features CNN}~~~The depiction shows the receiver operating characteristic for the predictions of the CNN trained on asparagus heads. It allows to compare the performance. A larger area under the ROC curve indicates better performance while a curve close to the diagonal line indicates poor results.}
-	\label{fig:HeadROC}
-\end{figure}
-
-
-A simple feedforward convolutional network was trained on the images. The features “flowering head” and “rust affected head” were chosen as target categories. The network comprises the input layer, three convolutional layers with kernel size two, a fully connected layer with 128 neurons as well as the output layer. For the final layer the sigmoid activation function was applied while the hidden layers have RELU activations. A dropout layer was added to avoid overfitting. The network was trained using mean squared error (MSE) as an error function. The development of loss in the learning curve indicated convergence after 40 epochs. \\
-The results for both features showed to be highly specific. In contrast the sensitivity is rather low. Only 55\% of the asparagus pieces labelled as “flowering head” were identified as such whereas the true positive rate is only 19\% for “rust head”. Given the low labeling agreement for these criteria these mediocre results are not surprising. \\
-The ROC curve indicates how the classifiers respond to the introduction of a bias and shows the overall prediction quality. The area under the curve is small for the feature “rost head”. Beside incongruencies in the labels this is possibly due the choice of the head region. It might be the case that brown spots in regions other than the cropped head were considered as an indicator for a rusty head when attributing labels. Improvements by increasing the cropped head region appear to be possible. \\
+Considering the low agreement in labeling, higher values for the specificity and sensitivity of the classifier were not expected. A likely explanation is that the model generalizes deviating understandings or perceptual color-concepts we had when attributing labels and this affected the reliability of the data. Arguably only little information was discarded by computing the sparse representations that served as an input for training. Information about irregularities in the outline, that a center line does not reflect but potentially contribute to the perception of curvature, are not reflected in named sparse representation. The same holds for the spatial distribution of colored pixels which might contain additional information regarding rust and violet-detection. However, the major criteria are captured. As \acrshortpl{mlp} have few hyperparameters, they are suitable for non-linear mappings and as the task of mapping high level features to human estimates appears to be rather simple, one could argue that there is little potential to improve the predictive quality using other techniques. By introducing a bias, the sensitivity of the classifier can be adjusted at the cost of more false positives. Here, introducing a bias means that the threshold that is used to convert the floating point outputs of a neural network to booleans that indicate whether a feature is present or not is set to values other than 0.5. The possibility of making the classifier more or less sensitive appears to be a good option to be implemented as a feature for customization by the user in asparagus sorting machines.
 
 
 \subsubsection{Single-label classification}
 \label{subsec:SingleLabel}
 
-One supervised approach often used for training a model on image data is a convolutional neural network (CNN)~\citep{geron2019hands} ~\citep{lecun1995convolutional}. The approach was tested for our data with the application of a CNN using single-label classification on features. CNN apply trainable filtering kernels to extract features from an input image and project these features onto feature maps ~\citep{geron2019hands} ~\citep{bishop2006pattern} ~\citep{lecun1995convolutional}. Based on these maps, the label is predicted by a standard fully-connected layer. \\
-Though using a CNN on the raw data images seemed promising, the results were only slightly better than chance level for the training accuracy. \\
-\\
-When checking the asparagus images, an idea was to test whether the raw images with background and reduced to every 6th pixel (as created in chapter 3.5) can be trained on a simple CNN using single-label classification. That is, the network tries to label the images for one of the 13 features that were manually extracted for the training image triplets. The data the model was trained on is stored in the grid folder XX and the labels were retrieved from the new\textunderscore combined.csv at XX. The script to the model can be found on Github under XX. \\
-As a starting point, a general model structure was needed as inspiration for a CNN. For example, the visual geometry group networks (VGGs) with varying depth seemed to be a good choice for image classification as their VGG16 had won the ImageNet challenge of 2014 and is often implemented for image classification tasks (\url{https://neurohive.io/en/popular-networks/vgg16/}) (~\citep{vgg2014original}). However, there are two major drawbacks on using them, namely their depth and the amount of fully-connected nodes which makes them slow to train and in need of a lot of memory space (\url{https://neurohive.io/en/popular-networks/vgg16/}) ~\citep{zhang2015accelerating}. Part of these problems also arise with even deeper networks like ResNet ~\citep{resnet2016original} (\url={https://neurohive.io/en/popular-networks/resnet/}). Thus, AlexNet was chosen as a blueprint for the CNN because it is a small network in relation to other nets while still performing comparatively good (\url{https://neurohive.io/en/popular-networks/alexnet-imagenet-classification-with-deep-convolutional-neural-networks/}) ~\citep{alexnet2012original} ~\citep{geron2019hands}. As the variance in the data images is relatively small it was assumed that not as many layers are needed as employed in deeper networks like VGG~\citep{geron2019hands}. \\
-\\
-In general, the model architecture is roughly based on AlexNet but it was strongly simplified to the level of variability and complexity of the underlying data. The network comprises four hidden layers: a convolutional layer, followed by a pooling layer, a second convolutional layer, and a dense layer. The input is an array of multiple horizontally stacked images. This input is trained on a set of binary labels containing information on whether the respective feature applies to the current image. The output of the network gives a prediction on each entered image gated by a sigmoid function on a range between 0 and 1. The rounded integer values of this output give a prediction of the apparent label.
-For the training phase of the model, the Adam optimizer was used because of its general acceptance as the state of the art optimizer for backpropagation ~\citep{kingma2014adam} (\url{https://towardsdatascience.com/adam-latest-trends-in-deep-learning-optimization-6be9a291375c}). As a loss function, binary cross entropy was used as it promised good results for binary single-label classification tasks~\citep{geron2019hands} (\url{https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a}) (\url{https://towardsdatascience.com/applied-deep-learning-part-1-artificial-neural-networks-d7834f67a4f6}). \\
-When training artificial neural networks, it can be difficult to find clear guidelines on how to implement an architecture such that an optimal training performance is given ~\citep{heaton2015aifh} ~\citep{geron2019hands} (\url={https://medium.com/tebs-lab/how-to-classify-mnist-digits-with-different-neural-network-architectures-39c75a0f03e3}). Hence, the idea was to start with the simplest form of a CNN and then gradually increase the complexity of the network. While AlexNet provides a good baseline for an image classification network, its architecture was still assumed to be unnecessarily complex for the given task. First, the architecture was reduced to the minimum number of layers and parameters needed for a CNN. Over the period of training optimization, various processing steps and hyperparameters were implemented and compared according to their performance. During this process, the data was split between 12000 samples for training data and 1319 validation data in order to have a reasonable overview on the possible test performance and to prevent direct overfitting. The data used as test data was randomly chosen from the whole data set. \\
-The course of the hyperparameters is explained in the following.
-The batch size was initiated comparatively low with 64 samples per batch but soon increased to a value of 512 samples. The larger batch size was implemented in order to guarantee the convergence of the training data, since smaller batch sizes resulted in jumping gradients, which were not able to converge into any minimum~\citep{bengio2012practical} (QUELLE). \\
-As for the learning rate, various learning rates were tested during the optimization process. The initial learning rate of 0.003 (which is the standard learning rate for Adam optimizers in Tensorflow~\citep{kingma2014adam} ~\citep{geron2019hands}) was soon found to be too large to guarantee convergence of the algorithm. Thus, the learning rate was gradually decreased and found to be most effective in the range of 0.000001 (1e-6) to 0.00000001 (1e-8). Learning rates as small as 0.00001 (1e-5) still seemed too large for training the net. In addition, a gradually decreasing learning rate was implemented in order to make the training more effective~\citep{bengio2012practical}, even though, in theory, the Adam optimizer already manages learning rate decay~\citep{kingma2014adam}.
-Starting with the smallest layer size possible, more layers were added. For example, for the feature ‘fractured’ one layer for the edge detection should have sufficed, or a layer for colour detection for the feature ‘violet’. For other, higher-level features, such as bent, more convolutional layers were expected to be more helpful~\citep{geron2019hands}. During the training process, it was settled to a model with two convolutional layers, one max pooling layer and one hidden dense layer. \\
-A small number of kernels was thought to be enough compared to the number of kernels of AlexNet since for single-label classification fewer kernels were expected to be needed (QUELLE). The kernel size was picked to be 32 5$3\times4$ 5 kernels for the first convolutional layer and 64 3$3\times4$ 3 kernels for the second convolutional layer. These sizes were assumed to be sufficient, especially since increasing the number of kernels did not lead to any better results. \\
-Both convolutional layers were built with batch normalization nearly from the start of implementation of the network. To guarantee that exploding or vanishing gradients pose no further problem, the gradients were inspected visually and the results gave no reason for assuming problems with exploding or vanishing gradients~\citep{pascanu2012understanding}.
-A next step was to weight the loss function because of the largely unbalanced data~\citep{he2009learning} ~\citep{batista2004study}. This ended with no better results, however, as the model still tended to make an unbalanced prediction by classifying all values as negative samples. Another idea was to reduce the dataset to make the number of images with the regarding feature present even to the number of images where it is absent. This translates to throwing away valuable data, which can otherwise provide information about negative cases to support the model in it’s training~\citep{batista2004study}. Thus, it was decided to keep all data images and instead balance the data by multiplying the minority of samples to match the number of contrary samples. As there was no feature positively exceeding a presence of 50\% in the data, solely positive labels were oversampled. The balancing was only performed on the training data, while the test data was not changed. \\
-To improve training performance, some kinds of data augmentation were implemented. First, the images were flipped horizontally. This seemed to be a valid enhancement to the training data since it resulted in similar images to the original data (\url{https://machinelearningmastery.com/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks/}). Additionally, small changes in image angles (up to 5°) were tested, however, this type of data augmentation was neither effective nor convenient to be computed. \\
-In most cases, around 300 training steps were performed for the training, translating to XX epochs. \\
-\\
-The results of the CNN showed for all features, that the training accuracy as well as the test accuracy converges. Further, the model does not overfit. The training loss and the test loss both decrease, with the training loss usually decreasing from XX to XX, and the test loss from around XX to XX. However, the training accuracy is not notably better than a ‘best guess prediction’ (always predicting one class). In no case the train accuracy considerably exceeded 50\%. The test accuracy usually increased up to XX - XX. Sensitivity and specificity were, put together, often not considerably higher than 1. \\
-Best results were achieved for the feature XX with a sensitivity of XX and a specificity of XX, while worst results were achieved for XX with a sensitivity of XX and a specificity of XX. \\
-The results can be interpreted in that the simple CNN seems not able to notably learn better than a “best guess prediction”(= predicting only 0.0 or 1.0).
-For the data of this format, the model converges fast to a minimum. However, this minimum seems to be the “best guess” minimum and it is questionable whether it is possible to find the global minimum on the error surface by using a gradient descent algorithm. It might be that the network is not deep enough to find the right parameters to separate positive from negative samples (QUELLE). However, a further increase of hidden layers by adding a third convolutional layer and a second pooling layer did not lead to better results than for the original model. Added together, sensitivity and specificity were never considerably above 1 but usually below it. Either the network was good at predicting the feature to be present (1.0) or the feature not to be present (0.0) which essentially translates to the problem of not finding a minimum better than the “best guess prediction” (QUELLE). \\
-The training accuracy converging to 50\% gave rise to questions. Even while the batch size was at 512 samples per batch and the training data was balanced, with its actual parameters the model seemed to find no hint how to distinguish the samples. \\
-A further influence on the training of the model could be the unbalanced data set. It was evened out, however, by this a lot of samples were represented multiple times in the training data. This was especially the case for features with low original representation, such as e.g. the feature ‘fractured’ or the feature ‘violet’. Thus, it was expected that the model might overfit on the training data due to the oversampling of the positive samples in the training data which did not occur~\citep{he2009learning}. \\
-\\
-On a more general level concerning the input, there might have been trouble for the model with the conformity of the data. As the samples were labelled by humans, there is a subjective bias in the data that might stop the model from finding a global difference between positive and negative samples (QUELLE). \\
-Another factor poses the use of image triplets. It might have been easier for the network to learn to distinguish the data samples if single images would have been manually labelled instead of image triplets (QUELLE). \\
-One idea for optimizing the process and to reach better results for features like, e.g. rust or violet which rely on a colour parameter, could be to simplify the input for the network (QUELLE). That is, the images are prepared in a way to guide the network into the direction of parameters that we want it to discern. \\
-\\
-In conclusion, the simple CNN seems not able to learn from the data. The train loss decreases and converges but the train accuracy cannot considerably exceed above chance level of 50\%. Although the test accuracy is increasing this renders no further information about the classification ability of the net. Put together, sensitivity and specificity rarely reach above 1. Rather, one of both tends to reach close to 1 while the other is close to 0. Further preprocessing of the image data before training might have improved the results.
+In the following chapter, a \acrlong{cnn} is described, which is used for single-label classification on features. The approach was tested on the 13319 hand-labeled data images. 13 models were created, each predicting one feature.~\footnote{The 13 features to predict are fractured, hollow, flower, rusty head, rusty body, bent, violet, very thick, thick, medium thick, thin, very thin, and not classifiable.}
+ 
+\bigskip
+A general model structure was needed as inspiration for the \acrshort{cnn}. For example, the \acrfull{vgg}~networks with varying depth seem to be a good choice for image classification as their \acrshort{vgg}16 won the ImageNet challenge of 2014 and is often implemented for image classification tasks~\citep{hassan2018vgg,vgg2014original}. However, there are two major drawbacks on using them, namely their depth and the amount of fully-connected nodes which makes them slow to train and in need of a lot of memory storage~\citep{hassan2018vgg,zhang2015accelerating}. Part of these problems also arise with even deeper networks like ResNet~\citep{resnet2016original,hassan2019resnet}. Thus, AlexNet is chosen as a blueprint for the \acrshort{cnn} because it is small in relation to other networks while still performing comparatively good~\citep{hassan2019alexnet,alexnet2012original,geron2019hands}. As the variance in the data images is relatively small it is assumed that not as many layers are needed as employed in deeper networks like \acrshort{vgg}~\citep{geron2019hands}.
+ 
+\bigskip
+The model architecture is roughly based on AlexNet but it is strongly simplified to the level of variability and complexity of the underlying data. The network comprises four hidden layers: a convolutional layer, followed by a pooling layer, a second convolutional layer, and a dense layer. The input is an array of multiple horizontally stacked images with no background removed and reduced by a factor of six. This input is trained on a set of binary labels containing information on whether the respective feature label applies to the current image. The output of the network gives a prediction on each entered image gated by a sigmoid function on a range between zero and one. The rounded integer values of this output give a prediction of the apparent feature label.
+For the training phase of the model, the Adam optimizer is used because of its general acceptance as the state of the art optimizer for backpropagation~\citep{bushaev2018adam,kingma2014adam}. As a loss function, binary cross entropy is used as it promises good results for binary single-label classification tasks~\citep{geron2019hands,godoy2018understanding,dertat2017applied}.
+ 
+When training \acrlong{ann}s, it can be difficult to find clear guidelines on how to implement an architecture such that an optimal training performance is given~\citep{heaton2015aifh,geron2019hands,bettilyon2018classify}. Hence, the idea was to start with the simplest form of a \acrshort{cnn} and then gradually increase the complexity of the network. While AlexNet provides a good baseline for an image classification network, its architecture is still assumed to be unnecessarily complex for the given task. First, the architecture was reduced to the minimum number of layers and parameters needed for a \acrshort{cnn}. Over the period of training optimization, various processing steps and hyperparameters were implemented and compared according to their performance. During this process, the data was split between 12000 samples for training data and 1319 samples of validation data in order to have a reasonable overview on the possible test performance and to directly check for overfitting. The data used as test data was randomly chosen from the whole data set and newly created for every trained model.
+ 
+In the following, the course of the hyperparameters is explained.
+ 
+\bigskip
+The batch size was initiated comparatively low with 64 samples per batch but soon adjusted to a value of 512 samples. The larger batch size was implemented in order to guarantee the convergence of the training data, since smaller batch sizes result in jumping gradients, which are not able to converge into any minimum~\citep{bengio2012practical}.
+ 
+Various learning rates were tested during the optimization process. The initial learning rate of 0.003 (which is the standard learning rate for Adam optimizers in Tensorflow~\citep{kingma2014adam,geron2019hands}) was soon found to be too large to guarantee convergence of the algorithm. Thus, the learning rate was decreased and found to be most effective in the range of \(1e{-5}\) to \(1e{-8}\). A gradually decreasing learning rate was tested in order to make the training more effective~\citep{bengio2012practical}.~\footnote{In theory, the Adam optimizer already manages learning rate decay~\citep{kingma2014adam}} It did not give better results and thus a constant learning rate of \(1e{-5}\) is implemented.
+ 
+Starting with the smallest layer size possible, in the course of time more layers were added. For example, in order to detect the feature fractured one layer for the edge detection should be sufficient. For other, higher-level features, such as bent, more convolutional layers were expected to be more helpful~\citep{geron2019hands}. During the training process, it was settled to a model with the architecture described above.
+ 
+A small number of kernels is used compared to AlexNet since for single-label classification fewer kernels are expected to be needed. The kernel size is picked to be eight 5$\times$5 kernels for the first convolutional layer and 16 3$\times$3 kernels for the second convolutional layer. The hidden dense layer consists of 32 neurons. These sizes are assumed to be sufficient, since increasing the number of kernels does not lead to any better results but to overfitting on the training data.
+ 
+Both convolutional layers are built with batch normalization. The gradients were inspected visually and the results give no reason for assuming exploding or vanishing gradients~\citep{pascanu2012understanding}.
+ 
+A next step was to weight the loss function because of the largely unbalanced data~\citep{he2009learning,batista2004study}. However, this did not lead to any changes. The model still tended to make an unbalanced prediction by classifying all values as negative samples. Another idea is to reduce the data set to make the number of images with the regarding feature present even to the number of images where it is absent. This would mean to throw away valuable data, which can otherwise provide information about negative cases to support the model in its training~\citep{batista2004study}. It was decided to keep all data images and instead balance the data by multiplying the minority of samples to match the number of contrary samples. As there was no feature positively exceeding a presence of 50\% in the data, solely positive labels were oversampled. The balancing was only performed on the training data, while the test data was not changed.
+ 
+To prevent overfitting of the negative data samples, \(L_2\) regularization was applied.
+ 
+To improve training performance, some kinds of data augmentation, like horizontal flipping or small changes in the angle (up to 5\textdegree ), were tested but are not used in the final version~\citep{brownlee2019augmentation}.
 
+\bigskip
+Around 2700 to 5400 training steps were performed for the training, translating roughly to 120 epochs (with an exception for the feature fractured, which was trained for 60 epochs). Due to the balancing of the data, the number of training data, and therefore the ratio of training steps to epoch, varied when training the \acrshort{cnn} on the different features.
 
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{llllll}
+		{} & Sensitivity & Specificity & Validation Accuracy & Balanced Accuracy & Training Steps \\
+		\noalign{\smallskip}
+		\hline
+		\noalign{\smallskip}
+		fractured & 0.8846 & 0.9976 & 99.32\% & 94.11\% & 2690 \\
+		\smallskip
+		hollow & 0.7308 (0.7692) & 0.9821 (0.9831) & 97.58\% (97.77\%) & 85.65\% (87.62\%) & 5390 (4270)  \\
+		\smallskip
+		flower & 0.5603 (0.6983) & 0.8975 (0.8288) & 85.96\% (81.41\%) & 72.89\% (76.36\%) & 4790 (2900) \\
+		\smallskip
+		rusty head & 0.4311 (0.5210) & 0.8695 (0.8106) & 79.86\% (76.38\%) & 65.03\% (66.58\%) & 4670 (3320) \\
+		\smallskip
+		rusty body & 0.6420 (0.6400) & 0.7767 (0.8049) & 71.15\% (72.51\%) & 70.94\% (72.25\%) & 2990 (2270) \\
+		\smallskip
+		bent & 0.6541 (0.6753) & 0.7533 (0.7500) & 71.25\% (71.93\%) & 70.37\% (71.27\%) & 3230 (2470) \\
+		\smallskip
+		violet & 0.4643 (0.5119) & 0.9652 (0.9452) & 92.45\% (91.00\%) & 71.48 (72.86\%) & 5150 (3550) \\
+		\smallskip
+		very thick & 0.9778 & 0.9939 & 99.32\% & 98.59\% & 5390 \\
+		\smallskip
+		thick & 0.9525 & 0.9688 & 96.41\% & 96.07\% & 3950 \\
+		\smallskip
+		medium thick & 0.8917 & 0.9249 & 91.87\% & 90.83\% & 4550 \\
+		\smallskip
+		thin & 0.9399 & 0.9280 & 93.13\% & 93.40\% & 4190 \\
+		\smallskip
+		very thin & 0.9733 & 0.9579 & 96.13\% & 96.56\% & 4310 \\
+		\smallskip
+		not classifiable & 0.5217 & 0.9961 & 98.79\% & 75.89\% & 5390 \\
+		\noalign{\smallskip}
+		\hline
+	\end{tabular}%
+	}
+	\caption[Single-Label CNN Classification Results]{\textbf{Single-Feature Label Classification Results}~~~In this table, the sensitivity, specificity, validation accuracy, balanced accuracy, and the number of training steps are given for each feature model after training on 12000 original hand-labeled data images. The numbers in brackets indicate the best result for the model in relation to its balanced accuracy. For most features, training lasted for 120 epochs. However, the number of data samples (and thus training steps) varies between features because of the data balancing.}
+	\label{tab:SingleLabelResults}
+\end{table}
+ 
+\begin{table}[!htb]
+	\centering
+	\includegraphics[scale=0.6]{Figures/chapter04/singellabelROC.png}
+	\decoRule
+	\caption[Single-Label CNN ROC Curve]{\textbf{Feature ROC Curve}~~~The figure shows the ROC curves for the six features hollow, flower, rusty body, rusty head, bent, and violet. For the features rusty body and bent, the curve is comparatively smooth as their representation is more balanced. The curves are calculated from 1319 data samples.}
+	\label{fig:SingleLabelROC}
+\end{table}
+
+The \acrshort{cnn} was trained on 13 features separately, resulting in 13 trained models. For some features, there were no labels in the csv-file but they could be calculated from the parameters length and width of an asparagus. That is, the features very thick, thick, medium, thin, and very thin were all calculated from the thickness measured by the automatic feature extraction algorithm for width, according to the boundaries for each class label (for reference, see \autoref{tab:AsparagusLabels} and \autoref{fig:LabelTree} in \autoref{sec:BackgroundSortingAsparagus }, or \autoref{subsec:SortingCriteria}). For the feature fractured, the length was set to a threshold of 210 mm, with all asparagus of smaller length labeled as fractured. Additionally, all asparagus labeled as not classifiable was included into the feature fractured. The reason is that fractured asparagus without a head part was previously labeled as not classifiable (see the feature descriptions in~\autoref{subsec:SortingCriteria}). The feature not classifiable was also trained on separately. Further, for all other features, not classifiable samples were removed before training to prevent a bias in the occurrence of false positives.\footnote{Not classifiable asparagus was not sorted for the presence of any other features (see~\autoref{subsec:SortingCriteria}). If a sample is sorted by a model, e.g. that is detecting the presence of feature bent, and the sample shows the sorting criteria, i.e. it is bent, the model will classify it as positive but its feature label will be negative. This will disturb the model and, thus, it was decided to exclude not classifiable samples with an exception for training on feature fractured and for feature not classifiable.}
+
+\begin{figure}[!htb]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/hollow_falsenegative_01.png}
+		\vspace{-5pt}
+		\caption{False Negative}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/hollow_falsenegative_02.png}
+		\vspace{-5pt}
+		\caption{False Negative}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/hollow_falsenegative_03.png}
+		\vspace{-5pt}
+		\caption{False Negative}
+	\end{subfigure}
+
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/hollow_falsepositive_01.png}
+		\vspace{-5pt}
+		\caption{False Positive}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/hollow_falsepositive_02.png}
+		\vspace{-5pt}
+		\caption{False Positive}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/hollow_falsepositive_03.png}
+		\vspace{-5pt}
+		\caption{False Positive}
+	\end{subfigure}
+	\vspace{-5pt}
+\caption[Single-Label CNN Example Images Feature Hollow]{\textbf{Feature Hollow}~~~Randomly chosen example images of false negatives and false positives of the feature hollow after 5400 training steps. In image (B), the presence of feature hollow is not obvious. Image (A) and (C) might have even been sorted wrongly. Of the false positives, image (E) might have also been sorted wrongly, as the vertical line can be seen on the lower part of the asparagus (see\autoref{subsec:SortingCriteria}). The thickness of the asparagus might have been an indicator to the model that the feature is present. This can be seen in image (D), which shows a thick asparagus, and image (F), where the asparagus' thickness varies depending on the position.}
+    \label{fig:ExampleImagesHollow}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/bent_falsenegative_01.png}
+		\vspace{-5pt}
+		\caption{False Negative}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/bent_falsenegative_02.png}
+		\vspace{-5pt}
+		\caption{False Negative}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/bent_falsenegative_03.png}
+		\vspace{-5pt}
+		\caption{False Negative}
+	\end{subfigure}
+
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/bent_falsepositive_01.png}
+		\vspace{-5pt}
+		\caption{False Positive}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/bent_falsepositive_02.png}
+		\vspace{-5pt}
+		\caption{False Positive}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/bent_falsepositive_03.png}
+		\vspace{-5pt}
+		\caption{False Positive}
+	\end{subfigure}
+	\vspace{-5pt}
+    \caption[Single-Label CNN Example Images Feature Bent]{\textbf{Feature Bent}~~~Randomly chosen example images of false negatives and false positives of the feature bent after 3240 training steps. In all cases the presence of the feature bent is disputed. This becomes evident when comparing the false negative examples with the false positives. In the false positive examples, the asparagus is only slightly bent making the difference to the false negative samples not evident (see the criteria for feature bent in~\autoref{subsec:SortingCriteria}. It gives the impression that the human labelers did not sort with a clear threshold regarding the feature bent.}
+    \label{fig:ExampleImagesBent}
+\end{figure}
+
+\bigskip
+In~\autoref{tab:SingleLabelResults}, the 13 features are listed on which the \acrshort{cnn} architecture was trained 13 times. It further shows the results for the sensitivity, specificity, validation accuracy, and balanced accuracy of each feature after a certain number of training steps, indicated in the last column of the table.
+Sensitivity is a measure to assess the performance of the model in labelling positive samples correctly, while the specificity shows how correctly the model predicts negative samples. The validation accuracy is the accuracy of the validation set which is a representative subset of the entire data set. The balanced accuracy of a feature label is the mean of the sum of its sensitivity and specificity. It represents the accuracy of the feature label if positive and negative samples in the data set were evenly balanced.
+Additionally, the performance of six features is calculated in a \acrshort{roc} curve in~\ref{fig:SingleLabelROC}. The features which indicate the thickness and length, as well as the feature not classifiable are excluded.
+In the following discussion, it is referred to the best result of a model (depicted in brackets in~\autoref{tab:SingleLabelResults}) and not the last result.
+
+The results reveal that for every feature, the sum of sensitivity and specificity exceeds 1.  This corresponds to a balanced accuracy over 50\% for each feature, which is better than chance level. For all features, the balanced accuracy is above 65\%. Best results are achieved for features that indicate the thickness of an asparagus. The feature very thick reaches the best results with 98\% sensitivity, 99\% specificity, and a balanced accuracy of 98.5\%. Besides features for thickness, the best prediction is observed for the feature fractured, which relies on the parameter length. It reaches a sensitivity of 88\%, specificity of 99.8\%, and balanced accuracy of 94\%.
+On average, for the features hollow, flower, rusty head, rusty body, bent, and violet a balanced accuracy above 72\% is reached. Feature rusty head performed worst with 52\% sensitivity, 81\% specitivity, and 67\% balanced accuracy. In general, the specificity of all features is relatively high. Most features reach a specificity above 90\%, except for the features flower (83\% specificity), rusty head (81\% specificity), rusty body (80\% specificity), and bent (73\% specificity). For all features, the sensitivity is above 50\%. For most features, no form of overfitting was detected.
+Further, example images of wrong classification are shown for feature hollow in~\autoref{fig:ExampleImagesHollow} and for feature bent in~\autoref{fig:ExampleImagesBent}. Additional example images of false negative and false positive classification for the other feature classes can be found in the appendix in~\autoref{sec:AdditionalSingleLabelCNN}. For the feature fractured, training and test loss as well as training and test accuracy are also plotted in the appendix in~\autoref{fig:ExamplePlotsFractured}.\footnote{The log files for accuracy and loss of all features can be found at~\url{https://github.com/CogSciUOS/asparagus}.}
+ 
+\bigskip
+The results indicate, that the \acrshort{cnn} architecture is able to learn every feature. Especially features relying on the parameters of length and width achieve a good performance, with both validation accuracy and balanced accuracy above 90\%. The prediction of features like hollow or flower was expected to be more difficult for the model to learn. However, the balanced accuracy for both is above 75\%, with feature hollow even reaching a balanced accuracy of 88\%. This shows that the model predicts them relatively well. Features that depend on color (like rusty body, rusty head, and violet) do not reach equivalent results. It should be further tested whether an increase in model depth might lead to better results for features depending on color or for features depending on a more complex shape (like the feature bent).
+ 
+An inspection of false positive and false negative images at the end of the training process suggests that training performance might be influenced by mislabeled data to a certain extent.
+ 
+The random images for feature hollow indicate that the model might use the thickness of an asparagus as an indicator. Some of the samples look like hollow asparagus that might have been labeled incorrectly (see~\autoref{fig:ExampleImagesHollow}).
+For the feature bent, the randomly selected examples in~\autoref{fig:ExampleImagesBent} could reveal a labeling bias by the human labelers. When the feature is only slightly present, it seems to become a random choice whether the sample was labeled as positive or negative by the human labelers. If true, this can make it difficult for the machine to perform above a certain level of accuracy.
+A last comparison between false negatives and false positives is made in~\autoref{fig:ExampleImagesViolet} for the feature violet. In the examples, the presence of the feature is not clearly or only very slightly recognizable. It might be that the difference between the samples is not prominent enough for the model.
+Again, these images are just randomly chosen examples and can mean that the models are simply not able to label them correctly. The results suggest that correct labeling might sometimes be difficult for the model because of an inconsistency in the labeling behavior of the human labelers.
+ 
+On a general note, the architecture of the model is very flexible. It can be applied to many tasks, i.e. predicting different features, without much preprocessing of the image data beforehand. Further, the model is quite small, which makes it fast and robust for practical applications. However, instead of having the same architecture for all features, more precise adjustment of each model to its feature is needed.
+ 
+\bigskip
+In conclusion, the results of the single-label  \acrshort{cnn} seem promising. Due to a very long debugging phase, there was not enough time to further test and improve the performance of the model. In turn, this means there is still a lot of fine-tuning and possible improvement. A restriction poses the labeling bias of the manually labeled images.
 
 \subsubsection{Multi-label classification}
 \label{subsec:MultiLabel}
@@ -236,13 +339,13 @@ Further, it was tested whether regularization would improve the performance of t
 \\
 L1 and L2 regularization can both be interpreted as constraints to the optimization that have to be considered when minimizing the loss term. The main difference between the two is that L1 regularization reduces the coefficient of irrelevant features to zero, which means they are removed completely. Hence, L1 regularization allows for sparse models and can be seen as a selection mechanism for features. As the inputs to our model are images, that consist of a large number of pixels, and additionally a large portion of those pixels are black, because the background was removed, it appears to be a good idea to reduce the number of features taken into account in the early layers. L2 regularization, on the contrary, does not set coefficients to zero, but punishes large coefficients more than smaller ones. This way the error is better distributed over the whole vector. \\
 \\
-\begin{figure}[h]
+\begin{table}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/multilabel_structure}
+	\includegraphics[scale=0.8]{Figures/chapter04/multilabel_structure.png}
 	\decoRule
 	\caption[Multi-Label Model Structure]{\textbf{Multi-Label Model Structure}~~~This table shows the structure of the multi-label classification model. It describes which layers were implemented, how the output changes in each layer and how many parameters were trained in each layer and in total.}
 	\label{fig:MultilabelStructure}
-\end{figure}
+\end{table}
 
 RESULTS \\
 As one can see in the figures XX-YY, all the different approaches explained above show a similar behaviour in accuracy and loss values. The training and validation accuracy increase slowly but steadily with the training accuracy always being a little higher than the validation accuracy. The training loss decreases rapidly, while the validation loss only decreases very little and shows random fluctuations. This can be an indicator for overfitting. Usually, L1 and L2 regularization are used to prevent overfitting, but in our case it did not improve the results, as one can see in figure XX. \\
@@ -250,7 +353,7 @@ When looking at the true positive rates, also called sensitivity, and the true n
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_crossentropy}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_crossentropy.png}
 	\decoRule
 	\caption[Binary Cross-Entropy Loss]{\textbf{Binary Cross-Entropy Loss}~~~These graphs show the evaluation of the training with binary cross-entropy loss. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelCrossentropy}
@@ -258,7 +361,7 @@ When looking at the true positive rates, also called sensitivity, and the true n
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_hamming}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_hamming.png}
 	\decoRule
 	\caption[Hamming Loss]{\textbf{Hamming Loss}~~~These graphs show the evaluation of the training with hamming loss. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelHammingLoss}
@@ -266,7 +369,7 @@ When looking at the true positive rates, also called sensitivity, and the true n
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_costum}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_costum.png}
 	\decoRule
 	\caption[Costum Loss]{\textbf{Costum Loss}~~~These graphs show the evaluation of the training with costum loss that punishes falsely classified ones more than falsely classified zeros. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelCostumLoss}
@@ -276,7 +379,7 @@ When comparing the three different loss functions, it is noticeable that the bin
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_L1}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_L1.png}
 	\decoRule
 	\caption[L1 Regularization]{\textbf{L1 Regularization}~~~These graphs show the evaluation of the training with L1 regularization. As the loss function the binary cross-entropy loss was used. The model was trained over 25 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelL1Regularization}
@@ -284,9 +387,9 @@ When comparing the three different loss functions, it is noticeable that the bin
 \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_L2}
+	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_L2.png}
 	\decoRule
-	\caption[L2 Regularization]{\textbf{L2 Regularization}~~~These graphs show the evaluation of the training with L2 regularization. As the loss function the binary cross-entropy loss was used. The model was trained over 25 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
+	\caption[\(L_2\) Regularization]{\textbf{\(L_2\) Regularization}~~~These graphs show the evaluation of the training with L2 regularization. As the loss function the binary cross-entropy loss was used. The model was trained over 25 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelL2Regularization}
 \end{figure}
 \\
@@ -306,6 +409,56 @@ The L1 and L2 regularization both seem to prevent the model from learning all to
 In summary, the model improves its sensitivity and specificity, but it seems like it does so by overfitting the training data. Therefore, the next step should be to prevent the model from overfitting and after this problem is solved, it should be tested whether additional changes can improve the performance of the model further.
 
 
+\subsubsection{A dedicated network for head-related features}
+\label{subsec:HeadNetwork}
+
+Some features relate to the asparagus heads only. Hence, it was assumed that classification is easiest when training a convolutional neural network on depictions of the respective region of the asparagus. Therefore, a dataset that consists only of images of the head area was used. Images of all three perspectives were appended horizontally such that each sample contains the information from all available viewpoints. This is especially important as rust affected spots are sometimes only visible from some angles. The depiction below shows one sample of rust affected asparagus heads. \\
+\\
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{Figures/chapter04/head_example.png}
+	\decoRule
+	\caption[Training Sample of Preprocessed and Aligned Asparagus Heads]{\textbf{Training Sample}~~~The depiction shows a sample for the preprocessed and vertically aligned asparagus heads. Mind that images from all perspectives were stacked horizontally and used as a single input for the CNN.}
+	\label{fig:HeadExample}
+\end{figure}
+
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{lrrrrrr}
+		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
+		\noalign{\smallskip}
+		\hline
+		\\		
+		has\textunderscore blume     &            0.04 &            0.06 &           0.08 &           0.82 &         0.55 &         0.95 \\
+		has\textunderscore rost\textunderscore head &            0.02 &            0.13 &           0.03 &           0.83 &         0.19 &         0.98 \\
+		\\
+		\hline
+	\end{tabular}%
+	}
+	\caption[??]{\textbf{??}~~~??}
+	\label{tab:}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.8]{Figures/chapter04/head_curve.png}
+	\decoRule
+	\caption[Learning Curve for the Head Features CNN]{\textbf{Learning Curve for the Head Features CNN}~~~The depiction shows the loss per training episode for the CNN trained on asparagus heads.}
+	\label{fig:HeadCurve}
+	\centering
+	\vspace{2cm}
+	\includegraphics[scale=1.55]{Figures/chapter04/head_roc.png}
+	\decoRule
+	\caption[ROC for the Head Features CNN]{\textbf{ROC for the Head Features CNN}~~~The depiction shows the receiver operating characteristic for the predictions of the CNN trained on asparagus heads. It allows to compare the performance. A larger area under the ROC curve indicates better performance while a curve close to the diagonal line indicates poor results.}
+	\label{fig:HeadROC}
+\end{figure}
+
+
+A simple feedforward convolutional network was trained on the images. The features “flowering head” and “rust affected head” were chosen as target categories. The network comprises the input layer, three convolutional layers with kernel size two, a fully connected layer with 128 neurons as well as the output layer. For the final layer the sigmoid activation function was applied while the hidden layers have RELU activations. A dropout layer was added to avoid overfitting. The network was trained using mean squared error (MSE) as an error function. The development of loss in the learning curve indicated convergence after 40 epochs. \\
+The results for both features showed to be highly specific. In contrast the sensitivity is rather low. Only 55\% of the asparagus pieces labelled as “flowering head” were identified as such whereas the true positive rate is only 19\% for “rust head”. Given the low labeling agreement for these criteria these mediocre results are not surprising. \\
+The ROC curve indicates how the classifiers respond to the introduction of a bias and shows the overall prediction quality. The area under the curve is small for the feature “rost head”. Beside incongruencies in the labels this is possibly due the choice of the head region. It might be the case that brown spots in regions other than the cropped head were considered as an indicator for a rusty head when attributing labels. Improvements by increasing the cropped head region appear to be possible. \\
+
 
 \subsubsection{From features to labels}
 \label{subsec:FeaturesToLabels}
@@ -316,13 +469,13 @@ This chapter deals with the second step: using supervised learning to predict 13
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{Figures/chapter04/ftl_streamlit_app}
+	\includegraphics[scale=0.4]{Figures/chapter04/ftl_streamlit_app.png}
 	\decoRule
 	\caption[??]{??}
 	\label{fig:FeaturetoLabelStreamlitApp}
 	\centering
 	\vspace{1cm}
-	\includegraphics[scale=0.4]{Figures/chapter04/ftl_confusion_recall_random_forest}
+	\includegraphics[scale=0.4]{Figures/chapter04/ftl_confusion_recall_random_forest.png}
 	\decoRule
 	\caption[??]{??}
 	\label{fig:FeatureToLabelRandomForest}
@@ -330,7 +483,7 @@ This chapter deals with the second step: using supervised learning to predict 13
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.55]{Figures/chapter04/ftl_visualization}
+	\includegraphics[scale=0.55]{Figures/chapter04/ftl_visualization.png}
 	\decoRule
 	\caption[??]{??}
 	\label{fig:FeatureToLabelVisualization}
@@ -338,11 +491,58 @@ This chapter deals with the second step: using supervised learning to predict 13
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.5]{Figures/chapter04/ftl_classification_report}
+	\includegraphics[scale=0.5]{Figures/chapter04/ftl_classification_report.png}
 	\decoRule
 	\caption[??]{??}
 	\label{fig:FeatureToLabelReport}
 \end{figure}
+
+\begin{table}[h]
+    \centering
+    \resizebox{.65\textwidth}{!}{%
+    \begin{tabular}{ l r r r r r r }
+        {} & precision & recall & f1-score & support \\
+        \noalign{\smallskip}
+    		\hline
+    		\noalign{\smallskip}
+1A Anna      & 0.7360      & 0.8936   & 0.8077     & 47      \\
+\noalign{\smallskip}
+1A Bona      & 0.7      & 0.7241    & 0.7119     & 58      \\
+\noalign{\smallskip}
+1A Clara     & 0.7368      & 0.7368   & 0.7368      & 57      \\
+\noalign{\smallskip}
+1A Krumme    & 0.6667      & 0.6400   & 0.6531     & 50      \\
+\noalign{\smallskip}
+1A Violet    & 0.6481      & 0.7609   & 0.7     & 46      \\
+\smallskip
+2A           & 0.6842      & 0.4643   & 0.5532     & 56      \\
+\smallskip
+2B           & 0.7179       & 0.56   & 0.6292     & 50      \\
+\smallskip
+Blume        & 0.6939      & 0.7556   & 0.7234     & 45      \\
+\smallskip
+Dicke        & 0.7      & 0.7955   & 0.7447     & 44      \\
+\smallskip
+Hohle        & 0.9459      & 0.8974    & 0.9211     & 39      \\
+\smallskip
+Koepfe       & 1         & 1      & 1        & 38      \\
+\smallskip
+Rost         & 8305        & 0.8909   & 0.8596     & 55      \\
+\smallskip
+Suppe        & 0.9444      & 0.9189   & 0.9315     & 37      \\
+\smallskip
+accuracy     & 0.7588      & 0.7588   & 0.7588     & 0.7588    \\
+\smallskip
+avg          & 0.7696      & 0.7722   & 0.7671     & 622     \\
+\smallskip
+weighted avg & 0.7591      & 0.7588   & 0.7549     & 622    \\
+\noalign{\smallskip}
+\hline
+    \end{tabular}%
+    }
+    \caption[Classification Report of the Random Forest Classifier]{\textbf{Classification Report of the Random Forest Classifier}~~The classification report shows key metrics for the trained random forest classifier.}
+    \label{tab:FeatureToLabelReport}
+\end{table}
 
 
 Two exemplary models were implemented and tested to predict the classes from the features. The first one is a random forest~\citep{breiman2001random}, with 100 trees. \\
@@ -370,7 +570,7 @@ For the current work, the linear dimension reduction algorithm PCA was chosen.
 \subsubsection{Principal Component Analysis}
 \label{subsec:PCA}
 
-PCA was chosen, because it is one of the standard unsupervised machine learning methods. Moreover, it is a linear, non-parametric method and widespread application to extract relevant information from high dimensional datasets. The hope is to reduce the complexity of the data, by only a minor loss of information~\citep{shlens2009}. Besides being a dimension reduction algorithm, PCA can also be useful to visualize the data, filter noise, extract features, or compress the data. \\
+PCA was chosen, because it is one of the standard unsupervised machine learning methods. Moreover, it is a linear, non-parametric method and widespread application to extract relevant information from high dimensional datasets. The hope is to reduce the complexity of the data, by only a minor loss of information~\citep{shlens2014}. Besides being a dimension reduction algorithm, PCA can also be useful to visualize the data, filter noise, extract features, or compress the data. \\
 \\
 Our initial aim was to reduce the dimension of our dataset for further models. As PCA was applied at the beginning of the data inspection, we also had the aim to visualize our data in a three-dimensional space, in order to get a better understanding of the data distribution. The images that comprise our original dataset have a high quality, and instead of only reducing the pixel size, we aimed for reducing the information contained in named depictions by analyzing the principal components in a first step and projecting all relevant images into the lower dimensional space. This information could serve as the input for later machine learning algorithms. As we decided to use an approach for semi supervised learning that is based on neural networks later we focussed on the question what principal components reveal about the data. \\
  \\
@@ -385,75 +585,187 @@ There are three different opportunities regarding our project which can be consi
  \\
 We calculated the PCA for black-and-white images, as well as on images without background, and also tried to work on all groups at the same time, group-wise as well as feature-wise. We decided to perform our final PCA on sliced RGB images with background, that are labelled with features by us with the hand-label-app, as this seems to yield the best results. An amount of 400 pictures per feature was considered to later on perform a binary PCA for each feature (either the feature is absent or present). \\
 \\
-The 200 pictures where the certain feature is present as well as the 200 pictures where the certain feature is absent are extracted through a function in code/\-pca\-\textunderscore \-code/\-feature\-\textunderscore \-ids.py. This function loops over the combinded\textunderscore new.csv csv-file, where all hand-labelled information is stored as well as the path to the labeled pictures. For each feature a matrix is created, storing 200 pictures with the present feature and 200 pictures without the feature. E.g., m\textunderscore hollow is the matrix created for the feature hollow (shape = 400, img\textunderscore shape[0]$\times$ img\textunderscore shape[1]$\times$ img\textunderscore shape[2]). The first 200 entries in the matrix are pictures of hollow asparagus, the last 200 pictures show asparagus, which is not hollow. These matrices were calculated for the features hollow,  flower, rusty head, rusty body, bent, violet, length and width. The data points of those 400 images in 2D space can be seen in figure XX (die figure mit den scatterplots).  \\
+The 200 pictures where the certain feature is present as well as the 200 pictures where the certain feature is absent are extracted through a function in code/\-pca\-\textunderscore \-code/\-feature\-\textunderscore \-ids.py. This function loops over the combinded\textunderscore new.csv csv-file, where all hand-labelled information is stored as well as the path to the labeled pictures. For each feature a matrix is created, storing 200 pictures with the present feature and 200 pictures without the feature. E.g., m\textunderscore hollow is the matrix created for the feature hollow (shape = 400, img\textunderscore shape[0]\(\times\) img\textunderscore shape[1]$\times$ img\textunderscore shape[2]). The first 200 entries in the matrix are pictures of hollow asparagus, the last 200 pictures show asparagus, which is not hollow. These matrices were calculated for the features hollow,  flower, rusty head, rusty body, bent, violet, length and width. The data points of those 400 images in 2D space can be seen in figure XX (die figure mit den scatterplots).  \\
 \\
 For all these features a PCA is calculated by first standardizing the matrix pixelwise (dimensions: 1340$\times$ 346$\times$ 3), calculating the covariance matrix and then extracting the ordered eigenvalues. The principal components are calculated multiplying these eigenvectors with the standardized matrix. The highest 10 eigenvalues were plotted to visually decide where to set the threshold of how many principal components will be further included (see figure XX - die figure mit dem graph - die ersten 10 eigenvalues). The feature space, the principal components and the standardized matrices are saved to later perform a recognition function. The first ten “Eigenasparagus” for each feature can be seen in figure XX (die schön bunten spargelbilder).  \\
 \\
 The recognize function is a control function, which performs on unseen images and tries to predict if a feature is absent or present. This function is also performed feature-wise. It reads in a new picture of one asparagus, which is not part of the asparagus database, so not within the 400 images. Then, it searches for this picture the most similar asparagus in the feature matrices (which are 200 pictures with the feature, 200 pictures without).  \\
 In greater detail, the input picture is first centered by subtracting the mean asparagus and then the picture is projected into the corresponding feature-space. That means the picture is “translated” into the lower dimensional space, in order to compare it to the known 400 pictures. The comparison is made through calculating the distance between the single centered eigenasparagus and the 400 pictures in the feature space, by using the cdist function of the SciPy software. The smallest distance is considered as the most similar asparagus. If the index of the most similar asparagus is smaller than 200 we know that the feature is present, if it is above 200 the feature is absent. By comparing this to the information of the single asparagus piece, we know if the new asparagus has the same feature as its closest asparagus in the feature space, or not. By doing this for several images, we can already presume if the two features are likely to be easily separable or not. By evaluating this, we have a measure of how well our used principal components capture the distinguishing information of each feature.\\
 
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_length_graph}}
-    \qquad
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_length}}
-    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Length]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Length}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature length. (B) These images show the first ten “Eigenasparagus” of the feature length.}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_length_graph.png} 
+		\caption{This plots shows the magnitude of the first ten eigenvalues for the feature length.}
+	\end{subfigure}
+	\vspace{20pt}
+	
+	\begin{subfigure}{0.9\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_length.png}
+		\caption{These images show the first ten “Eigenasparagus” of the feature length.}
+	\end{subfigure}
+	\caption[First ten Eigenvalues and "Eigenasparagus" of Feature Length]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Length}}
     \label{fig:PCAlength}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_hollow_graph}}
-    \qquad
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_hollow}}
-    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Hollow]{\textbf{Eigenvalues and "Eigenasparagus" of feature hollow}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the Feature Hollow. (B) These images show the first ten “Eigenasparagus” of the feature hollow.}
+%\begin{figure}
+%    \centering
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_length_graph}}
+%    \qquad
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_length}}
+%    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Length]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Length}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature length. (B) These images show the first ten “Eigenasparagus” of the feature length.}
+%    \label{fig:PCAlength}
+%\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_hollow_graph.png} 
+		\caption{This plots shows the magnitude of the first ten eigenvalues for the feature hollow.}
+	\end{subfigure}
+	\vspace{20pt}
+	
+	\begin{subfigure}{0.9\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_hollow.png}
+		\caption{These images show the first ten “Eigenasparagus” of the feature hollow.}
+	\end{subfigure}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Hollow]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Hollow}}
     \label{fig:PCAhollow}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_bent_graph}}
-    \qquad
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_bent}}
-    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Bent]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Bent}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature bent. (B) These images show the first ten “Eigenasparagus” of the feature bent.}
+%\begin{figure}
+%    \centering
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_hollow_graph}}
+%    \qquad
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_hollow}}
+%    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Hollow]{\textbf{Eigenvalues and "Eigenasparagus" of feature hollow}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the Feature Hollow. (B) These images show the first ten “Eigenasparagus” of the feature hollow.}
+%    \label{fig:PCAhollow}
+%\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_bent_graph.png} 
+		\caption{This plots shows the magnitude of the first ten eigenvalues for the feature bent.}
+	\end{subfigure}
+	\vspace{20pt}
+	
+	\begin{subfigure}{0.9\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_bent.png}
+		\caption{These images show the first ten “Eigenasparagus” of the feature bent.}
+	\end{subfigure}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Bent]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Bent}}
     \label{fig:PCAbent}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_violet_graph}}
-    \qquad
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_violet}}
-    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Violet]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Violet}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature violet. (B) These images show the first ten “Eigenasparagus” of the feature violet.}
+%\begin{figure}
+%    \centering
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_bent_graph}}
+%    \qquad
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_bent}}
+%    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Bent]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Bent}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature bent. (B) These images show the first ten “Eigenasparagus” of the feature bent.}
+%    \label{fig:PCAbent}
+%\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_violet_graph.png} 
+		\caption{This plots shows the magnitude of the first ten eigenvalues for the feature violet.}
+	\end{subfigure}
+	\vspace{20pt}
+	
+	\begin{subfigure}{0.9\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_violet.png}
+		\caption{These images show the first ten “Eigenasparagus” of the feature violet.}
+	\end{subfigure}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Violet]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Violet}}
     \label{fig:PCAviolet}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_width_graph}}
-    \qquad
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_width}}
-    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Width]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Width}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature width. (B) These images show the first ten “Eigenasparagus” of the feature width.}
+%\begin{figure}
+%    \centering
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_violet_graph}}
+%    \qquad
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_violet}}
+%    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Violet]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Violet}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature violet. (B) These images show the first ten “Eigenasparagus” of the feature violet.}
+%    \label{fig:PCAviolet}
+%\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_width_graph.png} 
+		\caption{This plots shows the magnitude of the first ten eigenvalues for the feature width.}
+	\end{subfigure}
+	\vspace{20pt}
+	
+	\begin{subfigure}{0.9\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_width.png}
+		\caption{These images show the first ten “Eigenasparagus” of the feature width.}
+	\end{subfigure}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Width]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Width}}
     \label{fig:PCAwidth}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_rustybody_graph}}
-    \qquad
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_rustybody}}
-    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Rusty Body.]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Rusty Body}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature rusty body. (B) These images show the first ten “Eigenasparagus” of the feature rusty body.}
+%\begin{figure}
+%    \centering
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_width_graph}}
+%    \qquad
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_width}}
+%    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Width]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Width}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature width. (B) These images show the first ten “Eigenasparagus” of the feature width.}
+%    \label{fig:PCAwidth}
+%\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_rustybody_graph.png} 
+		\caption{This plots shows the magnitude of the first ten eigenvalues for the feature rusty body.}
+	\end{subfigure}
+	\vspace{20pt}
+	
+	\begin{subfigure}{0.9\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_rustybody.png}
+		\caption{These images show the first ten “Eigenasparagus” of the feature rusty body.}
+	\end{subfigure}
+    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Rusty Body]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Rusty Body}}
     \label{fig:PCArustybody}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_flower_graph}}
-    \qquad
-    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_flower}}
-    \caption[First ten eigenvalues and "Eigenasparagus" of Feature Flower]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Flower}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature flower. (B) These images show the first ten “Eigenasparagus” of the feature flower.}
+%\begin{figure}
+%    \centering
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_rustybody_graph}}
+%    \qquad
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_rustybody}}
+%    \caption[First ten Eigenvalues and "Eigenasparagus" of Feature Rusty Body.]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Rusty Body}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature rusty body. (B) These images show the first ten “Eigenasparagus” of the feature rusty body.}
+%    \label{fig:PCArustybody}
+%\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_flower_graph.png} 
+		\caption{This plots shows the magnitude of the first ten eigenvalues for the feature flower.}
+	\end{subfigure}
+	\vspace{20pt}
+	
+	\begin{subfigure}{0.9\textwidth}
+		\includegraphics[width=0.9\linewidth]{Figures/chapter04/pca_flower.png}
+		\caption{These images show the first ten “Eigenasparagus” of the feature flower.}
+	\end{subfigure}
+    \caption[First ten eigenvalues and "Eigenasparagus" of Feature Flower]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Flower}}
     \label{fig:PCAflower}
 \end{figure}
+
+%\begin{figure}
+%    \centering
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_flower_graph}}
+%    \qquad
+%    \subfloat[]{\includegraphics[width=6.5cm]{Figures/chapter04/pca_flower}}
+%    \caption[First ten eigenvalues and "Eigenasparagus" of Feature Flower]{\textbf{Eigenvalues and "Eigenasparagus" of Feature Flower}~~~(A) This plots shows the magnitude of the first ten eigenvalues for the feature flower. (B) These images show the first ten “Eigenasparagus” of the feature flower.}
+%    \label{fig:PCAflower}
+%\end{figure}
 
 The final results of the PCA are given feature-wise and were not translated back on the initial 13 groups. The features on which results are given are: hollow, flower, violet, rusty body, bent, width and length. All features are binary. For the first five features, the manually hand-labelled information was taken, for the last two features, the information, which was extracted by the algorithms used in the hand-label app were taken. The decision boundary for the first five therefore depends on our predefined criteria on labeling. The decision boundary for width was narrower or equal to 20 mm or wider than 20 mm, for length shorter or equal to 210mm or longer than 210 mm.  \\
 \\
@@ -469,12 +781,12 @@ The scatterplots in Figure~\ref{fig:PCAscatter} show the data of each feature li
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.35]{Figures/chapter04/pca_scatterplot}
+	\includegraphics[scale=0.35]{Figures/chapter04/pca_scatterplot.png}
 	\decoRule
 	\caption[Feature-wise Scatterplots]{\textbf{Feature-wise Scatterplots}~~~These scatterplots show the 200 data points where the feature is present in blue and the 200 data points where the feature is absent in orange. The data is projected into a 2D subspace, which is  spanned by the first two principal components of each feature. }
 	\label{fig:PCAscatter}
 \end{figure}
-\\
+
 For the recognition function, we used the same 10 images, to test each feature. The classification worked best for the features length and hollow (10/10 classified correctly) and then width (8/10 classified correctly). It performed around chance-level for flower (6/10 classified correctly), violet and rusty body (5/10 classified correctly) and extremely poor for bent (2/10 classified correctly).   \\
 \\
  
@@ -499,7 +811,7 @@ Beside PCA, there are further techniques for dimensionality reduction. One alter
 This motivates the question of how autoencoders work. As mentioned all autoencoders have a bottleneck layer. If applied for dimensionality reduction autoencoders are usually used to predict the input, in this case the image, with the input itself. Autoencoders consist of an encoder that contains the initial layers as well as the bottleneck layer and the decoder that maps the respective latent space back to the image. The desired mapping function of the input to a sparse representation is generated as a side product of the optimization in end to end training, as weights of the decoder are trained such that meaningful features are extracted. The main difference to PCA is that nonlinear functions can be approximated. Feedforward ANNs such as the encoder are non-linear function approximators. Networks with multiple layers are especially well known for establishing named nonlinear correlation. Hence, autoencoders allow for non-linear mappings to the latent space. This means that in the latter multiple features may be represented in a two dimensional space. It shows that compared to PCA where one dimension typically corresponds to one feature more information can be represented in fewer dimensions. Different properties of the input are mapped to different areas of the latent space. In this case, a convolutional variational autoencoder was used. In variational autoencoders a special loss function is used that ensures features in latent space are mapped to a compact cluster of values. This allows for interpolation between samples by moving on a straight line because regions between points in the latent space lie within the data and hence reconstructions of the decoder are more realistic. Other than that variational autoencoders share most properties with regular autoencoders. The location of a point in latent space refers to a compressed representation of the input.These can be interpreted as features of the input. \\
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/autoencoder_latent_asparagus}
+	\includegraphics[scale=0.8]{Figures/chapter04/autoencoder_latent_asparagus.png}
 	\decoRule
 	\caption[Latent Asparagus Space for MLP-VAE and Reconstruction Manifold]{\textbf{Latent Asparagus Space for MLP-VAE and Reconstruction Manifold}~~~The depiction shows illustrates the mapping by the encoder and decoder of the variational autoencoder: On the left you may see scatterplots illustrating the activation of latent layer neurons for the test dataset (the mapping by the encoder). Image-features are mapped to the respective latent asparagus space. Mind that there is a scatterplot for each feature of interest where colors indicate positive and negative samples. On the right a manifold of decoded images can be found. The axis relate to the points sampled in latent asparagus space that correspond to the reconstructions (mapping by the decoder).}
 	\label{fig:AutoencoderLatentSpace}
@@ -530,7 +842,7 @@ A custom conditional loss function was used. If labels are present for the curre
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.8]{Figures/chapter04/semi_supervised_network}
+	\includegraphics[scale=0.8]{Figures/chapter04/semi_supervised_network.png}
 	\decoRule
 	\caption[Network Structures for Semi-Supervised Learning]{\textbf{Network Structures for Semi-Supervised Learning}~~~The depiction illustrates the network structure for the autoencoders used for semi-supervised learning. Left: The structure for the semi-supervised convolutional variational autoencoder. Right: The structure for the semi-supervised convolutional autoencoder. Further explanations can be found in the text.}
 	\label{fig:SemiSupervisedNetworkStructures}
@@ -538,7 +850,7 @@ A custom conditional loss function was used. If labels are present for the curre
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.35]{Figures/chapter04/semi_supervised_latent_asparagus}
+	\includegraphics[scale=0.35]{Figures/chapter04/semi_supervised_latent_asparagus.png}
 	\decoRule
 	\caption[Latent Asparagus Space for Semi-Supervised CNN-VAE]{\textbf{Latent Asparagus Space for Semi-Supervised CNN-VAE}~~~The depiction shows illustrates the mapping by the encoder and decoder of the vartiational autoencoder with additional constraints in the loss function for semi-supervised learning: On the left you may see scatterplots illustrating the activation of latent layer neurons for the test dataset (the mapping by the encoder). Image-features are mapped to the respective latent asparagus space. Mind that there is a scatterplot for each feature of interest where colors indicate positive and negative samples. On the right a manifold of decoded images can be found. The axis relate to the points sampled in latent asparagus space that correspond to the reconstructions (mapping by the decoder).}
 	\label{fig:SemiSupervisedLatentSpace}
