@@ -241,6 +241,11 @@ def load_data(folder):
 
             if not infile.is_file():
                 continue
+
+            # disregard the agreement files
+            if infile.name.startswith("agreement"):
+                continue
+
             # extract the class/category name
             infile_name = infile.name[infile.name.index("_"):]
             infile_cat = infile_name[7:-4]
