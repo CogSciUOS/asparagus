@@ -9,3 +9,5 @@ Manuals
    manual_run_labelapp_externally.md
    manual_latex.md
    manual_run_streamlit_app.md
+   manual_CONDA.md
+   manual_dataSet.md

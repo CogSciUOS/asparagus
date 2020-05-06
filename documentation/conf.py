@@ -13,21 +13,29 @@
 import os
 import sys
 import subprocess
-sys.path.insert(0, os.path.abspath('../code/pipeline'))
-sys.path.insert(0, os.path.abspath('../code/labelCNN'))
-sys.path.insert(0, os.path.abspath('../code'))
+#sys.path.insert(0, os.path.abspath('../code/pipeline'))
+#sys.path.insert(0, os.path.abspath('../code/labelCNN'))
+#sys.path.insert(0, os.path.abspath('../code')) 
+
+sys.path.insert(0, os.path.abspath('../classification/pipeline'))
+sys.path.insert(0, os.path.abspath('../classification/supervised/labelCNN'))
+
+sys.path.insert(0, os.path.abspath('../preprocessing')) 
+sys.path.insert(0, os.path.abspath('../labeling')) 
+sys.path.insert(0, os.path.abspath('../classification')) 
 
 # Build api docs first
 subprocess.run(['sphinx-apidoc',
                 '-f',
                 '-o', 'api',
-                os.path.abspath('../code')])
+                #os.path.abspath('../code')])
+                os.path.abspath('../')]) 
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'asparagus'
-copyright = '2019, study project'
+copyright = '2020, study project'
 author = 'study project'
 
 # The full version, including alpha/beta/rc tags
