@@ -29,7 +29,7 @@ subprocess.run(['sphinx-apidoc',
                 '-f',
                 '-o', 'api',
                 #os.path.abspath('../code')])
-                os.path.abspath('../')]) 
+                os.path.abspath('../classification')]) 
 
 
 # -- Project information -----------------------------------------------------
