@@ -1,6 +1,5 @@
 import measure_agreement
 
-
 def test_kappa_equals_1_if_all_same():
     # same file, so maximal agreement
     annotations1, _annotations = measure_agreement.load_annotations("annotations/template_structure_annotation/annotator_1.csv", "annotations/template_structure_annotation/annotator_1.csv")

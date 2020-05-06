@@ -57,8 +57,7 @@ def add_label(df):
 
 
 if __name__ == "__main__":
-    path = '.' # path to label files for which a class should be estimated
-    print("PATH has to be set")
+    path = # path to label files for which a class should be estimated
     # get all csv files in path
     csvs = [x for x in os.listdir(path) if x.endswith('.csv')]
     # open files and add the corresponding labels to each image id
