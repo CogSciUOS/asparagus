@@ -28,16 +28,13 @@ sys.path.insert(0, os.path.abspath('../classification/*'))
 # api is a folder, with .rst files telling how to display files in code?!?
 subprocess.run(['sphinx-apidoc',
                 '-f',
-                '-o', 'api',
+                '-o', 
                 #os.path.abspath('../code')])
                 os.path.abspath('../preprocessing')]) 
-
-
 
 subprocess.run(['sphinx-apidoc',
                 '-f',
                 '-o', 
-                #os.path.abspath('../code')])
                 os.path.abspath('../labeling')]) 
 
 

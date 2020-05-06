@@ -2,7 +2,7 @@ code
 ====
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 6
 
    app_from_img_to_categories
    combine_labels
