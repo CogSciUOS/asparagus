@@ -1,5 +1,4 @@
-import measure_agreement
-
+import labeling.measure_agreement
 
 def test_kappa_equals_1_if_all_same():
     # same file, so maximal agreement
