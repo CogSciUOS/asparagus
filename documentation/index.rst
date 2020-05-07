@@ -7,14 +7,12 @@ Welcome to asparagus's documentation!
 =====================================
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Contents:
+   :maxdepth: 6
 
-   protocols.rst
-   workschedules.rst
-   manuals.rst
-   api_docs.rst
+ .. automodule:: mod
 
+     Members
+     =======
 
 
 
@@ -24,3 +22,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
