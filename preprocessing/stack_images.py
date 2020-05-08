@@ -1,14 +1,20 @@
 '''
 This script takes the three perspectives of one asparagus piece and stacks them. They can be stacked horizontally (side by side) or vertically (one after another).
 '''
+
+
 # load packages
 from matplotlib.pyplot import imread
 #import pandas as pd
 import numpy as np
 import os
-from grid import*
 import sys
 
+grid_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
++ '\\grid_framework')
+sys.path.append(grid_dir)
+
+import grid
 
 def _mkdir(newdir):
     """works the way a good mkdir should :)
@@ -37,7 +43,7 @@ def get_files(PATH):
     '''
     all_files = []
     file_names = []
-    for subdir, dirs, files in os.walk(PATH):
+    for subdir, _, files in os.walk(PATH):
         for file in files:
             filepath = subdir + '/' + file
             if filepath.endswith(".png"):
@@ -92,7 +98,7 @@ def stack_images(file_paths, file_names, path_out):
 
 if __name__ == '__main__':
 
-    args = typecast(sys.argv[1:])
+    args = grid.typecast(sys.argv[1:])
     path_in = args[0]
     path_out = args[1]
     file_paths, file_names = get_files(path_in)

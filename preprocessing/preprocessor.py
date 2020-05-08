@@ -238,8 +238,8 @@ if __name__ == "__main__":
 
     from pathlib import Path
 
-    img_dir = # path to the images that should be processed
-    target_dir = # path to where the images should be saved
+    img_dir = "This path has to be set first" # path to the images that should be processed
+    target_dir "This path has to be set first" = # path to where the images should be saved
     target_dir_path = Path(target_dir)
     if not target_dir_path.is_dir():
         os.makedirs(target_dir_path)

@@ -5,9 +5,15 @@ This script takes all asparagus IDs from a csv file (in this case all IDs that w
 import pandas as pd
 import numpy as np
 import os
-from grid import*
 import sys
 import shutil
+
+grid_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
++ '\\grid_framework')
+sys.path.append(grid_dir)
+
+from grid import*
+
 
 def get_asparagus_ids(PATH):
     '''
