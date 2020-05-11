@@ -133,7 +133,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('infile_1', help='the first annotator csv file')
     parser.add_argument('infile_2', help='the second annotator csv file')
-    parser.add_argument('outfile', help='the outputfile name')
+    parser.add_argument('
+                        
+                        ', help='the outputfile name')
     args = parser.parse_args()
 
     annotations_1, annotations_2 = load_annotations(
@@ -153,7 +155,7 @@ if __name__ == "__main__":
     accuracy_dict = compute_accuracy(annotations_1, annotations_2)
     for column, accuracy in accuracy_dict.items():
         print(f"For the category {column}, the accuracy is: {accuracy} {rating}")
-    out_acc = args.outfile + "_accuracy.csv"a
+    out_acc = args.outfile + "_accuracy.csv"
     write_to_file(out_acc, accuracy_dict)
 
     # compute f1 score
