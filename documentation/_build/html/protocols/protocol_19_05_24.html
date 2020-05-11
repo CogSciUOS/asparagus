@@ -1,0 +1,734 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Friday, May 24, 2019 (Hermeler meeting) &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)" href="protocol_19_05_31.html" />
+    <link rel="prev" title="Friday, May 17, 2019 (put topic here)" href="protocol_19_05_17.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../protocols.html">Protocols</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_08.html">Monday, April 8, 2019 (Introduction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_12.html">Monday, April 12, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_26.html">Friday, April 26, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_03.html">Friday, May 03, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_10.html">Friday, May 10, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_17.html">Friday, May 17, 2019 (put topic here)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Friday, May 24, 2019 (Hermeler meeting)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#disclaimer-most-will-be-written-in-german">Disclaimer: most will be written in German</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#meeting-with-mr-hermeler">Meeting with Mr. Hermeler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#q-a-with-mr-hermeler">Q&amp;A with Mr. Hermeler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#q-how-does-the-machine-classify">Q: How does the machine classify</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#q-gibt-es-mechanische-probleme-dass-die-maschine-nicht-richtig-angeschlossen-ist-wir-haben-die-demoversion-qvd-demo-images-gestartet-wenn-man-ok-bei-der-fehlermeldung-druckt-schlieszt-sich-das-ganze-programm-woran-liegt-das">Q: Gibt es mechanische Probleme (dass die Maschine nicht richtig angeschlossen ist)? Wir haben die Demoversion qvd demo images gestartet. Wenn man OK bei der Fehlermeldung drückt schließt sich das ganze Programm. Woran liegt das?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-kann-man-die-feature-die-die-maschine-erstellt-rauslesen-wir-wollen-sichergehen-ob-z-b-der-durchmesser-der-gleiche-fur-maschine-wie-fur-unsere-berechnung-ist-dass-wir-diesen-auf-die-gleiche-art-bestimmen">Q: Kann man die Feature, die die Maschine erstellt, rauslesen? Wir wollen sichergehen, ob z.B. der Durchmesser der gleiche für Maschine wie für unsere Berechnung ist/ dass wir diesen auf die gleiche Art bestimmen.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-mussen-die-neuen-maschinen-noch-manuell-eingestellt-werden">Q: Müssen die neuen Maschinen noch manuell eingestellt werden?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-bleibt-das-programm-gleich-bzw-kommt-alles-noch-von-der-gleichen-maschine">Q: Bleibt das Programm gleich bzw. kommt alles noch von der gleichen Maschine?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-was-macht-deine-firma-genau-die-maschinen-bauen-oder-nur-warten">Q: Was macht deine Firma genau, die Maschinen bauen oder nur warten?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-sie-haben-kontakt-zu-der-firma-in-aachen">Q: Sie haben Kontakt zu der Firma in Aachen?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-konnte-man-direkt-mit-der-kamera-sprechen">Q: Könnte man direkt mit der Kamera “sprechen”?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-zugriff-auf-die-kamera-oder-dokumentation-ware-interessant-gewesen">Q: Zugriff auf die Kamera oder Dokumentation wäre interessant gewesen.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-gibt-es-eine-doku-der-api-hardware-ist-nicht-unser-fachgebiet-speziell-geht-es-um-die-schnittstelle-zwischen-programm-und-offne-die-und-die-klappe">Q: Gibt es eine Doku der API (Hardware ist nicht unser Fachgebiet)? Speziell geht es um die Schnittstelle zwischen Programm und ‘öffne die-und-die Klappe’.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wenn-wir-ihnen-unseren-code-geben-konnte-diese-firma-uns-eine-schnittstelle-bauen">Q: Wenn wir ihnen unseren Code geben, könnte diese Firma uns eine Schnittstelle bauen?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-zuruck-zur-neuen-kamera-wieviel-bringt-eine-hohe-auflosung-fur-die-klassifizierung">Q: Zurück zur neuen Kamera: wieviel bringt eine hohe Auflösung für die Klassifizierung?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wieviele-hersteller-fur-spargelsortiermaschinen-gibt-es-uberhaupt">Q: Wieviele Hersteller für Spargelsortiermaschinen gibt es überhaupt?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wie-sind-die-probleme-bei-anderen-kunden-wie-hoch-ist-die-fehlerwahrscheinlichkeit-solange-der-unterschied-nicht-riesig-ist-sind-kundenspezifische-klassifizierungsunterschiede-nicht-das-problem-problematisch-sind-die-die-so-falsch-klassifiziert-sind-das-es-auffallt">Q: Wie sind die Probleme bei anderen Kunden? Wie hoch ist die Fehlerwahrscheinlichkeit? Solange der Unterschied nicht riesig ist, sind Kundenspezifische Klassifizierungsunterschiede nicht das Problem. Problematisch sind die, die so falsch klassifiziert sind, das es auffällt.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-beim-warten-was-genau-stellen-sie-da-ein-manche-sachen-kann-man-naturlich-nicht-umstellen-aber-was-lasst-sich-erfolgreich-an-parmetern-verstellen">Q: Beim Warten, was genau stellen Sie da ein? Manche Sachen kann man natürlich nicht umstellen, aber was lässt sich erfolgreich an Parmetern verstellen?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-ist-eine-perfekte-klassifizierung-moglich-bzw-ahnlich-wie-wenn-ein-mensch-sich-die-fotos-angucken-wurde-kriegt-man-da-eine-95-ige-genauigkeit">Q: Ist eine perfekte Klassifizierung möglich, bzw. ähnlich wie wenn ein Mensch sich die Fotos angucken würde? Kriegt man da eine 95%ige Genauigkeit?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-was-ist-das-limit-der-maschine">Q: Was ist das Limit der Maschine?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-als-mensch-sehen-ich-ja-der-dreck-an-der-maschine-ist-nicht-auf-dem-spargel">Q: Als Mensch sehen ich ja der Dreck an der Maschine ist nicht auf dem Spargel.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wenn-ein-mensch-das-erkennen-kann-und-wir-haben-genug-bilder-theoretisch-kommt-man-da-schon-hin-ware-fur-uns-interessant-ist-es-auch-moglich-mit-den-bildern-die-wir-haben-was-ist-das-maximum-das-wir-erwarten-konnen">Q: Wenn ein Mensch das erkennen kann und wir haben genug Bilder (theoretisch kommt man da schon hin) wäre für uns interessant: ist es auch möglich mit den Bildern die wir haben? Was ist das Maximum das wir erwarten können?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-gibt-es-eine-allgemein-universelle-klassifikation-oder-ist-das-immer-kundenabhangig">Q: Gibt es eine allgemein universelle Klassifikation? Oder ist das immer kundenabhängig?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-solange-es-in-sich-konsistent-ist-sind-dann-die-meisten-kunden-zufrieden-wo-ist-liegt-das-hauptaugenmerk">Q: Solange es in sich konsistent ist, sind dann die meisten Kunden zufrieden? Wo ist liegt das Hauptaugenmerk?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-also-entstehen-alle-parameter-beim-ersten-durchlauf">Q: Also entstehen alle Parameter beim ersten Durchlauf?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-also-grundsatzlich-habe-ich-alle-parameter-klassen-von-anfang-an-abgespeichert">Q: Also grundsätzlich habe ich alle Parameter/Klassen von Anfang an abgespeichert?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wie-weit-weichen-bundesweite-klassifizierungen-ab">Q: Wie weit weichen bundesweite Klassifizierungen ab?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-es-macht-also-sinn-deutlich-mehr-klassen-als-14-aufzustellen-und-die-spater-zusammenzulegen">Q:Es macht also Sinn deutlich mehr Klassen als 14 aufzustellen und die später zusammenzulegen.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-also-erst-durchschnittswerte-berechnen-dann-in-die-tabelle-damit-und-dann-kommt-die-sortierung-wenn-ich-sehe-dass-der-durchschnitt-20-war-jetzt-aber-22-ist-dann-muss-ich-eins-hoher-gehen">Q: Also erst Durchschnittswerte berechnen, dann in die Tabelle damit und dann kommt die Sortierung. Wenn ich sehe, dass der Durchschnitt 20 war, jetzt aber 22 ist,  dann muss ich eins höher gehen?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wenn-wir-theoretisch-eine-halb-perfekte-klassifizierung-haben-aber-auch-da-gibt-es-noch-nachsortierung-gibt-es-da-kommunikation-zwischen-software-und-maschine-also-zahlt-die-maschine-wie-voll-die-boxen-werden-konnen">Q: Wenn wir theoretisch eine (halb)perfekte Klassifizierung haben (aber auch da gibt es noch Nachsortierung): gibt es da Kommunikation zwischen Software und Maschine, also, zählt die Maschine wie voll die Boxen werden können?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-es-geht-mehr-darum-ob-das-fach-schon-voll-ist-wird-uberladen">Q: Es geht mehr darum, ob das Fach schon voll ist. Wird überladen?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wie-stabil-ist-die-klassifizierung-wenn-man-die-gleiche-charge-nochmal-durchschickt-wie-gleich-wird-die-klassifizierung-sein">Q: Wie stabil ist die Klassifizierung? Wenn man die gleiche Charge nochmal durchschickt wie gleich wird die Klassifizierung sein?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-die-maschine-nutzt-alle-3-bilder-pro-spargel">Q: Die Maschine nutzt alle 3 Bilder pro Spargel?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-haben-sie-eigene-probebilder-und-waren-die-verfugbar">Q: Haben Sie eigene Probebilder und wären die verfügbar?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-die-bilder-die-sie-haben-sind-also-von-unterschiedlichen-bauernhofen">Q: Die Bilder die sie haben, sind also von unterschiedlichen Bauernhöfen?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wie-stark-ist-der-saisonale-unterschied-macht-eine-saisonale-also-jahrliche-prufung-am-anfang-sinn">Q: Wie stark ist der saisonale Unterschied? Macht eine saisonale (also jährliche) Prüfung am Anfang Sinn?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wir-haben-seit-neuestem-eine-kein-bild-vorhanden-fehlermeldung-wo-dann-die-maschine-abbricht">Q: Wir haben seit neuestem eine ‘kein Bild vorhanden’ Fehlermeldung, wo dann die Maschine abbricht.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-konnen-wir-die-klassifizierung-von-ihren-parametern-haben">Q: Können wir die Klassifizierung von ihren Parametern haben?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-gibt-es-konkurrenz-bei-der-software">Q: Gibt es Konkurrenz bei der Software?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-was-machen-andere-hersteller-anders">Q: Was machen andere Hersteller anders?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-was-ist-ihr-personlicher-hintergrund-und-wie-ist-so-grob-die-spargelsortiermaschinengeschichte">Q: Was ist ihr persönlicher Hintergrund und wie ist so grob die Spargelsortiermaschinengeschichte?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-wie-stellen-sie-sich-eine-kooperation-vor">Q: Wie stellen sie sich eine Kooperation vor?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-was-ist-gerade-so-der-standard-was-die-kamera-betrifft">Q: Was ist gerade so der Standard was die Kamera betrifft?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-nicht-nur-schalen-sondern-auch-kamera">Q: Nicht nur Schalen, sondern auch Kamera?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-nochmal-zur-kooperation-was-erhoffen-sie-sich">Q: Nochmal zur Kooperation: was erhoffen sie sich?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-bei-fragen-konnen-wir-nochmal-auf-sie-zukommen-z-b-bei-der-hochkategorisierung-ist-eine-zusammenfassung-meist-leichter-was-wie-leichter-schwerer-ist-aus-praxissicht-da-konnen-wir-noch-auf-sie-zukommen">Q: Bei Fragen können wir nochmal auf Sie zukommen? Z.B. bei der Hochkategorisierung ist eine Zusammenfassung meist leichter: was wie leichter/schwerer ist (aus praxissicht) da können wir noch auf Sie zukommen?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-kann-man-jemandem-der-auflegt-noch-eine-aufgabe-mitgeben">Q: Kann man jemandem der auflegt noch eine Aufgabe mitgeben?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-die-demoversion-gestartet-zu-kriegen-ware-z-b-schon-ein-erster-ansatz-fur-eine-kooperation-fur-uns-ist-einen-screenshot-mit-der-fehlermeldung-zu-schicken-moglich">Q: Die Demoversion gestartet zu kriegen wäre z.B. schon ein erster Ansatz für eine Kooperation für uns. Ist einen Screenshot mit der Fehlermeldung zu schicken möglich?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#q-optimal-ware-eine-klassifizierung-von-den-bildern-wo-erkennbar-ist-welches-bild-von-welchem-hof-stammt-ware-das-moglich">Q: Optimal wäre eine Klassifizierung von den Bildern wo erkennbar ist welches Bild von welchem Hof stammt. Wäre das möglich?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#abschlussdiskussion">Abschlussdiskussion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_31.html">Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_07.html">Friday, June 7, 2019 (Documentation, Farm Visit, Progress Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_14.html">Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_21.html">Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_28.html">Friday, June 28th, 2019 (New repo, Data Storage, Preprocessing Plan, Holidays)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_07_05.html">Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_06.html">Friday, September 6th, 2019 (Lableapp, Preprocessing)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_12.html">Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_11_15.html">Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_12_06.html">Friday, December 6th, 2019 (ANNs, PCA, image transfer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_initial_questions.html">Initial general questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../protocols.html">Protocols</a> &raquo;</li>
+        
+      <li>Friday, May 24, 2019 (Hermeler meeting)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/protocols/protocol_19_05_24.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="friday-may-24-2019-hermeler-meeting">
+<h1>Friday, May 24, 2019 (Hermeler meeting)<a class="headerlink" href="#friday-may-24-2019-hermeler-meeting" title="Permalink to this headline">¶</a></h1>
+<p>Attendants: Thomas, Maren, Sophia, Josefine, Katharina, Richard, Manuel, Tobias, Ulf, Axel, Thomas Hermeler</p>
+<div class="section" id="disclaimer-most-will-be-written-in-german">
+<h2>Disclaimer: most will be written in German<a class="headerlink" href="#disclaimer-most-will-be-written-in-german" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="meeting-with-mr-hermeler">
+<h2>Meeting with Mr. Hermeler<a class="headerlink" href="#meeting-with-mr-hermeler" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Presentation by Thomas</p>
+<ul class="simple">
+<li><p>background of cognitive science</p></li>
+<li><p>backgroung machine learning &amp; computervision → image classification</p></li>
+<li><p>we don’t know the labels of the machine</p></li>
+</ul>
+</div>
+<div class="section" id="q-a-with-mr-hermeler">
+<h2>Q&amp;A with Mr. Hermeler<a class="headerlink" href="#q-a-with-mr-hermeler" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="q-how-does-the-machine-classify">
+<h2>Q: How does the machine classify<a class="headerlink" href="#q-how-does-the-machine-classify" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>when the machine saves a picture, it is already processed (features were already made and it was sorted)</p></li>
+<li><p>Entscheidungsparameter, die gesetzt werden (können sich jeden Tag ändern), hängen vom Kunden ab und können angepasst werden</p></li>
+<li><p>wenn man von Klassifizierung spricht sind diese fest gesetzt, die Grenzen verschwimmen allerdings</p></li>
+<li><p>wo messe ich den Spargel (oben, unten, mitte) für Durchmesser?</p></li>
+<li><p>aus den drei Bildern wird ein Mittelwert für die Klassifizierung gemacht; wenn da die Parameter an den grenzen liegen, welche Klassifizierung gilt dann?</p></li>
+<li><p>man kann auch sagen, ich nehme nur den dicksten oder dünnsten - wo genau will ich messen?</p></li>
+<li><p>guter Spargel ist meist oben etwas dünner und unten etwas dicker (solche Dinge kann man miteinbeziehen)</p></li>
+</ul>
+<div class="section" id="q-gibt-es-mechanische-probleme-dass-die-maschine-nicht-richtig-angeschlossen-ist-wir-haben-die-demoversion-qvd-demo-images-gestartet-wenn-man-ok-bei-der-fehlermeldung-druckt-schlieszt-sich-das-ganze-programm-woran-liegt-das">
+<h3>Q: Gibt es mechanische Probleme (dass die Maschine nicht richtig angeschlossen ist)? Wir haben die Demoversion qvd demo images gestartet. Wenn man OK bei der Fehlermeldung drückt schließt sich das ganze Programm. Woran liegt das?<a class="headerlink" href="#q-gibt-es-mechanische-probleme-dass-die-maschine-nicht-richtig-angeschlossen-ist-wir-haben-die-demoversion-qvd-demo-images-gestartet-wenn-man-ok-bei-der-fehlermeldung-druckt-schlieszt-sich-das-ganze-programm-woran-liegt-das" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>vllcht fehlt noch eine Datei</p></li>
+<li><p>heißt theoretisch, dass die Demo nicht gestartet wurde</p></li>
+</ul>
+</div>
+<div class="section" id="q-kann-man-die-feature-die-die-maschine-erstellt-rauslesen-wir-wollen-sichergehen-ob-z-b-der-durchmesser-der-gleiche-fur-maschine-wie-fur-unsere-berechnung-ist-dass-wir-diesen-auf-die-gleiche-art-bestimmen">
+<h3>Q: Kann man die Feature, die die Maschine erstellt, rauslesen? Wir wollen sichergehen, ob z.B. der Durchmesser der gleiche für Maschine wie für unsere Berechnung ist/ dass wir diesen auf die gleiche Art bestimmen.<a class="headerlink" href="#q-kann-man-die-feature-die-die-maschine-erstellt-rauslesen-wir-wollen-sichergehen-ob-z-b-der-durchmesser-der-gleiche-fur-maschine-wie-fur-unsere-berechnung-ist-dass-wir-diesen-auf-die-gleiche-art-bestimmen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>früher war es so: 1A Spargel wird durchgeschickt und anhand dessen die Parameter für diesen festgemacht usw.</p></li>
+<li><ul>
+<li><p>Randparameter (wo ich messe), kann man momentan auch eingeben, liegt aber alles daran, wie man es programmiert</p></li>
+</ul>
+</li>
+<li><p>bestimmte sachen treten nur in den ersten saisontagen auf, welche effektiver per Hand zu lösen sind</p></li>
+</ul>
+</div>
+<div class="section" id="q-mussen-die-neuen-maschinen-noch-manuell-eingestellt-werden">
+<h3>Q: Müssen die neuen Maschinen noch manuell eingestellt werden?<a class="headerlink" href="#q-mussen-die-neuen-maschinen-noch-manuell-eingestellt-werden" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja</p></li>
+<li><p>Kameraauswertung macht die Software Firma; die Firma macht normalerweise Rohlinge von Verpackungen (PET Flaschen müssen an Verschraubung geprüft werden)</p></li>
+</ul>
+</div>
+<div class="section" id="q-bleibt-das-programm-gleich-bzw-kommt-alles-noch-von-der-gleichen-maschine">
+<h3>Q: Bleibt das Programm gleich bzw. kommt alles noch von der gleichen Maschine?<a class="headerlink" href="#q-bleibt-das-programm-gleich-bzw-kommt-alles-noch-von-der-gleichen-maschine" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>bin jedes Jahr dabei das Programm zu verbessern</p></li>
+<li><p>kann man schon alles nicht mehr auswerten mit den Netzwerkstrukturen</p></li>
+<li><p>ich will etwas erkennen, dass nur 4 Pixel groß ist (zB eine Farbe), das wird schwierig; Farbton nur erkennbar sobald dieser auch eindeutig mind. einen Pixel hat</p></li>
+<li><p>bei den neueren Maschinen gibt es eine zweite Kamera nur allein für den Kopf</p></li>
+<li><p>die Auflösung ist dann bei 1 zu 16 (also viel besser)</p></li>
+<li><p>ein Grund ist, dass vor Jahren Kameras teurer waren, aber heute eine günstige Lösung geworden sind</p></li>
+<li><p>aber eine Kamera für 20 000€ einsetzen, das will der Kunde dann auch nicht (zu teuer)</p></li>
+<li><p>Tendenz: Kapazität oder Rechenleistung ist kein begrenzender faktor mehr</p></li>
+</ul>
+</div>
+<div class="section" id="q-was-macht-deine-firma-genau-die-maschinen-bauen-oder-nur-warten">
+<h3>Q: Was macht deine Firma genau, die Maschinen bauen oder nur warten?<a class="headerlink" href="#q-was-macht-deine-firma-genau-die-maschinen-bauen-oder-nur-warten" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>beides</p></li>
+</ul>
+</div>
+<div class="section" id="q-sie-haben-kontakt-zu-der-firma-in-aachen">
+<h3>Q: Sie haben Kontakt zu der Firma in Aachen?<a class="headerlink" href="#q-sie-haben-kontakt-zu-der-firma-in-aachen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja</p></li>
+</ul>
+</div>
+<div class="section" id="q-konnte-man-direkt-mit-der-kamera-sprechen">
+<h3>Q: Könnte man direkt mit der Kamera “sprechen”?<a class="headerlink" href="#q-konnte-man-direkt-mit-der-kamera-sprechen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>das ist outgesourced, da gibt es von mir keine Informationen</p></li>
+<li><p>‘Ich will die Daten anders von der Kamera bekommen’, das kann ich nicht machen</p></li>
+</ul>
+</div>
+<div class="section" id="q-zugriff-auf-die-kamera-oder-dokumentation-ware-interessant-gewesen">
+<h3>Q: Zugriff auf die Kamera oder Dokumentation wäre interessant gewesen.<a class="headerlink" href="#q-zugriff-auf-die-kamera-oder-dokumentation-ware-interessant-gewesen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>das werden die nicht rausgeben</p></li>
+</ul>
+</div>
+<div class="section" id="q-gibt-es-eine-doku-der-api-hardware-ist-nicht-unser-fachgebiet-speziell-geht-es-um-die-schnittstelle-zwischen-programm-und-offne-die-und-die-klappe">
+<h3>Q: Gibt es eine Doku der API (Hardware ist nicht unser Fachgebiet)? Speziell geht es um die Schnittstelle zwischen Programm und ‘öffne die-und-die Klappe’.<a class="headerlink" href="#q-gibt-es-eine-doku-der-api-hardware-ist-nicht-unser-fachgebiet-speziell-geht-es-um-die-schnittstelle-zwischen-programm-und-offne-die-und-die-klappe" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>im PC ist die Schnittstelle zu API data karte</p></li>
+<li><p>eine Doku für (elektrische) Signalübertragung ist da</p></li>
+<li><p>die Doku könnt ihr haben, aber damit könnt ihr vllcht nicht viel anfangen</p></li>
+<li><p>ich bin gerade dabei ein anderes Protokoll zu schreiben, bin da aber wieder an den Hersteller der Software gebunden</p></li>
+<li><p>die Firma Intravis hat die Schnittstelle geschrieben und diese Dokumentation werden wir wieder nicht bekommen</p></li>
+</ul>
+</div>
+<div class="section" id="q-wenn-wir-ihnen-unseren-code-geben-konnte-diese-firma-uns-eine-schnittstelle-bauen">
+<h3>Q: Wenn wir ihnen unseren Code geben, könnte diese Firma uns eine Schnittstelle bauen?<a class="headerlink" href="#q-wenn-wir-ihnen-unseren-code-geben-konnte-diese-firma-uns-eine-schnittstelle-bauen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>das wäre vllcht eine Möglichkeit</p></li>
+</ul>
+</div>
+<div class="section" id="q-zuruck-zur-neuen-kamera-wieviel-bringt-eine-hohe-auflosung-fur-die-klassifizierung">
+<h3>Q: Zurück zur neuen Kamera: wieviel bringt eine hohe Auflösung für die Klassifizierung?<a class="headerlink" href="#q-zuruck-zur-neuen-kamera-wieviel-bringt-eine-hohe-auflosung-fur-die-klassifizierung" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>doppelt so viel - wobei wir hatten eben nur über durchmesser geredet</p></li>
+<li><p>mit der Farbe wird es schwerer: wenn die Farbe jetzt zu 90% richtig ist, ist sie das mit der neuen Kamera nachher zu 98% (deutliche Steigerung)</p></li>
+<li><p>Aufblüher sind da ein anderes Problem, da müsste man schon mit einer zweiten Kamera arbeiten</p></li>
+<li><p>2D Bild und 3D klassifizieren ist eine Problematik, die ich mit zwei Kameras gelöst habe</p></li>
+<li><p>mit 2 Kameras zu arbeiten ist aber ein komplett neuer Bereich, der gerade am kommen ist (Firma Klaas macht das schon seit Jahren)</p></li>
+</ul>
+</div>
+<div class="section" id="q-wieviele-hersteller-fur-spargelsortiermaschinen-gibt-es-uberhaupt">
+<h3>Q: Wieviele Hersteller für Spargelsortiermaschinen gibt es überhaupt?<a class="headerlink" href="#q-wieviele-hersteller-fur-spargelsortiermaschinen-gibt-es-uberhaupt" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>so 4 bis 5?</p></li>
+</ul>
+</div>
+<div class="section" id="q-wie-sind-die-probleme-bei-anderen-kunden-wie-hoch-ist-die-fehlerwahrscheinlichkeit-solange-der-unterschied-nicht-riesig-ist-sind-kundenspezifische-klassifizierungsunterschiede-nicht-das-problem-problematisch-sind-die-die-so-falsch-klassifiziert-sind-das-es-auffallt">
+<h3>Q: Wie sind die Probleme bei anderen Kunden? Wie hoch ist die Fehlerwahrscheinlichkeit? Solange der Unterschied nicht riesig ist, sind Kundenspezifische Klassifizierungsunterschiede nicht das Problem. Problematisch sind die, die so falsch klassifiziert sind, das es auffällt.<a class="headerlink" href="#q-wie-sind-die-probleme-bei-anderen-kunden-wie-hoch-ist-die-fehlerwahrscheinlichkeit-solange-der-unterschied-nicht-riesig-ist-sind-kundenspezifische-klassifizierungsunterschiede-nicht-das-problem-problematisch-sind-die-die-so-falsch-klassifiziert-sind-das-es-auffallt" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>da gibt es auch große Unterschiede (zB entscheidend ist die Kopfform), das werde ich aber mit der einen Kamera nicht gelöst bekommen</p></li>
+<li><p>oder die Beleuchtung ist nicht optimal</p></li>
+<li><p>bei neueren Maschinen muss nicht ganz so viel nachjustiert werden, aber immer noch ab und an mal</p></li>
+<li><p>Spargel mit Macke nur auf einer Seite erwischt man unter Umständen nicht</p></li>
+</ul>
+</div>
+<div class="section" id="q-beim-warten-was-genau-stellen-sie-da-ein-manche-sachen-kann-man-naturlich-nicht-umstellen-aber-was-lasst-sich-erfolgreich-an-parmetern-verstellen">
+<h3>Q: Beim Warten, was genau stellen Sie da ein? Manche Sachen kann man natürlich nicht umstellen, aber was lässt sich erfolgreich an Parmetern verstellen?<a class="headerlink" href="#q-beim-warten-was-genau-stellen-sie-da-ein-manche-sachen-kann-man-naturlich-nicht-umstellen-aber-was-lasst-sich-erfolgreich-an-parmetern-verstellen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ich stelle die Parameter jedes mal ein (der Kunde kann das nicht)</p></li>
+<li><p>es muss immer (wieder) angepasst werden</p></li>
+<li><p>ob ich die Auflagen des kunden auf grund der parameter einstellen und verbessern kann, müsste ich mal schauen</p></li>
+<li><p>‘Es muss doch einfach einzustellen sein.’ - in der Regel, wenns einmal eingestellt ist, wird da kein Käufer mehr was ändern</p></li>
+<li><p>wenn es nicht auftritt, kann ich das auch nicht anpassen</p></li>
+<li><p>‘Farbe passt nicht.’ - Hat sich vllcht die Beleuchtung oder die Farbe geändert?</p></li>
+<li><p>ich kann verschiedene Farbwerte bekommen, abhängig vom Licht draußen (Sonnenschein etc) → eine Lösung war z.B. hier LED zu benutzen, aber es ändert sich immer noch (wenn auch weniger)</p></li>
+<li><p>die Hardware ist schon die eine Sache, sonst kann man das mit der Software nicht mehr ändern</p></li>
+</ul>
+</div>
+<div class="section" id="q-ist-eine-perfekte-klassifizierung-moglich-bzw-ahnlich-wie-wenn-ein-mensch-sich-die-fotos-angucken-wurde-kriegt-man-da-eine-95-ige-genauigkeit">
+<h3>Q: Ist eine perfekte Klassifizierung möglich, bzw. ähnlich wie wenn ein Mensch sich die Fotos angucken würde? Kriegt man da eine 95%ige Genauigkeit?<a class="headerlink" href="#q-ist-eine-perfekte-klassifizierung-moglich-bzw-ahnlich-wie-wenn-ein-mensch-sich-die-fotos-angucken-wurde-kriegt-man-da-eine-95-ige-genauigkeit" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>nein</p></li>
+</ul>
+</div>
+<div class="section" id="q-was-ist-das-limit-der-maschine">
+<h3>Q: Was ist das Limit der Maschine?<a class="headerlink" href="#q-was-ist-das-limit-der-maschine" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>90%</p></li>
+<li><p>Schalen müssten täglich gereinigt werden (an Ecken sammelt sich Dreck)</p></li>
+<li><p>mit Pech ist das die gleiche Farbe wie bei dunklem, violetten Spargel</p></li>
+</ul>
+</div>
+<div class="section" id="q-als-mensch-sehen-ich-ja-der-dreck-an-der-maschine-ist-nicht-auf-dem-spargel">
+<h3>Q: Als Mensch sehen ich ja der Dreck an der Maschine ist nicht auf dem Spargel.<a class="headerlink" href="#q-als-mensch-sehen-ich-ja-der-dreck-an-der-maschine-ist-nicht-auf-dem-spargel" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>auch dann kann man die Farbe nicht immer eindeutig erkennen</p></li>
+</ul>
+</div>
+<div class="section" id="q-wenn-ein-mensch-das-erkennen-kann-und-wir-haben-genug-bilder-theoretisch-kommt-man-da-schon-hin-ware-fur-uns-interessant-ist-es-auch-moglich-mit-den-bildern-die-wir-haben-was-ist-das-maximum-das-wir-erwarten-konnen">
+<h3>Q: Wenn ein Mensch das erkennen kann und wir haben genug Bilder (theoretisch kommt man da schon hin) wäre für uns interessant: ist es auch möglich mit den Bildern die wir haben? Was ist das Maximum das wir erwarten können?<a class="headerlink" href="#q-wenn-ein-mensch-das-erkennen-kann-und-wir-haben-genug-bilder-theoretisch-kommt-man-da-schon-hin-ware-fur-uns-interessant-ist-es-auch-moglich-mit-den-bildern-die-wir-haben-was-ist-das-maximum-das-wir-erwarten-konnen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ca 90%, auch mit so vielen Bildern</p></li>
+<li><p>ich habe Zuhause eine Testmaschine</p></li>
+<li><p>wir können den Spargel da durchjagen, dafür könnt ihr gerne vorbeikommen</p></li>
+</ul>
+</div>
+<div class="section" id="q-gibt-es-eine-allgemein-universelle-klassifikation-oder-ist-das-immer-kundenabhangig">
+<h3>Q: Gibt es eine allgemein universelle Klassifikation? Oder ist das immer kundenabhängig?<a class="headerlink" href="#q-gibt-es-eine-allgemein-universelle-klassifikation-oder-ist-das-immer-kundenabhangig" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>von der Landwirtschaftskammer gibt es eine Klassifizierung</p></li>
+</ul>
+</div>
+<div class="section" id="q-solange-es-in-sich-konsistent-ist-sind-dann-die-meisten-kunden-zufrieden-wo-ist-liegt-das-hauptaugenmerk">
+<h3>Q: Solange es in sich konsistent ist, sind dann die meisten Kunden zufrieden? Wo ist liegt das Hauptaugenmerk?<a class="headerlink" href="#q-solange-es-in-sich-konsistent-ist-sind-dann-die-meisten-kunden-zufrieden-wo-ist-liegt-das-hauptaugenmerk" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>der Durchmesser muss passen, alles andere machen die Leute dann viel von Hand</p></li>
+<li><p>bei neuen Maschinen bin ich bei 98% den korrekt zu treffen</p></li>
+<li><p>Sauberkeit ist ein Problem</p></li>
+<li><p>im mittleren Bereich der Anzeige auf der Maschine gibt es eine Parameterliste (auf life Bild links angezeigt), da bekomme ich bisschen die Statistik her</p></li>
+<li><p>da kann man einigermaßen erkennen, warum hat die Maschine was wo reingeworfen oder warum nicht</p></li>
+<li><p>da steht nicht wieviel Prozent, sondern nur ‘leicht geöffnet’</p></li>
+<li><p>extremes Beispiel ist rostiger Spargel (Kunde sagt, er hat damit kein Problem, um dan festzustellen, dass 90% Rostspargel ist..)</p></li>
+<li><p>die Definition ‘leicht geöffnet’, ‘leicht gerostet’, hängt sehr vom Kunden ab (alles sehr relativ)</p></li>
+<li><p>Klassifizierungsreihenfolge (Krümmung, violett etc) ist bei jedem Kunden anders prioritisiert</p></li>
+<li><p>wie die Maschine das macht: alle Parameter die passen kommen in eine Exceltabelle auf die ich Zugriff habe</p></li>
+<li><p>ich setze z.B. erstmal alle Klassifizierungen weiß bevor violett kommt</p></li>
+<li><p>anderes Beispiel wäre Krümmung zuzulassen bei leicht violettem Spargel, weil man da mehr Krümmung zulässt als bei weißem Spargel</p></li>
+<li><p>am einfachsten ist selber Spargel drauflegen und das Klassifizieren macht die Maschine schon selber</p></li>
+</ul>
+</div>
+<div class="section" id="q-also-entstehen-alle-parameter-beim-ersten-durchlauf">
+<h3>Q: Also entstehen alle Parameter beim ersten Durchlauf?<a class="headerlink" href="#q-also-entstehen-alle-parameter-beim-ersten-durchlauf" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>meine erste Sortierung lass ich durchlaufen und Parameter entstehen</p></li>
+</ul>
+</div>
+<div class="section" id="q-also-grundsatzlich-habe-ich-alle-parameter-klassen-von-anfang-an-abgespeichert">
+<h3>Q: Also grundsätzlich habe ich alle Parameter/Klassen von Anfang an abgespeichert?<a class="headerlink" href="#q-also-grundsatzlich-habe-ich-alle-parameter-klassen-von-anfang-an-abgespeichert" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>da denken sie an ein anderes System</p></li>
+<li><p>man geht eig genauso hin: ‘erste Sortierung’ durchlaufen lassen, und danach muss man entstandene Parameter anpassen</p></li>
+</ul>
+</div>
+<div class="section" id="q-wie-weit-weichen-bundesweite-klassifizierungen-ab">
+<h3>Q: Wie weit weichen bundesweite Klassifizierungen ab?<a class="headerlink" href="#q-wie-weit-weichen-bundesweite-klassifizierungen-ab" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>extrem</p></li>
+<li><p>andere könnten Spargel hier nicht verkaufen</p></li>
+<li><p>‘wann ist ein Spargel violett?’, im süden muss er extrem weiß sein, da sind mehr Klassifizierungen notwendig</p></li>
+<li><p>Köln ist ca die Nord-Süd Grenze</p></li>
+<li><p>es gibt zwar diese ganzen Vorgaben, aber das einzige, was so wirklich funtioniert, ist der Durchmesser. Aber auch der spaltet sich so langsam auf.</p></li>
+<li><p>dem Kunden klarzumachen wie er zu arbeiten hat, das ist die Schwierigkeit für mich</p></li>
+<li><p>Toleranzgrenze: wie kriege ich die wieder raus, wie kann ich die wieder abziehen von meinen Parametern?</p></li>
+<li><p>der größte Fehler liegt oft beim Kunden</p></li>
+<li><p>obwohl das Programm alles vorgibt kann die Maschine die richtigen Parameter nicht finden. Der kunde steht aber nur 2 mal im Jahr wirklich davor (und guckt nach den Parametern)</p></li>
+<li><p>die Varianz bei Spargel ist extrem groß</p></li>
+</ul>
+</div>
+<div class="section" id="q-es-macht-also-sinn-deutlich-mehr-klassen-als-14-aufzustellen-und-die-spater-zusammenzulegen">
+<h3>Q:Es macht also Sinn deutlich mehr Klassen als 14 aufzustellen und die später zusammenzulegen.<a class="headerlink" href="#q-es-macht-also-sinn-deutlich-mehr-klassen-als-14-aufzustellen-und-die-spater-zusammenzulegen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>zb tiptop 1a Spargel und ganz okay 1a Spargel. Die dann zusammenzuschmeißen ist abhängig von Saison/Kunde/Tag</p></li>
+<li><p>habe ich son in meiner Maschine, der Kunde versteht das System (und die dazugehörige Problematik) aber meist nicht</p></li>
+<li><p>in der Software ist es so installiert, dass erst weißer, dann violetter Spargel kommt</p></li>
+</ul>
+</div>
+<div class="section" id="q-also-erst-durchschnittswerte-berechnen-dann-in-die-tabelle-damit-und-dann-kommt-die-sortierung-wenn-ich-sehe-dass-der-durchschnitt-20-war-jetzt-aber-22-ist-dann-muss-ich-eins-hoher-gehen">
+<h3>Q: Also erst Durchschnittswerte berechnen, dann in die Tabelle damit und dann kommt die Sortierung. Wenn ich sehe, dass der Durchschnitt 20 war, jetzt aber 22 ist,  dann muss ich eins höher gehen?<a class="headerlink" href="#q-also-erst-durchschnittswerte-berechnen-dann-in-die-tabelle-damit-und-dann-kommt-die-sortierung-wenn-ich-sehe-dass-der-durchschnitt-20-war-jetzt-aber-22-ist-dann-muss-ich-eins-hoher-gehen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja</p></li>
+</ul>
+</div>
+<div class="section" id="q-wenn-wir-theoretisch-eine-halb-perfekte-klassifizierung-haben-aber-auch-da-gibt-es-noch-nachsortierung-gibt-es-da-kommunikation-zwischen-software-und-maschine-also-zahlt-die-maschine-wie-voll-die-boxen-werden-konnen">
+<h3>Q: Wenn wir theoretisch eine (halb)perfekte Klassifizierung haben (aber auch da gibt es noch Nachsortierung): gibt es da Kommunikation zwischen Software und Maschine, also, zählt die Maschine wie voll die Boxen werden können?<a class="headerlink" href="#q-wenn-wir-theoretisch-eine-halb-perfekte-klassifizierung-haben-aber-auch-da-gibt-es-noch-nachsortierung-gibt-es-da-kommunikation-zwischen-software-und-maschine-also-zahlt-die-maschine-wie-voll-die-boxen-werden-konnen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>die Maschine hat 16 Fächer, 15 sind schaltbar</p></li>
+<li><p>bei mehr ist auch mehr Sortierung möglich</p></li>
+</ul>
+</div>
+<div class="section" id="q-es-geht-mehr-darum-ob-das-fach-schon-voll-ist-wird-uberladen">
+<h3>Q: Es geht mehr darum, ob das Fach schon voll ist. Wird überladen?<a class="headerlink" href="#q-es-geht-mehr-darum-ob-das-fach-schon-voll-ist-wird-uberladen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja</p></li>
+<li><p>man kann schon einstellen, wenn man weiß ich hab mehr 1a Spargel, dann nimmt man dafür 2 Fächer</p></li>
+<li><p>vor Jahren dachte man mal, die Maschine muss möglichst flexibel sein; dabei waren letztlich die Nachsortierer nicht ganz so flexibel</p></li>
+</ul>
+</div>
+<div class="section" id="q-wie-stabil-ist-die-klassifizierung-wenn-man-die-gleiche-charge-nochmal-durchschickt-wie-gleich-wird-die-klassifizierung-sein">
+<h3>Q: Wie stabil ist die Klassifizierung? Wenn man die gleiche Charge nochmal durchschickt wie gleich wird die Klassifizierung sein?<a class="headerlink" href="#q-wie-stabil-ist-die-klassifizierung-wenn-man-die-gleiche-charge-nochmal-durchschickt-wie-gleich-wird-die-klassifizierung-sein" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>so 95%</p></li>
+<li><p>auch da gehts los mit Durchmesser, Farbe etc</p></li>
+<li><p>es werden leicht andere Werte berechnet</p></li>
+<li><p>Reproduzierbarkeit hat nunmal das Problem (der Datenvarianz), aber 90% kann man schon erwarten</p></li>
+</ul>
+</div>
+<div class="section" id="q-die-maschine-nutzt-alle-3-bilder-pro-spargel">
+<h3>Q: Die Maschine nutzt alle 3 Bilder pro Spargel?<a class="headerlink" href="#q-die-maschine-nutzt-alle-3-bilder-pro-spargel" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja</p></li>
+<li><p>Auflösung, Drehen des Spargels ect.. die Pixel der Kamera stellen z.B. eine Grenze dar (Kunde: ‘Wieso liegt der Spargel einmal bei 16 und dann bei 12-16?’)</p></li>
+<li><p>ich kann Bilder abspeichern und mir nacher angucken, dann Parameter verändern und schauen ob mein Spargel dahin kommt, wo er hinsoll</p></li>
+<li><p>mein größtes Problem ist: der Kunde lässt gerne mal Spargel zu, den die Maschine innerhalb der Grenzen nicht zulassen würde (laut Kunde darf bei 10 guten auch mal ein schlechter rein - und dann kommen plötzlich 100 Schlechte rein, weil die Maschine das nicht versteht)</p></li>
+</ul>
+</div>
+<div class="section" id="q-haben-sie-eigene-probebilder-und-waren-die-verfugbar">
+<h3>Q: Haben Sie eigene Probebilder und wären die verfügbar?<a class="headerlink" href="#q-haben-sie-eigene-probebilder-und-waren-die-verfugbar" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ich kann ihnen nochmal bessere Bilder bereitstellen</p></li>
+<li><p>vor allem für die Köpfe</p></li>
+<li><p>ich habe ca 1000-10 000 Bilder verfügbar in die Richtung</p></li>
+<li><p>für meine Auswertung ziehe ich Bilder von Kunden via Teamviewer runter und sortiere/kontrolliere die dann im Büro; das Anpassen geht so viel besser/schneller</p></li>
+<li><p>auch ein Problem: jeder Spargel ist anders</p></li>
+</ul>
+</div>
+<div class="section" id="q-die-bilder-die-sie-haben-sind-also-von-unterschiedlichen-bauernhofen">
+<h3>Q: Die Bilder die sie haben, sind also von unterschiedlichen Bauernhöfen?<a class="headerlink" href="#q-die-bilder-die-sie-haben-sind-also-von-unterschiedlichen-bauernhofen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja</p></li>
+<li><p>einziger Unterschied für mich ist: ich muss die Software jedes mal etwas anders anpassen (Farbdefinition kann bei jedem Standort unterschiedlich ausfallen)</p></li>
+</ul>
+</div>
+<div class="section" id="q-wie-stark-ist-der-saisonale-unterschied-macht-eine-saisonale-also-jahrliche-prufung-am-anfang-sinn">
+<h3>Q: Wie stark ist der saisonale Unterschied? Macht eine saisonale (also jährliche) Prüfung am Anfang Sinn?<a class="headerlink" href="#q-wie-stark-ist-der-saisonale-unterschied-macht-eine-saisonale-also-jahrliche-prufung-am-anfang-sinn" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>eigentlich bleibt alles sehr stabil</p></li>
+<li><p>wir nutzen LED Beleuchtung, hier ist aber auch altersbedingt, dass die schlechter wird/anders beleuchtet</p></li>
+<li><p>ich muss die Kamera öfter mal normen</p></li>
+<li><p>wenn der Kunde ja sagt, dann kann man das schon machen, es muss nur alles öfter mal überprüft werden</p></li>
+<li><p>das Anpassen der Maschine dauert in der Regel den ganzen Tag, da das zeitlich verteilt werden muss (Maschine laufen lassen, Bilder angucken, wieder laufen lassen …)</p></li>
+<li><p>und der Kunde muss bereit sein die Maschine für eine Prüfung abzuschalten</p></li>
+</ul>
+</div>
+<div class="section" id="q-wir-haben-seit-neuestem-eine-kein-bild-vorhanden-fehlermeldung-wo-dann-die-maschine-abbricht">
+<h3>Q: Wir haben seit neuestem eine ‘kein Bild vorhanden’ Fehlermeldung, wo dann die Maschine abbricht.<a class="headerlink" href="#q-wir-haben-seit-neuestem-eine-kein-bild-vorhanden-fehlermeldung-wo-dann-die-maschine-abbricht" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Steckerverbindung an Kamera und Kameraleitung zu PC lösen und wieder reinmachen</p></li>
+<li><p>ist ein Korosionsproblem</p></li>
+<li><p>ansonsten ist evtll die Kamera über Ethernet mit dem PC verbunden und im PC gibt es eine Steckkarte, die auch Korosion auslösen kann. Die müsste man dann lösen und wieder reinstecken</p></li>
+<li><p>pc problem, da feuchte räume pc korosion fördert</p></li>
+<li><p>am besten immer nur den Hauptschalter ausmachen und alle Stecker der Maschine drinlassen (um Feuchtigkeit zu vermeiden)</p></li>
+</ul>
+</div>
+<div class="section" id="q-konnen-wir-die-klassifizierung-von-ihren-parametern-haben">
+<h3>Q: Können wir die Klassifizierung von ihren Parametern haben?<a class="headerlink" href="#q-konnen-wir-die-klassifizierung-von-ihren-parametern-haben" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja</p></li>
+</ul>
+</div>
+<div class="section" id="q-gibt-es-konkurrenz-bei-der-software">
+<h3>Q: Gibt es Konkurrenz bei der Software?<a class="headerlink" href="#q-gibt-es-konkurrenz-bei-der-software" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ja, es gibt nicht nur einen Anbieter</p></li>
+</ul>
+</div>
+<div class="section" id="q-was-machen-andere-hersteller-anders">
+<h3>Q: Was machen andere Hersteller anders?<a class="headerlink" href="#q-was-machen-andere-hersteller-anders" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>zB Prüfung von hohlem Spargel, da ist die Trefferquote allerdings nur bei 50% bisher</p></li>
+<li><p>was muss ich investieren</p></li>
+<li><p>doppelspargel krieg ich da zB nicht</p></li>
+<li><p>muss viel know-how reinstecken, über Schattenbildung kommt man schon mit 85%er Genauigkeit hin was Aufblüher bretrifft; frage aber immernoch, was man mit falsch deklarierten macht</p></li>
+<li><p>wenn ich nicht bei 90-95% Genauigkeit bin muss man eh nachsortieren</p></li>
+<li><p>Aufblüher sind das beste b´Beispiel für diese aÁrt von Problemen</p></li>
+</ul>
+</div>
+<div class="section" id="q-was-ist-ihr-personlicher-hintergrund-und-wie-ist-so-grob-die-spargelsortiermaschinengeschichte">
+<h3>Q: Was ist ihr persönlicher Hintergrund und wie ist so grob die Spargelsortiermaschinengeschichte?<a class="headerlink" href="#q-was-ist-ihr-personlicher-hintergrund-und-wie-ist-so-grob-die-spargelsortiermaschinengeschichte" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>das Spargelsortieren per Maschine ist seit ca 2000 da (die Maschine ist von 2003)</p></li>
+<li><p>mein Vater hatte selber 2-3 ha Spargel</p></li>
+<li><p>Spargel ist eines der schwersten Produkte zur Sortierung; es gibt kaum ein Produkt, das so viele Klassen hat wie Spargel</p></li>
+</ul>
+</div>
+<div class="section" id="q-wie-stellen-sie-sich-eine-kooperation-vor">
+<h3>Q: Wie stellen sie sich eine Kooperation vor?<a class="headerlink" href="#q-wie-stellen-sie-sich-eine-kooperation-vor" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ich bin bereit das hier zu unterstützen (auch finanziell)</p></li>
+<li><p>wo die Grenzen sind, speziell bei der Maschine, ist halt die Kameraauflösung - die Parameter reichen dafür nämlich nicht</p></li>
+<li><p>in der Hinsicht würde ich euch unterstützen</p></li>
+<li><p>was brauchen Sie an Unterstützung? Ich bin da recht frei</p></li>
+</ul>
+</div>
+<div class="section" id="q-was-ist-gerade-so-der-standard-was-die-kamera-betrifft">
+<h3>Q: Was ist gerade so der Standard was die Kamera betrifft?<a class="headerlink" href="#q-was-ist-gerade-so-der-standard-was-die-kamera-betrifft" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>aus Kostengründen werden auch immernoch gerne einfachere Kameras genommen</p></li>
+<li><p>Hochauflösung wäre zwar wünschenswert, viele arbeiten aber noch mit den schlechten (es ist nicht mal eine 50-50 Aufteilung von alten vs. neuen Maschinen auf dem Markt)</p></li>
+<li><p>ich stelle gerne Bilder zur Verfügung mit entsprechend guter Qualität</p></li>
+<li><p>die alte Maschine nutzen ist halt schwer, weil die ihre Grenzen hat (zB jeden Tag Schalen putzen kostet auch Geld; genauso sollte auch die Kamera gereinigt werden)</p></li>
+<li><p>man kann in der Maschine eigentlich alle Schritte nachvollziehen: wann ein Spargel nicht erkannt wird, wann da Unsicherheiten sind; es gibt Kunden da läuft die Maschine mit hälfte roter Striche</p></li>
+</ul>
+</div>
+<div class="section" id="q-nicht-nur-schalen-sondern-auch-kamera">
+<h3>Q: Nicht nur Schalen, sondern auch Kamera?<a class="headerlink" href="#q-nicht-nur-schalen-sondern-auch-kamera" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>wie mache ich die Kamera sauber? Muss man auch schauen, wie man die putzt, dass das Bild nicht unscharf wird</p></li>
+<li><p>gibt alle Möglichkeiten der Prüfung</p></li>
+<li><p>ich bin schon am Überlegen bei neuen Maschinen Putzdüsen einzubauen, damit das richtig gemacht wird</p></li>
+</ul>
+</div>
+<div class="section" id="q-nochmal-zur-kooperation-was-erhoffen-sie-sich">
+<h3>Q: Nochmal zur Kooperation: was erhoffen sie sich?<a class="headerlink" href="#q-nochmal-zur-kooperation-was-erhoffen-sie-sich" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>das was sie da machen: dass ich das Programm, das ich jetzt habe, wegtun kann und stattdessen Ihres nehme</p></li>
+<li><p>sie machen ja ein neues Programm mit komplett neuer Klassifizierung usw</p></li>
+<li><p>die Ausgangs-/Maschinensteuerung sollte kein Problem sein (Kanbussteuerung?); geht über Ethernet, wann welche Klappe aufmacht (Ergebnis wird in Schieberegister geschoben, dieses Register wird bei jedem Takt um eins verändert – ist alles noch Softwarebereich)</p></li>
+<li><p>Schnittstelle zwischen PC und Maschine ist nix wildes</p></li>
+</ul>
+</div>
+<div class="section" id="q-bei-fragen-konnen-wir-nochmal-auf-sie-zukommen-z-b-bei-der-hochkategorisierung-ist-eine-zusammenfassung-meist-leichter-was-wie-leichter-schwerer-ist-aus-praxissicht-da-konnen-wir-noch-auf-sie-zukommen">
+<h3>Q: Bei Fragen können wir nochmal auf Sie zukommen? Z.B. bei der Hochkategorisierung ist eine Zusammenfassung meist leichter: was wie leichter/schwerer ist (aus praxissicht) da können wir noch auf Sie zukommen?<a class="headerlink" href="#q-bei-fragen-konnen-wir-nochmal-auf-sie-zukommen-z-b-bei-der-hochkategorisierung-ist-eine-zusammenfassung-meist-leichter-was-wie-leichter-schwerer-ist-aus-praxissicht-da-konnen-wir-noch-auf-sie-zukommen" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>an sich, ja</p></li>
+<li><p>zusammenwerfen mache ich ja zB schon</p></li>
+</ul>
+</div>
+<div class="section" id="q-kann-man-jemandem-der-auflegt-noch-eine-aufgabe-mitgeben">
+<h3>Q: Kann man jemandem der auflegt noch eine Aufgabe mitgeben?<a class="headerlink" href="#q-kann-man-jemandem-der-auflegt-noch-eine-aufgabe-mitgeben" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>dauert deutlich länger</p></li>
+<li><p>zu hohes Tempo</p></li>
+</ul>
+</div>
+<div class="section" id="q-die-demoversion-gestartet-zu-kriegen-ware-z-b-schon-ein-erster-ansatz-fur-eine-kooperation-fur-uns-ist-einen-screenshot-mit-der-fehlermeldung-zu-schicken-moglich">
+<h3>Q: Die Demoversion gestartet zu kriegen wäre z.B. schon ein erster Ansatz für eine Kooperation für uns. Ist einen Screenshot mit der Fehlermeldung zu schicken möglich?<a class="headerlink" href="#q-die-demoversion-gestartet-zu-kriegen-ware-z-b-schon-ein-erster-ansatz-fur-eine-kooperation-fur-uns-ist-einen-screenshot-mit-der-fehlermeldung-zu-schicken-moglich" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>den Ordner htms(?) runterladen via Teamviewer, daraus dann starten mit den Bilern die du schon hast; sollte auf jeden Rechner draufspielbar sein</p></li>
+<li><p>Klassifizierungssoftware liegt dort</p></li>
+<li><p>ich kann auch andere Maschinen, mehr/andere Bilder (von anderen Maschinen) bereitstellen</p></li>
+<li><p>1 Bild sind ca. 4 Megabyte</p></li>
+</ul>
+</div>
+<div class="section" id="q-optimal-ware-eine-klassifizierung-von-den-bildern-wo-erkennbar-ist-welches-bild-von-welchem-hof-stammt-ware-das-moglich">
+<h3>Q: Optimal wäre eine Klassifizierung von den Bildern wo erkennbar ist welches Bild von welchem Hof stammt. Wäre das möglich?<a class="headerlink" href="#q-optimal-ware-eine-klassifizierung-von-den-bildern-wo-erkennbar-ist-welches-bild-von-welchem-hof-stammt-ware-das-moglich" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>wäre vllcht möglich</p></li>
+<li><p>Sie sind eingeladen sich den Betrieb mal anzuschauen</p></li>
+<li><p>habe schon drei Bachelorabsolventen gehabt (war aber mit Schwerpunt Mechanik)</p></li>
+<li><p>die Software ist ausgesourced, ich habe keinen (wirklichen) Programmierer in der Firma dabei</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="abschlussdiskussion">
+<h2>Abschlussdiskussion<a class="headerlink" href="#abschlussdiskussion" title="Permalink to this headline">¶</a></h2>
+<p>Möglichkeit der RAM Verbesserung?</p>
+<ul class="simple">
+<li><p>vllcht können wir neuen RAM ein/dazubauen in den PC</p></li>
+</ul>
+<p>Wäre eine Möglichkeit bei Silvan’s Maschine eine zweite Kamera dazuzubauen? Mit wenigen Kosten z.B. (go pro + raspberry) oder ändern wir nichts mehr an der Hardware?</p>
+<ul class="simple">
+<li><p>ist wahrscheinlich zu schwierig</p></li>
+<li><p>unser Setup ist eigentlich richtig blöd, aber wir haben ncht mehr viel Zeit und müssen die Bilder nehmen die wir jetzt haben</p></li>
+<li><p>vllcht zweites Projekt eröffnen um das Setup zu verbessern</p></li>
+<li><p>Kamerakalibrierung sollten wir nochmal ansprechen</p></li>
+<li><p>vllcht eine Checkliste für die Maschine bei jedem Saisonstart? (Kamera Kalibrierung, Putzen etc)</p></li>
+</ul>
+<p>Kamerakalibrierung mit Sticker?</p>
+<ul class="simple">
+<li><p>Sticker auf Schalen und eine als Kalibrierungsschale nutzen; jeden Durchlauf nachkalibrieren (Stickergröße und Farbe wären fest) → Autosticker nutzen (reflektieren nicht zu doll und wären einigermaßen wasserfest); vllcht bis nächste Woche Freitag überlegen, was wir drucken wollen und wo wir das her haben wollen</p></li>
+</ul>
+<p>Blumenerkennung schwierig wegen evenutell zu schlecher Kamera</p>
+<ul class="simple">
+<li><p>Spargelkopf ist etwas verschwommen gewesen</p></li>
+</ul>
+<p>Zugriff auf kamera wäre gut</p>
+<p>Telefonat mit Mr Hermeler</p>
+<ul class="simple">
+<li><p>er kann bei anderem Kunden fragen, ob wir die Kopfbilder der zweiten Kamera sammeln dürfen für den Rest der Saison</p></li>
+<li><p>würden dann die Software von Thomas installieren, dass wir die Bilder direkt hochladen können</p></li>
+<li><p>es wäre Wert das zu probieren</p></li>
+<li><p>Terminvereinbarung</p></li>
+<li><p>eine Frage wäre wie anders die Programme laufen (wieviele Bilder könnten wir bekommen?)</p></li>
+</ul>
+<p>Exkursion zur anderen Spargelmaschine/hof (falls wir dort hindürfen) am Mittwoch (29.05.19)</p>
+<ul class="simple">
+<li><p>zweites Telefonat hat ergeben, dass es keine Internetverbindugn auf besagtem zweiten Hof gibt und wir somit leider nicht das Programm von Thomas nutzen können</p></li>
+<li><p>Anzahl der Bilder wäre zu gering; müsste jedes mal von Hand gesammelt werden</p></li>
+<li><p>Exkursion steht vllcht noch an, aber ist somit auch nicht dringend</p></li>
+<li><p>eine neue Terminvereinbarung wird überlegt</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="protocol_19_05_31.html" class="btn btn-neutral float-right" title="Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="protocol_19_05_17.html" class="btn btn-neutral float-left" title="Friday, May 17, 2019 (put topic here)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -15,23 +15,23 @@ import sys
 import subprocess
 #sys.path.insert(0, os.path.abspath('../code/pipeline'))
 #sys.path.insert(0, os.path.abspath('../code/labelCNN'))
-#sys.path.insert(0, os.path.abspath('../code')) 
+#sys.path.insert(0, os.path.abspath('../code'))
 
 #sys.path.insert(0, os.path.abspath('../classification/pipeline'))
 #sys.path.insert(0, os.path.abspath('../classification/supervised/labelCNN'))
 
-sys.path.insert(0, os.path.abspath('../preprocessing/')) 
-sys.path.insert(0, os.path.abspath('../labeling/')) 
-sys.path.insert(0, os.path.abspath('../classification/')) 
+sys.path.insert(0, os.path.abspath('../preprocessing/'))
+sys.path.insert(0, os.path.abspath('../labeling/'))
+sys.path.insert(0, os.path.abspath('../classification/'))
 
 # Build api docs first
 # api is a folder, with .rst files telling how to display files in code?!?
 subprocess.run(['sphinx-apidoc',
                 '-f',
-                '-o', 
-                #os.path.abspath('../code')])
-                os.path.abspath('../preprocessing')]) 
-
+                '-o',
+                'api',
+                # os.path.abspath('../code')])
+                os.path.abspath('../preprocessing')])
 
 
 # -- Project information -----------------------------------------------------
@@ -55,7 +55,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'recommonmark',
-    'sphinx.ext.autosummary', 
+    'sphinx.ext.autosummary',
     'sphinx_autopackagesummary'
 ]
 
@@ -83,4 +83,4 @@ html_theme = 'sphinx_rtd_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']

@@ -19,15 +19,16 @@ def _mkdir(newdir):
     if os.path.isdir(newdir):
         pass
     elif os.path.isfile(newdir):
-        raise OSError("a file with the same name as the desired " \
+        raise OSError("a file with the same name as the desired "
                       "dir, '%s', already exists." % newdir)
     else:
         head, tail = os.path.split(newdir)
         if head and not os.path.isdir(head):
             _mkdir(head)
-        #print "_mkdir %s" % repr(newdir)
+        # print "_mkdir %s" % repr(newdir)
         if tail:
             os.mkdir(newdir)
+
 
 def get_files(PATH):
     '''
@@ -53,7 +54,7 @@ def stack_images(file_paths, file_names, path_out):
     Args: image file names
           path where to save the images
           the original file names 
-    Out: None
+    Returns: None
     '''
     # load the images - this exceeds the memory, they have to be loaded one by one
     #images = [imread(f) for f in file_paths]
@@ -71,7 +72,8 @@ def stack_images(file_paths, file_names, path_out):
         df_b = np.array(img_b)
         img_c = imread(file_paths[i+2])
         df_c = np.array(img_c)
-        df_concat = np.concatenate((df_a, df_b, df_c), axis = 1) # change the axis here to stack in different direction
+        # change the axis here to stack in different direction
+        df_concat = np.concatenate((df_a, df_b, df_c), axis=1)
         # get the filename of the image to save the stacked image with the same number
         filename = file_names[i]
         # remove _a.png and add _stacked instead
@@ -86,9 +88,9 @@ def stack_images(file_paths, file_names, path_out):
         count += 1
         print(count)
         # create a new folder after 1000 images so the folders don't get to big
-        #if count%1000 == 0:
+        # if count%1000 == 0:
         #    idx += 1
-        
+
 
 if __name__ == '__main__':
 

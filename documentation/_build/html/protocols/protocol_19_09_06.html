@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Friday, September 6th, 2019 (Lableapp, Preprocessing) &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)" href="protocol_19_09_12.html" />
+    <link rel="prev" title="Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)" href="protocol_19_07_05.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../protocols.html">Protocols</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_08.html">Monday, April 8, 2019 (Introduction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_12.html">Monday, April 12, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_26.html">Friday, April 26, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_03.html">Friday, May 03, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_10.html">Friday, May 10, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_17.html">Friday, May 17, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_24.html">Friday, May 24, 2019 (Hermeler meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_31.html">Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_07.html">Friday, June 7, 2019 (Documentation, Farm Visit, Progress Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_14.html">Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_21.html">Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_28.html">Friday, June 28th, 2019 (New repo, Data Storage, Preprocessing Plan, Holidays)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_07_05.html">Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Friday, September 6th, 2019 (Lableapp, Preprocessing)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preprocessing">Preprocessing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preprocessing-schritte">Preprocessing Schritte:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#lableapp">Lableapp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#to-do">To do</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_12.html">Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_11_15.html">Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_12_06.html">Friday, December 6th, 2019 (ANNs, PCA, image transfer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_initial_questions.html">Initial general questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../protocols.html">Protocols</a> &raquo;</li>
+        
+      <li>Friday, September 6th, 2019 (Lableapp, Preprocessing)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/protocols/protocol_19_09_06.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="friday-september-6th-2019-lableapp-preprocessing">
+<h1>Friday, September 6th, 2019 (Lableapp, Preprocessing)<a class="headerlink" href="#friday-september-6th-2019-lableapp-preprocessing" title="Permalink to this headline">¶</a></h1>
+<p>Michael, Sophia, Malin, Ulf, Axel, Maren (Meeting in German)</p>
+<div class="section" id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Images auf blauen Hintergrund lassen, oder Kanten Smoothen um Artefakte zu vermeiden</p></li>
+<li><p>Processed Images und original Bilder und Zuordnung sollen gespeichert werden (Möglichkeit unterschiedliche Varianten auszuprobieren) - Metadaten müssen gespeichert werden!</p></li>
+<li><p>Pipeline Preprocessing: nicht alles in einer großen Funktion, sondern in kleinst mögliche Einheiten modularisieren</p></li>
+<li><p>Möglichkeit einzelne Schritte ein- oder auszuschalten</p></li>
+<li><p>Problem Michael: bei ca. 10% der Spargelbilder fehlt eins der drei Bilder, deswegen wird Preprocessing abgebrochen und diese Bilder werden nicht zur Weiterverarbeitung verwendet</p></li>
+<li><p>Programme im Master sollen lauffähig sein, aber müssen nicht fertig sein. Frühere Versionen verloren gehen/nicht nutzbar sind, wenn sie nicht im Master sind</p></li>
+<li><p>grid benutzen, um Fehler zu reduzieren</p></li>
+</ul>
+<div class="section" id="preprocessing-schritte">
+<h3>Preprocessing Schritte:<a class="headerlink" href="#preprocessing-schritte" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Hintergrund wird entfernt, Spargel in die Mitte geschoben, bevor das Bild in drei Teile geschnitten wird</p></li>
+<li><p>Images heißen z.B. 1A, 1B, 1C</p></li>
+<li><p>jeder Spargel, hat eine eigene Nummer</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="lableapp">
+<h2>Lableapp<a class="headerlink" href="#lableapp" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Ordnerauswählbarkeit muss noch in der App integriert werden</p></li>
+<li><p>Bilder die nicht klassifizierbar sind in eine eigene Klasse zuordnen (Bsp: Spargel liegt quer über mehreren Schalen) “undefined”</p></li>
+<li><p>Bennenung der Features bleibt bei striktem Ja/Nein Antwortmöglichkeiten, da klare Definitionen für mögliche Abstufungen (Rather yes/no) schwer definierbar sind</p></li>
+<li><p>auch neuronales Netz lernt dann binäre Features, nicht Label 1A Anna etc. –&gt; wir behalten mehr Variabilität</p></li>
+<li><p>Es wird kein extra Kopfbild des Spargels präsentiert, da Auflösung gleich bleibt</p></li>
+<li><p>zum Labeln von zu Hause müssen wir auf Rechner in Wachsbleiche zugreifen: linux: ffh.vs zugriff /</p>
+<ul>
+<li><p>sshfs [rzlogin]&#64;gate.ikw.uos.de [Pfad to Spargel] load folder</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="to-do">
+<h2>To do<a class="headerlink" href="#to-do" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Lableapp fertig stellen</p></li>
+<li><p>Preprocessing: die zwei Versionen fusionieren</p></li>
+<li><p>Dokumentation der Tools im Preprocessing + Beispiele, wie Tool benutzt wird</p></li>
+<li><p>Metadaten als Tabelle:</p></li>
+<li><p>Informationen: Ursprüngliches Bild, Eingetragene Lables, Klassifier Lables</p></li>
+<li><p>Funktion für Metadaten schreiben:</p>
+<ol class="simple">
+<li><p>Ich möchte von einem Bild auf Metadaten zugreifen</p></li>
+<li><p>Ich habe ein Bild und möchte Metadaten schreiben</p></li>
+</ol>
+</li>
+<li><p>rausfinden warum das Preprocessing abgebrochen ist</p></li>
+<li><p>Preprocessing parallelisieren (grid)</p></li>
+<li><p>Lableapp soll nächste Woche fertig stellen</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="protocol_19_09_12.html" class="btn btn-neutral float-right" title="Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="protocol_19_07_05.html" class="btn btn-neutral float-left" title="Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pipeline package &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../report.html">Report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../paper_library.html">Paper Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>pipeline package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/pipeline.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pipeline-package">
+<h1>pipeline package<a class="headerlink" href="#pipeline-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="pipeline-multiple-models-app-module">
+<h2>pipeline.multiple_models_app module<a class="headerlink" href="#pipeline-multiple-models-app-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pipeline.train_model">
+<span id="pipeline-train-model-module"></span><h2>pipeline.train_model module<a class="headerlink" href="#module-pipeline.train_model" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pipeline.train_model.classif_report">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">classif_report</code><span class="sig-paren">(</span><em class="sig-param">x_train</em>, <em class="sig-param">x_test</em>, <em class="sig-param">y_train</em>, <em class="sig-param">y_test</em>, <em class="sig-param">y_pred</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">model_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.classif_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>look at the classification report to understand your results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> (<em>array-like</em>) – x data values training</p></li>
+<li><p><strong>x_test</strong> (<em>array-like</em>) – x data values test</p></li>
+<li><p><strong>y_train</strong> (<em>array-like</em>) – y data values training</p></li>
+<li><p><strong>y_test</strong> (<em>array-like</em>) – y data values test</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – data values that were predicted</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.train_model.conf_matrix">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">conf_matrix</code><span class="sig-paren">(</span><em class="sig-param">x_train</em>, <em class="sig-param">x_test</em>, <em class="sig-param">y_train</em>, <em class="sig-param">y_test</em>, <em class="sig-param">y_pred</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">model_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.conf_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>look at the classification report to understand your results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> (<em>array-like</em>) – x data values training</p></li>
+<li><p><strong>x_test</strong> (<em>array-like</em>) – x data values test</p></li>
+<li><p><strong>y_train</strong> (<em>array-like</em>) – y data values training</p></li>
+<li><p><strong>y_test</strong> (<em>array-like</em>) – y data values test</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – data values that were predicted</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.train_model.load_annotation">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">load_annotation</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">drop_columns_starting_with=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.load_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>This functions loads the annotation label csv file,</dt><dd><p>drops (unnecessary) columns,
+drops rows with NaN</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – specify the filename of the data you want to load</p></li>
+<li><p><strong>drop_columns_starting_with</strong> (<em>list</em>) – Columns starting with these strings will be dropped.
+If it is <cite>None</cite>, it defaults to
+[‘auto’, ‘is_bruch’, ‘very_thick’, ‘thick’, ‘medium_thick’, ‘thin’, ‘very_thin’, ‘unclassified’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataframe with the label data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.train_model.load_data">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">load_data</code><span class="sig-paren">(</span><em class="sig-param">folder</em><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>loading annotationfiles from annotationfolder based on filename.</dt><dd><p>Path to annotationfolder can be overwritten by specifying the ANNOTATION_PATH variable.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<em>string</em>) – the name of the folder</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dataframe with the data and dummy encoding for the classes</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>data(dataframe)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.train_model.load_model">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param">model_module</em>, <em class="sig-param">input_shape=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads model from file in models folder</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.train_model.main">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pipeline.train_model.read_arguments">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">read_arguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.read_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>defines and parses command line arguments</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.train_model.visualize_by_pca">
+<code class="sig-prename descclassname">pipeline.train_model.</code><code class="sig-name descname">visualize_by_pca</code><span class="sig-paren">(</span><em class="sig-param">x_train</em>, <em class="sig-param">x_test</em>, <em class="sig-param">y_train</em>, <em class="sig-param">y_test</em>, <em class="sig-param">y_pred</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">model_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.train_model.visualize_by_pca" title="Permalink to this definition">¶</a></dt>
+<dd><p>Using a PCA to visualize the result</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> (<em>array-like</em>) – x data values training</p></li>
+<li><p><strong>x_test</strong> (<em>array-like</em>) – x data values test</p></li>
+<li><p><strong>y_train</strong> (<em>array-like</em>) – y data values training</p></li>
+<li><p><strong>y_test</strong> (<em>array-like</em>) – y data values test</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – data values that were predicted</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pipeline">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pipeline" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

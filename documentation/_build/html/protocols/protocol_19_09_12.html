@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App) &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)" href="protocol_19_11_15.html" />
+    <link rel="prev" title="Friday, September 6th, 2019 (Lableapp, Preprocessing)" href="protocol_19_09_06.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../protocols.html">Protocols</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_08.html">Monday, April 8, 2019 (Introduction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_12.html">Monday, April 12, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_26.html">Friday, April 26, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_03.html">Friday, May 03, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_10.html">Friday, May 10, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_17.html">Friday, May 17, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_24.html">Friday, May 24, 2019 (Hermeler meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_31.html">Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_07.html">Friday, June 7, 2019 (Documentation, Farm Visit, Progress Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_14.html">Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_21.html">Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_28.html">Friday, June 28th, 2019 (New repo, Data Storage, Preprocessing Plan, Holidays)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_07_05.html">Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_06.html">Friday, September 6th, 2019 (Lableapp, Preprocessing)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#discussion-points-of-today">Discussion points of today:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#presentation-of-the-lableapp">Presentation of the lableapp:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#discussion-lapeling-app">discussion lapeling app:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-remarks-concerning-sorting-by-silvan">general remarks concerning sorting by Silvan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#discussion-in-general-for-deep-learning">discussion in general / for deep learning:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tasks">TASKS:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-step-suggestions">NEXT STEP/ SUGGESTIONS:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_11_15.html">Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_12_06.html">Friday, December 6th, 2019 (ANNs, PCA, image transfer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_initial_questions.html">Initial general questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../protocols.html">Protocols</a> &raquo;</li>
+        
+      <li>Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/protocols/protocol_19_09_12.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="thursday-september-12th-2019-discussion-critical-images-with-silvan-labeling-app">
+<h1>Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)<a class="headerlink" href="#thursday-september-12th-2019-discussion-critical-images-with-silvan-labeling-app" title="Permalink to this headline">¶</a></h1>
+<p>Axel, Ulf, Silvan, Subir, Michael, Malin, Maren, Katha, Josefine, Luana</p>
+<div class="section" id="discussion-points-of-today">
+<h2>Discussion points of today:<a class="headerlink" href="#discussion-points-of-today" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>label app - some decisions still open</p></li>
+<li><p>discuss critical images - Silvan’s opinion</p></li>
+<li><p>tasks for the next weeks</p></li>
+</ul>
+</div>
+<div class="section" id="presentation-of-the-lableapp">
+<h2>Presentation of the lableapp:<a class="headerlink" href="#presentation-of-the-lableapp" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>shows all hree images of one asparagus, the pictures are preprocessed</p></li>
+<li><p>labels go into a csv file</p></li>
+<li><p>select a folder/datei to save the data</p></li>
+<li><p>then open labeling dialog to hand label assistant</p></li>
+<li><p>aswer the qustions asked with yes/no</p></li>
+<li><p>display additional information</p></li>
+<li><p>peak in the back to of the figure as indicator to detect violet</p></li>
+<li><p>Katha and Malin are going to write a manual for the labeling process</p></li>
+<li><p>aim: doublelable some of the images</p></li>
+<li><p>we still have to decide on how we handle intra personal differences in labeling</p></li>
+</ul>
+</div>
+<div class="section" id="discussion-lapeling-app">
+<h2>discussion lapeling app:<a class="headerlink" href="#discussion-lapeling-app" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>possible to show only the violett colour chanel - check pixels in the violet range</p></li>
+<li><p>take out violet question</p></li>
+<li><p>take out thickness questions</p></li>
+<li><p>double labelling with label app for “labeled folders” first - before we do other stuff</p></li>
+<li><p>possibility to zoom?</p></li>
+<li><p>float for some 0 and 1?</p></li>
+</ul>
+</div>
+<div class="section" id="general-remarks-concerning-sorting-by-silvan">
+<h2>general remarks concerning sorting by Silvan<a class="headerlink" href="#general-remarks-concerning-sorting-by-silvan" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>sort 1A anna more conservatively</p></li>
+<li><p>aim to have more than 50% of the first class in the end</p></li>
+<li><p>minimal violett —&gt; violett , even if we detect a tiny bit of violet, it already counts as violet</p></li>
+<li><p>minimal rust -&gt; not rusty, but still first class, only if rust is at head or really bad, it counts as rust</p></li>
+</ul>
+</div>
+<div class="section" id="discussion-in-general-for-deep-learning">
+<h2>discussion in general / for deep learning:<a class="headerlink" href="#discussion-in-general-for-deep-learning" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>data augmentation : mirroring maybe not so useful (as miror right image might be very similar to left image)</p></li>
+<li><p>maybe normalise the data —&gt; network can be simpler</p></li>
+<li><p>rotation of pieces</p></li>
+<li><p>training different nets (one with background one without)</p></li>
+<li><p>we want to learn features, and not final labels</p></li>
+<li><p>from manual labelling we get impression what features are important, what not! —&gt; use this for nets , we can better “understand”</p></li>
+<li><p>in one of the next sessions ulf can present sth about neural nets</p>
+<ul>
+<li><p>also: for technical questions we can always come to his office</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="tasks">
+<h2>TASKS:<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>finish labeling app</p></li>
+<li><p>label images</p></li>
+<li><p>continue manual feature extraction</p></li>
+<li><p>for next step: research on why to use different approaches for deep learning nets - not TOO many approaches</p>
+<ul>
+<li><p>each who does net training: looks around what model &amp; technique to use</p></li>
+</ul>
+</li>
+<li><p>decision: do we want to use tensorflow?</p></li>
+<li><p>rz logins to Ulf</p></li>
+</ul>
+</div>
+<div class="section" id="next-step-suggestions">
+<h2>NEXT STEP/ SUGGESTIONS:<a class="headerlink" href="#next-step-suggestions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>maybe in future also make it possible that machine can detect class only from one picture - maybe machine is not able to always take 3 pictures - and then can’t classify with only one!?!</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="protocol_19_11_15.html" class="btn btn-neutral float-right" title="Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="protocol_19_09_06.html" class="btn btn-neutral float-left" title="Friday, September 6th, 2019 (Lableapp, Preprocessing)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

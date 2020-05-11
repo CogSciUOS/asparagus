@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Manual: how to use the label app &amp; label correctly &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to contribute to our report using latex" href="manual_latex.html" />
+    <link rel="prev" title="Overview" href="manual_dataSet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../manuals.html">Manuals</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="manual_CONDA.html">Get hands on - use shared conda installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_dataSet.html">Overview</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Manual: how to use the label app &amp; label correctly</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-explanation-of-the-app">General explanation of the app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-dependencies">Install dependencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-miniconda">install miniconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-your-env">setup your env</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#map-to-university-server">Map to university server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#start-app">start app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prelaebeling-procedur-navigating-through-app">Prelaebeling procedur &amp; navigating through app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#labeling-itself">Labeling itself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#you-want-to-see-your-csv-file">You want to see your .csv file?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-remarks-concerning-sorting-by-silvan">general remarks concerning sorting by Silvan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#task-for-now-for-the-kappa-agreement">TASK FOR NOW - for the Kappa agreement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual_latex.html">How to contribute to our report using latex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_run_labelapp_externally.html">Manual: running label-app on uni network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_run_streamlit_app.html">How to run the streamlit app and train/add your model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../manuals.html">Manuals</a> &raquo;</li>
+        
+      <li>Manual: how to use the label app &amp; label correctly</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/manuals/manual_how_to_label.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="manual-how-to-use-the-label-app-label-correctly">
+<h1>Manual: how to use the label app &amp; label correctly<a class="headerlink" href="#manual-how-to-use-the-label-app-label-correctly" title="Permalink to this headline">¶</a></h1>
+<p>This manual presupposes that you get the label app running. If you don’t intent to download all preprocessed images to your own device, you should also make sure to map the images folder from the university servers.</p>
+<div class="section" id="general-explanation-of-the-app">
+<h2>General explanation of the app<a class="headerlink" href="#general-explanation-of-the-app" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>the app shows all three images of one asparagus piece, the pictures are preprocessed</p></li>
+<li><p>we only have to answer yes/ no questions (rust, hollow, violet etc.)</p></li>
+<li><p>the thickness can be extracted automatically and used - but this has to be selected!</p></li>
+<li><p>the labels are stored in a .csv file</p></li>
+</ul>
+</div>
+<div class="section" id="install-dependencies">
+<h2>Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-miniconda">
+<h3>install miniconda<a class="headerlink" href="#install-miniconda" title="Permalink to this headline">¶</a></h3>
+<p>https://docs.conda.io/en/latest/miniconda.html
+Choose 64-bit or 32-bit version depending on your system.</p>
+<p>During the dialog check add anaconda to path variable.</p>
+<p>Open your terminal and hit <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span> <span class="pre">coonda</span></code></p>
+</div>
+<div class="section" id="setup-your-env">
+<h3>setup your env<a class="headerlink" href="#setup-your-env" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Download file: <code class="docutils literal notranslate"><span class="pre">pyqt.yml</span></code> located in <code class="docutils literal notranslate"><span class="pre">asparagus/docs/</span></code></p></li>
+<li><p>Create new env with yaml file by typing:
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">pyqt.yml</span></code></p></li>
+<li><p>If you have not yet, clone the git project on your local device.
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/CogSciUOS/asparagus.git</span></code></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="map-to-university-server">
+<h2>Map to university server<a class="headerlink" href="#map-to-university-server" title="Permalink to this headline">¶</a></h2>
+<p>Follow instructions for installing the tools:
+https://github.com/billziss-gh/sshfs-win
+I didnt choose beta!</p>
+<p>When you installed both:</p>
+<ul class="simple">
+<li><p>open file explorer</p></li>
+<li><p>right click on “this PC”</p></li>
+<li><p>choose “Map network drive”</p></li>
+<li><p>the path is <code class="docutils literal notranslate"><span class="pre">\\sshfs\[yourName]&#64;gate.ikw.uos.de\\\\\</span></code> (you have to use so manny \ because we want to mat to root)</p></li>
+<li><p>enter your gate password</p></li>
+</ul>
+<p>Comment: sometimes the connection “sleeps”, however it helps to open the file explorer.</p>
+</div>
+<div class="section" id="start-app">
+<h2>start app<a class="headerlink" href="#start-app" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>activate pyqt env: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">pyqt</span></code></p></li>
+<li><p>run app: ````python \pathToRepos…\code\hand_label_assistant\main.py```</p></li>
+</ul>
+</div>
+<div class="section" id="prelaebeling-procedur-navigating-through-app">
+<h2>Prelaebeling procedur &amp; navigating through app<a class="headerlink" href="#prelaebeling-procedur-navigating-through-app" title="Permalink to this headline">¶</a></h2>
+<p>this should be very intuitive, but here an explanation:</p>
+<ul class="simple">
+<li><p>you have to click <code class="docutils literal notranslate"><span class="pre">file</span></code>, then <code class="docutils literal notranslate"><span class="pre">open</span> <span class="pre">file</span> <span class="pre">directory</span></code> and specify what images you want to load. Several folders with preprocessed images are in the following path: <code class="docutils literal notranslate"><span class="pre">/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images</span></code>.
+Open one of them (In the end of course we will ALL USE ONE SPECIFIC ONE - TO BE ANNOUCED!)
+(loading the pictures may take some time, don’t worry)</p></li>
+<li><p>then go on <code class="docutils literal notranslate"><span class="pre">file</span></code>, then <code class="docutils literal notranslate"><span class="pre">create</span> <span class="pre">new</span> <span class="pre">label</span> <span class="pre">file</span></code> . Create your own file where you save your labeling data, with the name:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">YOUR_FIRST_NAME</span><span class="p">]</span><span class="n">_</span><span class="p">[</span><span class="n">DATE</span><span class="p">]</span><span class="n">_manuallabel_</span><span class="p">[</span><span class="n">number</span> <span class="n">of</span> <span class="n">first</span> <span class="n">asparagus</span> <span class="n">piece</span><span class="p">]</span><span class="n">_</span><span class="p">[</span><span class="n">number</span> <span class="n">of</span> <span class="n">last</span> <span class="n">asparagus</span> <span class="n">piece</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>.csv is going to be added automatically</p>
+<p>(of course, you might only add the number of the last asparagus piece which is in this file once your done with the labeling)</p>
+<ul class="simple">
+<li><p>once you have your own .csv file, and you label for the next time, and you want to save it in the same file, you will have to do: <code class="docutils literal notranslate"><span class="pre">file</span></code> → <code class="docutils literal notranslate"><span class="pre">load</span> <span class="pre">label</span> <span class="pre">file</span></code>- choose your personal file again.</p></li>
+<li><p>in order to start, go now on <code class="docutils literal notranslate"><span class="pre">file</span></code> → <code class="docutils literal notranslate"><span class="pre">open</span> <span class="pre">labeling</span> <span class="pre">dialoge</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="labeling-itself">
+<h2>Labeling itself<a class="headerlink" href="#labeling-itself" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>select the number of the asparagus piece that you are supposed to start with. (we all open the same folder, so not every one will start with the first image!)</p></li>
+<li><p>klick on <code class="docutils literal notranslate"><span class="pre">extract</span> <span class="pre">features</span></code>, so that the features with the help of computer vision are extracted</p></li>
+<li><p>we want to use the thickness values extracted via this feature extraction, so you should click <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">predicted</span> <span class="pre">values</span></code>on the right. If we tick this, we are not asked this question manually (which saves time)</p></li>
+<li><p>you can see the questions which you should judge such as “is_bruch” in the left. With the <code class="docutils literal notranslate"><span class="pre">yes</span></code>and <code class="docutils literal notranslate"><span class="pre">no</span></code>buttons or the arrows to the left and to the right, you can classify.</p></li>
+<li><p>to help you judge if an asparagus piece is purple, use the graph in the top right - there is a peak in the right as indicator to detect violet</p></li>
+<li><p>you do not have to explicitly save your work, this is done automatically after you are done with every piece</p></li>
+<li><p>only click “not classifiable” if an asparagus piece really is not classifiable, this means:</p>
+<ul class="simple">
+<li><p>it is not completely visible/ lying in one box</p></li>
+<li><p>there are two pieces in one box</p></li>
+<li><p>some other strange things</p></li>
+</ul>
+</li>
+<li><p>if you want to revise your decision, you can use the button for the arrow back <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> and you can redo the last decision, your first decision will be overwritten. If you want to redo the whole asparagus piece, you can simple enter the number of the corresponding piece and start from the first question on</p></li>
+<li><p>do this until you have your done with your assigned images</p></li>
+</ol>
+</div>
+<div class="section" id="you-want-to-see-your-csv-file">
+<h2>You want to see your .csv file?<a class="headerlink" href="#you-want-to-see-your-csv-file" title="Permalink to this headline">¶</a></h2>
+<p>go to the path where you saved it and write in the terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gedit</span> <span class="p">[</span><span class="n">filename</span><span class="p">]</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="general-remarks-concerning-sorting-by-silvan">
+<h2>general remarks concerning sorting by Silvan<a class="headerlink" href="#general-remarks-concerning-sorting-by-silvan" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>sort high quality pieces (1A anna) more conservatively</p></li>
+<li><p>aim to have more than 50% of the first class in the end</p></li>
+<li><p>minimal violett should be judged as violett (even if we detect a tiny bit of violet, it already counts as violet)</p></li>
+<li><p>this is less strict for rust. If a piece is only very slightly rusty, it doesnt matter</p></li>
+<li><p>a piece counts as “bended” always if it changes the growing direction (s-shape), and also if it is strongly curved, but not if it is only slightly round</p></li>
+</ul>
+</div>
+<div class="section" id="task-for-now-for-the-kappa-agreement">
+<h2>TASK FOR NOW - for the Kappa agreement<a class="headerlink" href="#task-for-now-for-the-kappa-agreement" title="Permalink to this headline">¶</a></h2>
+<p>To start with, our aim is to double-lable some of our already “labeled” folders, and then to use the kappa agreement for judgement our intra personal differences
+(we still have to decide on how we handle intra personal differences in labeling (how much difference we accept as “good”/”similar enough”))</p>
+<p>We have 13 different labeled folders in the path /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images.</p>
+<p>We will classify the <strong>first 100 images of each folder twice</strong>. (shout if you have a better idea)</p>
+<p>This means: everyone is assigned three times (this means for now 300 images per person)</p>
+<p>This gives us:</p>
+<p>1A_Anna –&gt; Malin &amp; Josefine</p>
+<p>1A_Bona –&gt; Subir &amp; Maren –&gt; instead of Subir Malin</p>
+<p>1A_Clara –&gt; Luana &amp; Richard  –&gt; instead of Luana Maren</p>
+<p>1A_Krumme –&gt; Michael &amp; Sophia</p>
+<p>1A_Violett –&gt; Josefine &amp; Katha –&gt; instead of Katha Malin</p>
+<p>2A –&gt; Maren &amp; Malin</p>
+<p>2B –&gt; Richard &amp; Subir –&gt; instead of Josefine</p>
+<p>Blume –&gt; Sophia &amp; Luana –&gt; instead of Luana Malin</p>
+<p>Dicke –&gt; Katha &amp; Michael –&gt; instead of Katha Malin</p>
+<p>Hohle –&gt; Malin &amp; Sophia</p>
+<p>Köpfe –&gt; Subir &amp; Josefine –&gt; instead of Subir Maren</p>
+<p>Rost –&gt; Luana &amp; Maren –&gt; instead of Luana Josefine</p>
+<p>Suppe –&gt; Michael &amp; Richard</p>
+<p><strong>Do the following:</strong></p>
+<ul class="simple">
+<li><p>classify the first 100 images (number 0 - 99) of the three folders you are assigned to.</p></li>
+<li><p>create a new csv file for each folder you label here: /net/projects/scratch/summer/valid_until_31_January_2020/asparagus/Images/labled/kappa_images/results
+<strong>NOTE!: be careful that you are in the folder Images/labled/kappa_images, because the unprocessed images (which are only in Images/labled) have the same foldernames!</strong></p></li>
+<li><p>naming convention: [your_name]<em>kappa</em>[class].csv (e.g. malin_kappa_1A_Anna.csv).</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="manual_latex.html" class="btn btn-neutral float-right" title="How to contribute to our report using latex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="manual_dataSet.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

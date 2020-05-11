@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Friday, May 03, 2019 (put topic here) &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Friday, May 10, 2019 (put topic here)" href="protocol_19_05_10.html" />
+    <link rel="prev" title="Friday, April 26, 2019 (put topic here)" href="protocol_19_04_26.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../protocols.html">Protocols</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_08.html">Monday, April 8, 2019 (Introduction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_12.html">Monday, April 12, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_26.html">Friday, April 26, 2019 (put topic here)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Friday, May 03, 2019 (put topic here)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#summary-of-last-week-s-work">Summary of last week’s work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classification-decision-tree">Classification decision tree:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#research-and-library">Research and Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preprocessing-and-naming-conventions">Preprocessing and naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#label-software">Label software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#service">Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#team-viewer">Team Viewer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#during-the-meeting">During the meeting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_10.html">Friday, May 10, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_17.html">Friday, May 17, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_24.html">Friday, May 24, 2019 (Hermeler meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_31.html">Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_07.html">Friday, June 7, 2019 (Documentation, Farm Visit, Progress Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_14.html">Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_21.html">Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_28.html">Friday, June 28th, 2019 (New repo, Data Storage, Preprocessing Plan, Holidays)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_07_05.html">Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_06.html">Friday, September 6th, 2019 (Lableapp, Preprocessing)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_12.html">Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_11_15.html">Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_12_06.html">Friday, December 6th, 2019 (ANNs, PCA, image transfer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_initial_questions.html">Initial general questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../protocols.html">Protocols</a> &raquo;</li>
+        
+      <li>Friday, May 03, 2019 (put topic here)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/protocols/protocol_19_05_03.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="friday-may-03-2019-put-topic-here">
+<h1>Friday, May 03, 2019 (put topic here)<a class="headerlink" href="#friday-may-03-2019-put-topic-here" title="Permalink to this headline">¶</a></h1>
+<p>Attendants: Ulf, Richard, Malin, Luana, Maren, Josefine, Katharina, Sophia, Thomas, Michael</p>
+<div class="section" id="summary-of-last-week-s-work">
+<h2>Summary of last week’s work<a class="headerlink" href="#summary-of-last-week-s-work" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="classification-decision-tree">
+<h2>Classification decision tree:<a class="headerlink" href="#classification-decision-tree" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Firs decision tree is created:</p></li>
+<li><p>“Hollow” is missing.</p></li>
+</ul>
+</div>
+<div class="section" id="research-and-library">
+<h2>Research and Library<a class="headerlink" href="#research-and-library" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>New papers have been added to the repository.</p></li>
+</ul>
+</div>
+<div class="section" id="preprocessing-and-naming-conventions">
+<h2>Preprocessing and naming conventions<a class="headerlink" href="#preprocessing-and-naming-conventions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Cut images, give each one a label</p></li>
+<li><p>Naming convention (name, ID, date, time)</p></li>
+<li><p>Put each peace in a new folder with: id_number_specific number</p></li>
+<li><p>Input of image preprocessing: e.g. G01-190411-092055-873_F00.bmp (contains date, batch number and position on band)</p></li>
+<li><p>Output of image preprocessing: e.g. 0_0.jpg = id_number, where ‘id’ is the newly assigned ID and ‘number’ takes on values from 0 to 2, indicating the position on the band. The mapping of ID to original name is maintained, because the preprocessor creates a csv file that stores for each id what the original name was.</p></li>
+<li><p>Output of image augmentation: e.g. rot2_0_0.jpg = pre#_id_number, where ‘pre’ is a 3-letter code to identify the transformation that was applied and # is the index (e.g. rot=rotation creates 3 images, so rot2 would be the third one of these, where the image was rotated to the right.)</p></li>
+<li><p>Transformation codes:</p>
+<ul>
+<li><p>rot = rotation</p></li>
+<li><p>mir = mirroring (along y axis)</p></li>
+<li><p>tra = translation (by some random number of pixels)</p></li>
+</ul>
+</li>
+<li><p>This process is recursive. Transformations are applied in layers, so the output of one augmentation is the input for the next augmentation. e.g. tra1_mir0_rot0_3_1.jpg is id=3, second image, first rotation, first mirroring, second translation. Rotation was applied first, translation last.</p></li>
+<li><p>We can create a lot of labelled artificial data from a small source.</p></li>
+<li><p>Integrate preprocessing into the pipeline (Ulf)</p></li>
+<li><p>Think of a database/table to store the characteristics of a Pic-ID.</p></li>
+</ul>
+</div>
+<div class="section" id="label-software">
+<h2>Label software<a class="headerlink" href="#label-software" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Give the created images a label by adding a prefix.</p></li>
+<li><p>We should continue to build an interface that makes it easy for us to label data ourselves.</p></li>
+</ul>
+</div>
+<div class="section" id="service">
+<h2>Service<a class="headerlink" href="#service" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The service was tested on the machine. However, the machine will output an error because it is trying to access the directly moving images.</p></li>
+<li><p>It is possible to start and stop the service by pressing the Windows key + enter “Service” and open the window. Search for Directory Check and use the GUI.</p></li>
+</ul>
+</div>
+<div class="section" id="team-viewer">
+<h2>Team Viewer<a class="headerlink" href="#team-viewer" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>plan to manually collect and move images using the Google Calendar.</p></li>
+</ul>
+</div>
+<div class="section" id="during-the-meeting">
+<h2>During the meeting<a class="headerlink" href="#during-the-meeting" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>We had a discussion about how to use git. It will be finished.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="protocol_19_05_10.html" class="btn btn-neutral float-right" title="Friday, May 10, 2019 (put topic here)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="protocol_19_04_26.html" class="btn btn-neutral float-left" title="Friday, April 26, 2019 (put topic here)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

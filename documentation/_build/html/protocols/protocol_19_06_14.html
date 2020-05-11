@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions) &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)" href="protocol_19_06_21.html" />
+    <link rel="prev" title="Friday, June 7, 2019 (Documentation, Farm Visit, Progress Feature Extraction)" href="protocol_19_06_07.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../protocols.html">Protocols</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_08.html">Monday, April 8, 2019 (Introduction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_12.html">Monday, April 12, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_04_26.html">Friday, April 26, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_03.html">Friday, May 03, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_10.html">Friday, May 10, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_17.html">Friday, May 17, 2019 (put topic here)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_24.html">Friday, May 24, 2019 (Hermeler meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_05_31.html">Friday, May 31, 2019 (Evaluation Hermeler meeting, Feature Extraction)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_07.html">Friday, June 7, 2019 (Documentation, Farm Visit, Progress Feature Extraction)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#updates">Updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#labelled-data">Labelled Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problems-and-thoughts">Problems and Thoughts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups">Subgroups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-week">Next week</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_21.html">Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_06_28.html">Friday, June 28th, 2019 (New repo, Data Storage, Preprocessing Plan, Holidays)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_07_05.html">Friday, July 5th, 2019 (Data Sorting, Labeling App, Feature Extr. Methods, Holiday Orga)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_06.html">Friday, September 6th, 2019 (Lableapp, Preprocessing)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_09_12.html">Thursday, September 12th, 2019 (Discussion Critical Images with Silvan, Labeling App)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_11_15.html">Friday, November 15th, 2019 (Kappa Agreement, Image labeling, First WS Meeting)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_19_12_06.html">Friday, December 6th, 2019 (ANNs, PCA, image transfer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol_initial_questions.html">Initial general questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../protocols.html">Protocols</a> &raquo;</li>
+        
+      <li>Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/protocols/protocol_19_06_14.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="friday-june-14-2019-planning-of-last-days-of-data-collection-subgroup-divisions">
+<h1>Friday, June 14, 2019 (Planning of last days of data collection, Subgroup divisions)<a class="headerlink" href="#friday-june-14-2019-planning-of-last-days-of-data-collection-subgroup-divisions" title="Permalink to this headline">¶</a></h1>
+<p>Participants: Luana, Maren, Malin, Sophia, Richard, Josefine, Axel, Ulf</p>
+<div class="section" id="updates">
+<h2>Updates<a class="headerlink" href="#updates" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="labelled-data">
+<h2>Labelled Data<a class="headerlink" href="#labelled-data" title="Permalink to this headline">¶</a></h2>
+<p>How many (labelled) pictures do we need?</p>
+<ul class="simple">
+<li><p>we don’t always have all asparagus classes (not evenly distributed)</p></li>
+<li><p>only one week left</p></li>
+<li><p>having more data won’t hurt</p></li>
+<li><p>what fraction of data might be labelled? (prob. less than 10%)</p></li>
+<li><p>semi supervised learning techniques might recommend how much labelled data we need</p></li>
+</ul>
+<p>Schedule for trips to Rheine to collect labelled data</p>
+<ul class="simple">
+<li><p>Monday 17.06 : Richard, Josefine</p></li>
+<li><p>Tuesday 18.06 : Sophia, Luana</p></li>
+<li><p>Wednesday 19.06 : Richard, Malin</p></li>
+<li><p>Thursday 20.06 : Maren, Luana</p></li>
+<li><p>Friday 21.06 : Sophia, Josefine</p></li>
+<li><p>still open: 14., 15., 16. &amp;  22., 23.</p></li>
+</ul>
+</div>
+<div class="section" id="problems-and-thoughts">
+<h2>Problems and Thoughts<a class="headerlink" href="#problems-and-thoughts" title="Permalink to this headline">¶</a></h2>
+<p>Ideas of bucket-wise collection</p>
+<ul class="simple">
+<li><p>don’t think about perfect classification piecewise but bucketwise</p></li>
+<li><p>find solution for problem, that even sorted asparagus is sorted by human eye and not perfect as the machine would need to learn the classes</p></li>
+<li><p>use a system where you update while classifying</p></li>
+<li><p>apply this idea to features and not images</p></li>
+</ul>
+<p>After data collection</p>
+<ul class="simple">
+<li><p>have subgroups with smaller tasks</p></li>
+<li><p>try all sorts of possibilities for sorting (ANN etc.)</p></li>
+</ul>
+<p>Curvature extraction</p>
+<ul class="simple">
+<li><p>actual asparagus sometimes S-shaped, bump at end etc.</p></li>
+<li><p>method should be able to detect different kinds of curvature (return all asparagus that is not totally straight as curved)</p></li>
+</ul>
+<p>User interface design</p>
+<ul class="simple">
+<li><p>how should the user interact and also influence the sorting-process?</p></li>
+<li><p>if people here are interested in this, we include it (but it is no must)</p></li>
+<li><p>maybe difficult to say right now while we do not have an algorithm or anything yet</p></li>
+<li><p>decision postponed to later date</p></li>
+</ul>
+</div>
+<div class="section" id="subgroups">
+<h2>Subgroups<a class="headerlink" href="#subgroups" title="Permalink to this headline">¶</a></h2>
+<p>Decision app</p>
+<ul class="simple">
+<li><p>Michael</p></li>
+<li><p>gives some information on the shown asparagus picture</p></li>
+<li><p>has only yes and no buttons</p></li>
+</ul>
+<p>Documentation</p>
+<ul class="simple">
+<li><p>Katha</p></li>
+<li><p>(gather more literature)</p></li>
+</ul>
+<p>Feature extraction</p>
+<ul class="simple">
+<li><p>flower, color and maybe rust still problematic</p></li>
+<li></li>
+</ul>
+<p>Framework</p>
+<ul class="simple">
+<li><p>already start it and then implement it as soon as feature extraction is done</p></li>
+</ul>
+<p>Literature research</p>
+<ul class="simple">
+<li><p>rather a task distributed to all subgroups</p></li>
+</ul>
+<p>Organisatorial stuff</p>
+<ul class="simple">
+<li><p>don’t have too many subgroups</p></li>
+<li><p>distribute groups and the assign more than one task to them</p></li>
+</ul>
+<p>Report</p>
+<ul class="simple">
+<li><p>already start the report on our study project</p></li>
+<li><p>not only write what we have done but also why we tried it (make this very clear why we thought this is a good idea), how we arrived there and also put in what failed</p></li>
+<li><p>generally good: before you start something, write down what you expect/plan to gain from it and always update what worked and what didn’t</p></li>
+<li><p>around 100 pages expected, 10 pages per person (no final number)</p></li>
+</ul>
+</div>
+<div class="section" id="next-week">
+<h2>Next week<a class="headerlink" href="#next-week" title="Permalink to this headline">¶</a></h2>
+<p>Presentations</p>
+<ul class="simple">
+<li><p>data augmentation</p></li>
+<li><p>semi-supervised learning</p></li>
+</ul>
+<p>Superresolution</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="protocol_19_06_21.html" class="btn btn-neutral float-right" title="Friday, June 21, 2019 (Filename information(!), Semi-supervised Learning, Data Augmentation)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="protocol_19_06_07.html" class="btn btn-neutral float-left" title="Friday, June 7, 2019 (Documentation, Farm Visit, Progress Feature Extraction)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
