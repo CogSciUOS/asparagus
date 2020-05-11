@@ -4,7 +4,7 @@
    2) the second annotator csv file
    3) the outputfile name ("agreement" + first_name + second_name)
 
-   Example: python kappa_agreement.py ../annotations/annotator_1.csv ../annotations/annotator_2.csv agreement_annotator_1_annotator_2.csv
+   Example: python measure_agreement.py ../annotations/annotator_1.csv ../annotations/annotator_2.csv agreement_annotator_1_annotator_2.csv
 """
 import argparse
 import sys
