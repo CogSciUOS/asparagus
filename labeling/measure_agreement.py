@@ -1,19 +1,21 @@
-""" This module computes the kappa agreement scores, the accuracy and the f1 score of our labelling outputs.
+""" This module computes the kappa agreement scores of our labelling outputs.
    Please provide 3 commandline arguments:
    1) the first annotator csv file
    2) the second annotator csv file
    3) the outputfile name ("agreement" + first_name + second_name)
 
-   Example: python measure_agreement.py ../annotations/annotator_1.csv ../annotations/annotator_2.csv agreement_annotator_1_annotator_2.csv
+   Example: python kappa_agreement.py ../annotations/annotator_1.csv ../annotations/annotator_2.csv agreement_annotator_1_annotator_2.csv
 """
 import argparse
-import sys
 import csv
+import itertools
+import sys
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
 
-from sklearn.metrics import cohen_kappa_score, classification_report, accuracy_score, f1_score
+from sklearn.metrics import cohen_kappa_score, accuracy_score, f1_score
 
 
 def load_annotations(filename_1, filename_2, drop_columns_starting_with=None):
@@ -32,9 +34,16 @@ def load_annotations(filename_1, filename_2, drop_columns_starting_with=None):
     annotations_1 = pd.read_csv(filename_1, delimiter=";", index_col=0)
     annotations_2 = pd.read_csv(filename_2, delimiter=";", index_col=0)
 
+    # if unclassifiable, fill with value 2
+    unclassified1 = annotations_1["unclassified"] == 1
+    annotations_1[unclassified1] = annotations_1[unclassified1].fillna(2)
+
+    unclassified2 = annotations_2["unclassified"] == 1
+    annotations_2[unclassified2] = annotations_2[unclassified2].fillna(2)
+
     if drop_columns_starting_with is None:
         drop_columns_starting_with = ['auto', 'is_bruch', 'very_thick',
-                                      'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified']
+                                      'thick', 'medium_thick', 'thin', 'very_thin', 'unclassified', 'filenames']
 
     for column in drop_columns_starting_with:
         mask = annotations_1.columns.str.startswith(column)
@@ -67,11 +76,9 @@ def compute_accuracy(annotations_1, annotations_2):
     """ This function takes two dataframes of annotations (with labels 1.0 and 0.0)
     and computes the accuracy, another score that expresses the level of agreement
     between two annotators on a classification problem.
-
     Arguments:
         annotations_1 (pd.DataFrame): first annotations
         annotations_2 (pd.DataFrame): second annotations
-
     Returns:
         a dictionary of {category: accuracy}
     """
@@ -85,13 +92,11 @@ def compute_f1_score(annotations_1, annotations_2):
     """ This function takes two dataframes of annotations (with labels 1.0 and 0.0)
     and computes the accuracy, another score that expresses the level of agreement
     between two annotators on a classification problem.
-
     Arguments:
         annotations_1 (pd.DataFrame): first annotations
         annotations_2 (pd.DataFrame): second annotations
-
     Returns:
-        a dictionary of {category: accuracy}
+        a dictionary of {category: f1score}
     """
     if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
         raise ValueError(
@@ -99,73 +104,98 @@ def compute_f1_score(annotations_1, annotations_2):
     return {column: f1_score(annotations_1[column], annotations_2[column], average='weighted') for column in annotations_1}
 
 
-def compute_report(annotations_1, annotations_2):
-    """Build a text report showing the main classification metrics.
-
-    Arguments:
-        annotations_1 (pd.DataFrame): first annotations
-        annotations_2 (pd.DataFrame): second annotations
-
-    Returns:
-        a dictionary of {category: classification_report}
-    """
-    if np.any(annotations_1.isna()) or np.any(annotations_2.isna()):
-        raise ValueError(
-            "There are missing values in the csv file. Fix it and come back here!")
-    return {column: classification_report(annotations_1[column], annotations_2[column]) for column in annotations_1}
-
-
-def write_to_file(filename, kappa_dict):
+def write_to_file(filename, kappa_dict, accuracy_dict, f1_dict, annotator_1, annotator_2):
     """takes a dictionary of kappas and writes them into a csv_file in the annotationsfolder
 
     Arguments:
         filename (str): how you want to name the output file with the agreement scores
         kappa_dict (dict): dictionary with kappa score for each column
     """
-    with open("../annotations/"+filename, 'w') as csvfile:
+    with filename.open('w') as csvfile:
         writer = csv.writer(csvfile)
 
+        # write header to file
+        header = ["feature", "evaluation_measure", "score", "annotators"]
+        writer.writerow(header)
+
+        # TODO
+        # I have to adjust this
+        annotator_names = annotator_1.title() + " " + annotator_2.title()
+
+        # write dict values to file
         for column, kappa in kappa_dict.items():
-            writer.writerow([column, kappa])
+            writer.writerow(
+                [column, "kappa", kappa, str(annotator_names)])
+
+        for column, acc in accuracy_dict.items():
+            writer.writerow([column, "accuracy",
+                             acc, str(annotator_names)])
+
+        for column, f1 in f1_dict.items():
+            writer.writerow([column, "f1", f1, str(annotator_names)])
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('infile_1', help='the first annotator csv file')
-    parser.add_argument('infile_2', help='the second annotator csv file')
-    parser.add_argument('
-                        
-                        ', help='the outputfile name')
-    args = parser.parse_args()
-
+def main(args):
     annotations_1, annotations_2 = load_annotations(
         args.infile_1, args.infile_2)
 
     # Compute kappas
-    print("Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)!\n")
+    print("Kappas:")
+    print("Scores above .8 are generally considered good agreement; zero or lower means no agreement (practically random labels)!")
     kappa_dict = compute_agreement(annotations_1, annotations_2)
     for column, kappa in kappa_dict.items():
         rating = '\u2713' if kappa >= 0.8 else '\u274C'
         print(f"For the category {column}, the kappa is: {kappa} {rating}")
-    out_kappa = args.outfile + "_kappa.csv"
-    write_to_file(out_kappa, kappa_dict)
+    print()
 
-
-    # compute accuracy
+    # Compute accuracy
+    print("Accuracy:")
     accuracy_dict = compute_accuracy(annotations_1, annotations_2)
     for column, accuracy in accuracy_dict.items():
-        print(f"For the category {column}, the accuracy is: {accuracy} {rating}")
-    out_acc = args.outfile + "_accuracy.csv"
-    write_to_file(out_acc, accuracy_dict)
+        rating = '\u2713' if accuracy >= 0.8 else '\u274C'
+        print(
+            f"For the category {column}, the accuracy is: {accuracy} {rating}")
+    print()
 
-    # compute f1 score
+    # Compute f1 score
+    print("F1 scores:")
     f1_dict = compute_f1_score(annotations_1, annotations_2)
     for column, f1 in accuracy_dict.items():
+        rating = '\u2713' if f1 >= 0.8 else '\u274C'
         print(f"For the category {column}, the f1 score is: {f1} {rating}")
-    out_f1 = args.outfile + "_f1.csv"
-    write_to_file(out_f1, f1_dict)
+    print()
 
-    # Compute report
-    report_dict = compute_report(annotations_1, annotations_2)
-    for column, classification in report_dict.items():
-        print(f'{column:=^20}', '\n', classification)
+    # Write to file
+    annotator1 = args.infile_1.name[:args.infile_1.name.index("_")]
+    annotator2 = args.infile_2.name[:args.infile_2.name.index("_")]
+    write_to_file(args.outfile, kappa_dict, accuracy_dict,
+                  f1_dict, annotator1, annotator2)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('infile_1', type=Path,
+                        help='the first annotator csv file')
+    parser.add_argument('infile_2', type=Path,
+                        help='the second annotator csv file')
+    parser.add_argument('outfile', type=Path, help='the outputfile name')
+
+    args = parser.parse_args()
+    main(args)
+
+    """
+    # if you want to have all combinations of files in a folder
+    path = Path("../annotations/evaluation_agreement_2")
+    files = list(f for f in path.iterdir() if not f.name.startswith('agree'))
+    for if1, if2 in itertools.combinations(files, 2):
+        #print(if1, if2)
+        annotator1 = if1.name[:if1.name.index("_")]
+        annotator2 = if2.name[:if2.name.index("_")]
+        image_range = if1.name[if1.name.index("_")+1:]
+        outname = path / \
+            f"agreement_{annotator1}_{annotator2}_{image_range}"
+        print(outname)
+
+        args = parser.parse_args([str(if1), str(if2), str(outname)])
+        main(args)
+    """
