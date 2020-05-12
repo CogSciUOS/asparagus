@@ -23,6 +23,7 @@ import subprocess
 sys.path.insert(0, os.path.abspath('../preprocessing/'))
 sys.path.insert(0, os.path.abspath('../labeling/'))
 sys.path.insert(0, os.path.abspath('../classification/'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # Build api docs first
 # api is a folder, with .rst files telling how to display files in code?!?
@@ -31,7 +32,7 @@ subprocess.run(['sphinx-apidoc',
                 '-o',
                 'api',
                 # os.path.abspath('../code')])
-                os.path.abspath('../preprocessing')])
+                os.path.abspath('../')])
 
 
 # -- Project information -----------------------------------------------------
@@ -55,8 +56,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'recommonmark',
-    'sphinx.ext.autosummary',
-    'sphinx_autopackagesummary'
 ]
 
 # Napoleon settings
