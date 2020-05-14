@@ -33,8 +33,11 @@ A classical task for supervised learning systems is the classification of receiv
 The disadvantage of supervised learning is the effort of receiving enough labeled data. It can be challenging to obtain fully labeled data because labeling experts are needed to classify the data which is usually a time consuming and expensive task~\citep{zhu05survey,figueroa2012predicting}.
 
 \bigskip
-In the following subchapters, different supervised learning methods were chosen to solve the classification task using the data that was manually labeled for features as described in~\autoref{ch:Dataset}. In~\autoref{subsec:FeatureEngineering}, an approach using an \acrshort{mlp} is described for feature classification. In the second~\autoref{subsec:HeadNetwork}, a \acrshort{cnn} is used to train solely on the head image data for the features flower and rusty head. The~\autoref{subsec:SingleLabel} is concerned with labeling the input images with a \acrshort{cnn} in a binary setup for their designated features. In~\autoref{subsec:MultiLabel}, a neural network is trained on the data to label it not only for one feature but all features at the same time.
-Finally, in~\autoref{subsec:FeaturesToLabels}, a random forest approach is described to map the features of the image data to their class label.
+In the following sections, different supervised learning methods were chosen to solve the classification task using the data that was manually labeled for features as described in~\autoref{ch:Dataset}.
+
+In \ref{subsec:FeatureEngineering}~\nameref{subsec:FeatureEngineering}, an approach using an \acrshort{mlp} is described for feature classification. The section of \ref{subsec:SingleLabel}~\nameref{subsec:SingleLabel} is concerned with labeling the input images with a \acrshort{cnn} in a binary setup for their designated features. In section \ref{subsec:MultiLabel}~\nameref{subsec:MultiLabel}, a neural network is trained on the data to label it not only for one feature but all features at the same time. In the fourth section, \ref{subsec:HeadNetwork}~\nameref{subsec:HeadNetwork}, a \acrshort{cnn} is used to train solely on the head image data for the features flower and rusty head. 
+Finally, in \ref{subsec:FeaturesToLabels}~\nameref{subsec:FeaturesToLabels}, a random forest approach is described to map the features of the image data to their class label.
+
 
 
 \subsubsection{Prediction based on feature engineering}
@@ -56,14 +59,14 @@ The initial approach of measuring the feature violet that is based on distributi
 		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
 		\noalign{\smallskip}
 		\hline
-		\\
-		is\textunderscore violet     &            0.04 &            0.03 &           0.05 &           0.88 &         0.62 &         0.96 \\
-		has\textunderscore rost\textunderscore body &            0.19 &            0.14 &           0.33 &           0.34 &         0.71 &         0.65 \\
-		\\
+		\noalign{\smallskip}
+		violet     &            0.04 &            0.03 &           0.05 &           0.88 &         0.62 &         0.96 \\
+		rusty body &            0.19 &            0.14 &           0.33 &           0.34 &         0.71 &         0.65 \\
+		\noalign{\smallskip}
 		\hline
 	\end{tabular}%
 	}
-	\caption[Feature Engineering Color-Based Prediction]{\textbf{Color-Based Prediction}~~~Performance of color histogram based predictions with a \acrshort{mlp}.}
+	\caption[Feature Engineering Color-Based Prediction]{\textbf{Color-Based Prediction}~~~Performance of color histogram-based predictions with a \acrshort{mlp}.}
 	\label{tab:performance_color_feature_based}
 \end{table} 
 
@@ -89,13 +92,13 @@ Although the accuracies are far from perfect the results appear to be promising.
 		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
 		\noalign{\smallskip}
 		\hline
-		\\		
-		is\textunderscore bended &            0.19 &            0.07 &           0.34 &            0.4 &         0.82 &         0.67 \\
-		\\
+		\noalign{\smallskip}		
+		bent &            0.19 &            0.07 &           0.34 &            0.4 &         0.82 &         0.67 \\
+		\noalign{\smallskip}
 		\hline
 	\end{tabular}%
 	}
-	\caption[Feature Engineering Curvature Prediction]{\textbf{Curvature Prediction}~~~Performance of curvature prediction based on angles}
+	\caption[Feature Engineering Curvature Prediction]{\textbf{Curvature Prediction}~~~Performance of curvature prediction based on angles.}
 	\label{tab:performance_angle_based}
 \end{table}
 
@@ -110,7 +113,7 @@ Although the accuracies are far from perfect the results appear to be promising.
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=0.6]{Figures/chapter04/fe_roc.png}
-	\caption[Feature Engineering ROC Curve]{\textbf{\acrshort{roc} for \acrshortpl{mlp} Trained on High Level Features}~~~The depiction shows the \acrfull{roc} for the classifiers that were trained on the features retrieved via feature engineering. This allows to compare the performance. A larger area under the \acrshort{roc} curve indicates better performance while a curve close to the diagonal line indicates poor results.}
+	\caption[Feature Engineering ROC Curve]{\textbf{ROC for MLPs Trained on High Level Features}~~~The depiction shows the \acrfull{roc} for the classifiers that were trained on the features retrieved via feature engineering with \acrshortpl{mlp}. This allows to compare the performance. A larger area under the \acrshort{roc} curve indicates better performance while a curve close to the diagonal line indicates poor results.}
 	\label{fig:FeatureEngineeringROC}
 \end{figure}
 
@@ -124,20 +127,20 @@ Considering the low agreement in labeling, higher values for the specificity and
 
 In the following chapter, a \acrlong{cnn} is described, which is used for single-label classification on features. The approach was tested on the 13319 hand-labeled data images. 13 models were created, each predicting one feature.~\footnote{The 13 features to predict are fractured, hollow, flower, rusty head, rusty body, bent, violet, very thick, thick, medium thick, thin, very thin, and not classifiable.}
 
-A general model structure was needed as inspiration for the \acrshort{cnn}. For example, the \acrfull{vgg}~networks with varying depth seem to be a good choice for image classification as their \acrshort{vgg}16 won the ImageNet challenge of 2014 and is often implemented for image classification tasks~\citep{hassan2018vgg,vgg2014original}. However, there are two major drawbacks on using them, namely their depth and the amount of fully-connected nodes which makes them slow to train and in need of a lot of memory storage~\citep{hassan2018vgg,zhang2015accelerating}. Part of these problems also arise with even deeper networks like ResNet~\citep{resnet2016original,hassan2019resnet}. Thus, AlexNet is chosen as a blueprint for the \acrshort{cnn} because it is small in relation to other networks while still performing comparatively good~\citep{hassan2019alexnet,alexnet2012original,geron2019hands}. As the variance in the data images is relatively small it is assumed that not as many layers are needed as employed in deeper networks like \acrshort{vgg}~\citep{geron2019hands}.
+A general model structure was needed as inspiration for the \acrshort{cnn}. For example, the \acrfull{vgg}~networks with varying depth seem to be a good choice for image classification as their \acrshort{vgg}16 won the ImageNet challenge of 2014 and is often implemented for image classification tasks~\citep{hassan2018vgg,vgg2014original}. However, there are two major drawbacks to using them, namely they are slow to train and in need of a lot of memory storage due to their depth and the amount of fully-connected nodes \citep{hassan2018vgg,zhang2015accelerating}. Part of these problems also arise with even deeper networks like ResNet~\citep{resnet2016original,hassan2019resnet}. Thus, AlexNet is chosen as a blueprint for the \acrshort{cnn} because it is small in relation to other networks while still performing comparatively good~\citep{hassan2019alexnet,alexnet2012original,geron2019hands}. As the variance in the data images is relatively small it is assumed that not as many layers are needed as employed in deeper networks like \acrshort{vgg}~\citep{geron2019hands}.
  
 \bigskip
 The model architecture is roughly based on AlexNet but it is strongly simplified to the level of variability and complexity of the underlying data. The network comprises four hidden layers: a convolutional layer, followed by a pooling layer, a second convolutional layer, and a dense layer. The input is an array of multiple horizontally stacked images with no background removed and reduced by a factor of six. This input is trained on a set of binary labels containing information on whether the respective feature label applies to the current image. The output of the network gives a prediction on each entered image gated by a sigmoid function on a range between zero and one. The rounded integer values of this output give a prediction of the apparent feature label.
 For the training phase of the model, the Adam optimizer is used because of its general acceptance as the state of the art optimizer for backpropagation~\citep{bushaev2018adam,kingma2014adam}. As a loss function, binary cross entropy is used as it promises good results for binary single-label classification tasks~\citep{geron2019hands,godoy2018understanding,dertat2017applied}.
  
 When training \acrlongpl{ann}, it can be difficult to find clear guidelines on how to implement an architecture such that an optimal training performance is given~\citep{heaton2015aifh,geron2019hands,bettilyon2018classify}. Hence, the idea was to start with the simplest form of a \acrshort{cnn} and then gradually increase the complexity of the network. While AlexNet provides a good baseline for an image classification network, its architecture is still assumed to be unnecessarily complex for the given task. First, the architecture was reduced to the minimum number of layers and parameters needed for a \acrshort{cnn}. Over the period of training optimization, various processing steps and hyperparameters were implemented and compared according to their performance. During this process, the data was split between 12000 samples for training data and 1319 samples of validation data in order to have a reasonable overview on the possible test performance and to directly check for overfitting. The data used as test data was randomly chosen from the whole data set and newly created for every trained model.
- 
-In the following, the course of the hyperparameters is explained.
- 
+
 \bigskip
+In the following the course of the hyperparameters is explained.
+ 
 The batch size was initiated comparatively low with 64 samples per batch but soon adjusted to a value of 512 samples. The larger batch size was implemented in order to guarantee the convergence of the training data, since smaller batch sizes result in jumping gradients, which are not able to converge into any minimum~\citep{bengio2012practical}.
  
-Various learning rates were tested during the optimization process. The initial learning rate of 0.003 (which is the standard learning rate for Adam optimizers in Tensorflow~\citep{kingma2014adam,geron2019hands}) was soon found to be too large to guarantee convergence of the algorithm. Thus, the learning rate was decreased and found to be most effective in the range of \(1e^{-5}\) to \(1e^{-8}\). A gradually decreasing learning rate was tested in order to make the training more effective~\citep{bengio2012practical}.~\footnote{In theory, the Adam optimizer already manages learning rate decay~\citep{kingma2014adam}} It did not give better results and thus a constant learning rate of \(1e^{-5}\) is implemented.
+Various learning rates were tested during the optimization process. The initial learning rate of 0.003 (which is the standard learning rate for Adam optimizers in Tensorflow~\citep{kingma2014adam,geron2019hands}) was soon found to be too large to guarantee convergence of the algorithm. Thus, the learning rate was decreased and found to be most effective in the range of \(1e^{-5}\) to \(1e^{-8}\). A gradually decreasing learning rate was tested in order to make the training more effective~\citep{bengio2012practical}.~\footnote{In theory, the Adam optimizer already manages learning rate decay~\citep{kingma2014adam}} It does not yield better results and thus a constant learning rate of \(1e^{-5}\) is implemented.
  
 Starting with the smallest layer size possible, in the course of time more layers were added. For example, in order to detect the feature fractured one layer for the edge detection should be sufficient. For other, higher-level features, such as bent, more convolutional layers were expected to be more helpful~\citep{geron2019hands}. During the training process, it was settled to a model with the architecture described above.
  
@@ -149,7 +152,7 @@ A next step was to weight the loss function because of the largely unbalanced da
  
 To prevent overfitting of the negative data samples, \(L_2\) regularization was applied.
  
-To improve training performance, some kinds of data augmentation, like horizontal flipping or small changes in the angle (up to 5\textdegree ), were tested but are not used in the final version~\citep{brownlee2019augmentation}.
+To improve training performance, some kinds of data augmentation tested \citep{brownlee2019augmentation} like horizontal flipping or small changes in the angle (up to 5\textdegree ) but are not used in the final version.
 
 \bigskip
 Around 2700 to 5400 training steps were performed for the training, translating roughly to 120 epochs (with an exception for the feature fractured, which was trained for 60 epochs). Due to the balancing of the data, the number of training data, and therefore the ratio of training steps to epoch, varied when training the \acrshort{cnn} on the different features.
@@ -174,7 +177,7 @@ Around 2700 to 5400 training steps were performed for the training, translating 
 		\smallskip
 		bent & 0.6541 (0.6753) & 0.7533 (0.7500) & 71.25\% (71.93\%) & 70.37\% (71.27\%) & 3230 (2470) \\
 		\smallskip
-		violet & 0.4643 (0.5119) & 0.9652 (0.9452) & 92.45\% (91.00\%) & 71.48 (72.86\%) & 5150 (3550) \\
+		violet & 0.4643 (0.5119) & 0.9652 (0.9452) & 92.45\% (91.00\%) & 71.48\% (72.86\%) & 5150 (3550) \\
 		\smallskip
 		very thick & 0.9778 & 0.9939 & 99.32\% & 98.59\% & 5390 \\
 		\smallskip
@@ -199,7 +202,7 @@ Around 2700 to 5400 training steps were performed for the training, translating 
 	\centering
 	\includegraphics[scale=0.6]{Figures/chapter04/singellabelROC.png}
 	\decoRule
-	\caption[Single-Label CNN ROC Curve]{\textbf{Feature ROC Curve}~~~The figure shows the ROC curves for the six features hollow, flower, rusty body, rusty head, bent, and violet. For the features rusty body and bent, the curve is comparatively smooth as their representation is more balanced. The curves are calculated from 1319 data samples.}
+	\caption[Single-Label CNN ROC Curve]{\textbf{ROC Curves for Six Feature Models}~~~The figure shows the \acrshort{roc} curves for the six models trained to detect the features hollow, flower, rusty body, rusty head, bent, and violet, respectively. For the features rusty body and bent, the curve is comparatively smooth as their representation is more balanced. The curves are calculated from 1319 data samples.}
 	\label{fig:SingleLabelROC}
 \end{figure}
 
@@ -239,7 +242,7 @@ The \acrshort{cnn} was trained on 13 features separately, resulting in 13 traine
 		\caption{False Positive}
 	\end{subfigure}
 	\vspace{-5pt}
-\caption[Single-Label CNN Example Images Feature Hollow]{\textbf{Feature Hollow}~~~Randomly chosen example images of false negatives and false positives of the feature hollow after 5400 training steps. In image (B), the presence of feature hollow is not obvious. Image (A) and (C) might have even been sorted wrongly. Of the false positives, image (E) might have also been sorted wrongly, as the vertical line can be seen on the lower part of the asparagus (see\autoref{subsec:SortingCriteria}). The thickness of the asparagus might have been an indicator to the model that the feature is present. This can be seen in image (D), which shows a thick asparagus, and image (F), where the asparagus' thickness varies depending on the position.}
+\caption[Single-Label CNN Example Images Feature Hollow]{\textbf{Feature Hollow}~~~Randomly chosen example images of false negatives and false positives of the feature hollow after 5400 training steps. Image (A) and (C) might have been sorted wrongly as the presence of the feature hollow is not obvious. Of the false positives, image (E) might have also been sorted wrongly, as the vertical line can be seen on the lower part of the asparagus which is a sign for a hollow asparagus (for reference, see the section \nameref{subsec:SortingCriteria}). The thickness of the asparagus might have been an indicator to the model that the feature is present. This can be seen in image (D) which shows a thick asparagus, and image (F) where the asparagus' thickness varies depending on its position.}
     \label{fig:ExampleImagesHollow}
 \end{figure}
 
@@ -277,30 +280,30 @@ The \acrshort{cnn} was trained on 13 features separately, resulting in 13 traine
 		\caption{False Positive}
 	\end{subfigure}
 	\vspace{-5pt}
-    \caption[Single-Label CNN Example Images Feature Bent]{\textbf{Feature Bent}~~~Randomly chosen example images of false negatives and false positives of the feature bent after 3240 training steps. In all cases the presence of the feature bent is disputed. This becomes evident when comparing the false negative examples with the false positives. In the false positive examples, the asparagus is only slightly bent making the difference to the false negative samples not evident (see the criteria for feature bent in~\autoref{subsec:SortingCriteria}. It gives the impression that the human labelers did not sort with a clear threshold regarding the feature bent.}
+    \caption[Single-Label CNN Example Images Feature Bent]{\textbf{Feature Bent}~~~Randomly chosen example images of false negatives and false positives of the feature bent after 3240 training steps. In all cases the presence of the feature bent is disputed. This becomes evident when comparing false negative and the false positive examples. The difference of both is not clearly evident (see the section~\nameref{subsec:SortingCriteria} for a description of feature bent). It gives the impression that the human labelers did not sort with a strong threshold regarding the feature.}
     \label{fig:ExampleImagesBent}
 \end{figure}
 
 \bigskip
-In~\autoref{tab:SingleLabelResults}, the 13 features are listed on which the \acrshort{cnn} architecture was trained 13 times. It further shows the results for the sensitivity, specificity, validation accuracy, and balanced accuracy of each feature after a certain number of training steps, indicated in the last column of the table.
+In~\autoref{tab:SingleLabelResults} the 13 features are listed on which the \acrshort{cnn} architecture was trained 13 times. It further shows the results for the sensitivity, specificity, validation accuracy, and balanced accuracy of each feature after a certain number of training steps, indicated in the last column of the table.
+
 Sensitivity is a measure to assess the performance of the model in labelling positive samples correctly, while the specificity shows how correctly the model predicts negative samples. The validation accuracy is the accuracy of the validation set which is a representative subset of the entire data set. The balanced accuracy of a feature label is the mean of the sum of its sensitivity and specificity. It represents the accuracy of the feature label if positive and negative samples in the data set were evenly balanced.
-Additionally, the performance of six features is calculated in a \acrshort{roc} curve in~\ref{fig:SingleLabelROC}. The features which indicate the thickness and length, as well as the feature not classifiable are excluded.
+Additionally, the performance of six models is calculated in a \acrshort{roc} curve in~\ref{fig:SingleLabelROC}. Models that determine features which indicate the thickness and length, as well as the feature not classifiable are excluded.
 In the following discussion, it is referred to the best result of a model (depicted in brackets in~\autoref{tab:SingleLabelResults}) and not the last result.
 
-The results reveal that for every feature, the sum of sensitivity and specificity exceeds 1.  This corresponds to a balanced accuracy over 50\% for each feature, which is better than chance level. For all features, the balanced accuracy is above 65\%. Best results are achieved for features that indicate the thickness of an asparagus. The feature very thick reaches the best results with 98\% sensitivity, 99\% specificity, and a balanced accuracy of 98.5\%. Besides features for thickness, the best prediction is observed for the feature fractured, which relies on the parameter length. It reaches a sensitivity of 88\%, specificity of 99.8\%, and balanced accuracy of 94\%.
-On average, for the features hollow, flower, rusty head, rusty body, bent, and violet a balanced accuracy above 72\% is reached. Feature rusty head performed worst with 52\% sensitivity, 81\% specitivity, and 67\% balanced accuracy. In general, the specificity of all features is relatively high. Most features reach a specificity above 90\%, except for the features flower (83\% specificity), rusty head (81\% specificity), rusty body (80\% specificity), and bent (73\% specificity). For all features, the sensitivity is above 50\%. For most features, no form of overfitting was detected.
-Further, example images of wrong classification are shown for feature hollow in~\autoref{fig:ExampleImagesHollow} and for feature bent in~\autoref{fig:ExampleImagesBent}. Additional example images of false negative and false positive classification for the other feature classes can be found in the appendix in~\autoref{sec:AdditionalSingleLabelCNN}. For the feature fractured, training and test loss as well as training and test accuracy are also plotted as an exemplar in the appendix in~\autoref{fig:ExamplePlotsFractured}.\footnote{The log files for accuracy and loss of all features can be found at~\url{https://github.com/CogSciUOS/asparagus}.}
+The results reveal that for every feature, the sum of sensitivity and specificity exceeds 1.  This corresponds to a balanced accuracy over 50\%, which is better than chance level. For all features, the balanced accuracy is above 65\%. Best results are achieved for features that indicate the thickness of an asparagus. The feature very thick reaches the best results with 98\% sensitivity, 99\% specificity, and a balanced accuracy of 98.5\%. Besides features for thickness, the best prediction is observed for the feature fractured, which relies on the parameter length. It reaches a sensitivity of 88\%, a specificity of 99.8\%, and a balanced accuracy of 94\%.
+On average, for the hand-labeled features hollow, flower, rusty head, rusty body, bent, and violet a balanced accuracy above 72\% is reached. Feature rusty head performed worst with 52\% sensitivity, 81\% specitivity, and 67\% balanced accuracy. In general, the specificity of all features is relatively high. Most features reach a specificity above 90\%, except for the features flower (83\%), rusty head (81\%), rusty body (80\%), and bent (73\%). For all features, the sensitivity is above 50\%. After visual inspection of test loss and training accuracy, none of the models showed any form of overfitting in their respective range of training steps.
+Further, example images of wrong classification are shown for feature hollow in~\autoref{fig:ExampleImagesHollow} and for feature bent in~\autoref{fig:ExampleImagesBent}. Additional example images of false negative and false positive classification for the other features can be found in the appendix in~\autoref{sec:AdditionalSingleLabelCNN}. For feature fractured, training and test loss as well as training and test accuracy are also plotted as an exemplar in the appendix in~\autoref{fig:ExamplePlotsFractured}.\footnote{The log files for accuracy and loss of all models can be found at~\url{https://github.com/CogSciUOS/asparagus}.}
  
 \bigskip
-The results indicate, that the \acrshort{cnn} architecture is able to learn every feature. Especially features relying on the parameters of length and width achieve a good performance, with both validation accuracy and balanced accuracy above 90\%. The prediction of features like hollow or flower was expected to be more difficult. However, the balanced accuracy for both is above 75\%, with feature hollow even reaching a balanced accuracy of 88\%. This shows that the model predicts them relatively well. Features that depend on color (like rusty body, rusty head, and violet) do not reach equivalent results. It should be further tested whether an increase in model depth might lead to better results for features depending on color or for features depending on a more complex shape (like the feature bent).
+The results indicate, that the \acrshort{cnn} architecture is able to learn every feature. Especially features relying on the parameters of length and width achieve a good performance, with both validation accuracy and balanced accuracy above 90\%. The prediction of features like hollow or flower was expected to be more difficult. However, the balanced accuracy of both is above 75\%, with feature hollow even reaching a balanced accuracy of 88\%. This shows that the model predicts them relatively well. Features that depend on color (like rusty body, rusty head, and violet) do not reach equivalent results. It should be further tested whether an increase in model depth might lead to better results for features depending on color or for features depending on a more complex shape (like the feature bent).
  
 An inspection of false positive and false negative images at the end of the training process suggests that training performance might be influenced by mislabeled data to a certain extent.
+The random images for feature hollow in \autoref{fig:ExampleImagesHollow} propose that the model might use the thickness of an asparagus as an indicator. Some of the samples look like hollow asparagus that could have been labeled incorrectly.
+For the feature bent, the randomly selected examples in~\autoref{fig:ExampleImagesBent} might reveal a labeling bias by the human labelers. When the feature is only slightly present, it seems to become a random choice whether the sample was labeled as positive or negative by the human labelers. If true, this can make it difficult for the machine to perform above a certain level of accuracy. It might also be that the difference between the samples is not prominent enough to the model.
+Again, these images are just randomly chosen examples and can mean that the model is simply not able to label them correctly. However, the results can also suggest that correct labeling might sometimes be difficult for the model because of an inconsistency in the labeling behavior of the human labelers.
  
-The random images for feature hollow indicate that the model might use the thickness of an asparagus as an indicator. Some of the samples look like hollow asparagus that might have been labeled incorrectly (see~\autoref{fig:ExampleImagesHollow}).
-For the feature bent, the randomly selected examples in~\autoref{fig:ExampleImagesBent} could reveal a labeling bias by the human labelers. When the feature is only slightly present, it seems to become a random choice whether the sample was labeled as positive or negative by the human labelers. If true, this can make it difficult for the machine to perform above a certain level of accuracy. It might also be that the difference between the samples is not prominent enough for the model.
-Again, these images are just randomly chosen examples and can mean that the models are simply not able to label them correctly. The results suggest that correct labeling might sometimes be difficult for the model because of an inconsistency in the labeling behavior of the human labelers.
- 
-On a general note, the architecture of the model is very flexible. It can be applied to many tasks, i.e. predicting different features, without much preprocessing of the image data beforehand. Further, the model is quite small, which makes it fast and robust for practical applications. However, instead of having the same architecture for all features, more precise adjustment of each model to its feature is needed.
+On a general note, the architecture of the model is very flexible. It can be applied to many tasks (i.e.\ predicting different features) without much preprocessing of the image data beforehand. Further, the model is quite small, which makes it fast and robust for practical applications. However, instead of having the same architecture for all features, more precise adjustment of each model to its feature is needed.
  
 \bigskip
 In conclusion, the results of the single-label  \acrshort{cnn} seem promising. Due to a very long debugging phase, there was not enough time to further test and improve the performance of the model. In turn, this means there is still a lot of fine-tuning and possible improvement. A restriction poses the labeling bias of the manually labeled images.
@@ -369,7 +372,7 @@ Further, it was tested whether regularization would improve the performance of t
 	\centering
 	\includegraphics[scale=0.37]{Figures/chapter04/multilabel_costum.png}
 	\decoRule
-	\caption[Multi-Label Costum Loss]{\textbf{Costum Loss}~~~These graphs show the evaluation of the training with costum loss that punishes falsely classified ones more than falsely classified 0s. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
+	\caption[Multi-Label Custom Loss]{\textbf{Custom Loss}~~~These graphs show the evaluation of the training with custom loss that punishes falsely classified ones more than falsely classified 0s. The model was trained over 50 epochs and the accuracy and loss was measured. Further, the false/true positive/negative rates were determined.}
 	\label{fig:MultilabelCostumLoss}
 \end{figure}
 
@@ -426,7 +429,7 @@ As mentioned before, some features relate to the asparagus heads only. Hence, it
 	\label{fig:HeadExample}
 \end{figure}
 
-A simple feedforward \acrshort{cnn} was trained on the images. The features flower and rusty head are chosen as target categories.Hence, the  model is another example for multi-label classification. The network comprises the input layer, three convolutional layers with kernel size two, a fully connected layer with 128 neurons as well as the output layer. For the final layer, the sigmoid activation function is applied while the hidden layers have ReLU activations. A dropout layer was added to avoid overfitting. The network was trained using mean squared error \acrshort{mse} as an error function. The development of loss in the learning curve indicates convergence after 40 epochs.
+A simple feedforward \acrshort{cnn} was trained on the images. The features flower and rusty head are chosen as target categories. Hence, the  model is another example for multi-label classification. The network comprises the input layer, three convolutional layers with kernel size two, a fully connected layer with 128 neurons as well as the output layer. For the final layer, the sigmoid activation function is applied while the hidden layers have ReLU activations. A dropout layer was added to avoid overfitting. The network was trained using mean squared error \acrshort{mse} as an error function. The development of loss in the learning curve indicates convergence after 40 epochs.
 
 \begin{table}[!hb]
 	\centering
@@ -435,14 +438,14 @@ A simple feedforward \acrshort{cnn} was trained on the images. The features flow
 		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
 		\noalign{\smallskip}
 		\hline
-		\\		
-		has\textunderscore blume     &            0.04 &            0.06 &           0.08 &           0.82 &         0.55 &         0.95 \\
-		has\textunderscore rost\textunderscore head &            0.02 &            0.13 &           0.03 &           0.83 &         0.19 &         0.98 \\
-		\\
+		\noalign{\smallskip}	
+		flower     &            0.04 &            0.06 &           0.08 &           0.82 &         0.55 &         0.95 \\
+		rusty head &            0.02 &            0.13 &           0.03 &           0.83 &         0.19 &         0.98 \\
+		\noalign{\smallskip}
 		\hline
 	\end{tabular}%
 	}
-	\caption[Head Features CNN Performance]{\textbf{Performance}~~~Performance of the \acrshort{cnn} trained on asparagus heads.}
+	\caption[Head Features CNN Performance]{\textbf{Performance of Head Features CNN}~~~Performance of the \acrshort{cnn} trained on asparagus heads.}
 	\label{tab:performance_measures_head_based}
 \end{table}
 
@@ -450,7 +453,7 @@ A simple feedforward \acrshort{cnn} was trained on the images. The features flow
 	\centering
 	\includegraphics[scale=1.8]{Figures/chapter04/head_curve.png}
 	\decoRule
-	\caption[Head Features CNN Learning Curve]{\textbf{Learning Curve for the Head Features \acrshort{cnn}}~~~The depiction shows the loss per training episode for the \acrshort{cnn} trained on asparagus heads.}
+	\caption[Head Features CNN Learning Curve]{\textbf{Learning Curve for the Head Features CNN}~~~The depiction shows the loss per training episode for the \acrshort{cnn} trained on asparagus heads.}
 	\label{fig:HeadCurve}
 \end{figure}	
 
@@ -459,7 +462,7 @@ A simple feedforward \acrshort{cnn} was trained on the images. The features flow
 	\vspace{2cm}
 	\includegraphics[scale=1.55]{Figures/chapter04/head_roc.png}
 	\decoRule
-	\caption[Head Features CNN ROC Curve]{\textbf{\acrshort{roc} for the Head Features \acrshort{cnn}}~~~The depiction shows the \acrfull{roc} for the predictions of the \acrshort{cnn} trained on asparagus heads. It allows to compare the performance. A larger area under the \acrshort{roc} curve indicates better performance while a curve close to the diagonal line indicates poor results.}
+	\caption[Head Features CNN ROC Curve]{\textbf{ROC for the Head Features CNN}~~~The depiction shows the \acrfull{roc} for the predictions of the \acrshort{cnn} trained on asparagus heads. It allows to compare the performance. A larger area under the \acrshort{roc} curve indicates better performance while a curve close to the diagonal line indicates poor results.}
 	\label{fig:HeadROC}
 \end{figure}
 
@@ -781,7 +784,7 @@ The 200 pictures where a certain feature is present as well as the 200 pictures 
 %\end{figure}
 
 \bigskip
-For all these features a \acrshort{pca} is calculated by first standardizing the matrix pixel-wise (dimensions: $1340\times346\times3$), calculating the covariance matrix and then extracting the ordered eigenvalues. The principal components are calculated multiplying these eigenvectors with the standardized matrix. The feature space, the principal components and the standardized matrices are saved to later perform a classification function. The highest ten eigenvalues were plotted to visually decide where to set the threshold of how many principal components will be further included. The first ten eigenvalues and the first ten Eigenasparagus for each feature can be seen in \autoref{fig:PCAlength} to \autoref{fig:PCAflower}.
+For all these features a \acrshort{pca} is calculated by first standardizing the matrix pixel-wise (dimensions: $1340\times346\times3$), calculating the covariance matrix and then extracting the ordered eigenvalues. The principal components are calculated multiplying these eigenvectors with the standardized matrix. The feature space, the principal components and the standardized matrices are saved to later perform a classification function. The highest ten eigenvalues were plotted to visually decide where to set the threshold of how many principal components will be further included. The first ten eigenvalues and the first ten Eigenasparagus for each feature can be seen in \autoref{fig:PCAlength} - \autoref{fig:PCAflower}.
 
 The classification function is a control function, which performs on unseen images and tries to predict if a feature is absent or present. It reads in a new picture of one asparagus, which is not part of the asparagus database, meaning not within the 400 images that were used to calculate the \acrshort{pca}. Then, it searches for the asparagus that is most similar to it in the feature matrices (which are 200 pictures of asparagus carrying the feature, 200 pictures of asparagus without the feature).  This comparison is made with the reduced representation of the original pictures.
 
@@ -792,7 +795,7 @@ The features on which results are given are: Hollow, flower, violet, rusty body,
 
 There are no results for the feature fractured, even though it is one of the initial main features, as there were only five labeled pictures for this category. Therefore, it was excluded for further analysis. For the feature rusty head, a calculation problem emerged during the process. For an unexplainable reason, there were complex values in the calculation of the principal components. Due to time constraints, this problem was not solved, yet. Therefore, plotting of the feature rusty head is not possible.
 
-By applying the approach for each feature, the eigenvectors, eigenvalues, and principal components for each feature were computed and stored. In all cases, the first principal component is quite high (between 286,94 and 254,78), and drops down rapidly afterwards. The values of the principal components after the fourth principal component are very low ($\leqslant 9$).
+By applying the approach for each feature, the eigenvectors, eigenvalues, and principal components for each feature were computed and stored. In all cases, the first principal component is quite high (between 286,94 and 254,78), and drops down rapidly afterwards. The values of the principal components after the fourth principal component are very low ($\leq$~9).
 
 \bigskip
 After inspection of the graph of the first ten principal components,  only the first four principal components are used for the analysis, as there is either a sharp drop in the slope after the first four or to maintain continuity between the different features. Following, the corresponding feature space is the space spanned by the first four principal components.
@@ -803,7 +806,7 @@ The scatterplots in~\autoref{fig:PCAscatter} show the data of each feature lined
 	\centering
 	\includegraphics[scale=0.35]{Figures/chapter04/pca_scatterplot.png}
 	\decoRule
-	\caption[Feature-wise Scatterplots]{\textbf{Feature-wise Scatterplots}~~~These scatterplots show the 200 data points where the feature is present in blue and the 200 data points where the feature is absent in orange. The data is projected into a 2D subspace, which is spanned by the first two principal components of each feature.}
+	\caption[Feature-Wise Scatterplots]{\textbf{Feature-wise Scatterplots}~~~These scatterplots show the 200 data points where the feature is present in blue and the 200 data points where the feature is absent in orange. The data is projected into a 2D subspace, which is spanned by the first two principal components of each feature.}
 	\label{fig:PCAscatter}
 \end{figure}
 
@@ -858,7 +861,7 @@ In the previous chapter, methods and results for unsupervised learning are prese
 	\centering
 	\includegraphics[scale=0.8]{Figures/chapter04/semi_supervised_network.png}
 	\decoRule
-	\caption[Network Structures for Semi-Supervised Learning]{\textbf{Network Structures for Semi-Supervised Learning}~~~The depiction illustrates the network structure for the autoencoders used for semi-supervised learning. Left: The structure for the semi-supervised convolutional \acrlong{vae}. Right: The structure for the semi-supervised convolutional autoencoder. Further explanations can be found in the text.}
+	\caption[Semi-Supervised Autoencoders Network Structures]{\textbf{Network Structures for Semi-Supervised Learning}~~~The depiction illustrates the network structure for the autoencoders used for semi-supervised learning. Left: The structure for the semi-supervised convolutional \acrlong{vae}. Right: The structure for the semi-supervised convolutional autoencoder. Further explanations can be found in the text.}
 	\label{fig:SemiSupervisedNetworkStructures}
 \end{figure}
 
@@ -871,7 +874,7 @@ A challenge results from training with multiple inputs. As deep learning framewo
 	\centering
 	\includegraphics[scale=0.35]{Figures/chapter04/semi_supervised_latent_asparagus.png}
 	\decoRule
-	\caption[Latent Asparagus Space for Semi-Supervised  CNN-VAE]{\textbf{Latent Asparagus Space for Semi-Supervised \acrshort{cnn}-\acrshort{vae}}~~~The depiction illustrates the mapping by the encoder and decoder of the \acrlong{vae} with additional constraints in the loss function for semi-supervised learning: On the left one can see scatterplots illustrating the activation of latent layer neurons for the test data set (the mapping by the encoder). Image-features are mapped to the respective latent asparagus space. Mind that there is a scatterplot for each feature of interest where colors indicate positive and negative samples. On the right, a manifold of decoded images can be found. The axis relates to the points sampled in latent asparagus space that correspond to the reconstructions (mapping by the decoder).}
+	\caption[Semi-Supervised Convolutional VAE Latent Asparagus Space]{\textbf{Latent Asparagus Space for Semi-Supervised CNN-VAE}~~~The depiction illustrates the mapping by the encoder and decoder of the \acrlong{vae} with additional constraints in the loss function for semi-supervised learning: On the left one can see scatterplots illustrating the activation of latent layer neurons for the test data set (the mapping by the encoder). Image-features are mapped to the respective latent asparagus space. Mind that there is a scatterplot for each feature of interest where colors indicate positive and negative samples. On the right, a manifold of decoded images can be found. The axis relates to the points sampled in latent asparagus space that correspond to the reconstructions (mapping by the decoder).}
 	\label{fig:SemiSupervisedLatentSpace}
 \end{figure}
 
@@ -884,18 +887,18 @@ A custom conditional loss function is used. If labels are present for the curren
 		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
 		\noalign{\smallskip}
 		\hline
-		\\
-		is\textunderscore bended     &            0.04 &            0.37 &           0.04 &           0.55 &         0.10 &         0.94 \\
-		is\textunderscore violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
-		has\textunderscore rost\textunderscore body &            0.14 &            0.27 &           0.20 &           0.39 &         0.42 &         0.73 \\
-		short         &            0.00 &            0.02 &           0.00 &           0.98 &         0.00 &         1.00 \\
+		\noalign{\smallskip}
+		bent     &            0.04 &            0.37 &           0.04 &           0.55 &         0.10 &         0.94 \\
+		violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
+		rusty body &            0.14 &            0.27 &           0.20 &           0.39 &         0.42 &         0.73 \\
+		fractured         &            0.00 &            0.02 &           0.00 &           0.98 &         0.00 &         1.00 \\
 		thick         &            0.00 &            0.07 &           0.00 &           0.93 &         0.00 &         1.00 \\
 		thin          &            0.00 &            0.14 &           0.16 &           0.70 &         0.54 &         0.99 \\
-		\\
+		\noalign{\smallskip}
 		\hline
 	\end{tabular}%
 	}
-	\caption[Performance of the Semi-Supervised Convolutional VAE]{Performance of the semi-supervised convolutional \acrshort{vae}.}
+	\caption[Semi-Supervised Convolutional VAE Performance]{\textbf{Convolutional VAE Performance}~~~Performance of the semi-supervised convolutional \acrshort{vae}.}
 	\label{tab:performance_convolutional_vae}
 \end{table}
 
@@ -906,18 +909,18 @@ A custom conditional loss function is used. If labels are present for the curren
 		{} &  False positive &  False negative &  True positive &  True negative &  Sensitivity &  Specificity \\
 		\noalign{\smallskip}
 		\hline
-		\\
-		is\textunderscore bended     &            0.02 &            0.34 &           0.07 &           0.57 &         0.18 &         0.96 \\
-		is\textunderscore violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
-		has\textunderscore rost\textunderscore body &            0.23 &            0.19 &           0.28 &           0.30 &         0.59 &         0.57 \\
-		short         &            0.00 &            0.01 &           0.01 &           0.97 &         0.57 &         1.00 \\
+		\noalign{\smallskip}
+		bent     &            0.02 &            0.34 &           0.07 &           0.57 &         0.18 &         0.96 \\
+		violet     &            0.00 &            0.08 &           0.00 &           0.92 &         0.00 &         1.00 \\
+		rusty body &            0.23 &            0.19 &           0.28 &           0.30 &         0.59 &         0.57 \\
+		fractured         &            0.00 &            0.01 &           0.01 &           0.97 &         0.57 &         1.00 \\
 		thick         &            0.00 &            0.06 &           0.00 &           0.93 &         0.04 &         1.00 \\
 		thin          &            0.02 &            0.07 &           0.23 &           0.68 &         0.76 &         0.97 \\
-		\\
+		\noalign{\smallskip}
 		\hline
 	\end{tabular}%
 	}
-	\caption[Performance of the Semi-Supervised Convolutional Autoencoder]{\textbf{Performance of the Semi-Supervised Convolutional Autoencoder}}
+	\caption[Semi-Supervised Convolutional Autoencoder Performance]{\textbf{Convolutional Autoencoder Performance}~~~Performance of the Semi-Supervised Convolutional Autoencoder.}
 	\label{tab:performance_semi_supervised_autoencoder}
 \end{table}
 
