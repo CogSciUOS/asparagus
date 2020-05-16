@@ -8,7 +8,7 @@ python:
 
 
 env:
-  - PYTHONPATH=code:${PYTHONPATH} PIPENV_VERBOSITY=-1
+  - PYTHONPATH=labeling:${PYTHONPATH} PIPENV_VERBOSITY=-1
   
 # command to install dependencies
 install:
