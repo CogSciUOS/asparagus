@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Report chapter 3: The dataset &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Report chapter 3: The dataset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/report/chapter_3_todo.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="report-chapter-3-the-dataset">
+<h1>Report chapter 3: The dataset<a class="headerlink" href="#report-chapter-3-the-dataset" title="Permalink to this headline">¶</a></h1>
+<p>Here, you can find an overview of how to contribute to chapter 3 of our report, copy &amp; pasted from the report, so you do not need to create a pdf from the .tex files.</p>
+<div class="section" id="the-dataset">
+<h2>3 The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline">¶</a></h2>
+<p>    Different preprocessing steps of the data and deciding how the data should/will look like.<br />    The label app is introduced and the process of manually labelling a part of the data, with a<br />    description of the criteria. Finally, the dataset is introduced.</p>
+<p>  <strong>Preprocessing steps</strong></p>
+<p>    First approach to create a dataset (layout) and data augmentation to generate more samples.</p>
+<p>    Automatic feature extraction  <code class="docutils literal notranslate"><span class="pre">Sophia?</span></code><br />    We (tried to) create scripts for: background removal of the collected images, and automatic feature<br />    extraction pipeline (including the decision that we first try to sort for features and not labels) for<br />    rust, bent, etc. …</p>
+<p>    Preparation for manual feature extraction  <code class="docutils literal notranslate"><span class="pre">Maren?</span></code><br />    Preparing the images for manual classification to create more labelled data: sorting the pictures in<br />    the grid, have 3 pictures per asparagus spear, etc. …</p>
+<p>  <strong>The hand-label app</strong>  <code class="docutils literal notranslate"><span class="pre">Michael?</span></code></p>
+<p>    Introduction to the script created for manual sorting. Fusion of the feature extraction scripts:<br />    What is it? Why did we need it? What was the idea behind it? How does it work? (keep short! it’s<br />    only the introduction) Do not explain in length here but rather give an idea and refer to README’s<br />    and to code in GitHub whenever possible.</p>
+<p>    How to install<br />    Installation of the app: environment setup, mount points, problems we ran into, etc. …</p>
+<p>    Operating instructions<br />    User manual for the app and introduction to its graphical user interface: What can you find where?<br />    (include one example picture of GUI), Step-by-step guideline through loading pictures, creating<br />    a .csv file, and how to sort one picture.</p>
+<p>    Performance<br />    Results and general performance of the app: How well did the feature extraction work? How much features<br />    had to be labelled by hand? What is the output of the app?</p>
+<p>  <strong>Manual labeling</strong></p>
+<p>    Sorting criteria  <code class="docutils literal notranslate"><span class="pre">Josefine</span></code><br />    The criteria explained in detail for the hand-labelling of the features with the app (including example<br />    pictures). What are expected difficulties we might encounter?</p>
+<p>    Sorting outcome  <code class="docutils literal notranslate"><span class="pre">Josefine</span></code><br />    The process and the results of the sorting: How much did we sort? How well did the sorting work in general<br />    (i.e., was it easy to sort? how long did it take? what problems were encountered?)? How accurately did<br />    we sort as a group? (i.e., Kappa Agreement)</p>
+<p>  <strong>Validity</strong>  <code class="docutils literal notranslate"><span class="pre">Malin</span></code></p>
+<p>    Expanding on how accurately we sorted/how valid our sorting was as a group i.e. on the Kappa Agreement</p>
+<p>  <strong>The asparagus dataset</strong>  <code class="docutils literal notranslate"><span class="pre">Richard?</span></code></p>
+<p>    Different datasets <code class="docutils literal notranslate"><span class="pre">Sophia?</span></code><br />    Structural information on the datasets: What do they look like? How big are they (labelled vs unlabelled<br />    samples)? Which were criteria for throwing out data? (maybe have an overview picture with all relevant<br />    information on one glance</p>
+<p>    Challenges  <code class="docutils literal notranslate"><span class="pre">Sophia,</span> <span class="pre">Richard</span></code><br />    Problems and challenges during the creation of the datasets: What were the challenges in creating a<br />    general dataset? What were challenges in general? How well could we work with the datasets? What was<br />    used as training data, validation data, and test data?</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

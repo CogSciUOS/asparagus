@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Manual: running label-app on uni network &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to run the streamlit app and train/add your model" href="manual_run_streamlit_app.html" />
+    <link rel="prev" title="How to contribute to our report using latex" href="manual_latex.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../manuals.html">Manuals</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="manual_CONDA.html">Get hands on - use shared conda installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_dataSet.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_how_to_label.html">Manual: how to use the label app &amp; label correctly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_latex.html">How to contribute to our report using latex</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Manual: running label-app on uni network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_run_streamlit_app.html">How to run the streamlit app and train/add your model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../manuals.html">Manuals</a> &raquo;</li>
+        
+      <li>Manual: running label-app on uni network</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/manuals/manual_run_labelapp_externally.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="manual-running-label-app-on-uni-network">
+<h1>Manual: running label-app on uni network<a class="headerlink" href="#manual-running-label-app-on-uni-network" title="Permalink to this headline">¶</a></h1>
+<p>A copy - paste of the process on my laptop</p>
+<p>log into uni server network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(base) 83adbaa6:~ Malin$ ssh -Y mspaniol@gate.ikw.uos.de
+</pre></div>
+</div>
+<p>you want to log onto a specific computer in the network, such as light (check if you have the permission, else, talk to Ulf):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(base) mspaniol@gate:~$ ssh -Y light
+</pre></div>
+</div>
+<p>now get to our github directory, if you already made yourself an alias to get there quickly, do that!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">mspaniol</span><span class="nd">@light</span><span class="p">:</span><span class="n">cd</span> <span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">summer</span><span class="o">/</span><span class="n">valid_until_31_January_2020</span><span class="o">/</span><span class="n">asparagus</span>
+</pre></div>
+</div>
+<p>create a personal folder with your name in the asparagus folder (you can already see katha, josefine and malin there)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus$ mkdir [YOUR_NAME]
+</pre></div>
+</div>
+<p>go into your folder and clone the github repository there:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/[YOUR_NAME]$ git clone https://github.com/CogSciUOS/asparagus.git
+</pre></div>
+</div>
+<p>in your cloned repository, you should go into asparagus and switch to the branch hand_label_app</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ git checkout hand_label_app
+</pre></div>
+</div>
+<p>Start the virtual environment (If you end up with problems here, look at the pipenv documentation and make sure pipenv is installed via pip (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pipenv</span></code>)).
+We use use this virtual environment here, so that we do not individually have to install and update packages such as pyqt5, numpy, pandas … but that by activating the virtual environment, it automatically has all necessary packages available, for - in this case - opening the label app. Pipenv behaves similar to pip. If you write code and with new packages, please update the pipfile, (and push it!) so that it is available to all others using the virtual environment (the commands can also be found<a class="reference external" href="https://medium.com/&#64;krishnaregmi/pipenv-vs-virtualenv-vs-conda-environment-3dde3f6869ed">here</a>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ pipenv install
+(base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ pipenv shell
+</pre></div>
+</div>
+<p>then you want to go into hand_label_assistant:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(asparagus) (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus$ cd code/hand_label_assistant
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(asparagus) (base) mspaniol@light:/net/projects/scratch/summer/valid_until_31_January_2020/asparagus/malin/asparagus/code/hand_label_assistant $ python main.py
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="manual_run_streamlit_app.html" class="btn btn-neutral float-right" title="How to run the streamlit app and train/add your model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="manual_latex.html" class="btn btn-neutral float-left" title="How to contribute to our report using latex" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

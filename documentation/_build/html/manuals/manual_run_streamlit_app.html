@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to run the streamlit app and train/add your model &mdash; asparagus 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Documentation" href="../api_docs.html" />
+    <link rel="prev" title="Manual: running label-app on uni network" href="manual_run_labelapp_externally.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> asparagus
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../manuals.html">Manuals</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="manual_CONDA.html">Get hands on - use shared conda installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_dataSet.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_how_to_label.html">Manual: how to use the label app &amp; label correctly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_latex.html">How to contribute to our report using latex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_run_labelapp_externally.html">Manual: running label-app on uni network</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How to run the streamlit app and train/add your model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clone-the-github-repository">Clone the GitHub repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activate-the-asparagus-env">Activate the asparagus_env</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#regarding-the-requirements">Regarding the requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#preparation">Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#navigate-to-the-streamlit-app">Navigate to the streamlit app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open-browser-at-the-provided-url">Open browser at the provided URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-the-path-to-image-folder">Select the path to image folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-csv-file">Select csv file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looking-at-the-app">Looking at the app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#if-something-is-not-working">If something is not working</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cuda-removal">Cuda removal</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#finally">Finally</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#port-forwarding">Port forwarding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">asparagus</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../manuals.html">Manuals</a> &raquo;</li>
+        
+      <li>How to run the streamlit app and train/add your model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/manuals/manual_run_streamlit_app.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-run-the-streamlit-app-and-train-add-your-model">
+<h1>How to run the streamlit app and train/add your model<a class="headerlink" href="#how-to-run-the-streamlit-app-and-train-add-your-model" title="Permalink to this headline">¶</a></h1>
+<p>This manual shows you how to run the streamlit app. It also explains how to train your model based on the csv files and the images using the scripts <code class="docutils literal notranslate"><span class="pre">code/labelCNN/combine_labels.py</span></code> and <code class="docutils literal notranslate"><span class="pre">code/labelCNN/training.py</span></code>. For details please look at the source code. Also, have a look at <code class="docutils literal notranslate"><span class="pre">/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/</span></code> to see what a possible setup looks like or how to use the grid (<code class="docutils literal notranslate"><span class="pre">train.sge</span></code>) to train your model.</p>
+<div class="section" id="clone-the-github-repository">
+<h2>Clone the GitHub repository<a class="headerlink" href="#clone-the-github-repository" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/CogSciUOS/asparagus.git</span></code></p>
+</div>
+<div class="section" id="activate-the-asparagus-env">
+<h2>Activate the asparagus_env<a class="headerlink" href="#activate-the-asparagus-env" title="Permalink to this headline">¶</a></h2>
+<p>In the repository’s root directory, you can find the <code class="docutils literal notranslate"><span class="pre">asparagus_env.yml</span></code> file to create an environment . It is most probably not platform independent, so please use a Linux system (e.g. the university computers). Use the command <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">asparagus_env.yml</span></code> to set up the environment. Then activate the environment by using <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">asparagus_env</span></code></p>
+<div class="section" id="regarding-the-requirements">
+<h3>Regarding the requirements<a class="headerlink" href="#regarding-the-requirements" title="Permalink to this headline">¶</a></h3>
+<p>You do not need to use the provided environment. Everything should work if you install the following Python packages: <code class="docutils literal notranslate"><span class="pre">tensorflow</span> <span class="pre">h5py</span> <span class="pre">numpy</span> <span class="pre">pandas</span> <span class="pre">scikit-image</span> <span class="pre">streamlit</span></code>.</p>
+</div>
+</div>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>The image paths are assumed to have this structure:
+<code class="docutils literal notranslate"><span class="pre">${IMAGE_DIR}/0/0/0000_a.jpg</span></code>, this way we can more or less reliably read
+them from the csv files.</p></li>
+<li><p><strong>Look at the easy alternative below step 2!</strong><br/>
+Prepare the labels, so that they are in one file:<br /><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">combine_labels.py</span> <span class="pre">${LABELS_FOLDER}</span> <span class="pre">labels.csv</span></code>
+This merges all csv files inside the directory labels properly into labels.csv
+You can find the script in the folder <code class="docutils literal notranslate"><span class="pre">code</span></code>. Also have a look at the bash script <code class="docutils literal notranslate"><span class="pre">merge_labels.sh</span></code> to see which folder I used and with which command line arguments I called the script. You find it in <code class="docutils literal notranslate"><span class="pre">/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/</span></code>.</p>
+<p><strong>Easy alternative to step 2.</strong>:  You can also use the <code class="docutils literal notranslate"><span class="pre">labels.csv</span></code> file I already created at <code class="docutils literal notranslate"><span class="pre">/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/</span></code>.</p>
+</li>
+<li><p><strong>Skip this part if you want to use a trained model (it is as easy as selecting it in the app):</strong><br/>
+To train, run training.py:
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">training.py</span> <span class="pre">labels.csv</span> <span class="pre">/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/without_background_pngs/</span> <span class="pre">model_name</span></code>
+Where images is the <code class="docutils literal notranslate"><span class="pre">${IMAGE_DIR}</span></code> from step 1 and <code class="docutils literal notranslate"><span class="pre">labels.csv</span></code> the file from step 2 and a <code class="docutils literal notranslate"><span class="pre">name</span></code> for the model.
+Make sure you save your trained model to the folder <code class="docutils literal notranslate"><span class="pre">code/labelCNN/models</span></code>. Also have a look at the bash script <code class="docutils literal notranslate"><span class="pre">train.sge</span></code> to see with which command line arguments I called the script. You find it in <code class="docutils literal notranslate"><span class="pre">/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/</span></code>.</p></li>
+<li><p>To inspect the training process, run
+<code class="docutils literal notranslate"><span class="pre">tensorboard</span> <span class="pre">--logdir</span> <span class="pre">logs</span></code>
+and open a browser at <code class="docutils literal notranslate"><span class="pre">http://localhost:6006</span></code></p></li>
+</ol>
+<p>To inspect the results, you can use streamlit: <code class="docutils literal notranslate"><span class="pre">streamlit</span> <span class="pre">run</span> <span class="pre">app_from_img_to_categories.py</span></code><br />(for details follow the next steps).</p>
+</div>
+<div class="section" id="navigate-to-the-streamlit-app">
+<h2>Navigate to the streamlit app<a class="headerlink" href="#navigate-to-the-streamlit-app" title="Permalink to this headline">¶</a></h2>
+<p>You can find the app that supplies an end-to-end solution from a csv file containing manually labeled features and paths to images of asparagus pieces to the prediction of the quality class of the asparagus piece. You can find it in the <code class="docutils literal notranslate"><span class="pre">code</span></code> folder. It is named <code class="docutils literal notranslate"><span class="pre">app_from_img_to_categories.py</span></code>.
+In order to run the app, type <code class="docutils literal notranslate"><span class="pre">streamlit</span> <span class="pre">run</span> <span class="pre">app_from_img_to_categories.py</span></code> in the terminal.</p>
+</div>
+<div class="section" id="open-browser-at-the-provided-url">
+<h2>Open browser at the provided URL<a class="headerlink" href="#open-browser-at-the-provided-url" title="Permalink to this headline">¶</a></h2>
+<p>In the terminal you will find output similar to this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">You</span> <span class="n">can</span> <span class="n">now</span> <span class="n">view</span> <span class="n">your</span> <span class="n">Streamlit</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">your</span> <span class="n">browser</span><span class="o">.</span>
+
+  <span class="n">Network</span> <span class="n">URL</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">0.8</span><span class="p">:</span><span class="mi">8501</span>
+  <span class="n">External</span> <span class="n">URL</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">31.17</span><span class="o">.</span><span class="mf">252.51</span><span class="p">:</span><span class="mi">8501</span>
+</pre></div>
+</div>
+<p>Copy the Network URL into the address field of the browser of your choice.</p>
+</div>
+<div class="section" id="select-the-path-to-image-folder">
+<h2>Select the path to image folder<a class="headerlink" href="#select-the-path-to-image-folder" title="Permalink to this headline">¶</a></h2>
+<p>Now you should see that the app is running and greets you with “Asparagus label prediction”.
+The next step is to select the path of the image folder e.g. <code class="docutils literal notranslate"><span class="pre">/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/preprocessed_images/without_background_pngs/</span></code>. If the one you want to specify does not appear in the selection bar, please select None and the app allows you to specify the path manually.</p>
+</div>
+<div class="section" id="select-csv-file">
+<h2>Select csv file<a class="headerlink" href="#select-csv-file" title="Permalink to this headline">¶</a></h2>
+<p>Select a corresponding csv file e.g. <code class="docutils literal notranslate"><span class="pre">/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/katha/labels.csv</span></code> or the one you created in step 2.</p>
+</div>
+<div class="section" id="looking-at-the-app">
+<h2>Looking at the app<a class="headerlink" href="#looking-at-the-app" title="Permalink to this headline">¶</a></h2>
+<p>Go through the app step by step. The app automatically updates after you made a selection.</p>
+</div>
+<div class="section" id="if-something-is-not-working">
+<h2>If something is not working<a class="headerlink" href="#if-something-is-not-working" title="Permalink to this headline">¶</a></h2>
+<p>Please <strong>let me know</strong> when you encounter problems or have some suggestions on how to improve the app. I would also be very happy about <strong>pull requests</strong> that add new features.</p>
+<p>Things you can try on your own when running into problems:</p>
+<ol class="simple">
+<li><p>refresh</p></li>
+<li><p>check all the check boxes from top to bottom</p></li>
+<li><p>check the source code</p></li>
+</ol>
+<div class="section" id="cuda-removal">
+<h3>Cuda removal<a class="headerlink" href="#cuda-removal" title="Permalink to this headline">¶</a></h3>
+<p>I had to remove <code class="docutils literal notranslate"><span class="pre">cudnn</span></code> and <code class="docutils literal notranslate"><span class="pre">cudatoolkit</span></code> to run everything without a problem. That is why they are not included in the <code class="docutils literal notranslate"><span class="pre">asparagus_env</span></code>.
+If that leads to problems, install the environment and remove the two packages selectively without removing their dependencies. See: <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/commands/remove.html">conda documentation</a>.</p>
+</div>
+</div>
+<div class="section" id="finally">
+<h2>Finally<a class="headerlink" href="#finally" title="Permalink to this headline">¶</a></h2>
+<p>I hope we will add many cool models and explore our data further :)
+Have fun playing around with the app!</p>
+<div class="section" id="port-forwarding">
+<h3>Port forwarding<a class="headerlink" href="#port-forwarding" title="Permalink to this headline">¶</a></h3>
+<p>Port forwarding is still under active investigation. I will keep the manual updated.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api_docs.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="manual_run_labelapp_externally.html" class="btn btn-neutral float-left" title="Manual: running label-app on uni network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, study project
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
