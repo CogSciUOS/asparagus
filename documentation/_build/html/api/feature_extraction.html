@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -34,9 +34,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="get_valid_triples module" href="get_valid_triples.html" />
-    <link rel="prev" title="echo module" href="echo.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,39 +79,12 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../report.html">Report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../api_docs.html">API Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="modules.html">preprocessing</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="echo.html">echo module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">feature_extraction module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="get_valid_triples.html">get_valid_triples module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="label_app.html">label_app module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="move_files.html">move_files module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="perform_preprocessing.html">perform_preprocessing module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess.html">preprocess module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_BACKUP_1045.html">preprocess_BACKUP_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_BASE_1045.html">preprocess_BASE_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_LOCAL_1045.html">preprocess_LOCAL_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_REMOTE_1045.html">preprocess_REMOTE_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_locally.html">preprocess_locally module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor.html">preprocessor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_BACKUP_470.html">preprocessor_BACKUP_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_BASE_470.html">preprocessor_BASE_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_LOCAL_470.html">preprocessor_LOCAL_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_REMOTE_470.html">preprocessor_REMOTE_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stack_images.html">stack_images module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="start_preprocessing.html">start_preprocessing module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="start_preprocessing2.html">start_preprocessing2 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="submit_script.html">submit_script module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html">utils module</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../paper_library.html">Paper Library</a></li>
 </ul>
 
@@ -160,10 +131,6 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../api_docs.html">API Documentation</a> &raquo;</li>
-        
-          <li><a href="modules.html">preprocessing</a> &raquo;</li>
-        
       <li>feature_extraction module</li>
     
     
@@ -183,152 +150,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-feature_extraction">
-<span id="feature-extraction-module"></span><h1>feature_extraction module<a class="headerlink" href="#module-feature_extraction" title="Permalink to this headline">¶</a></h1>
-<p>This file contains functions for manually extracting certain properties from pre-processed asparagus
-pieces and the utility functions that are needed.</p>
-<dl class="function">
-<dt id="feature_extraction.check_purple">
-<code class="sig-prename descclassname">feature_extraction.</code><code class="sig-name descname">check_purple</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">threshold_purple=6</em>, <em class="sig-param">ignore_pale=0.3</em><span class="sig-paren">)</span><a class="headerlink" href="#feature_extraction.check_purple" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if an asparagus piece is purple.
-:param img: A numpy array representing an RGB image where masked out pixels are black.
-:param threshold_purple: If the histogram of color-hues (0-100) has a peak below this threshold</p>
-<blockquote>
-<div><p>the piece is considered to be purple.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>ignore_pale</strong> – Don’t consider pixels with a saturation value below ignore_pale</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A boolean that indicates wether the piece is purple or not.
-list: A list representing the histogram of hues with 100 bins.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_purple</span><span class="p">,</span> <span class="n">hist_hue_purple</span> <span class="o">=</span> <span class="n">check_purple</span><span class="p">(</span><span class="n">image_of_purple_piece</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">is_purple</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">is_purple</span><span class="p">,</span> <span class="n">hist_hue_white</span> <span class="o">=</span> <span class="n">check_purple</span><span class="p">(</span><span class="n">image_of_white_piece</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">is_purple</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hist_hue_purple</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hist_hue_white</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">)],</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;hsv&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="feature_extraction.curvature_score">
-<code class="sig-prename descclassname">feature_extraction.</code><code class="sig-name descname">curvature_score</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">k</em><span class="sig-paren">)</span><a class="headerlink" href="#feature_extraction.curvature_score" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a score for the curvature of the aparagus piece.
-A perfectly straight aspargus yields a score of 0
-:param img: the image
-:param k: number of horizontal slices</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>standard error of linear regression through the slices</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>std_err (float)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="feature_extraction.get_horizontal_slices">
-<code class="sig-prename descclassname">feature_extraction.</code><code class="sig-name descname">get_horizontal_slices</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">k</em><span class="sig-paren">)</span><a class="headerlink" href="#feature_extraction.get_horizontal_slices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the x-coordinates of the outline of the asparagus pieces, measured at k evenly
-spaced horizontal slicing points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>= the preprocessed image</strong> (<em>img</em>) – </p></li>
-<li><p><strong>= the number of slices</strong> (<em>k</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the slice_points (y-coordinates)
-an np array([a1, a2],[b1,b2] … ) where a1,a2 = x-coordinates of asparagus outline</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="feature_extraction.get_length">
-<code class="sig-prename descclassname">feature_extraction.</code><code class="sig-name descname">get_length</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#feature_extraction.get_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simple length extraction
-The length is measured from the highest white pixel to the lowest in the binarized image after rotation
-:param img: the image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><dl class="simple">
-<dt>the length in millimeters from highest to lowest point, under the assumption that one pixel</dt><dd><p>corresponds to 4 pixels</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>length</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="feature_extraction.get_width">
-<code class="sig-prename descclassname">feature_extraction.</code><code class="sig-name descname">get_width</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">k</em><span class="sig-paren">)</span><a class="headerlink" href="#feature_extraction.get_width" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract the width at k different rows</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>img</strong> – the image from which the width should be extracted</p></li>
-<li><p><strong>k</strong> – number of rows in which the width should be extracted</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>min and max width of the k different rows (# of pixels)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="feature_extraction.rust_counter">
-<code class="sig-prename descclassname">feature_extraction.</code><code class="sig-name descname">rust_counter</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">lower=array([50</em>, <em class="sig-param">42</em>, <em class="sig-param">31])</em>, <em class="sig-param">upper=array([220</em>, <em class="sig-param">220</em>, <em class="sig-param">55])</em>, <em class="sig-param">max_count=30000</em><span class="sig-paren">)</span><a class="headerlink" href="#feature_extraction.rust_counter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Counts the number of pixels that might be rusty.
-:param img: image
-:param lower: lower bound for color range of rust
-:param upper: upper bound for color range of rust
-:param max_count: to normalize return value (return value around 0.13 is allready rusty)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>normalized to range from 0 to 1</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="feature_extraction.zero_crossing">
-<code class="sig-prename descclassname">feature_extraction.</code><code class="sig-name descname">zero_crossing</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#feature_extraction.zero_crossing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use zero crossing to detect edges and display them.
-Filter the image with a laplacian to get an approximation of the second derivate and apply zero crossing.
-This function does not give a return value, but plots the results for visual inspection.
-Note: This function was an attempt for flower detection, but it was never finished.
-:param img: the image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="feature-extraction-module">
+<h1>feature_extraction module<a class="headerlink" href="#feature-extraction-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -336,15 +159,6 @@ Note: This function was an attempt for flower detection, but it was never finish
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="get_valid_triples.html" class="btn btn-neutral float-right" title="get_valid_triples module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="echo.html" class="btn btn-neutral float-left" title="echo module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
