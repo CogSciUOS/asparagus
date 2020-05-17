@@ -57,7 +57,7 @@ If you design your startup script such that you can run your code in a mode loca
 <img src="1a.jpg">
 
 ## Automatic typecasting for command line parameters
-Train and eval is thought to have some parameters. To run it in the grid while having access to named parameters you can make my_script_local.py a shell script. By doing so you can access the command line parameters. If you import grid you can use the contained method typecast. It parses the arguments passed to my_script_local.py and e.g. automatically converts string representations of floats or integers (e.g. 4.2 or 42) to the respective numerical value and even works with lists (e.g. when calling python my_script_local.py 4.2 42 [4,2]). 
+Train and eval is thought to have some parameters. To run it in the grid while having access to named parameters you can make my_script_local.py a script that uses command line parameters. If you import grid you can use the contained method typecast. It parses the arguments passed to my_script_local.py and e.g. automatically converts string representations of floats or integers (e.g. 4.2 or 42) to the respective numerical value and even works with lists (e.g. when calling python my_script_local.py 4.2 42 [4,2]). 
 
 <img src="1b.jpg">
 
