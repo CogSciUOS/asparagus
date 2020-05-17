@@ -1,20 +1,34 @@
 %----------------------------------------------------------------------------------------
 %	APPENDIX
 %----------------------------------------------------------------------------------------
-
-\section{Additional figures}
+\section{Additional Material}
 \label{apx:AdditionalFigures}
+
+Here, additional material can be found that was not included in the chapters of the report.
+
+\subsection{Additional Text}
+\label{sec:AddText}
+
+\subsubsection{File moving service}
+\label{subsec:FileService}
+
+In this section it is in detail described how the service of filemoving is constructed. As Windows is used as the operating system of the sorting machine, the development was done with the .NET framework\footnote{For further information on the .NET framework, see \url{https://docs.microsoft.com/en-us/dotnet/framework/get-started/overview}} in the programming language C\#. The package provided is called Topshelf.\footnote{For further information on Topshelf, see \url{https://github.com/Topshelf/Topshelf}} Topshelf is a service hosting framework for building Windows services using .NET. With the package, it is possible to develop a console application in the development phase, compile it as a service, and install it later via the console. Previously, it was not possible to debug services during the development phase. The function of the service is based on the FileSystemWatcher object from the System.IO namespace.\footnote{For further information on the SystemFileWatcher, see \url{https://docs.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher?view=netframework-4.8}} In the main program, a list of files in the source folder is kept. Files that are older than one hour are moved to the target folder on the external drive. The selected files are moved by a function that is called, when an event is triggered. The event is triggered by the FileSystemWatcher after subscribing to different flags. Shortly after initialization, the service was adjusted because removing the images from the C disk straight away caused the sorting program to stop. The problem is solved by keeping the most recent 1000 images and moving older images to the external disk.
+
+
+
+\subsection{Additional figures}
+\label{sec:AddFigures}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{Figures/appendix/original_files_naming_conventions.png}
 	\decoRule
-	\caption[File Overview Example of Original Image Data]{\textbf{File Overview Example of Original Image Data}~~~View of the data files after data collection. The original file names can be seen. The images belonging to one asparagus are marked with F00, F01, and F02 respectively.}
+	\caption[File Overview Example of Original Image Data]{\textbf{File Overview Example of Original Image Data}~~~ A view of the data files after data collection. The original file names can be seen. The images belonging to one asparagus are marked with F00, F01, and F02 respectively.}
 	\label{fig:Original_Data_Overview}
 \end{figure}
 
-\subsection{Single-label CNN}
-\label{sec:AdditionalSingleLabelCNN}
+\subsubsection{Single-label CNN figures}
+\label{subsec:AdditionalSingleLabelCNN}
 
 \begin{figure}[!htb]
 	\centering

@@ -1,0 +1,22 @@
+#!/bin/bash
+#$ -N log_newtwo_rbody
+#$ -l mem=15G
+#$ -l cuda=1
+#$ -l cuda_cores=1000
+#$ -pe default 2
+
+# export PATH="$HOME/miniconda/bin:$PATH"
+export PATH="/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin:$PATH"
+
+
+source activate dataSet
+# conda activate dataSet
+
+# cd /net/home/student/j/jzerbe/asparanet
+cd /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/josefine/asparanet
+
+# rm -rf ./logs/ 
+
+python3 asparanet.py
+
+conda deactivate
