@@ -9,7 +9,8 @@ Welcome to asparagus's documentation!
 .. toctree::
    :maxdepth: 6
    :caption: Contents:
-
+   
+   myModul
    protocols.rst
    report.rst
    workschedules.rst
