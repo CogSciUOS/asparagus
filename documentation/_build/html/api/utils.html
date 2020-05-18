@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -34,9 +34,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Paper Library" href="../paper_library.html" />
-    <link rel="prev" title="submit_script module" href="submit_script.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,39 +79,12 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../report.html">Report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../workschedules.html">Workschedules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manuals.html">Manuals</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../api_docs.html">API Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="modules.html">preprocessing</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="echo.html">echo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="feature_extraction.html">feature_extraction module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="get_valid_triples.html">get_valid_triples module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="label_app.html">label_app module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="move_files.html">move_files module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="perform_preprocessing.html">perform_preprocessing module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess.html">preprocess module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_BACKUP_1045.html">preprocess_BACKUP_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_BASE_1045.html">preprocess_BASE_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_LOCAL_1045.html">preprocess_LOCAL_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_REMOTE_1045.html">preprocess_REMOTE_1045 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocess_locally.html">preprocess_locally module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor.html">preprocessor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_BACKUP_470.html">preprocessor_BACKUP_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_BASE_470.html">preprocessor_BASE_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_LOCAL_470.html">preprocessor_LOCAL_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="preprocessor_REMOTE_470.html">preprocessor_REMOTE_470 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stack_images.html">stack_images module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="start_preprocessing.html">start_preprocessing module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="start_preprocessing2.html">start_preprocessing2 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="submit_script.html">submit_script module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">utils module</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_docs.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../paper_library.html">Paper Library</a></li>
 </ul>
 
@@ -160,10 +131,6 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../api_docs.html">API Documentation</a> &raquo;</li>
-        
-          <li><a href="modules.html">preprocessing</a> &raquo;</li>
-        
       <li>utils module</li>
     
     
@@ -183,70 +150,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-utils">
-<span id="utils-module"></span><h1>utils module<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h1>
-<p>A collection of utility classes for manipulating asparagus images</p>
-<dl class="function">
-<dt id="utils.binarize">
-<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">binarize</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">thres</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.binarize" title="Permalink to this definition">¶</a></dt>
-<dd><p>binarizes an image based on thresshold</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="utils.downsample">
-<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">downsample</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.downsample" title="Permalink to this definition">¶</a></dt>
-<dd><p>quickly downsamples image through mean interpolation</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="utils.erode">
-<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">erode</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.erode" title="Permalink to this definition">¶</a></dt>
-<dd><p>run vanilla erosion on image</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="utils.find_angle">
-<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">find_angle</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.find_angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds the angle of rotation of the asparagus piece in the image.
-returns that angle</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="utils.find_bounds">
-<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">find_bounds</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.find_bounds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds the upper and lower limit of the nonzero box, that is:
-Where the asparagus piece starts and where it ends.</p>
-<p>returns: upper and lower, the limits of the asparagus piece</p>
-<dl class="simple">
-<dt>WARNING: the image rows are numbered from top to bottom, so the first = highest</dt><dd><p>row of the image is row 0 and the last = lowest is 1200.
-Therefore, upper is the limit at the head of the asparagus piece, lower
-is at the bottom of the asparagus piece.
-BUT: this means that the value of lower is higher than the value of upper.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="utils.head_finder">
-<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">head_finder</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.head_finder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cut image to only display the head of the asparagus.
-:param img: the image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the image cropped around the head</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>head</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="utils.rotate_to_base">
-<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">rotate_to_base</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.rotate_to_base" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds out what the asparagus angle is, zeroes image by rotating it to 0°</p>
-</dd></dl>
-
+  <div class="section" id="utils-module">
+<h1>utils module<a class="headerlink" href="#utils-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -254,15 +159,6 @@ BUT: this means that the value of lower is higher than the value of upper.</p>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../paper_library.html" class="btn btn-neutral float-right" title="Paper Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="submit_script.html" class="btn btn-neutral float-left" title="submit_script module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

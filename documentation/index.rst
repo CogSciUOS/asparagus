@@ -7,7 +7,7 @@ Welcome to asparagus's documentation!
 =====================================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 6
    :caption: Contents:
 
    protocols.rst
