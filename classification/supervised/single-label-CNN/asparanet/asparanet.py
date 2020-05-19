@@ -18,10 +18,9 @@ selected, then the data is shuffled and divided into a train set and test set.
 Further, the batchsize is defined, the images are normalized and data
 augmentation is applied.
 
-In the second section, the model is defined.  The architecture of AlexNet can
-be found here, which served as first template for the AsparaNet model.  The
-AsparaNet model is a much smaller version of AlexNet, with two convolutional
-layers separated by a pooling layer, a hidden dense layer and an output layer.
+In the second section, the model is defined. The AsparaNet model is a much
+smaller version of AlexNet, with two convolutional layers separated by a
+pooling layer, a hidden dense layer and an output layer.
 
 In the third section, the model is trained.  The model is called, learning rate
 and epochs are defined. In the training loop the model trains on the data and
