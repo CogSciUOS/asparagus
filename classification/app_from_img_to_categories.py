@@ -29,7 +29,7 @@ from skimage.transform import resize
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
-import labelCNN.training as train
+import supervised.labelCNN.training as train
 import pipeline.train_model as tm
 
 
@@ -53,7 +53,7 @@ def load_feat_data(labels_csv, imagedir):
 @st.cache
 def load_cat_data():
     """ load the dataframes with the 'ground truth' categories of the asparagus pieces"""
-    return tm.load_data("../annotations")
+    return tm.load_data("../labeling/annotations/evaluation_agreement_1")
 
 
 def convert2binary(vector):
@@ -178,7 +178,7 @@ def main():
     st.bar_chart(raw_feat_data['Code'].value_counts())
 
     "# Choose the model that you want to train"
-    model_folder = "labelCNN/models/"
+    model_folder = "supervised/labelCNN/models/"
     models = [model[:model.index(".")] for model in listdir(
         model_folder) if isfile(join(model_folder, model))]
 
