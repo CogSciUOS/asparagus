@@ -1,19 +1,18 @@
 # README
 
-This is the Report folder.  
+This is the report folder.  
 Here you can find everything concerning the report of our study project.  
-You can find an overview of the report structure in the file report_overview.md.  
   
  <br/>
  <br/>
    
 Chapters
-* This folder contains the chapters.tex of the final version of the report.
+* This folder contains the chapters as .tex files of the report.
   <br/>
   <br/>
   
 Figures
-* This folder contains any figures of the final version of the report.
+* This folder contains any figures used.
   <br/>
   <br/>
   
@@ -33,12 +32,12 @@ asparagus-report.pdf
   <br/>
   
 bibliography.bib
-* This file contains our bibliography for the final latex version.
+* This file contains the bibliography for the report.
   <br/>
   <br/>
   
 main.tex
-* This latex file assembles the report chapters and all additional files into one document. When generating a PDF from it you receive the final report like the asparagus-report.pdf.
+* This LaTex file assembles the report chapters and all additional figures and files into one document. When generating a PDF from it you receive the final report as in asparagus-report.pdf.
   <br/>
   <br/>
   
