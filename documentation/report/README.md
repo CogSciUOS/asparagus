@@ -17,13 +17,18 @@ Figures
   <br/>
   <br/>
   
-.latexmkrc
-* nothing important
+Glossary.tex
+* The glossary file for the acronyms.
   <br/>
   <br/>
   
 MastersDoctoralThesis.cls
 * The template for our report.
+  <br/>
+  <br/>
+  
+asparagus-report.pdf
+* The complete report in PDF format.
   <br/>
   <br/>
   
