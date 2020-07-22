@@ -6,7 +6,7 @@
 
 Here, additional material can be found that was not included in the chapters of the report.
 
-\subsection{Additional Text}
+\subsection{Supplementary Information}
 \label{sec:AddText}
 
 \subsubsection{File moving service}
@@ -14,7 +14,7 @@ Here, additional material can be found that was not included in the chapters of 
 
 In this section it is in detail described how the service of filemoving is constructed. As Windows is used as the operating system of the sorting machine, the development was done with the .NET framework\footnote{For further information on the .NET framework, see \url{https://docs.microsoft.com/en-us/dotnet/framework/get-started/overview}} in the programming language C\#. The package provided is called Topshelf.\footnote{For further information on Topshelf, see \url{https://github.com/Topshelf/Topshelf}} Topshelf is a service hosting framework for building Windows services using .NET. With the package, it is possible to develop a console application in the development phase, compile it as a service, and install it later via the console. Previously, it was not possible to debug services during the development phase. The function of the service is based on the FileSystemWatcher object from the System.IO namespace.\footnote{For further information on the SystemFileWatcher, see \url{https://docs.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher?view=netframework-4.8}} In the main program, a list of files in the source folder is kept. Files that are older than one hour are moved to the target folder on the external drive. The selected files are moved by a function that is called, when an event is triggered. The event is triggered by the FileSystemWatcher after subscribing to different flags. Shortly after initialization, the service was adjusted because removing the images from the C disk straight away caused the sorting program to stop. The problem is solved by keeping the most recent 1000 images and moving older images to the external disk.
 
-
+\newpage
 
 \subsection{Additional figures}
 \label{sec:AddFigures}
@@ -26,6 +26,8 @@ In this section it is in detail described how the service of filemoving is const
 	\caption[File Overview Example of Original Image Data]{\textbf{File Overview Example of Original Image Data}~~~ A view of the data files after data collection. The original file names can be seen. The images belonging to one asparagus are marked with F00, F01, and F02 respectively.}
 	\label{fig:Original_Data_Overview}
 \end{figure}
+
+\newpage
 
 \subsubsection{Single-label CNN figures}
 \label{subsec:AdditionalSingleLabelCNN}
@@ -64,7 +66,7 @@ In this section it is in detail described how the service of filemoving is const
 		\caption{False Positive}
 	\end{subfigure}
 	\vspace{-5pt}
-    \caption[Single-Label CNN Example Images Feature Violet]{\textbf{Feature Violet}~~~Randomly chosen example images of false negatives and false positives of the feature violet after 5160 training steps. In the following, suggestions for the wrong classification are given which apply only to the depicted images. The false negative examples are all cases where the presence of feature violet is only slightly remarkable, with most prominence in sample (A). Looking closer at the false positives, the asparagus in image (D) and (E) might also be slightly rose around the upper part. In image (F), the dark color at the asparagus head is probably rust. The presence and absence of feature violet might have been difficult in cases where the feature was not clearly recognizable as violet but more of a pale rose color.}
+    \caption[Single-Label CNN Example Images Feature Violet]{\textbf{Single-Label CNN Example Images Feature Violet}~~~Example images of false negatives and false positives of the feature violet after 5160 training steps.}
     \label{fig:ExampleImagesViolet}
 \end{figure}
 
