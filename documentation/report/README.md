@@ -6,8 +6,13 @@ Here you can find everything concerning the report of our study project.
  <br/>
  <br/>
    
+Appendices
+* This folder contains the appendix as .tex files.
+  <br/>
+  <br/>
+  
 Chapters
-* This folder contains the chapters as .tex files of the report.
+* This folder contains the chapters as .tex files.
   <br/>
   <br/>
   
