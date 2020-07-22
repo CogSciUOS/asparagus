@@ -480,13 +480,6 @@ An additional data set is generated which contains images of the head region of 
 \subsubsection{Data set creation with Tensorflow}
 \label{subsec:DataSetTheory}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.55]{Figures/chapter03/latent-space-square.png}
-	\decoRule
-	\caption[??]{??}
-	\label{fig:LatentSquare}
-\end{figure}
 
 In the following, TensorFlow's own binary storage format \texttt{TFRecord} is introduced. This approach facilitates the mix and match of data sets and network architectures. The large amount of data that was collected has a significant impact on our import pipeline and, therefore, on the total training time. The file format is optimized for images and text data. These are stored in tuples which always consist of file and label. In our case, the difference in reading time is significant, because the data is stored in the network and not on a SSD on the local PC. The serialized file format allows the data to be streamed efficiently through the network efficiently. Another advantage is that the file is transportable over several systems, regardless of the model one wants to train.
 
