@@ -38,7 +38,7 @@ bibliography.bib
   <br/>
   
 main.tex
-* This latex file assembles the report chapters and all additional files into one document. When generating a pdf from it you receive the final report.
+* This latex file assembles the report chapters and all additional files into one document. When generating a PDF from it you receive the final report like the asparagus-report.pdf.
   <br/>
   <br/>
   
