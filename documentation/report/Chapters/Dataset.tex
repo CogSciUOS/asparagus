@@ -25,7 +25,7 @@ Before implementing any approach that allows to predict a label to an asparagus 
 
 The goal of this preprocessing is to reduce the variance by removing the background, shifting the asparagus spear to the center of the image patch and rotating it upwards. Correct orientation is especially important to make approaches such as \acrshort{pca} applicable and facilitates direct measuring of features. Background removal facilitates the measurement of features like width and height of the spears, because the position of foreground pixels per column can be easily evaluated (see \autoref{sec:AutomaticFeatureExtraction}).
 
-In the following, the different preprocessing steps are elaborated in detail.\footnote{See \url{https://github.com/CogSciUOS/asparagus/blob/master/preprocessing/perform\_preprocessing.py}}
+In the following, the different preprocessing steps are elaborated in detail.\footnote{See \url{https://github.com/CogSciUOS/asparagus/blob/FinalProject/preprocessing/perform\_preprocessing.py}}
 
 \bigskip
 As described in~\autoref{sec:DataCollection}, each asparagus can be found in three pictures, one in each of the three positions – left, center and right. The image names are used to find the three relevant images and determine in which position the asparagus is captured. The images are cut into three pieces and renamed in a way that makes clear which images belong together. Each asparagus gets a unique identification number and the three perspectives are denoted with textit{a} for left, textit{b} for center, and textit{c} for right. For example, the texttt{image 42\_b.png} is the center image of the asparagus spear with the identification number 42. 
@@ -294,7 +294,7 @@ We decided to attribute labels for each of the previously described features oth
 \subsubsection{The Labeling Application}
 \label{subsec:LabelApp}
 
-A custom application was built aiming for a quick and intuitive labeling process.\footnote{ See \url{https://github.com/CogSciUOS/asparagus/tree/master/labeling/hand\_label\_assistant}} Questions appear alongside depictions of an asparagus spear and the user answers them using the designated buttons or keys. Once all questions are answered the next asparagus appears automatically and the procedure is repeated. To assist the users in their judgement some automatically extracted features such as the length or width of the asparagus spear as well as a color histogram is displayed.
+A custom application was built aiming for a quick and intuitive labeling process.\footnote{ See \url{https://github.com/CogSciUOS/asparagus/tree/FinalProject/labeling/hand\_label\_assistant}} Questions appear alongside depictions of an asparagus spear and the user answers them using the designated buttons or keys. Once all questions are answered the next asparagus appears automatically and the procedure is repeated. To assist the users in their judgement some automatically extracted features such as the length or width of the asparagus spear as well as a color histogram is displayed.
 
 \begin{figure}[!htb]
 	\centering
@@ -366,7 +366,7 @@ To tackle the issue and to have an overview of the general agreement of the labe
 
 In this section, the process and the results of the labeling with the hand-label app are described.
 
-The labels of all labeled images are stored in a csv-file, as shown in~\autoref{fig:CSVfileOverview}. The first entry is the image identification number. Every feature can be of value 0, value 1 or empty. Whenever a feature is present in an image, the value is set to 1. If the feature is absent, it is set to 0. For images labeled as not classifiable, all feature values remain empty. The image path to every of the three images for one spear is also saved in the label file in a separate column. After the labeling process, the individual csv-files with the labels are merged into one large \texttt{combined\_new.csv} file. The content of this file is later used for the classification of the data with the different approaches (see \autoref{ch:Classification}). It can be found in the study project’s GitHub repository.\footnote{~See \url{https://github.com/CogSciUOS/asparagus/tree/master/preprocessing/get_data}}
+The labels of all labeled images are stored in a csv-file, as shown in~\autoref{fig:CSVfileOverview}. The first entry is the image identification number. Every feature can be of value 0, value 1 or empty. Whenever a feature is present in an image, the value is set to 1. If the feature is absent, it is set to 0. For images labeled as not classifiable, all feature values remain empty. The image path to every of the three images for one spear is also saved in the label file in a separate column. After the labeling process, the individual csv-files with the labels are merged into one large \texttt{combined\_new.csv} file. The content of this file is later used for the classification of the data with the different approaches (see \autoref{ch:Classification}). It can be found in the study project’s GitHub repository.\footnote{~See \url{https://github.com/CogSciUOS/asparagus/tree/FinalProject/preprocessing/get_data}}
 
 \begin{figure}[!ht]
 	\centering
