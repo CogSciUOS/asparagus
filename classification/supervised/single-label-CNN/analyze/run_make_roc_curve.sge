@@ -1,0 +1,22 @@
+#!/bin/bash
+#$ -N log_make_roc
+#$ -l mem=30G
+#$ -l cuda=1
+#$ -l cuda_cores=1000
+#$ -pe default 2
+
+# export PATH="$HOME/miniconda/bin:$PATH"
+export PATH="/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin:$PATH"
+
+
+source activate dataSet
+# conda activate dataSet
+
+# cd /net/home/student/j/jzerbe/asparanet
+cd /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/josefine/asparanet
+
+# rm -rf ./logs/ 
+
+python3 make_roc_curve.py
+
+conda deactivate

@@ -1,24 +1,28 @@
 # README
 
-This is the Report folder.  
+This is the report folder.  
 Here you can find everything concerning the report of our study project.  
-You can find an overview of the report structure in the file report_overview.md.  
   
  <br/>
  <br/>
    
+Appendices
+* This folder contains the appendix as .tex files.
+  <br/>
+  <br/>
+  
 Chapters
-* This folder contains the chapters.tex of the final version of the report.
+* This folder contains the chapters as .tex files.
   <br/>
   <br/>
   
 Figures
-* This folder contains any figures of the final version of the report.
+* This folder contains any figures used.
   <br/>
   <br/>
   
-.latexmkrc
-* nothing important
+Glossary.tex
+* The glossary file for the acronyms.
   <br/>
   <br/>
   
@@ -27,46 +31,19 @@ MastersDoctoralThesis.cls
   <br/>
   <br/>
   
+asparagus-report.pdf
+* The complete report in PDF format.
+  <br/>
+  <br/>
+  
 bibliography.bib
-* This file contains our bibliography for the final latex version.
-  <br/>
-  <br/>
-  
-chapter_1_todo.md
-* A bit more detailed overview of who writes which part for the first chapter of our report. Can also be found in the .tex files of the report.
-  <br/>
-  <br/>
-  
-chapter_2_todo.md
-* A bit more detailed overview of who writes which part for the second chapter of our report. Can also be found in the .tex files of the report.
-  <br/>
-  <br/>
-  
-chapter_3_todo.md
-* A bit more detailed overview of who writes which part for the third chapter of our report. Can also be found in the .tex files of the report.
-  <br/>
-  <br/>
-
-chapter_4_todo.md
-* An overview of who writes which part for the fourth chapter "Classification" of our report. It includes a guideline how your text should look like.
-  <br/>
-  <br/>
-  
-chapter_5_todo.md
-* A bit more detailed overview of who writes which part for the fifth chapter of our report. Can also be found in the .tex files of the report.
-  <br/>
-  <br/>
-  
-chapter_6_todo.md
-* A bit more detailed overview of who writes which part for the sixth chapter of our report. Can also be found in the .tex files of the report.
+* This file contains the bibliography for the report.
   <br/>
   <br/>
   
 main.tex
-* This latex file assembles the report chapters and all additional files into one document. When generating a pdf from it you receive the final report.
+* This LaTex file assembles the report chapters and all additional figures and files into one document. When generating a PDF from it you receive the final report as in asparagus-report.pdf.
   <br/>
   <br/>
   
-report_overview.md
-* An overview of the single chapters of the report. It also includes which part is thought to be written by whom (which are not set in stone and can be changed if you want)
   

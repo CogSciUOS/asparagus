@@ -8,111 +8,418 @@
 
 Below the name of each project member, the tasks that were contributed by the member are listed.
 
+\renewcommand{\labelitemi}{$\circ$}
+\renewcommand{\labelitemii}{$\bullet$}
+\renewcommand{\labelitemiii}{$\cdot$}
 \bigskip
 \textbf{Maren Born}
 \begin{itemize}
-\item ...
+	\item Organizational
+	\begin{itemize}
+		\item File manager:
+		\begin{itemize}
+			\item create manual on how to label
+			\item assign label tasks among team members
+			\item control and clean label files
+		\end{itemize}
+	\end{itemize}
+	\item Theoretical background and research
+	\begin{itemize}
+		\item Presentation on neural network architectures
+		\item Paper research
+	\end{itemize}
+	\item Technical setup and problem solving
+	\begin{itemize}
+		\item Organize unlabeled image folders on the university folder
+		\item Clean folders of pre-labeled images
+		\item Collect example images for label training with Silvan
+	\end{itemize}
+	\item Programming
+	\begin{itemize}
+		\item Curvature detection
+		\item Principal components analysis
+	\end{itemize}
+	\item Report
+	\begin{itemize}
+		\item Write and proofreading
+		\item Latex formatting
+		\item Figures plotting
+	\end{itemize}
+	\item Other
+	\begin{itemize}
+		\item Systematic testing of hand-label app
+		\item Collect and label images
+	\end{itemize}
 \end{itemize}
 
+\bigskip
 \textbf{Michael Gerstenberger}
 \begin{itemize}
-\item ...
-\end{itemize}
+	\item Organizational
+	\begin{itemize}
+		\item Preprocessing coordinator
+		\item Grid manager
+	\end{itemize}
+	\item Theoretical background and research
+	\begin{itemize}
+		\item Background on autoencoders and feature engineering
+		\item Presentation on neural network architectures
+	\end{itemize}
+	\item Technical setup and problem solving
+	\begin{itemize}
+		\item Support team with Grid related questions
+	\end{itemize}
+	\item Programming
+	\begin{itemize}
+		\item Preprocessing (background removal, rotation, centering, cropping)
+		\item Curvature detection, including reimplementation to improve performance
+		\item Violet detection, including reimplementation to improve performance
+		\item Hand-label app using PyQt
+		\item Create palette colors and heads-only data sets
+		\item Feature engineering and MLP
+		\item Python API to submit scripts
+		\item Variational autoencoder
+		\item Semi-supervised autoencoder
+		\item Dedicated head network
+	\end{itemize}
+	\item Report
+	\begin{itemize}
+		\item Write and proofreading
+	\end{itemize}
+	\item Other
+	\begin{itemize}
+		\item Collect and label images
+	\end{itemize}
+\end{itemize} 
 
+\bigskip
 \textbf{Katharina Groß}
+\begin{itemize} 
+\item Organizational
+\begin{itemize} 
+\item Setup sphinx documentation build process
+\item Readthedocs setup and maintenance
+\item Converting protocols, handling rst files
+\item Virtual environment setup for rtd
+\item Manual on \texttt{ssh -Y} usage
+\item Proposed structural paper reading process
+\item GitHub project management:
+\begin{itemize} 
+\item Pull request reviews
+\item Pull request merges
+\item Issue management
+\item Code quality assurance
+\item Continuous integration setup and maintenance
+\item Remove stale branches
+\item Keep README up to date
+\end{itemize}
+\end{itemize}
+\item Theoretical background and research
 \begin{itemize}
-\item ...
+\item Research agreement measures
+\begin{itemize}
+\item Kappa, f1, etc.
+\end{itemize}
+\item Presentation on:
+\begin{itemize}
+\item Neural network architectures / multi-class SVMs
+\item Git and GitHub
+\item Virtual environments
+\item Continuous integration
+\item Structure of literature catalog
+\item Background literature
+\end{itemize}
+\end{itemize}
+\item Technical setup and problem solving
+\begin{itemize}
+\item Setup virtual environments
+\item Move files to new scratch folder and clean folders
+\item Support on problems with
+\begin{itemize}
+\item Virtual environments
+\item Quota
+\item X forwarding
+\item Help others debugging their code
+\end{itemize}
+\end{itemize}
+\item Programming
+\begin{itemize}
+\item Pre-processing
+\begin{itemize}
+\item Multiple perspectives as one image
+\item Automatic merging of label files
+\item Keras data set for efficient iteration
+\end{itemize}
+\item Tried to do Flower detection
+\item Kappa agreement(Box plots for inter-rater agreement)
+\item Pipeline for multiple models
+\item From feature to class label with random forest and MLP
+\item Confusion matrix visualization for class labels
+\item Streamlit app from asparagus image to class label
+\item Continuous integration setup with Travis
+\item Grid training of TensorFlow/keras models
+\begin{itemize}
+\item Write *.sge scripts to run training
+\item Include continuation after wall time
+\item Train models and store them
+\item Use tensorboard for inspection
+\end{itemize}
+\end{itemize}
+\item Report
+\begin{itemize}
+\item Create LaTeX project
+\item Write and proofreading
+\item LaTeX formatting
+\item plot figure of sorting machine
+\end{itemize}
+\item Other
+\begin{itemize}
+\item Collect and label images
+\end{itemize}
 \end{itemize}
 
+
+\bigskip
 \textbf{Richard Ruppel}
 \begin{itemize}
-\item ...
+	\item Organizational
+	\begin{itemize}
+		\item Manual on hand-label app for remote usage
+		\item Manual on shared virtual environments
+		\item Distribute tasks among team members
+		\item Create work schedules and road maps
+	\end{itemize}
+	\item Theoretical background and research
+	\begin{itemize}
+		\item Presentation on neural network architectures
+		\item Research on services, APIs and frameworks
+	\end{itemize}
+	\item Technical setup and problem solving
+	\begin{itemize}
+		\item X11 forwarding for windows
+		\item SSL remote debugging
+		\item Create shared virtual environments and help with problems
+		\item Help with conda installation
+		\item Create input pipeline
+	\end{itemize}
+	\item Programming
+	\begin{itemize}
+		\item Service for image transfer on the sorting machine
+		\item Flower detection
+	\end{itemize}
+	\item Report
+	\begin{itemize}
+		\item Write and proofreading
+	\end{itemize}
+	\item Other
+	\begin{itemize}
+		\item Try to compile and reverse compile software of sorting machine
+		\item Collect and label images
+	\end{itemize}
 \end{itemize}
 
+\bigskip
 \textbf{Sophia Schulze-Weddige}
 \begin{itemize}
-\item ...
+	\item Organizational
+	\begin{itemize}
+		\item Develop idea, prepare study project, find supervisors and group members
+		\item Distribute tasks among team members
+		\item Create work schedules and road maps
+	\end{itemize}
+	\item Theoretical background and research
+	\begin{itemize}
+		\item Presentation on neural network architectures
+	\end{itemize}
+	\item Technical setup and problem solving
+	\begin{itemize}
+		\item Familiarize with sorting machine
+		\item Problem solving on machine remotely and on site
+	\end{itemize}
+	\item Programming
+	\begin{itemize}
+		\item Preprocessing (background removal and combining perspectives)
+		\item Length detection
+		\item Width detection
+		\item Rust detection
+		\item Flower detection
+		\item Create data set of labeled images
+		\item Decision rules to get from features to class labels
+		\item Multi-label classification model
+	\end{itemize}
+	\item Report
+	\begin{itemize}
+		\item Write and proofreading
+	\end{itemize}
+	\item Other
+	\begin{itemize}
+		\item Collect and label images
+	\end{itemize}
 \end{itemize}
 
+\bigskip
 \textbf{Malin Spaniol}
 \begin{itemize}
-\item ...
+	\item Organizational
+	\begin{itemize}
+		\item Manual on ssh-Y usage
+		\item Manual on hand-label app
+		\item Manual on running the hand-label app on the university server
+		\item ANN manager: Keep track on classification approaches of all members
+	\end{itemize}
+	\item Theoretical background and research
+	\begin{itemize}
+		\item Presentation on neural network architectures
+		\item Research agreement measures
+	\end{itemize}
+	\item Technical setup and problem solving
+	\item Programming
+	\begin{itemize}
+		\item Length detection
+		\item Preprocessing of images for kappa agreement
+		\item Agreement measures (kappa, F1, accuracy)
+		\item Principal component analysis
+	\end{itemize} 
+	\item Report
+	\begin{itemize}
+		\item Write and proofreading
+	\end{itemize}
+	\item Other
+	\begin{itemize}
+		\item Systematic testing of hand-label app
+		\item Collect and label images
+	\end{itemize}
 \end{itemize}
 
+\bigskip
 \textbf{Josefine Zerbe}
 \begin{itemize}
-\item ...
+	\item Organizational
+	\begin{itemize}
+		\item Manual on hand-label app for remote usage
+		\item Distribute tasks among team members
+		\item Create work schedules and road maps
+	\end{itemize}
+	\item Theoretical background and research
+	\begin{itemize}
+		\item Presentation on
+		\begin{itemize}
+			\item neural network architectures
+			\item background literature
+			\item structure for literature catalog
+			\item semi-supervised learning
+		\end{itemize}
+	\end{itemize}
+	\item Technical setup and problem solving
+	\item Programming
+	\begin{itemize}
+		\item Curvature detection
+		\item Single-label classification model
+	\end{itemize}
+	\item Report
+	\begin{itemize}
+		\item Main editor and supervision
+		\item Create structure
+		\item Write and proofreading
+		\item Main latex formatting
+		\begin{itemize}
+			\item Continuously transfer Google Docs file to LaTex Project
+			\item Write LaTex formatting instructions
+		\end{itemize}
+		\item Create and update time table, update roadmap
+	\end{itemize}
+	\item Other
+	\begin{itemize}
+		\item Count all image data
+		\item Collect and label images
+	\end{itemize}
 \end{itemize}
+
 
 
 \subsection{Report list}
 
-Here, an overview of the report is given in chapters and subchapters. The name behind each chapter indicates who wrote the respective section.
+Here, an overview of the report is given in chapters and subchapters. The name behind each chapter indicates who wrote the respective section. The name in brackets indicates the first reviewer of the chapter. All chapters were reviewed by all team members.
 \\
 \\
+\begin{enumerate}[start=0]
+\item \hyperref[Abstract]{Abstract} -- \textit{Josefine} (\textit{Katharina})
+\end{enumerate}
 \begin{enumerate}
-\item \nameref{ch:Introduction} -- \textit{Josefine}
+\item \nameref{ch:Introduction} -- \textit{Josefine} (\textit{Maren})
 	\begin{enumerate}[label*=\arabic*.]
-	\item \nameref{sec:Project} -- \textit{Josefine}
-	\item \nameref{sec:BackgroundCV} -- \textit{Sophia}
-	\item \nameref{sec:BackgroundSortingAsparagus} -- \textit{Josefine}
+	\item \nameref{sec:Project} -- \textit{Josefine} (\textit{Maren})
+	\item \nameref{sec:BackgroundCV} -- \textit{Sophia} (\textit{Josefine})
+	\item \nameref{sec:BackgroundSortingAsparagus} -- \textit{Josefine} (\textit{Sophia})
 	\end{enumerate}
-\item \nameref{ch:DataAcquisition} -- \textit{Josefine}
+\item \nameref{ch:DataAcquisition} -- \textit{Josefine} (\textit{Richard})
 	\begin{enumerate}[label*=\arabic*.]
-	\item \nameref{sec:Roadmap} -- \textit{Josefine}
-	\item \nameref{sec:Organization} -- \textit{Richard}
+	\item \nameref{sec:Roadmap} -- \textit{Josefine} (\textit{Richard})
+	\item \nameref{sec:Organization} -- \textit{Richard} (\textit{Sophia})
 		\begin{enumerate}[label*=\arabic*.]
-		\item \nameref{subsec:Communication} -- \textit{Richard}
-		\item \nameref{subsec:Teamwork} -- \textit{Richard}
+		\item \nameref{subsec:Communication} -- \textit{Richard} (\textit{Sophia, Josefine})
+		\item \nameref{subsec:Teamwork} -- \textit{Richard} (\textit{Sophia})
 		\end{enumerate}
-	\item \nameref{sec:DataCollection} -- \textit{Josefine, Richard}
-	\item \nameref{sec:Literature} -- \textit{Josefine}
+	\item \nameref{sec:DataCollection} -- \textit{Josefine, Richard} (\textit{Malin})
+	\item \nameref{sec:Literature} -- \textit{Josefine, Malin} (\textit{Katharina})
 	\end{enumerate}
-\item \nameref{ch:Dataset} -- \textit{Josefine}
+\item \nameref{ch:Dataset} -- \textit{Josefine} (\textit{Maren})
 	\begin{enumerate}[label*=\arabic*.]
-	\item \nameref{sec:Preprocessing} -- \textit{Sophia}
-	\item \nameref{sec:AutomaticFeatureExtraction} -- \textit{Sophia}
+	\item \nameref{sec:Preprocessing} -- \textit{Sophia, Michael} (\textit{Katharina})
+	\item \nameref{sec:AutomaticFeatureExtraction} -- \textit{Sophia, Josefine} (\textit{Katharina})
 		\begin{enumerate}[label*=\arabic*.]
-		\item \nameref{subsec:Length} -- \textit{Sophia}
-		\item \nameref{subsec:Width} -- \textit{Sophia}
-		\item \nameref{subsec:Rust} -- \textit{Sophia}
-		\item \nameref{subsec:Violet} -- \textit{Michael}
-		\item \nameref{subsec:Curvature} -- \textit{Michael}
-		\item \nameref{subsec:Flower} -- \textit{Sophia}
+		\item \nameref{subsec:Length} -- \textit{Sophia} (\textit{Katharina})
+		\item \nameref{subsec:Width} -- \textit{Sophia} (\textit{Katharina})
+		\item \nameref{subsec:Rust} -- \textit{Sophia} (\textit{Katharina})
+		\item \nameref{subsec:Violet} -- \textit{Michael} (\textit{Sophia})
+		\item \nameref{subsec:Curvature} -- \textit{Michael} (\textit{Sophia})
+		\item \nameref{subsec:Flower} -- \textit{Sophia} (\textit{Katharina})
+		\item \nameref{subsec:Hollow} -- \textit{Josefine} (\textit{Malin})
+		\item \nameref{subsec:NotClassifiable} -- \textit{Josefine} (\textit{Malin})
 		\end{enumerate}
-	\item \nameref{sec:LabelApp} -- \textit{Michael}
-	\item \nameref{sec:ManualLabeling} -- \textit{Josefine}
+	\item \nameref{sec:LabelApp} -- \textit{Michael} (\textit{Maren})
 		\begin{enumerate}[label*=\arabic*.]
-		\item \nameref{subsec:SortingCriteria} -- \textit{Josefine}
-		\item \nameref{subsec:SortingOutcome} -- \textit{Josefine}
-		\item \nameref{subsec:AgreementMeasures} -- \textit{Malin}
-		\item \nameref{subsec:Reliability} -- \textit{Malin}
+		\item \nameref{subsec:Motivation} \textit{Michael} (\textit{Maren})
+		\item \nameref{subsec:LabelApp} \textit{Michael} (\textit{Maren})
 		\end{enumerate}
-	\item \nameref{sec:AsparagusDataSet} -- \textit{Richard, Sophia}
+	\item \nameref{sec:ManualLabeling} -- \textit{Josefine} (\textit{Richard})
+		\begin{enumerate}[label*=\arabic*.]
+		\item \nameref{subsec:SortingOutcome} -- \textit{Josefine} (\textit{Malin})
+		\item \nameref{subsec:AgreementMeasures} -- \textit{Malin} (\textit{Katharina})
+		\item \nameref{subsec:Reliability} -- \textit{Malin} (\textit{Katharina})
+		\end{enumerate}
+	\item \nameref{sec:AsparagusDataSet} -- \textit{Sophia} (\textit{Richard})
+		\begin{enumerate}[label*=\arabic*.]
+		\item \nameref{subsec:DifferentDataSets} -- \textit{Sophia} (\textit{Richard})
+		\item \nameref{subsec:DataSetTheory} -- \textit{Richard} (\textit{Josefine, Katharina})
+		\end{enumerate}
 	\end{enumerate}
-\item \nameref{ch:Classification} -- \textit{Malin}
+\item \nameref{ch:Classification} -- \textit{Malin} (\textit{Maren})
 	\begin{enumerate}[label*=\arabic*.]
-	\item \nameref{sec:SupervisedLearning} -- \textit{Josefine}
+	\item \nameref{sec:SupervisedLearning} -- \textit{Josefine} (\textit{Maren})
 		\begin{enumerate}[label*=\arabic*.]
-		\item \nameref{subsec:FeatureEngineering} -- \textit{Michael}
-		\item \nameref{subsec:SingleLabel} -- \textit{Josefine}
-		\item \nameref{subsec:MultiLabel} -- \textit{Sophia}
-		\item \nameref{subsec:HeadNetwork} -- \textit{Michael}
-		\item \nameref{subsec:FeaturesToLabels} -- \textit{Katharina}
+		\item \nameref{subsec:FeatureEngineering} -- \textit{Michael} (\textit{Maren})
+		\item \nameref{subsec:SingleLabel} -- \textit{Josefine} (\textit{Katharina})
+		\item \nameref{subsec:MultiLabel} -- \textit{Sophia} (\textit{Katharina})
+		\item \nameref{subsec:HeadNetwork} -- \textit{Michael} (\textit{Josefine})
+		\item \nameref{subsec:FeaturesToLabels} -- \textit{Katharina} (\textit{Sophia})
 		\end{enumerate}
-	\item \nameref{sec:UnsupervisedLearning} -- \textit{Malin}
+	\item \nameref{sec:UnsupervisedLearning} -- \textit{Malin, Maren} (\textit{Michael})
 		\begin{enumerate}[label*=\arabic*.]
-		\item \nameref{subsec:PCA} -- \textit{Malin}
-		\item \nameref{subsec:Autoencoder} -- \textit{Michael}
+		\item \nameref{subsec:PCA} -- \textit{Malin, Maren} (\textit{Michael})
+		\item \nameref{subsec:Autoencoder} -- \textit{Michael} (\textit{Sophia, Josefine})
 		\end{enumerate}
-	\item \nameref{sec:SemiSupervisedLearning} -- \textit{Michael}
+	\item \nameref{sec:SemiSupervisedLearning} -- \textit{Michael} (\textit{Maren, Sophia})
+		\begin{enumerate}[label*=\arabic*.]
+		\item \nameref{subsec:VariationalAutoencoder} -- \textit{Michael} (\textit{Maren, Josefine})
+		\end{enumerate}
 	\end{enumerate}
-\item \nameref{ch:Summary} -- \textit{Maren}
-\item \nameref{ch:Discussion} -- \textit{Malin, Richard}
+\item \nameref{ch:Summary} -- \textit{Maren} (\textit{Malin})
+\item \nameref{ch:Discussion} -- \textit{Malin, Richard} (\textit{Michael})
 	\begin{enumerate}[label*=\arabic*.]
-	\item \nameref{sec:DiscussionResults} -- \textit{Malin, Michael}
-	\item \nameref{sec:DiscussionMethodology} -- \textit{Malin}
-	\item \nameref{sec:DiscussionOrganization} -- \textit{Josefine, Richard}
+	\item \nameref{sec:DiscussionResults} -- \textit{Malin, Maren} (\textit{Michael})
+	\item \nameref{sec:DiscussionMethodology} -- \textit{Malin} (\textit{Richard})
+	\item \nameref{sec:DiscussionOrganization} -- \textit{Josefine, Richard} (\textit{Malin})
 	\end{enumerate}
-\item \nameref{ch:Conclusion} -- \textit{Richard}
+\item \nameref{ch:Conclusion} -- \textit{Richard} (\textit{Josefine, Malin})
 \end{enumerate}
