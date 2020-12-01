@@ -72,6 +72,8 @@ headsepline, % Uncomment to get a line under the header
 \usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
 \setlength\bibitemsep{0.5\baselineskip}
 
+% adjust images to move them to left and right side
+\usepackage[export]{adjustbox}
 
 %\usepackage[citestyle=authoryear,
 % 			bibstyle=authoryear,
@@ -127,7 +129,7 @@ headsepline, % Uncomment to get a line under the header
 % have two footnotes behind each other
 \usepackage[multiple,hang,flushmargin]{footmisc}
 
-% stretch table sizes
+% stretch vertical table sizes
 \renewcommand{\arraystretch}{1.2}
 
 % have influence on listing style
@@ -257,6 +259,9 @@ headsepline, % Uncomment to get a line under the header
 
 \pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
 
+% prevent words crossing the page margins
+\emergencystretch 3em
+
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -289,8 +294,8 @@ headsepline, % Uncomment to get a line under the header
 		 
 		\vfill
 		
-		\large \textit{The study report is submitted in partial fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
-		\textit{in the}\\[0.4cm]
+		%\large \textit{The study report is submitted in partial fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+		%\textit{in the}\\[0.4cm]
 		\groupname\\\deptname\\[2cm] % Research group name and department name
 		 
 		\vfill

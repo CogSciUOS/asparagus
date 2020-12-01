@@ -1,0 +1,16 @@
+#!/bin/bash
+#$ -N log_Tensor
+#$ -l mem=2G
+#$ -l cuda=1
+#$ -pe default 2
+
+# export PATH="$HOME/miniconda/bin:$PATH"
+export PATH="/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin:$PATH"
+
+source activate dataSet
+
+cd /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/josefine/asparanet
+
+python3 count_features.py
+
+conda deactivate

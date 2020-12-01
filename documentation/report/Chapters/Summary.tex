@@ -1,26 +1,86 @@
+%----------------------------------------------------------------------------------------
+%	SUMMARY OF RESULTS
+%----------------------------------------------------------------------------------------
+
 \section{Summary of results}
 \label{ch:Summary}
 
-The current work was conducted to investigate the state of the art on asparagus classification aiming at the development of approaches that could help to improve the current sorting algorithm implemented at the Autoselect ATS II at the asparagus farm Gut Holsterfeld. Data was collected, preprocessed and then analyzed with seven different approaches. Out of our 591495 images corresponding to 197165 different asparagus spears, 13271 were collected by re-sorting in the machine and 13319 images manually labeled by us. This labeled data was considered for the supervised approaches. The semi-supervised approach was in addition based on approximately equally many unlabeled images. The results illustrate that classifying asparagus is not a trivial problem. However, the results also show that it is possible to extract relevant features and to improve current sorting approaches.
+The study project was conducted to explore and develop various approaches for asparagus classification with the aim of improving the current sorting performance of the Autoselect ATS II at the asparagus farm Gut Holsterfeld. Data was collected, preprocessed and then analyzed with seven different approaches. Out of our 591495 images, roughly corresponding to 197165 different asparagus spears, 13271 images were collected by re-sorting with the machine and 13319 images were manually labeled by us. This labeled data is used for the supervised approaches. The semi-supervised approach is additionally based on approximately equally many unlabeled images, 20000 in total. The unsupervised learning approaches are based on roughly 5500 images.
+
+\begin{table}[!htb]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llllllll}
+                 & Semi-supervised      & Semi-supervised &  PCA                     &            Head &   Color       &    Partial        & Single-label \\
+                 & VAE      & autoencoder &                      & network             & histograms         & angles           &  CNN \\
+\noalign{\smallskip}
+\hline
+\noalign{\smallskip}	
+Flower           &                          &                             & 0.33 & 0.62 &                          &                          & 0.46                                 \\
+Rusty head       &                          &                             &                          & 0.29 &                          &                          & 0.42                                 \\
+Bent             & 0.16 & 0.28                                            & 0.2  &                          &                          & 0.72 & 0.66                                 \\
+Violet           & 0    & 0                                               & 0    &                          & 0.59 &                          & 0.48                                 \\
+Rusty body       & 0.49 & 0.67                                            & 0.29 &                          & 0.67 &                          & 0.69                                 \\
+Fractured        & 0    & 0.67                                            &                          &                          &                          &                          & 0.91                                 \\
+Very thick       &      &                                                 &                          &                          &                          &                          & 0.93                                 \\
+Thick            & 0    & 0                                               &                          &                          &                          &                          & 0.94                                 \\
+Medium thick     &                          &                                                 &                          &                          &                          &                          & 0.8                                  \\
+Thin             & 0.7  & 0.84                                            &                          &                          &                          &                          & 0.88                                 \\
+Very thin        &      &                                                 &                          &                          &                          &                          & 0.92                                 \\
+Hollow           &                          &                             & 0.5  &                          &                          &                          & 0.63                                 \\
+Length           &                          &                             & 1    &                          &                          &                          &                  \\
+Width            &                          &                             & 0.83 &                          &                          &                          &                  \\
+Not classifiable &                          &                             &                          &                          &                          &                          & 0.6                                 
+\end{tabular}%
+}
+\caption[Comparing F1 Scores for Features]{\textbf{Comparing F1 Scores for Features}~~~Here, the F1 scores of different approaches are compared for the single features. If an approach does not include a feature, the corresponding cell is empty.}
+	\label{tab:f1ScoresLarge}
+\end{table}
+
+The results illustrate that classifying asparagus is not a trivial problem. However, the results also show that it is possible to extract relevant features that might improve current sorting approaches.
 
 \bigskip
-For supervised learning, we employed \acrshortpl{mlp} and  \acrshortpl{cnn}. Whereas the earlier were trained on sparse descriptions retrieved by high level feature engineering, the latter were directly trained on preprocessed images. They include a dedicated network for head-related features, as well as networks for single-label classification and multi-label classification. All approaches aim to solve the same image classification problem, using supervised learning.
+For supervised learning, we employed \acrshortpl{mlp} and  \acrshortpl{cnn}. Whereas the former were trained on sparse descriptions retrieved by high level feature engineering, the latter were directly trained on preprocessed images. They include networks for single-label classification as well as multi-label classification.
+The feature engineering \acrshort{mlp} for curvature prediction and the single-label  \acrshort{cnn} perform binary classification, whereas the  \acrshort{cnn} for the multi-label approach as well as head-related features network perform multi-label classification. All approaches aim to solve the same image classification problem, using supervised learning.
 
-The feature engineering \acrshort{mlp} for curvature prediction and the single-label classification \acrshort{cnn} perform binary classification (see \autoref{subsec:FeatureEngineering} and \autoref{subsec:SingleLabel}), whereas the  \acrshort{cnn} for head-related features as well as the multi-label approach perform multi-label classification (see~\autoref{subsec:HeadNetwork} and~\autoref{subsec:MultiLabel}).
+\begin{table}[!htb]
+    \centering
+	\resizebox{.70\linewidth}{!}{%
+    \begin{tabular}{lr}
+        {Approach} &  (mean) F1 \\
+        \noalign{\smallskip}
+        \hline
+        \noalign{\smallskip}
+        Partial angles & 0.72 \\
+        Color histograms & 0.66 \\
+        Multi-label CNN with binary cross-entropy loss & 0.67 \\
+        Multi-label CNN with hamming loss & 0.68 \\
+        Multi-label CNN with custom loss & 0.65 \\
+        Single-label CNN & 0.72 \\
+        Head network & 0.46 \\
+        Semi-supervised VAE & 0.19 \\
+        Semi-supervised autoencoder & 0.41 \\
+        PCA & 0.45
+    \end{tabular}%
+    }
+    \caption[Mean F1 Score]{\textbf{Mean F1 Score}~~~The mean F1 score for each approach is displayed. Note that a different set of features was selected for different approaches. Hence, the mean F1 score can only give a first impression regarding differences in the performance. For details see \autoref{tab:f1ScoresLarge}.}
+    \label{tab:f1ScoresSmall}
+\end{table}
 
-With the random forest approach, a third option namely multiclass prediction is added that works completely differently. Each approach has drawbacks and benefits. The complexity and the requirement to specify many parameters has proven to be a disadvantage of relatively deep, but also rather shallow \acrshortpl{cnn} as compared to e.g. \acrshortpl{mlp} or random forests. In contrast, stronger preprocessing or even feature engineering is required to successfully employ the latter. After all, however, the most important criterion to evaluate an approach is its predictive performance.
-
-The heterogeneity of approaches with respect to the number of target categories and the variety of performance measures pose challenges for a direct comparison using the overall accuracies. Therefore, feature-wise evaluation appears most promising. As the distribution of some features (e.g. violet) has proven to be very unbalanced in our dataset, even high accuracies might relate to poor predictions (e.g. when the feature is never detected). Hence, feature-wise accuracies are only a coarse indicator of the model’s performance that may nonetheless give insights where difficulties lie and what features are more problematic than others. However, for some promising approaches we computed the sensitivity and specificity per feature to reveal a more fine-grained picture of the predictive performance.
+The heterogeneity of approaches with respect to the number of target categories and the variety of performance measures pose challenges for a direct comparison using the overall accuracies. Therefore, feature-wise evaluation appears most promising. As the distribution of some features (e.g.\ violet) has proven to be very unbalanced in our data set, even high accuracies might relate to poor predictions (e.g.\ when the feature is never detected). Hence, feature-wise accuracies are only a coarse indicator of the model’s performance that may nonetheless give insights where difficulties lie and what features are more difficult to determine than others. However, for some promising approaches we computed the sensitivity and specificity per feature to reveal a more fine-grained picture of the predictive performance. Further, F1 scores were calculated for each approach. For the feature-wise approaches, the F1 score was calculated for each feature individually (see \autoref{tab:f1ScoresLarge}) as well as a mean value for easy comparison with the other approaches (see \autoref{tab:f1ScoresSmall}). The best overall performance was reached by the single-label \acrshort{cnn} with an F1 score of 0.72. Additionally, this approach reached the best feature-wise performances for rusty head, rusty body, fractured and hollow as well as all features related to the width of the asparagus. The best results for the feature violet were reached by the color histograms (0.59) and the best results for the feature flower by the dedicated head network (0.62). Detailed summaries of the results of each approach can be found in the following.
 
 \bigskip
-The multiclass approach has an overall accuracy of 75\%. The performance of the  \acrshort{cnn} for head-related features is indicated by sensitivity and specificity values. Flower detection reaches 55\% sensitivity and 95\% specificity while rusty head detection attains only 19\% sensitivity at 98\% specificity. The overall accuracy of the multi-label \acrshort{cnn} approach reaches up to 87\%. For this model, accuracies are not calculated per feature.
+In the single-label \acrshort{cnn}, very good results are achieved for features relying on the thickness and length of the asparagus (see \autoref{subsec:SingleLabel}). All of these features achieve a balanced accuracy above 90\%, with best results for the feature very thick (98\% sensitivity and 99\% specificity). Of the solely hand-labeled features, feature hollow shows the best performance (77\% sensitivity and 98\% specificity). The feature rusty head has the worst performance (52\% sensitivity and 81\% specificity).
 
-In contrast, feature-wise accuracies for binary classification can be reported. The same holds for feature-wise performance measures that were calculated for some of the other approaches. The feature engineering based approaches show good results on curvature (82\% sensitivity, 67\% specificity) and similarly for violet detection (62\% sensitivity and 96\% specificity) as well as for rusty body (71\% sensitivity, 65\% specificity).
+The multi-label approach for head-related features has an overall accuracy of 75\% (see \autoref{subsec:MultiLabel}). Its performance is further indicated by sensitivity and specificity values. Flower detection reaches 55\% sensitivity and 95\% specificity while rusty head detection attains only 19\% sensitivity at 98\% specificity. The multi-label \acrshort{cnn} approach with a binary cross-entropy loss reaches an overall accuracy of 87\%, specificity of 91.41\% and sensitivity of 67.27\%. For this model, accuracies are not calculated per feature.
 
-In the single-label \acrshort{cnn}, best results are achieved for features relying on the thickness and length of the asparagus. All of these features achieve a balanced accuracy above 90\%, with best results for the feature very thick (98\% sensitivity and 99\% specificity). Of the solely hand-labeled features, feature hollow shows the best performance (77\% sensitivity and 98\% specificity). The feature rusty head has the least performance (52\% sensitivity and 81\% specificity).
-
-\bigskip
-The unsupervised learning approaches, namely \acrshort{pca} and the convolutional autoencoder, both deal with dimension reduction. Both were trained on the sample set for which labels are available. While the classification method based on \acrshort{pca} targets at binary feature prediction (absence or presence of a feature), the unsupervised autoencoder does not predict labels. The accuracy of \acrshort{pca} is promising for length and hollow (100\%) but extremely poor for curvature detection (20\%). It has to be mentioned, however, that only very few samples were used for training and evaluation of the named approach. As such it is yet to be proven whether or not these results generalize.
+In contrast, feature-wise accuracies for binary classification can be reported (see \autoref{subsec:FeatureEngineering}). The same holds for feature-wise performance measures that were calculated for some of the other approaches. The feature engineering based approaches (see \autoref{subsec:FeatureEngineering}) show good results on all of its three detected features, namely for bent (82\% sensitivity, 67\% specificity) and similarly for violet detection (62\% sensitivity and 96\% specificity) as well as for rusty body (71\% sensitivity, 65\% specificity).
 
 \bigskip
-In the last approach, a semi-supervised learning method was based on a partially labeled data set. It performs multi-label classification. Unfortunately, the predicted power was rather poor, best for curvature (18\% sensitivity, 96\% specificity) and worst for violet as it does not detect any violet spears (0\% sensitivity).
+The unsupervised learning approaches, namely \acrshort{pca} and the convolutional autoencoder, both deal with dimension reduction. While the classification method based on \acrshort{pca} targets at binary feature prediction (absence or presence of a feature) (see \autoref{subsec:PCA}), the unsupervised autoencoder does not predict labels (see \autoref{subsec:Autoencoder}). The accuracy of \acrshort{pca} is promising for length (100\%) and width (sensitivity 100\%, specificity 60\%) but extremely poor for violet detection (sensitivity 0\%). It has to be mentioned that only very few samples were used for training and evaluation of the named approach. As such it is yet to be proven whether or not these results generalize.
+
+\bigskip
+A semi-supervised learning method was based on a partially labeled data set (see \autoref{subsec:VariationalAutoencoder}). A semi-supervised autoencoder and a semi-supervised variational autoencoder perform multi-label classification. The more simple semi-supervised autoencoder performs better. Unfortunately, the predicted power is still rather poor, best for fractured (57\% sensitivity, 100\% specificity) and worst for violet as it does not detect any violet spears (0\% sensitivity).
+
+\bigskip
+In the last approach, a random forest model that predicts the class labels based on the annotated features instead of features as the aforementioned approaches, delivers an average accuracy of about 75\%. Our analysis shows that the model recalls some class labels like I~A~Anna or Hohle more reliably than class labels like II~A or II~B.
